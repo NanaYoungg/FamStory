@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1047193177789",
+    "project_id": "hongkathon",
+    "storage_bucket": "hongkathon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047193177789:android:fc3a3c1f2b94b03c8371d4",
+        "android_client_info": {
+          "package_name": "com.hongsam.famstrory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047193177789-f926ed5v3upqfh23sj403rat7ip5p1j7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-S_Av24DT3ulTl_oFItiQsdCWHmLmgQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1047193177789-f926ed5v3upqfh23sj403rat7ip5p1j7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
