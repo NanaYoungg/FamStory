@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="member_call">
+        <item>"할아버지"</item>
+        <item>"할머니"</item>
+        <item>"아빠"</item>
+        <item>"엄마"</item>
+        <item>"형"</item>
+        <item>"누나"</item>
+        <item>"남동생"</item>
+        <item>"여동생"</item>
+        <item>"나"</item>
+    </string-array>
+
+</resources>
