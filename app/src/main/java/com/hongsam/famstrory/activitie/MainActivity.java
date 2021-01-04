@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.widget.Toolbar;
 
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.R;
@@ -21,12 +22,13 @@ import com.hongsam.famstrory.fragment.TimeLineFragment;
 public class MainActivity extends AppCompatActivity{
     final String TAG = "MainActivity";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        changeFragment(Define.FRAGMENT_ID_EMOTION);
+        changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
     }
 
     Fragment fragment = null;
@@ -99,4 +101,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
     }
+
+
 }

@@ -3,11 +3,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center">
+    android:id="@+id/fragment_letter_list">
 
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LetterListFragment"/>
+        android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/back_btn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/back_btn_customise"/>
+           <TextView
+               style="@style/LatterUpBar"
+               android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:text="@string/latter_name"
+              android:layout_marginLeft="100dp"/>
+           <CheckBox
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="80dp"/>
+            <ImageButton
+                android:id="@+id/trash_btn"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:background="@drawable/trash_btn_customise"
+                android:layout_marginLeft="20dp"/>
+    </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+
 
 </LinearLayout>
