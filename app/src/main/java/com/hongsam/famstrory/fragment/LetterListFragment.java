@@ -1,36 +1,49 @@
 package com.hongsam.famstrory.fragment;
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.hongsam.famstrory.ItemTouchHelper.RecyclerItemTouchHelper;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
-import com.hongsam.famstrory.adapter.ItemAdapter;
-import com.hongsam.famstrory.data.Model;
+import com.hongsam.famstrory.adapter.LetterListAdapter;
+import com.hongsam.famstrory.data.Latter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LetterListFragment extends Fragment {
+public class LetterListFragment extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener{
 
     MainActivity mainActivity;
     View mContentView;
 
     RecyclerView recyclerView;
-    List<Model> itemList;
+    List<Latter> itemList;
+    LetterListAdapter letterListAdapter;
+    CoordinatorLayout coordinatorLayout;
+
+    FloatingActionButton fab;
+
 
     public LetterListFragment(){
 
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,53 +65,133 @@ public class LetterListFragment extends Fragment {
             return null;
 
         mainActivity = (MainActivity) getActivity();
-
+        //View mContentView;
         mContentView = inflater.inflate(R.layout.fragment_letter_list, container, false);
 
-        recyclerView=mContentView.findViewById(R.id.recycler);
+        coordinatorLayout = mContentView.findViewById(R.id.coordinatorlayout);
+
+        //편지보내기 버튼 관련
+        fab = mContentView.findViewById(R.id.latter_send_fab_btn);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+        //스크롤시 fab 숨기 , 스크롤시 fab 나타남
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
+//        {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+//            {
+//                if (dy > 0 ||dy < 0 && fab.isShown())
+//                {
+//                    fab.hide();
+//                }
+//            }
+//
+//            @Override
+//            public void onScrollStateChanged(RecyclerView recyclerView, int newState)
+//            {
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE)
+//                {
+//                    fab.show();
+//                }
+//                super.onScrollStateChanged(recyclerView, newState);
+//            }
+//        });
+
+        //recycle 관련
+        recyclerView = mContentView.findViewById(R.id.latter_list_recycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //initData();
+        recyclerView.setAdapter(new LetterListAdapter(initData(),getContext()));
 
-        recyclerView.setAdapter(new ItemAdapter(initData(),getContext()));
+        //삭제 관련  :  왼쪽으로 밀때 삭제된다
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
+
 
         return mContentView;
     }
 
-    private List<Model> initData() {
+    //swipe시 아이템 삭제, snackbar의 undo 누를시 아이템 복원
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if (viewHolder instanceof LetterListAdapter.ViewHolder) {
+            //보낸이를 snackbar에 띄워주기위해 get
+            String sender = itemList.get(viewHolder.getAdapterPosition()).getSender();
+
+            // undo시 백업
+//            final Item deletedItem = itemList.get(viewHolder.getAdapterPosition());
+            final int deletedIndex = viewHolder.getAdapterPosition();
+
+            // 리사이클뷰에서 아이템 삭제
+            letterListAdapter.removeItem(viewHolder.getAdapterPosition());
+
+            // snackbar 옵션
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, sender + " 가 보낸 편지가 삭제되었습니다!", Snackbar.LENGTH_LONG);
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // undo 누를시 편지 복구하기
+//                    letterListAdapter.restoreItem(deletedItem, deletedIndex);
+                }
+            });
+            snackbar.setActionTextColor(Color.YELLOW);
+            snackbar.show();
+        }
+    }
+
+    //undo시 편지 복구
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate();
+        return true;
+    }
+
+
+
+    //편지리스트 아이템값 추가 -> DB값 불러오기
+    private List<Latter> initData() {
 
         itemList=new ArrayList<>();
-        itemList.add(new Model(R.drawable.thumbnail,"video 1"));
-        itemList.add(new Model(R.drawable.thumbnail,"video 1"));
-        itemList.add(new Model(R.drawable.thumbnail,"video 1"));
-        itemList.add(new Model(R.drawable.thumbnail,"video 1"));
-        itemList.add(new Model(R.drawable.thumbnail,"video 1"));
-        itemList.add(new Model(R.drawable.thumbnail,"video 1"));
-        itemList.add(new Model(R.drawable.thumbnail,"video 1"));
-        itemList.add(new Model(R.drawable.thumbnail,"video 1"));
-        itemList.add(new Model(R.drawable.thumbnail,"video 1"));
+        itemList.add(new Latter("엄마","우리딸 안녕~!~!","2020년 04일 13년"));
+        itemList.add(new Latter("아빠","우리딸 안녕~!~!22222222222","2020년 05일 13년"));
+        itemList.add(new Latter("동생","우리딸 안녕~!~!3333332222222222222223333","2020년 06일 13년"));
+        itemList.add(new Latter("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
+        itemList.add(new Latter("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
+        itemList.add(new Latter("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
+        itemList.add(new Latter("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
+        itemList.add(new Latter("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
+        itemList.add(new Latter("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
 
         return itemList;
     }
 
 
-    /**
-     * 컨트롤 초기화 해주는 함수
-     * */
-    public void init(View v) {
-        if (v != null) {
-            // 예시) button1 = v.findViewById(R.id.button1);
-        }
-    }
-
-
-    /**
-     * 이미지 리소스 세팅해주는 함수
-     * */
-    public void setImageResource() {
-        // 예시) button1.setBackgroundResource(R.drawable.image1);
-    }
+//    /**
+//     * 컨트롤 초기화 해주는 함수
+//     * */
+//    public void init(View v) {
+//        if (v != null) {
+//            // 예시) button1 = v.findViewById(R.id.button1);
+//        }
+//    }
+//
+//
+//    /**
+//     * 이미지 리소스 세팅해주는 함수
+//     * */
+//    public void setImageResource() {
+//        // 예시) button1.setBackgroundResource(R.drawable.image1);
+//    }
 
     /**
      * 각종 리소스 null 처리

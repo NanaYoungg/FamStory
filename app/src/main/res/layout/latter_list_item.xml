@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/view_background"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorDelete"
+        android:layout_margin="4dp"/>
+    <ImageView
+        android:id="@+id/delete_img_view"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="right|center"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/dustbin" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center"
+        android:layout_marginRight="70dp"
+        style="@style/LatterUpBar"
+        android:textColor="@color/colorWhite"
+        android:text="@string/delete"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp">
+<!--        app:cardCornerRadius="6dp"-->
+<!--        app:cardElevation="6dp"-->
+
+        <LinearLayout
+            android:id="@+id/layout_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/sender_tv"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/tmoney_bold"
+                android:text="엄마"/>
+                <TextView
+                    android:id="@+id/contents_tv"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="140dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="20dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:gravity="left"
+                    android:text="내용입니다 블라블라">
+                </TextView>
+                <TextView
+                    android:id="@+id/date_tv"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="2020년 01월 13일"
+                    android:textSize="10dp"
+                    android:gravity="right"
+                    />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</FrameLayout>
