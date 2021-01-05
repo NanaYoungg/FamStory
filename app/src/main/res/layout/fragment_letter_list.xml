@@ -1,50 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/fragment_letter_list">
+    android:background="#ffff">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-            <ImageButton
-                android:id="@+id/back_btn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/back_btn_customise"/>
-           <TextView
-               style="@style/LatterUpBar"
-               android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_horizontal"
-              android:text="@string/latter_name"
-              android:layout_marginLeft="100dp"/>
-           <CheckBox
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="80dp"/>
-            <ImageButton
-                android:id="@+id/trash_btn"
-                android:layout_width="30dp"
-                android:layout_height="40dp"
-                android:background="@drawable/trash_btn_customise"
-                android:layout_marginLeft="20dp"/>
-    </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
-
+    <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/latter_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/recycler" />
 
-
-
-</LinearLayout>
+</FrameLayout>
