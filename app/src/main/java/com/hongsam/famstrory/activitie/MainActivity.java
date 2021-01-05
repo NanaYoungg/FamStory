@@ -2,6 +2,7 @@ package com.hongsam.famstrory.activitie;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
@@ -20,8 +21,8 @@ import com.hongsam.famstrory.fragment.SettingFragment;
 import com.hongsam.famstrory.fragment.TimeLineFragment;
 
 public class MainActivity extends AppCompatActivity{
-    final String TAG = "MainActivity";
 
+    final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+
     }
 
     Fragment fragment = null;
@@ -101,6 +103,5 @@ public class MainActivity extends AppCompatActivity{
             }
         });
     }
-
 
 }

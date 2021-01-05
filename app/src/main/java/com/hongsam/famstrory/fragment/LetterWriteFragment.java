@@ -4,18 +4,25 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
+import com.hongsam.famstrory.define.Define;
 
 public class LetterWriteFragment extends Fragment {
 
     MainActivity mainActivity;
     View mContentView;
+    ImageButton mbackBtn;
+    TextView msender;
+    String result;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,9 +45,23 @@ public class LetterWriteFragment extends Fragment {
 
         mainActivity = (MainActivity) getActivity();
 
-        mContentView = inflater.inflate(R.layout.fragment_letter_write, null);
+        mContentView = inflater.inflate(R.layout.fragment_letter_write, container, false);
 
         init(mContentView);
+
+        mbackBtn = mContentView.findViewById(R.id.letter_write_back_btn);
+        msender = mContentView.findViewById(R.id.sender_tv);
+
+
+        //toolbar의 뒤로가기 버튼
+        mbackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+            }
+        });
+
+
 
         return mContentView;
     }

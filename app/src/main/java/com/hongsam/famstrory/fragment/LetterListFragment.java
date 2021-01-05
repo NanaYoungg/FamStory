@@ -8,11 +8,13 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +26,7 @@ import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.adapter.LetterListAdapter;
 import com.hongsam.famstrory.data.Latter;
+import com.hongsam.famstrory.define.Define;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,12 +73,17 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
 
         coordinatorLayout = mContentView.findViewById(R.id.coordinatorlayout);
 
-        //편지보내기 버튼 관련
+
+        //편지보내기로 전환
         fab = mContentView.findViewById(R.id.latter_send_fab_btn);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                /*transaction.replace(R.id.coordinatorlayout, letterWriteFragment);
+                * -> MainActivity의 replace()에서 basic이 기본 activity로 되어있어서 겹쳐보임. 사용xxx
+                * changeFragment를 직접 호출*/
+                mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_WRITE);
             }
         });
 

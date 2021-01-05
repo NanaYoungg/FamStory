@@ -65,9 +65,9 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
 
             //뷰객체에 들어있는 텍스트뷰 등 참고
 //            itemImage=itemView.findViewById(R.id.itemImg);
-            sender = itemView.findViewById(R.id.sender_tv);
-            contants = itemView.findViewById(R.id.contents_tv);
-            date = itemView.findViewById(R.id.date_tv);
+            sender = itemView.findViewById(R.id.ltter_list_sender_tv);
+            contants = itemView.findViewById(R.id.ltter_list_contents_tv);
+            date = itemView.findViewById(R.id.ltter_list_date_tv);
             linearLayout = itemView.findViewById(R.id.layout_id);
             viewBackgound = itemView.findViewById(R.id.view_background);
 
