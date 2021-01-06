@@ -1,5 +1,7 @@
 package com.hongsam.famstrory.data;
 
+import android.graphics.Bitmap;
+
 //편지내용
 public class LetterContants {
 

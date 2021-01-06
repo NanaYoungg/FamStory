@@ -39,7 +39,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
     DatabaseReference mFamRef;
 
     RecyclerView recyclerView;
-    List<LetterContants> itemList;
+    ArrayList<LetterContants> itemList;
     LetterListAdapter letterListAdapter;
     CoordinatorLayout coordinatorLayout;
     FloatingActionButton fab;
@@ -54,8 +54,9 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
 
         mDb = FirebaseDatabase.getInstance();
         mFamRef = mDb.getReference("Letter");
+
         //데이터
-//        Letter letter1 = new Letter("가족이름","엄마,1,안녕");
+//        Letter letter = new Letter("가족이름","");
 
     }
 
@@ -100,7 +101,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //initData();
-        recyclerView.setAdapter(new LetterListAdapter(initData(),getContext()));
+        recyclerView.setAdapter(new LetterListAdapter((ArrayList<LetterContants>) initData(),getContext()));
 
         //삭제 관련  :  왼쪽으로 밀때 삭제된다
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);

@@ -14,14 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.data.LetterContants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.ViewHolder> {
 
-    List<LetterContants> letterItemList;
+    ArrayList<LetterContants> letterItemList;
     private Context context;
 
-    public LetterListAdapter(List<LetterContants> letterItemList, Context context) {
+    public LetterListAdapter(ArrayList<LetterContants> letterItemList, Context context) {
 
         this.letterItemList = letterItemList;
         this.context = context;
@@ -40,7 +41,6 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull LetterListAdapter.ViewHolder holder, final int position) {
 
-//        holder.itemImage.setImageResource(letterItemList.get(position).getImage());
         holder.sender.setText(letterItemList.get(position).getSender());
         holder.contants.setText(letterItemList.get(position).getContants());
         holder.date.setText(letterItemList.get(position).getDate());
