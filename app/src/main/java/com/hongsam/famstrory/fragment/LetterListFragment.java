@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -43,6 +44,8 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
     LetterListAdapter letterListAdapter;
     CoordinatorLayout coordinatorLayout;
     FloatingActionButton fab;
+    CardView mCardView;
+
 
 
     public LetterListFragment(){ }
@@ -56,7 +59,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
         mFamRef = mDb.getReference("Letter");
 
         //데이터
-//        Letter letter = new Letter("가족이름","");
+//        Letter letter = new Letter("가족이름",new LetterContants("아빠","내용2","날짜2"));
 
     }
 
@@ -107,6 +110,15 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
+        //편지읽기로 이동
+        mCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_READ);
+            }
+        });
+
+
 
 
 
@@ -145,6 +157,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
             coordinatorLayout = mContentView.findViewById(R.id.coordinatorlayout);
             fab = mContentView.findViewById(R.id.latter_send_fab_btn);
             recyclerView = mContentView.findViewById(R.id.latter_list_recycler);
+            mCardView = mContentView.findViewById(R.id.letter_cardView);
         }
     }
 

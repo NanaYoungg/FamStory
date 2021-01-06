@@ -14,6 +14,7 @@ import com.hongsam.famstrory.fragment.CalendarFragment;
 import com.hongsam.famstrory.fragment.EmotionFragment;
 import com.hongsam.famstrory.fragment.FamCreateFragment;
 import com.hongsam.famstrory.fragment.LetterListFragment;
+import com.hongsam.famstrory.fragment.LetterReadFragment;
 import com.hongsam.famstrory.fragment.LetterWriteFragment;
 import com.hongsam.famstrory.fragment.MenuFragment;
 import com.hongsam.famstrory.fragment.ProfileFragment;
@@ -60,6 +61,10 @@ public class MainActivity extends AppCompatActivity{
 
             case Define.FRAGMENT_ID_LETTER_WRITE:
                 fragment = new LetterWriteFragment();
+                break;
+
+            case Define.FRAGMENT_ID_LETTER_READ:
+                fragment = new LetterReadFragment();
                 break;
 
             case Define.FRAGMENT_ID_EMOTION:

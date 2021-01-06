@@ -1,5 +1,6 @@
 package com.hongsam.famstrory.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,13 +9,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -35,9 +41,14 @@ public class LetterWriteFragment extends Fragment {
     ImageButton mBackBtn;
     ImageButton mPhoto;
     ImageView mPhotoView;
-    EditText mSender;
-    String result;
+    EditText mContants;
+    ConstraintLayout mConstraintLayout;
+    ScrollView mScrollView;
+    ImageView mBackgound;
+    InputMethodManager imm;
+    Button mSendBtn;
 
+    CardView mCardView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,6 +106,16 @@ public class LetterWriteFragment extends Fragment {
             }
         });
 
+        //화면 터치시 키보드 내리기
+        mConstraintLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(mContants.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(mScrollView.getWindowToken(), 0);
+            }
+        });
+
 
     }
 
@@ -106,9 +127,14 @@ public class LetterWriteFragment extends Fragment {
     public void init(View v) {
         if (v != null) {
             mBackBtn = mContentView.findViewById(R.id.letter_write_back_btn);
-            mSender = mContentView.findViewById(R.id.sender_tv);
+            mContants = mContentView.findViewById(R.id.contants_tv);
             mPhotoView = mContentView.findViewById(R.id.photo_iv);
             mPhoto = mContentView.findViewById(R.id.gallery_img_btn);
+            mConstraintLayout = mContentView.findViewById(R.id.fragment_letter_write);
+            mScrollView = mContentView.findViewById(R.id.letter_write_scroll);
+            mBackgound = mContentView.findViewById(R.id.letter_write_img_view);
+
+            mCardView = mContentView.findViewById(R.id.letter_cardView);
         }
     }
 
@@ -131,6 +157,7 @@ public class LetterWriteFragment extends Fragment {
             mPhotoView.setImageURI(selectedImageUri);
         }
     }
+
 
 
     /**

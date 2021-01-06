@@ -63,6 +63,7 @@
         android:background="@drawable/testpaper"/>
 
     <ScrollView
+        android:id="@+id/letter_write_scroll"
         android:layout_width="350dp"
         android:layout_height="440dp"
         app:layout_constraintLeft_toLeftOf="@id/letter_write_img_view"
@@ -87,7 +88,7 @@
                 />
 
             <EditText
-                android:id="@+id/sender_tv"
+                android:id="@+id/contants_tv"
                 android:layout_width="300dp"
                 android:layout_height="500dp"
                 android:layout_marginLeft="38dp"
