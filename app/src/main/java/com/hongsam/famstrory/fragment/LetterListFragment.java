@@ -1,31 +1,30 @@
 package com.hongsam.famstrory.fragment;
 
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.hongsam.famstrory.ItemTouchHelper.RecyclerItemTouchHelper;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.adapter.LetterListAdapter;
-import com.hongsam.famstrory.data.Latter;
+import com.hongsam.famstrory.data.Letter;
+import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.define.Define;
 
 import java.util.ArrayList;
@@ -36,22 +35,28 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
     MainActivity mainActivity;
     View mContentView;
 
+    FirebaseDatabase mDb;
+    DatabaseReference mFamRef;
+
     RecyclerView recyclerView;
-    List<Latter> itemList;
+    List<LetterContants> itemList;
     LetterListAdapter letterListAdapter;
     CoordinatorLayout coordinatorLayout;
-
     FloatingActionButton fab;
 
 
-    public LetterListFragment(){
-
-    }
+    public LetterListFragment(){ }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
+
+        mDb = FirebaseDatabase.getInstance();
+        mFamRef = mDb.getReference("Letter");
+        //데이터
+//        Letter letter1 = new Letter("가족이름","엄마,1,안녕");
+
     }
 
 
@@ -71,21 +76,38 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
         //View mContentView;
         mContentView = inflater.inflate(R.layout.fragment_letter_list, container, false);
 
-        coordinatorLayout = mContentView.findViewById(R.id.coordinatorlayout);
+        init(mContentView);
+
+        return mContentView;
+    }
 
 
+    /*
+    * 액티비티와 사용자의 상호작용 함수
+    * */
+    public void onResume() {
+        super.onResume();
         //편지보내기로 전환
-        fab = mContentView.findViewById(R.id.latter_send_fab_btn);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /*transaction.replace(R.id.coordinatorlayout, letterWriteFragment);
-                * -> MainActivity의 replace()에서 basic이 기본 activity로 되어있어서 겹쳐보임. 사용xxx
-                * changeFragment를 직접 호출*/
                 mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_WRITE);
             }
         });
+
+        //recycle 관련
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //initData();
+        recyclerView.setAdapter(new LetterListAdapter(initData(),getContext()));
+
+        //삭제 관련  :  왼쪽으로 밀때 삭제된다
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
+
+
 
 
         //스크롤시 fab 숨기 , 스크롤시 fab 나타남
@@ -111,22 +133,28 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
 //            }
 //        });
 
-        //recycle 관련
-        recyclerView = mContentView.findViewById(R.id.latter_list_recycler);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        //initData();
-        recyclerView.setAdapter(new LetterListAdapter(initData(),getContext()));
-
-        //삭제 관련  :  왼쪽으로 밀때 삭제된다
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
-
-
-
-        return mContentView;
     }
+
+
+    /**
+     * 컨트롤 초기화 해주는 함수
+     * */
+    public void init(View v) {
+        if (v != null) {
+            coordinatorLayout = mContentView.findViewById(R.id.coordinatorlayout);
+            fab = mContentView.findViewById(R.id.latter_send_fab_btn);
+            recyclerView = mContentView.findViewById(R.id.latter_list_recycler);
+        }
+    }
+
+
+//    /**
+//     * 이미지 리소스 세팅해주는 함수
+//     * */
+//    public void setImageResource() {
+//        // 예시) button1.setBackgroundResource(R.drawable.image1);
+//    }
+
 
     //swipe시 아이템 삭제, snackbar의 undo 누를시 아이템 복원
     @Override
@@ -166,40 +194,24 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
 
 
 
-    //편지리스트 아이템값 추가 -> DB값 불러오기
-    private List<Latter> initData() {
+    //편지리스트 아이템값 추가 -> 추후 DB값 불러오기
+    private List<LetterContants> initData() {
 
         itemList=new ArrayList<>();
-        itemList.add(new Latter("엄마","우리딸 안녕~!~!","2020년 04일 13년"));
-        itemList.add(new Latter("아빠","우리딸 안녕~!~!22222222222","2020년 05일 13년"));
-        itemList.add(new Latter("동생","우리딸 안녕~!~!3333332222222222222223333","2020년 06일 13년"));
-        itemList.add(new Latter("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
-        itemList.add(new Latter("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
-        itemList.add(new Latter("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
-        itemList.add(new Latter("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
-        itemList.add(new Latter("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
-        itemList.add(new Latter("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
+        itemList.add(new LetterContants("엄마","우리딸 안녕~!~!","2020년 04일 13년"));
+        itemList.add(new LetterContants("아빠","우리딸 안녕~!~!22222222222","2020년 05일 13년"));
+        itemList.add(new LetterContants("동생","우리딸 안녕~!~!3333332222222222222223333","2020년 06일 13년"));
+        itemList.add(new LetterContants("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
+        itemList.add(new LetterContants("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
+        itemList.add(new LetterContants("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
+        itemList.add(new LetterContants("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
+        itemList.add(new LetterContants("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
+        itemList.add(new LetterContants("언니","우리딸 안녕~!~!34444433333333334444","2020년 07일 13년"));
 
         return itemList;
     }
 
 
-//    /**
-//     * 컨트롤 초기화 해주는 함수
-//     * */
-//    public void init(View v) {
-//        if (v != null) {
-//            // 예시) button1 = v.findViewById(R.id.button1);
-//        }
-//    }
-//
-//
-//    /**
-//     * 이미지 리소스 세팅해주는 함수
-//     * */
-//    public void setImageResource() {
-//        // 예시) button1.setBackgroundResource(R.drawable.image1);
-//    }
 
     /**
      * 각종 리소스 null 처리

@@ -49,10 +49,15 @@ public class LetterWriteFragment extends Fragment {
 
         init(mContentView);
 
-        mbackBtn = mContentView.findViewById(R.id.letter_write_back_btn);
-        msender = mContentView.findViewById(R.id.sender_tv);
+        return mContentView;
+    }
 
 
+    /*
+     * 액티비티와 사용자의 상호작용 함수
+     * */
+    public void onResume() {
+        super.onResume();
         //toolbar의 뒤로가기 버튼
         mbackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,9 +66,6 @@ public class LetterWriteFragment extends Fragment {
             }
         });
 
-
-
-        return mContentView;
     }
 
 
@@ -72,7 +74,8 @@ public class LetterWriteFragment extends Fragment {
      * */
     public void init(View v) {
         if (v != null) {
-            // 예시) button1 = v.findViewById(R.id.button1);
+            mbackBtn = mContentView.findViewById(R.id.letter_write_back_btn);
+            msender = mContentView.findViewById(R.id.sender_tv);
         }
     }
 

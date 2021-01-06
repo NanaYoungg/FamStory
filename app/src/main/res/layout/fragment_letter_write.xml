@@ -35,22 +35,21 @@
         android:id="@+id/letter_paper_img_btn"
         app:layout_constraintTop_toBottomOf="@id/latter_write_toolbar"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="130dp"
+        android:layout_marginRight="100dp"
         android:layout_marginTop="10dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/letterpaper"/>
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/letterpaper_btn_customise"/>
 
     <ImageButton
         android:id="@+id/gallery_img_btn"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/letter_paper_img_btn"
         app:layout_constraintTop_toBottomOf="@id/latter_write_toolbar"
-        android:layout_marginTop="7dp"
-        android:layout_marginLeft="5dp"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@drawable/gallery"/>
+        android:layout_marginTop="10dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/gallery_btn_customise"/>
 
     <ImageView
         android:id="@+id/letter_write_img_view"

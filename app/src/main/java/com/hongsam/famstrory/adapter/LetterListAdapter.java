@@ -12,19 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongsam.famstrory.R;
-import com.hongsam.famstrory.data.Latter;
+import com.hongsam.famstrory.data.LetterContants;
 
 import java.util.List;
 
 public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.ViewHolder> {
 
-    List<Latter> letterItemList;
+    List<LetterContants> letterItemList;
     private Context context;
 
-    public LetterListAdapter(List<Latter> letterItemList, Context context) {
+    public LetterListAdapter(List<LetterContants> letterItemList, Context context) {
 
         this.letterItemList = letterItemList;
         this.context = context;
+
 
     }
 
