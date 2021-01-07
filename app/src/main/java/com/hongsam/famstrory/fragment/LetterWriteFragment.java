@@ -1,11 +1,11 @@
 package com.hongsam.famstrory.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,19 +16,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.define.Define;
-
-import java.io.InputStream;
+import com.hongsam.famstrory.dialog.LetterReceiverDialog;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -47,6 +46,8 @@ public class LetterWriteFragment extends Fragment {
     ImageView mBackgound;
     InputMethodManager imm;
     Button mSendBtn;
+    TextView mToTv;
+    ImageButton mAddReciverBtn;
 
     CardView mCardView;
 
@@ -57,10 +58,9 @@ public class LetterWriteFragment extends Fragment {
 
     }
 
-
     /**
      * View 객체를 얻는 시점
-     * */
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -78,7 +78,6 @@ public class LetterWriteFragment extends Fragment {
 
         return mContentView;
     }
-
 
 
 
@@ -101,7 +100,7 @@ public class LetterWriteFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent intent = new Intent(Intent.ACTION_PICK);
-                intent. setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(intent, GET_GALLERY_IMAGE);
             }
         });
@@ -117,13 +116,36 @@ public class LetterWriteFragment extends Fragment {
         });
 
 
-    }
 
+        mAddReciverBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LetterReceiverDialog mletterReceiverDialog = LetterReceiverDialog.getInstance();
+                mletterReceiverDialog.show(getFragmentManager(), LetterReceiverDialog.TAG_EVENT_DIALOG);
+
+
+            }
+        });
+
+
+
+
+        //보내기 버튼
+//        mSendBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getContext(),"편지가 전송되었습니다",Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+
+
+    }
 
 
     /**
      * 컨트롤 초기화 해주는 함수
-     * */
+     */
     public void init(View v) {
         if (v != null) {
             mBackBtn = mContentView.findViewById(R.id.letter_write_back_btn);
@@ -133,15 +155,17 @@ public class LetterWriteFragment extends Fragment {
             mConstraintLayout = mContentView.findViewById(R.id.fragment_letter_write);
             mScrollView = mContentView.findViewById(R.id.letter_write_scroll);
             mBackgound = mContentView.findViewById(R.id.letter_write_img_view);
-
+            mSendBtn = mContants.findViewById(R.id.letter_send_btn);
             mCardView = mContentView.findViewById(R.id.letter_cardView);
+            mToTv = mContants.findViewById(R.id.f_letter_receiever_tv);
+            mAddReciverBtn = mContentView.findViewById(R.id.f_receiver_add_img_btn);
         }
     }
 
 
     /**
      * 이미지 리소스 세팅해주는 함수
-     * */
+     */
     public void setImageResource() {
         // 예시) button1.setBackgroundResource(R.drawable.image1);
     }
@@ -159,10 +183,9 @@ public class LetterWriteFragment extends Fragment {
     }
 
 
-
     /**
      * 각종 리소스 null 처리
-     * */
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();

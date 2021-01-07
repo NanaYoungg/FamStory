@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/latter_list_toolbar"
+        android:id="@+id/f_latter_list_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <ImageButton
-        android:id="@+id/letter_list_back_btn"
+        android:id="@+id/f_letter_list_back_btn"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/back_btn_customise"/>
@@ -33,14 +33,14 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/latter_list_recycler"
+        android:id="@+id/f_latter_list_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/latter_send_fab_btn"
+        android:id="@+id/f_latter_send_fab_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"

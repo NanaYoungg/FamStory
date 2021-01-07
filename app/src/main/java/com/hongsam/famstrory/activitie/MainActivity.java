@@ -63,9 +63,6 @@ public class MainActivity extends AppCompatActivity{
                 fragment = new LetterWriteFragment();
                 break;
 
-            case Define.FRAGMENT_ID_LETTER_READ:
-                fragment = new LetterReadFragment();
-                break;
 
             case Define.FRAGMENT_ID_EMOTION:
                 fragment = new EmotionFragment();

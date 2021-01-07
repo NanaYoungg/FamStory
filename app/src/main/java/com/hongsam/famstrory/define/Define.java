@@ -8,10 +8,10 @@ public class Define {
     public static final int FRAGMENT_ID_CALENDAR = FRAGMENT_ID + 4;
     public static final int FRAGMENT_ID_LETTER_LIST = FRAGMENT_ID + 5;
     public static final int FRAGMENT_ID_LETTER_WRITE = FRAGMENT_ID + 6;
-    public static final int FRAGMENT_ID_LETTER_READ = FRAGMENT_ID + 7;
-    public static final int FRAGMENT_ID_EMOTION = FRAGMENT_ID + 8;
-    public static final int FRAGMENT_ID_PROFILE = FRAGMENT_ID + 9;
-    public static final int FRAGMENT_ID_SETTING = FRAGMENT_ID + 10;
+//    public static final int FRAGMENT_ID_LETTER_READ = FRAGMENT_ID + 7;
+    public static final int FRAGMENT_ID_EMOTION = FRAGMENT_ID + 7;
+    public static final int FRAGMENT_ID_PROFILE = FRAGMENT_ID + 8;
+    public static final int FRAGMENT_ID_SETTING = FRAGMENT_ID + 9;
 
 //    public static int MEMBER_GRAND_MOTHER = 0;    // 할머니
 //    public static int MEMBER_GRAND_FATHER = 1;    // 할아버지

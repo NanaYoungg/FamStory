@@ -17,6 +17,7 @@ import com.hongsam.famstrory.data.LetterContants;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.ViewHolder> {
 
     ArrayList<LetterContants> letterItemList;

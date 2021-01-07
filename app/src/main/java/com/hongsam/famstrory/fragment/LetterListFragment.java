@@ -24,7 +24,6 @@ import com.hongsam.famstrory.ItemTouchHelper.RecyclerItemTouchHelper;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.adapter.LetterListAdapter;
-import com.hongsam.famstrory.data.Letter;
 import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.define.Define;
 
@@ -87,8 +86,8 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
 
 
     /*
-    * 액티비티와 사용자의 상호작용 함수
-    * */
+     * 액티비티와 사용자의 상호작용 함수
+     * */
     public void onResume() {
         super.onResume();
         //편지보내기로 전환
@@ -111,12 +110,12 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
         //편지읽기로 이동
-        mCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_READ);
-            }
-        });
+//        mCardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_READ);
+//            }
+//        });
 
 
 
@@ -155,8 +154,8 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
     public void init(View v) {
         if (v != null) {
             coordinatorLayout = mContentView.findViewById(R.id.coordinatorlayout);
-            fab = mContentView.findViewById(R.id.latter_send_fab_btn);
-            recyclerView = mContentView.findViewById(R.id.latter_list_recycler);
+            fab = mContentView.findViewById(R.id.f_latter_send_fab_btn);
+            recyclerView = mContentView.findViewById(R.id.f_latter_list_recycler);
             mCardView = mContentView.findViewById(R.id.letter_cardView);
         }
     }
@@ -164,6 +163,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
 
 //    /**
 //     * 이미지 리소스 세팅해주는 함수
+//     * */
 //     * */
 //    public void setImageResource() {
 //        // 예시) button1.setBackgroundResource(R.drawable.image1);

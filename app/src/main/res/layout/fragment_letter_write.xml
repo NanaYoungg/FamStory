@@ -62,6 +62,50 @@
         android:layout_height="500dp"
         android:background="@drawable/testpaper"/>
 
+    <TextView
+        android:id="@+id/f_letter_to_tv"
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/letter_write_img_view"
+        app:layout_constraintLeft_toLeftOf="@id/letter_write_img_view"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="To :"/>
+
+     <TextView
+         android:id="@+id/f_letter_receiever_tv"
+        android:layout_width="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/f_letter_to_tv"
+        app:layout_constraintLeft_toRightOf="@id/f_letter_to_tv"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="엄마"/>
+    
+    <ImageButton
+        android:id="@+id/f_receiver_add_img_btn"
+        app:layout_constraintLeft_toRightOf="@id/f_letter_receiever_tv"
+        app:layout_constraintTop_toTopOf="@id/f_letter_receiever_tv"
+        android:layout_marginLeft="10dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/plus"
+        />
+
+
+
+    <ImageView
+        app:layout_constraintTop_toBottomOf="@id/f_letter_to_tv"
+        app:layout_constraintLeft_toLeftOf="@id/letter_write_img_view"
+        app:layout_constraintRight_toRightOf="@id/letter_write_img_view"
+        android:layout_width="350dp"
+        android:layout_height="2dp"
+        android:background="@color/colorGrey"
+        />
+
+
+
     <ScrollView
         android:id="@+id/letter_write_scroll"
         android:layout_width="350dp"
@@ -78,6 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
 
             <ImageView
                 android:id="@+id/photo_iv"

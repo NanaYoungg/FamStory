@@ -9,7 +9,7 @@ public class Letter {
     //편지내용
     private ArrayList<LetterContants> letterContants;
 
-    public Letter(String 가족이름, LetterContants letterContants){};
+    public Letter(String famName, LetterContants letterContants){};
 
     public Letter(String famName, ArrayList<LetterContants> letterContants) {
         this.famName = famName;
