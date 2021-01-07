@@ -115,18 +115,14 @@ public class LetterWriteFragment extends Fragment {
             }
         });
 
-
-
+        //받는이 선택하기
         mAddReciverBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LetterReceiverDialog mletterReceiverDialog = LetterReceiverDialog.getInstance();
                 mletterReceiverDialog.show(getFragmentManager(), LetterReceiverDialog.TAG_EVENT_DIALOG);
-
-
             }
         });
-
 
 
 

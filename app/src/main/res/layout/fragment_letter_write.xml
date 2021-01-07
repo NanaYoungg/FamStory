@@ -95,7 +95,7 @@
 
 
 
-    <ImageView
+    <View
         app:layout_constraintTop_toBottomOf="@id/f_letter_to_tv"
         app:layout_constraintLeft_toLeftOf="@id/letter_write_img_view"
         app:layout_constraintRight_toRightOf="@id/letter_write_img_view"
