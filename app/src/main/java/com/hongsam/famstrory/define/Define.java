@@ -12,6 +12,12 @@ public class Define {
     public static final int FRAGMENT_ID_PROFILE = FRAGMENT_ID + 8;
     public static final int FRAGMENT_ID_SETTING = FRAGMENT_ID + 9;
 
+    public static final String KEY_FAMILY_NAME = "KEY_FAMILY_NAME";
+    public static final String KEY_TEST = "KEY_TEST";
+
+    public static final int VIEWTYPE_MEMBER = 0;
+
+
 //    public static int MEMBER_GRAND_MOTHER = 0;    // 할머니
 //    public static int MEMBER_GRAND_FATHER = 1;    // 할아버지
 //    public static int MEMBER_MOTHER = 2;          // 엄마
