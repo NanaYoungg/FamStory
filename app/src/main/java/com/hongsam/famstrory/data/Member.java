@@ -1,29 +1,38 @@
 package com.hongsam.famstrory.data;
 
 public class Member {
-    private String memName;
-    private String memCall;
 
-    public Member() {}
+    String name;
+    String call;
+    String photoUrl;
 
-    public Member(String memName, String memCall) {
-        this.memName = memName;
-        this.memCall = memCall;
+    public Member(String name, String call, String photoUrl) {
+        this.name = name;
+        this.call = call;
+        this.photoUrl = photoUrl;
     }
 
-    public String getMemName() {
-        return memName;
+    public String getName() {
+        return name;
     }
 
-    public void setMemName(String memName) {
-        this.memName = memName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getMemCall() {
-        return memCall;
+    public String getCall() {
+        return call;
     }
 
-    public void setMemCall(String memCall) {
-        this.memCall = memCall;
+    public void setCall(String call) {
+        this.call = call;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

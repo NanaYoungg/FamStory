@@ -8,6 +8,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.widget.Toolbar;
 
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.fragment.CalendarFragment;
@@ -21,9 +25,13 @@ import com.hongsam.famstrory.fragment.ProfileFragment;
 import com.hongsam.famstrory.fragment.SettingFragment;
 import com.hongsam.famstrory.fragment.TimeLineFragment;
 
+import com.hongsam.famstrory.util.SharedManager;
+
 public class MainActivity extends AppCompatActivity{
 
     final String TAG = "MainActivity";
+
+    InputMethodManager imm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +39,14 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+        SharedManager.getInstance(this);
+
+        changeFragment(Define.FRAGMENT_ID_EMOTION);
 
     }
 
@@ -62,7 +78,6 @@ public class MainActivity extends AppCompatActivity{
             case Define.FRAGMENT_ID_LETTER_WRITE:
                 fragment = new LetterWriteFragment();
                 break;
-
 
             case Define.FRAGMENT_ID_EMOTION:
                 fragment = new EmotionFragment();
@@ -105,6 +120,20 @@ public class MainActivity extends AppCompatActivity{
                     ft.commitAllowingStateLoss();
                 } else {
                     ft.commit();
+                }
+            }
+        });
+    }
+
+    public void showKeyboard(final EditText et, final boolean flag) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (flag) {
+                    et.requestFocus();
+                    imm.showSoftInput(et, 0);
+                } else {
+                    imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
                 }
             }
         });

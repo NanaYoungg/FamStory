@@ -42,6 +42,9 @@ public class MenuFragment extends Fragment {
 
         init(mContentView);
 
+        setImageResource();
+
+
         return mContentView;
     }
 
