@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +31,7 @@ public class TimeLineFragment extends Fragment {
 
         mDb = FirebaseDatabase.getInstance();
         mFamRef = mDb.getReference("Family");
+
     }
 
 

@@ -11,6 +11,7 @@ public class Define {
     public static final int FRAGMENT_ID_EMOTION = FRAGMENT_ID + 7;
     public static final int FRAGMENT_ID_PROFILE = FRAGMENT_ID + 8;
     public static final int FRAGMENT_ID_SETTING = FRAGMENT_ID + 9;
+    public static final int FRAGMENT_ID_LETTER_READ = FRAGMENT_ID + 10;
 
     public static final String KEY_FAMILY_NAME = "KEY_FAMILY_NAME";
     public static final String KEY_TEST = "KEY_TEST";

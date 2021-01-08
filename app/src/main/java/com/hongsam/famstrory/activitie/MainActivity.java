@@ -2,14 +2,15 @@ package com.hongsam.famstrory.activitie;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.widget.Toolbar;
 
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-=======
 
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.R;
@@ -17,6 +18,7 @@ import com.hongsam.famstrory.fragment.CalendarFragment;
 import com.hongsam.famstrory.fragment.EmotionFragment;
 import com.hongsam.famstrory.fragment.FamCreateFragment;
 import com.hongsam.famstrory.fragment.LetterListFragment;
+import com.hongsam.famstrory.fragment.LetterReadFragment;
 import com.hongsam.famstrory.fragment.LetterWriteFragment;
 import com.hongsam.famstrory.fragment.MenuFragment;
 import com.hongsam.famstrory.fragment.ProfileFragment;
@@ -26,6 +28,7 @@ import com.hongsam.famstrory.fragment.TimeLineFragment;
 import com.hongsam.famstrory.util.SharedManager;
 
 public class MainActivity extends AppCompatActivity{
+
     final String TAG = "MainActivity";
 
     InputMethodManager imm;
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -42,8 +47,8 @@ public class MainActivity extends AppCompatActivity{
         SharedManager.getInstance(this);
 
         changeFragment(Define.FRAGMENT_ID_EMOTION);
-    }
 
+    }
 
     Fragment fragment = null;
 
@@ -83,6 +88,10 @@ public class MainActivity extends AppCompatActivity{
                 break;
 
             case Define.FRAGMENT_ID_SETTING:
+                fragment = new SettingFragment();
+                break;
+
+            case Define.FRAGMENT_ID_LETTER_READ:
                 fragment = new SettingFragment();
                 break;
 

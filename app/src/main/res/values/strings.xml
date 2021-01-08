@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">FamStory</string>
+    <string name="latter_name">편지</string>
+    <string name="latter_write_name">편지쓰기</string>
+    <string name="delete">삭제</string>
+
+    <string-array name="testSpinner">
+        <item>엄마</item>
+        <item>아빠</item>
+        <item>동생</item>
+        <item>언니</item>
+        <item>할아버지</item>
+    </string-array>
 </resources>
