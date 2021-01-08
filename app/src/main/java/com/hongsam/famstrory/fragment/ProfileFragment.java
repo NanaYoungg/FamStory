@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongsam.famstrory.R;
@@ -22,6 +24,10 @@ import com.hongsam.famstrory.data.Member;
 import com.hongsam.famstrory.define.Define;
 
 import java.util.ArrayList;
+
+import com.hongsam.famstrory.R;
+import com.hongsam.famstrory.activitie.MainActivity;
+
 
 public class ProfileFragment extends Fragment {
 
@@ -69,6 +75,7 @@ public class ProfileFragment extends Fragment {
      * */
     public void init(View v) {
         if (v != null) {
+
             etTitle = v.findViewById(R.id.f_profile_et_title);
             tvTitle = v.findViewById(R.id.f_profile_tv_title);
             btnTitle = v.findViewById(R.id.f_profile_btn_title);
@@ -114,6 +121,9 @@ public class ProfileFragment extends Fragment {
             rvMember = mContentView.findViewById(R.id.f_profile_rv_member);
             RecyclerAdapter rvAdapterB = new RecyclerAdapter(mainActivity, R.layout.item_member, Define.VIEWTYPE_MEMBER, memberList);
             rvMember.setAdapter(rvAdapterB);
+
+            // 예시) button1 = v.findViewById(R.id.button1);
+
         }
     }
 

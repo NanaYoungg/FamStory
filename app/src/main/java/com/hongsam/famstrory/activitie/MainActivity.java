@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+=======
 
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.R;
@@ -20,6 +22,7 @@ import com.hongsam.famstrory.fragment.MenuFragment;
 import com.hongsam.famstrory.fragment.ProfileFragment;
 import com.hongsam.famstrory.fragment.SettingFragment;
 import com.hongsam.famstrory.fragment.TimeLineFragment;
+
 import com.hongsam.famstrory.util.SharedManager;
 
 public class MainActivity extends AppCompatActivity{
@@ -40,7 +43,6 @@ public class MainActivity extends AppCompatActivity{
 
         changeFragment(Define.FRAGMENT_ID_EMOTION);
     }
-
 
 
     Fragment fragment = null;
@@ -127,4 +129,5 @@ public class MainActivity extends AppCompatActivity{
             }
         });
     }
+
 }

@@ -7,9 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +36,12 @@ import java.util.ArrayList;
 
 public class EmotionFragment extends Fragment {
     private final String TAG = "EmotionFragment";
+
+import com.hongsam.famstrory.R;
+import com.hongsam.famstrory.activitie.MainActivity;
+
+public class EmotionFragment extends Fragment {
+
 
     MainActivity mainActivity;
     View mContentView;
@@ -56,6 +67,7 @@ public class EmotionFragment extends Fragment {
         //keywordList = new ArrayList<>();
         mainKeywordList = new ArrayList<>();
         subKeywordList = new ArrayList<>();
+
     }
 
 
@@ -75,9 +87,10 @@ public class EmotionFragment extends Fragment {
 
         mContentView = inflater.inflate(R.layout.fragment_emotion, null);
 
-
         //init(mContentView);
         //initDefault();
+
+        init(mContentView);
 
         return mContentView;
     }
@@ -88,6 +101,7 @@ public class EmotionFragment extends Fragment {
      * */
     public void init(View v) {
         if (v != null) {
+
             rvMain = v.findViewById(R.id.f_emotion_rv_main);
             rvMain.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
             EmotionAdapter mainAdapter = new EmotionAdapter(mainKeywordList, this, true);
@@ -95,6 +109,9 @@ public class EmotionFragment extends Fragment {
 
             rvSub = v.findViewById(R.id.f_emotion_rv_sub);
             rvSub.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
+
+            // 예시) button1 = v.findViewById(R.id.button1);
+
         }
     }
 

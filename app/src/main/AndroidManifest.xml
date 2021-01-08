@@ -18,6 +18,7 @@
             </intent-filter>
         </service>
 
+
         <activity android:name=".activitie.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

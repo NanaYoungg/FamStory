@@ -41,7 +41,9 @@ public class MenuFragment extends Fragment {
         mContentView = inflater.inflate(R.layout.fragment_menu, null);
 
         init(mContentView);
+
         setImageResource();
+
 
         return mContentView;
     }

@@ -1,6 +1,7 @@
 package com.hongsam.famstrory.data;
 
 public class Member {
+
     String name;
     String call;
     String photoUrl;

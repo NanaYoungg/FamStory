@@ -17,6 +17,7 @@ public class Define {
 
     public static final int VIEWTYPE_MEMBER = 0;
 
+
 //    public static int MEMBER_GRAND_MOTHER = 0;    // 할머니
 //    public static int MEMBER_GRAND_FATHER = 1;    // 할아버지
 //    public static int MEMBER_MOTHER = 2;          // 엄마
