@@ -31,6 +31,7 @@
         android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/letter_cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp">
