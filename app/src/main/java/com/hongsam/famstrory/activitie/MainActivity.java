@@ -76,6 +76,10 @@ public class MainActivity extends AppCompatActivity{
                 fragment = new SettingFragment();
                 break;
 
+            case Define.FRAGMENT_ID_LETTER_READ:
+                fragment = new SettingFragment();
+                break;
+
             default:
                 break;
         }

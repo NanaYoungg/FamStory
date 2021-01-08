@@ -28,8 +28,6 @@ import static android.app.Activity.RESULT_OK;
 
 public class LetterReadFragment extends Fragment {
 
-    private final int GET_GALLERY_IMAGE = 200;
-
     MainActivity mainActivity;
     View mContentView;
     ImageButton mBackBtn;
@@ -40,7 +38,6 @@ public class LetterReadFragment extends Fragment {
         this.setHasOptionsMenu(true);
 
     }
-
 
     /**
      * View 객체를 얻는 시점
@@ -69,14 +66,6 @@ public class LetterReadFragment extends Fragment {
      * */
     public void onResume() {
         super.onResume();
-
-        //편지 목록으로 전환
-        mBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
-            }
-        });
 
     }
 

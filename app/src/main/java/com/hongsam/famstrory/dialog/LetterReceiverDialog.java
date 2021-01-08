@@ -1,30 +1,20 @@
 package com.hongsam.famstrory.dialog;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Display;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.view.Window;
+        import android.view.WindowManager;
+        import android.widget.ArrayAdapter;
+        import android.widget.Button;
+        import android.widget.Spinner;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
+        import androidx.annotation.NonNull;
+        import androidx.annotation.Nullable;
+        import androidx.fragment.app.DialogFragment;
 
-import com.hongsam.famstrory.R;
-import com.hongsam.famstrory.activitie.MainActivity;
-
-import java.util.ArrayList;
+        import com.hongsam.famstrory.R;
 
 public class LetterReceiverDialog extends DialogFragment implements View.OnClickListener {
 
