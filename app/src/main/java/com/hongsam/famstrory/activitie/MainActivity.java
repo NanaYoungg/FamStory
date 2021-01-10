@@ -1,19 +1,26 @@
 package com.hongsam.famstrory.activitie;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toolbar;
 
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.R;
+import com.hongsam.famstrory.firebase.CalendarDB;
+import com.hongsam.famstrory.firebase.ReadDB;
+import com.hongsam.famstrory.firebase.UpdateDB;
 import com.hongsam.famstrory.fragment.CalendarFragment;
 import com.hongsam.famstrory.fragment.EmotionFragment;
 import com.hongsam.famstrory.fragment.FamCreateFragment;
@@ -25,12 +32,16 @@ import com.hongsam.famstrory.fragment.ProfileFragment;
 import com.hongsam.famstrory.fragment.SettingFragment;
 import com.hongsam.famstrory.fragment.TimeLineFragment;
 
+import com.hongsam.famstrory.interf.CallbackInterface;
 import com.hongsam.famstrory.util.SharedManager;
 
 public class MainActivity extends AppCompatActivity{
 
-    final String TAG = "MainActivity";
+    BottomNavigationView navigationView;
 
+    CallbackInterface ci;
+    ReadDB readDB;
+    UpdateDB updateDB;
     InputMethodManager imm;
 
     @Override
@@ -48,8 +59,56 @@ public class MainActivity extends AppCompatActivity{
 
         changeFragment(Define.FRAGMENT_ID_EMOTION);
 
+        changeFragment(Define.FRAGMENT_ID_EMOTION);
+        navigationView = (BottomNavigationView)findViewById(R.id.navi_view);
+
+        readDB = new ReadDB(this);
+        updateDB = new UpdateDB(this);
+    }
+    public void setCi(CallbackInterface ci) {
+        this.ci = ci;
     }
 
+
+
+    public void databaseRead(String date) {
+        readDB.databaseRead(date);
+    }
+    public void setDialogUpdateText(CalendarDB data){
+        ci.setDialogUpdateText(data);
+    }
+    public void view_more_text(CalendarDB data) {
+        ci.view_more_text(data);
+    }
+    public void  isDataNull(String date){
+        ci.isDateNull(date);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()){
+                case R.id.main_menu:
+                    changeFragment(Define.FRAGMENT_ID_MENU);
+                    break;
+                case R.id.calendar_menu:
+                    changeFragment(Define.FRAGMENT_ID_CALENDAR);
+                    break;
+                case R.id.message_menu:
+                    changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+                    break;
+                case R.id.emotion_menu:
+                    changeFragment(Define.FRAGMENT_ID_EMOTION);
+                    break;
+            }
+            return true;
+            }
+        });
+    }
     Fragment fragment = null;
 
     public void changeFragment(int fragmentId) {

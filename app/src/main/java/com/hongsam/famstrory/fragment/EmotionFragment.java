@@ -37,10 +37,9 @@ import java.util.ArrayList;
 public class EmotionFragment extends Fragment {
     private final String TAG = "EmotionFragment";
 
-import com.hongsam.famstrory.R;
-import com.hongsam.famstrory.activitie.MainActivity;
 
-public class EmotionFragment extends Fragment {
+
+
 
 
     MainActivity mainActivity;

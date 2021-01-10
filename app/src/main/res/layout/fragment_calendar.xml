@@ -1,13 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center">
+    <LinearLayout
+        android:background="#FFF176"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="right"
+        android:layout_weight="0.1">
+        <Button
+            android:id="@+id/calendar_update"
+            android:visibility="invisible"
+            android:background="@drawable/update"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"/>
+        <Button
+            android:id="@+id/calendar_delete"
+            android:visibility="invisible"
+            android:background="@drawable/delete"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"/>
+        <Button
+            android:id="@+id/calendar_create"
+            android:visibility="visible"
+            android:background="@drawable/create"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="5dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"/>
 
-    <TextView
+    </LinearLayout>
+    <CalendarView
+        android:id="@+id/calendar_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CalendarFragment"/>
 
+        android:layout_height="0dp"
+        android:layout_weight="1.5"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="#9575CD"
+        android:id="@+id/calendar_view_more"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.9">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="세부일정"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/vm_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="65dp"
+            android:text="일정명 : "
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            android:text="타입"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/vm_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/vm_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="324dp"
+            android:text="세부내용 : "
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vm_name" />
+
+        <TextView
+            android:id="@+id/vm_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="360dp"
+            android:text="시간"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vm_text" />
+
+        <TextView
+            android:id="@+id/vm_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="날짜"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.267"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
