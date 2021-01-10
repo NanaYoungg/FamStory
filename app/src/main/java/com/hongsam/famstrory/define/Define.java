@@ -1,5 +1,7 @@
 package com.hongsam.famstrory.define;
 
+import android.widget.TextView;
+
 public class Define {
     public static final int FRAGMENT_ID = 1000;
     public static final int FRAGMENT_ID_MENU = FRAGMENT_ID + 1;
@@ -13,6 +15,11 @@ public class Define {
     public static final int FRAGMENT_ID_SETTING = FRAGMENT_ID + 9;
     public static final int FRAGMENT_ID_LETTER_READ = FRAGMENT_ID + 10;
 
+    public static String user = "user1234";
+
+    public static void setViewText(TextView view, String str){
+        view.setText(str);
+    }
     public static final String KEY_FAMILY_NAME = "KEY_FAMILY_NAME";
     public static final String KEY_TEST = "KEY_TEST";
 

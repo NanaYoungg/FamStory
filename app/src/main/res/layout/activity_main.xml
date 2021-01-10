@@ -2,12 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center">
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navi_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:itemIconSize="30dp"
+        android:background="#FFFFFF"
+        app:itemIconTint="#000000"
+        app:itemTextColor="#000000"
+        app:menu="@menu/navi_menu"
+        android:layout_weight="0.6"/>
 
     <FrameLayout
         android:id="@+id/basic"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="8"/>
 
 </LinearLayout>

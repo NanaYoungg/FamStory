@@ -50,7 +50,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
     LetterListAdapter letterListAdapter;
     CoordinatorLayout coordinatorLayout;
     FloatingActionButton fab;
-    CardView mCardView;
+    //CardView mCardView;
 
 
     public LetterListFragment() {
@@ -122,7 +122,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
             coordinatorLayout = mContentView.findViewById(R.id.coordinatorlayout);
             fab = mContentView.findViewById(R.id.f_latter_send_fab_btn);
             recyclerView = mContentView.findViewById(R.id.f_latter_list_recycler);
-            mCardView = mContentView.findViewById(R.id.letter_cardView);
+            //mCardView = mContentView.findViewById(R.id.letter_cardView);
 
 
             //편지보내기로 전환
@@ -134,12 +134,12 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
             });
 
             //편지읽기로 이동
-        mCardView.setOnClickListener(new View.OnClickListener() {
+        /*mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_READ);
             }
-        });
+        });*/
 
 
             //스크롤시 fab 숨기 , 스크롤시 fab 나타남
