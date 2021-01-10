@@ -134,12 +134,12 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
             });
 
             //편지읽기로 이동
-        mCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_READ);
-            }
-        });
+//        mCardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_READ);
+//            }
+//        });
 
 
             //스크롤시 fab 숨기 , 스크롤시 fab 나타남
