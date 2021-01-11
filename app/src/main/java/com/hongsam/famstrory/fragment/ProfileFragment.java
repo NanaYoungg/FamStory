@@ -38,7 +38,7 @@ public class ProfileFragment extends Fragment {
     RecyclerView rvMember;
 
     EditText etTitle;
-    TextView tvTitle;
+    TextView tvTitle, tvEmpty;
     Button btnTitle;
 
     @Override
@@ -78,6 +78,7 @@ public class ProfileFragment extends Fragment {
 
             etTitle = v.findViewById(R.id.f_profile_et_title);
             tvTitle = v.findViewById(R.id.f_profile_tv_title);
+            tvEmpty = v.findViewById(R.id.f_profile_tv_empty);
             btnTitle = v.findViewById(R.id.f_profile_btn_title);
 
             tvTitle.setOnLongClickListener(new View.OnLongClickListener() {
@@ -87,6 +88,14 @@ public class ProfileFragment extends Fragment {
                     btnTitle.setVisibility(View.VISIBLE);
                     tvTitle.setVisibility(View.GONE);
                     mainActivity.showKeyboard(etTitle, true);
+                    return true;
+                }
+            });
+
+            tvEmpty.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
                     return true;
                 }
             });
@@ -133,6 +142,10 @@ public class ProfileFragment extends Fragment {
      * */
     public void setImageResource() {
         // 예시) button1.setBackgroundResource(R.drawable.image1);
+    }
+
+    public void setFamilyPicture() {
+
     }
 
     /**
