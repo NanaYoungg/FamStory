@@ -49,7 +49,7 @@ public class LetterWriteFragment extends Fragment {
     TextView mToTv;
     ImageButton mAddReciverBtn;
 
-    CardView mCardView;
+    //CardView mCardView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -127,13 +127,13 @@ public class LetterWriteFragment extends Fragment {
 
 
         //보내기 버튼
-//        mSendBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getContext(),"편지가 전송되었습니다",Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
+        mSendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"편지가 전송되었습니다",Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
 
     }
@@ -152,7 +152,7 @@ public class LetterWriteFragment extends Fragment {
             mScrollView = mContentView.findViewById(R.id.letter_write_scroll);
             mBackgound = mContentView.findViewById(R.id.letter_write_img_view);
             mSendBtn = mContants.findViewById(R.id.letter_send_btn);
-            mCardView = mContentView.findViewById(R.id.letter_cardView);
+            //mCardView = mContentView.findViewById(R.id.letter_cardView);
             mToTv = mContants.findViewById(R.id.f_letter_receiever_tv);
             mAddReciverBtn = mContentView.findViewById(R.id.f_receiver_add_img_btn);
         }

@@ -37,7 +37,6 @@ import java.util.ArrayList;
 public class EmotionFragment extends Fragment {
     private final String TAG = "EmotionFragment";
 
-
     MainActivity mainActivity;
     View mContentView;
 

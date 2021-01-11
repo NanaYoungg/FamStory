@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main_menu"
+        android:title=""
+        android:enabled="true"
+        android:icon="@drawable/main_menu"/>
+
+    <item
+        android:id="@+id/calendar_menu"
+        android:title=""
+        android:enabled="true"
+        android:icon="@drawable/calendar_menu"/>
+    <item
+        android:id="@+id/message_menu"
+        android:title=""
+        android:enabled="true"
+        android:icon="@drawable/message_menu"/>
+    <item
+        android:id="@+id/emotion_menu"
+        android:title=""
+        android:enabled="true"
+        android:icon="@drawable/emotion_menu"/>
+
+</menu>
