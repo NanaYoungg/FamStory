@@ -1,8 +1,6 @@
 package com.hongsam.famstrory.firebase;
 
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -14,7 +12,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.define.Define;
-import com.hongsam.famstrory.interf.CallbackInterface;
 
 import java.util.Objects;
 
@@ -24,8 +21,8 @@ public class ReadDB {
     MainActivity mainActivity;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    String UserName = Define.user;
-    DatabaseReference myRef = database.getReference("CalendarDB").child(UserName);
+    String userName = Define.user;
+    DatabaseReference myRef = database.getReference("CalendarDB").child(userName);
 
     CalendarDB calendarDB;
 

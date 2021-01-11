@@ -4,15 +4,20 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongsam.famstrory.R;
+import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.data.LetterContants;
+import com.hongsam.famstrory.define.Define;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +51,21 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
         holder.contants.setText(letterItemList.get(position).getContants());
         holder.date.setText(letterItemList.get(position).getDate());
 
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)context).changeFragment(Define.FRAGMENT_ID_LETTER_READ);
+            }
+        });
+
+
     }
 
     @Override
     public int getItemCount() {
         return letterItemList.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -60,6 +74,7 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
         public TextView date;
         public LinearLayout linearLayout;
         public RelativeLayout viewBackgound;
+        public CardView cardView;
 
         //뷰홀더 생성자로 전달되는 뷰 객체 참조
         public ViewHolder(@NonNull View itemView) {
@@ -72,6 +87,7 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
             date = itemView.findViewById(R.id.ltter_list_date_tv);
             linearLayout = itemView.findViewById(R.id.layout_id);
             viewBackgound = itemView.findViewById(R.id.view_background);
+            cardView = itemView.findViewById(R.id.letter_cardView);
 
         }
     }

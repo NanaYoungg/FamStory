@@ -33,6 +33,7 @@ import com.hongsam.famstrory.fragment.SettingFragment;
 import com.hongsam.famstrory.fragment.TimeLineFragment;
 
 import com.hongsam.famstrory.interf.CallbackInterface;
+import com.hongsam.famstrory.interf.CustomDialogInterface;
 import com.hongsam.famstrory.util.SharedManager;
 
 public class MainActivity extends AppCompatActivity{
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity{
     BottomNavigationView navigationView;
 
     CallbackInterface ci;
+    CustomDialogInterface cdi;
     ReadDB readDB;
     UpdateDB updateDB;
     InputMethodManager imm;
@@ -68,14 +70,16 @@ public class MainActivity extends AppCompatActivity{
     public void setCi(CallbackInterface ci) {
         this.ci = ci;
     }
-
+    public void setCdi(CustomDialogInterface cdi){
+        this.cdi = cdi;
+    }
 
 
     public void databaseRead(String date) {
         readDB.databaseRead(date);
     }
-    public void setDialogUpdateText(CalendarDB data){
-        ci.setDialogUpdateText(data);
+    public void calendarUpdateGetDialogText(CalendarDB data){
+        cdi.calendarUpdateGetDialogText(data);
     }
     public void view_more_text(CalendarDB data) {
         ci.view_more_text(data);
@@ -151,7 +155,7 @@ public class MainActivity extends AppCompatActivity{
                 break;
 
             case Define.FRAGMENT_ID_LETTER_READ:
-                fragment = new SettingFragment();
+                fragment = new LetterReadFragment();
                 break;
 
             default:

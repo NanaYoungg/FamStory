@@ -1,5 +1,7 @@
 package com.hongsam.famstrory.firebase;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -8,34 +10,44 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.interf.CallbackInterface;
 
+import java.util.Objects;
+
 public class UpdateDB {
+    CalendarDB calendarDB;
     MainActivity mainActivity;
     public UpdateDB(MainActivity mainActivity) {
 
         this.mainActivity = mainActivity;
     }
 
-    public void updateDB(String date){
+    public void updateDB(final String date){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         String userName = Define.user;
-        DatabaseReference myRef = database.getReference("CalendarDB").child(userName).child(date);
-
-        myRef.addChildEventListener(new ChildEventListener() {
+        DatabaseReference myRef = database.getReference("CalendarDB").child(userName);
+        Query query = myRef.orderByChild(date);
+        query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                CalendarDB calendarDB = snapshot.getValue(CalendarDB.class);
-                mainActivity.view_more_text(calendarDB);
+                if(Objects.equals(snapshot.getKey(),date)) {
+                    calendarDB = snapshot.getValue(CalendarDB.class);
+                    Log.e("Tag", calendarDB.getTitle());
+                    mainActivity.calendarUpdateGetDialogText(calendarDB);
+                }
 
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                CalendarDB calendarDB = snapshot.getValue(CalendarDB.class);
-                mainActivity.view_more_text(calendarDB);
+                if (Objects.equals(snapshot.getKey(),date)) {
+                    calendarDB = snapshot.getValue(CalendarDB.class);
+                    Log.e("Tag", calendarDB.getTitle());
+                    mainActivity.calendarUpdateGetDialogText(calendarDB);
+                }
             }
 
             @Override

@@ -126,16 +126,6 @@ public class LetterWriteFragment extends Fragment {
 
 
 
-        //보내기 버튼
-        mSendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"편지가 전송되었습니다",Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-
     }
 
 
