@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="right"
-        android:layout_weight="0.1">
+        android:layout_weight="0.2">
         <Button
             android:id="@+id/calendar_update"
             android:visibility="invisible"
@@ -70,7 +70,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginTop="65dp"
+            android:layout_marginEnd="324dp"
             android:text="일정명 : "
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
