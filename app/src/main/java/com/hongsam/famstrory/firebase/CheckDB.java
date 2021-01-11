@@ -1,7 +1,6 @@
 package com.hongsam.famstrory.firebase;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -15,16 +14,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.define.Define;
-import com.hongsam.famstrory.fragment.CalendarViewMoreFragment;
 
 import java.util.ArrayList;
 
-import static com.hongsam.famstrory.fragment.CalendarFragment.cal_cr_btn;
-import static com.hongsam.famstrory.fragment.CalendarFragment.cal_de_btn;
-import static com.hongsam.famstrory.fragment.CalendarFragment.cal_up_btn;
-import static com.hongsam.famstrory.fragment.CalendarFragment.dbGetDate;
+import static com.hongsam.famstrory.fragment.CalendarFragment.cal_create_btn;
+import static com.hongsam.famstrory.fragment.CalendarFragment.cal_delete_btn;
+import static com.hongsam.famstrory.fragment.CalendarFragment.cal_update_btn;
 import static com.hongsam.famstrory.fragment.CalendarFragment.state;
 
 public class CheckDB extends Fragment{
@@ -45,9 +41,9 @@ public class CheckDB extends Fragment{
                 if ("title".equals(getData)){
                     fm.beginTransaction().remove(fr).commit();
                     state = "ok";
-                    cal_cr_btn.setVisibility(View.INVISIBLE);
-                    cal_de_btn.setVisibility(View.VISIBLE);
-                    cal_up_btn.setVisibility(View.VISIBLE);
+                    cal_create_btn.setVisibility(View.INVISIBLE);
+                    cal_delete_btn.setVisibility(View.VISIBLE);
+                    cal_update_btn.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -57,9 +53,9 @@ public class CheckDB extends Fragment{
                 if ("title".equals(getData)){
                     fm.beginTransaction().remove(fr).commit();
                     state = "ok";
-                    cal_cr_btn.setVisibility(View.INVISIBLE);
-                    cal_de_btn.setVisibility(View.VISIBLE);
-                    cal_up_btn.setVisibility(View.VISIBLE);
+                    cal_create_btn.setVisibility(View.INVISIBLE);
+                    cal_delete_btn.setVisibility(View.VISIBLE);
+                    cal_update_btn.setVisibility(View.VISIBLE);
                 }
 
             }

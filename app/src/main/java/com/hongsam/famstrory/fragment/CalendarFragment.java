@@ -25,6 +25,7 @@ import com.hongsam.famstrory.firebase.CalendarDB;
 import com.hongsam.famstrory.firebase.DeleteDB;
 import com.hongsam.famstrory.firebase.ReadDB;
 import com.hongsam.famstrory.firebase.CheckDB;
+import com.hongsam.famstrory.firebase.UpdateDB;
 import com.hongsam.famstrory.interf.CallbackInterface;
 
 import java.util.ArrayList;
@@ -43,23 +44,14 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
     String date;
     String getDate;
     String getUpdateEtTitle,getUpdateEtDescription,getUpdateEtStartTime,getUpdateEtEndTime;
-    public static Button cal_up_btn,cal_de_btn,cal_cr_btn;
+    public static Button cal_update_btn, cal_delete_btn, cal_create_btn;
     DeleteDB deleteDB = new DeleteDB();
     FragmentTransaction ft_view_more;
     CalendarViewMoreFragment viewMoreFragment;
-    CheckDB updateDB = new CheckDB();
-    int c1 = 0, c2 = 0;
+    CheckDB checkDB = new CheckDB();
+    UpdateDB updateDB = new UpdateDB(mainActivity);
     public static String state = "null";
 
-
-    ConstraintLayout ConstView;
-    public static TreeSet<String> treeSet = new TreeSet<>();
-    ArrayList<String> listSet;
-    int show=0;
-    // inflate 한 상태
-    public static boolean dbGetDate = false;
-    boolean addView = false;
-    ViewGroup viewMore;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -105,14 +97,8 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
 
     }
 
-    @Override
-    public void setDialogUpdateText(CalendarDB data) {
-        getUpdateEtTitle = data.getTitle();
-        getUpdateEtDescription = data.getDescription();
-        getUpdateEtStartTime = data.getStartTime();
-        getUpdateEtEndTime = data.getEndTime();
 
-    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -132,13 +118,12 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
                 readDB.databaseRead(date);
                 getFragmentManager().beginTransaction().replace(R.id.calendar_view_more,viewMoreFragment).commit();
                 FragmentManager newFm = getFragmentManager();
-                updateDB.checkDB(date,getContext(),newFm,viewMoreFragment);
+                checkDB.checkDB(date,getContext(),newFm,viewMoreFragment);
                 Define.setViewText(vm_date,year+"."+month+"."+dayOfMonth);
-                listSet = new ArrayList<String>(treeSet);
                 if (state.equals("null")){
-                    cal_cr_btn.setVisibility(View.VISIBLE);
-                    cal_de_btn.setVisibility(View.INVISIBLE);
-                    cal_up_btn.setVisibility(View.INVISIBLE);
+                    cal_create_btn.setVisibility(View.VISIBLE);
+                    cal_delete_btn.setVisibility(View.INVISIBLE);
+                    cal_update_btn.setVisibility(View.INVISIBLE);
                 }
 
 
@@ -146,45 +131,40 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
             }
         });
 
-        if (show==0){
-            cal_up_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    CalendarCustomDialog dialog = new CalendarCustomDialog(mainActivity, date);
-/*                    dialog.viewMoreTitleEt.setText(getUpdateEtTitle);
-                    dialog.viewMoreDescriptionEt.setText(getUpdateEtDescription);
-                    dialog.startTimeTv.setText(getUpdateEtStartTime);
-                    dialog.endTimeTv.setText(getUpdateEtEndTime);*/
-                    dialog.show();
+        cal_update_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(),"update dialog",Toast.LENGTH_SHORT).show();
+                //updateDB.updateDB(date);
+                CalendarCustomDialog dialog = new CalendarCustomDialog(mainActivity, date,Define.UPDATE_DIALOG);
+                Toast.makeText(getContext(),"update",Toast.LENGTH_SHORT).show();
+                dialog.show();
 
-                }
-            });
+            }
+        });
 
-            cal_cr_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(),"update dialog",Toast.LENGTH_SHORT).show();
-                    CalendarCustomDialog dialog = new CalendarCustomDialog(mainActivity, date);
-                    dialog.endTimeTv.setText("ads");
-                    dialog.show();
-                }
-            });
-            cal_de_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(getContext(),"일정을 삭제하였어요. 복구가 불가능합니다.",Toast.LENGTH_SHORT).show();
-                    getFragmentManager().beginTransaction().replace(R.id.calendar_view_more,new CalendarViewMoreFragment()).commit();
-                    deleteDB.databaseDelete(date);
-                    vm_text.setText("");
-                    cal_de_btn.setVisibility(View.GONE);
-                    cal_up_btn.setVisibility(View.GONE);
-                    cal_cr_btn.setVisibility(View.VISIBLE);
-
-                }
-            });
-
+        cal_create_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CalendarCustomDialog dialog = new CalendarCustomDialog(mainActivity, date,Define.CREATE_DIALOG);
+                dialog.show();
+            }
+        });
+        cal_delete_btn.setOnClickListener(new View.OnClickListener() {
+                                  @Override
+                                  public void onClick(View view) {
+                Toast.makeText(getContext(),"일정을 삭제하였어요. 복구가 불가능합니다.",Toast.LENGTH_SHORT).show();
+                getFragmentManager().beginTransaction().replace(R.id.calendar_view_more,new CalendarViewMoreFragment()).commit();
+                deleteDB.databaseDelete(date);
+                vm_text.setText("");
+                cal_delete_btn.setVisibility(View.GONE);
+                cal_update_btn.setVisibility(View.GONE);
+                cal_create_btn.setVisibility(View.VISIBLE);
 
         }
+    });
+
+
     }
 
 
@@ -199,9 +179,9 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
             vm_name = v.findViewById(R.id.vm_name);
             vm_text = v.findViewById(R.id.vm_text);
             vm_time = v.findViewById(R.id.vm_time);
-            cal_cr_btn = v.findViewById(R.id.calendar_create);
-            cal_de_btn = v.findViewById(R.id.calendar_delete);
-            cal_up_btn = v.findViewById(R.id.calendar_update);
+            cal_create_btn = v.findViewById(R.id.calendar_create);
+            cal_delete_btn = v.findViewById(R.id.calendar_delete);
+            cal_update_btn = v.findViewById(R.id.calendar_update);
         }
     }
 
