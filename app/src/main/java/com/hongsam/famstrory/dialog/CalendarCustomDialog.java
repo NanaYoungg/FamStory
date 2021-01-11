@@ -1,9 +1,11 @@
 package com.hongsam.famstrory.dialog;
 
 import android.app.Dialog;
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,23 +18,32 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.hongsam.famstrory.R;
+import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.define.Define;
+import com.hongsam.famstrory.firebase.CalendarDB;
 import com.hongsam.famstrory.firebase.CreateDB;
+import com.hongsam.famstrory.firebase.UpdateDB;
+import com.hongsam.famstrory.interf.CustomDialogInterface;
 
 import java.util.Calendar;
+
+
 /*
     CalendarFragment 다이얼로그 일정 관련 이벤트
 */
-public class CalendarCustomDialog extends Dialog {
+
+public class CalendarCustomDialog extends Dialog implements CustomDialogInterface {
     Dialog dialog;
     Button dialogOkBtn, dialogCancelBtn, startTimeBtn, ednTimeBtn, timePickerSubmitStartBtn, timePickerSubmitEndBtn;
     public TextView startTimeTv, endTimeTv;
     TimePicker timePicker;
     public EditText viewMoreTitleEt, viewMoreDescriptionEt;
     String date;
+    MainActivity  mainActivity;
     String start_time_str,end_time_str;
     // 시간 비교위해 초기값 설정
     int start_time=-1,end_time=86401;
+    int type;
 
     // 일정추가시 파이어베이스 db 연동
     CreateDB createDB = new CreateDB();
@@ -42,12 +53,17 @@ public class CalendarCustomDialog extends Dialog {
     int hour = cal.get(Calendar.HOUR_OF_DAY);
     int min = cal.get(Calendar.MINUTE);
     int nowTime = hour*60+min;
-
-    public CalendarCustomDialog(@NonNull Context context, String date) {
+    UpdateDB updateDB;
+    public CalendarCustomDialog(@NonNull MainActivity context, String date,int type) {
         super(context);
-        this.date  =date;
+        this.date = date;
+        this.type = type;
 
         dialog = new Dialog(context);
+
+        updateDB = new UpdateDB(context);
+        updateDB.updateDB(date);
+        context.setCdi(this);
 
     }
 
@@ -57,8 +73,12 @@ public class CalendarCustomDialog extends Dialog {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_dialog);
+        Log.e("interface",type+"00");
+        Toast.makeText(getContext(),date+"",Toast.LENGTH_SHORT).show();
         // xml id 연결
         init();
+
+
         dialogOkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,5 +207,24 @@ public class CalendarCustomDialog extends Dialog {
         timePickerSubmitStartBtn = findViewById(R.id.time_picker_submit_start_btn);
         timePickerSubmitEndBtn = findViewById(R.id.time_picker_submit_end_btn);
 
+    }
+
+    @Override
+    public void calendarUpdateGetDialogText(CalendarDB data) {
+
+        Toast.makeText(getContext(),"oner",Toast.LENGTH_SHORT).show();
+        if (type==Define.UPDATE_DIALOG){
+            Log.e("Log","inreface");
+            Toast.makeText(getContext(),"oner",Toast.LENGTH_SHORT).show();
+            String dialogGetTitle = data.getTitle();
+            String dialogGetDescription  = data.getDescription();
+            String dialogGetStartTime = data.getStartTime();
+            String dialogGetEndTime = data.getEndTime();
+            Toast.makeText(getContext(),dialogGetDescription,Toast.LENGTH_SHORT).show();
+            viewMoreTitleEt.setText(dialogGetTitle);
+            viewMoreDescriptionEt.setText(dialogGetDescription);
+            startTimeTv.setText(dialogGetStartTime);
+            endTimeTv.setText(dialogGetEndTime);
+        }
     }
 }
