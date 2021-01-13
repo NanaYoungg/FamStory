@@ -37,38 +37,49 @@
     <list default="true" id="921b4585-0d62-456e-b126-b3bac1c28326" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_2_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_2_0_4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_2_0_4_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_3_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_3_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_fragment_fragment_1_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_savedstate_savedstate_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_savedstate_savedstate_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_core_1_3_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_core_1_3_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_3_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_3_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_3_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_3_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_ext_junit_1_1_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_ext_junit_1_1_2_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_3_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_3_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_3_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_3_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/markdown-navigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/markdown-navigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/activitie/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/activitie/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/firebase/CheckDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/firebase/CheckDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/hongsam/famstrory/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/hongsam/famstory/ExampleInstrumentedTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/ItemTouchHelper/RecyclerItemTouchHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/ItemTouchHelper/RecyclerItemTouchHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/activitie/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/activitie/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/adapter/EmotionAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/adapter/EmotionAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/adapter/LetterListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/adapter/LetterListAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/adapter/RecyclerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/adapter/RecyclerAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/controller/SharedManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/controller/SharedManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/controller/SwipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/controller/SwipeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/data/Family.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/data/Family.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/data/Keyword.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/data/Keyword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/data/Letter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/data/Letter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/data/LetterContants.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/data/LetterContants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/data/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/data/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/define/Define.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/define/Define.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/define/ViewHolderStruct.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/define/ViewHolderStruct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/dialog/CalendarCustomDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/dialog/CalendarCustomDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/dialog/LetterReceiverDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/dialog/LetterReceiverDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/dialog/ProfileDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/dialog/ProfileDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/firebase/CalendarDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/CalendarDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/firebase/CheckDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/CheckDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/firebase/CreateDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/CreateDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/firebase/DeleteDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/DeleteDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/firebase/ReadDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/ReadDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/firebase/UpdateDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/UpdateDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/fragment/CalendarFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/CalendarFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/fragment/CalendarViewMoreFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/CalendarViewMoreFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/fragment/EmotionFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/EmotionFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/fragment/FamCreateFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/FamCreateFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/fragment/LetterListFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/LetterListFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/fragment/LetterReadFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/LetterReadFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/fragment/LetterWriteFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/LetterWriteFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/fragment/MenuFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/MenuFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/fragment/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/ProfileFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/fragment/SettingFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/SettingFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/fragment/TimeLineFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/TimeLineFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/interf/CallbackInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/interf/CallbackInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/interf/CustomDialogInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/interf/CustomDialogInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/service/MyFirebaseMessagingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/service/MyFirebaseMessagingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/util/SharedManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/util/SharedManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/hongsam/famstrory/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/test/java/com/hongsam/famstory/ExampleUnitTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +124,6 @@
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -140,6 +150,11 @@
       <recent name="D:\projects\FamStory\app\src\main\res\layout" />
       <recent name="D:\projects\FamStory\app" />
     </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="google-service.json" />
+    </option>
   </component>
   <component name="RunManager">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
@@ -245,6 +260,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="1. 파이어베이스 관련 디펜던시 추가" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="661" y="86" key="#app" timestamp="1610554936443">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="661" y="86" key="#app/0.0.1920.1040@0.0.1920.1040" timestamp="1610554936443" />
     <state x="574" y="118" key="#com.intellij.ide.util.MemberChooser" timestamp="1609664834963">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -284,30 +303,30 @@
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1609495832192" />
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1609666871682" />
     <state x="687" y="211" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1610273654995" />
-    <state width="1876" height="204" key="GridCell.Tab.0.bottom" timestamp="1610549200986">
+    <state width="1876" height="204" key="GridCell.Tab.0.bottom" timestamp="1610555339108">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1491" height="190" key="GridCell.Tab.0.bottom/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1609499500406" />
     <state width="1491" height="38" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1609668340246" />
-    <state width="1876" height="204" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610549200986" />
-    <state width="1876" height="204" key="GridCell.Tab.0.center" timestamp="1610549200985">
+    <state width="1876" height="204" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610555339108" />
+    <state width="1876" height="204" key="GridCell.Tab.0.center" timestamp="1610555339108">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1491" height="190" key="GridCell.Tab.0.center/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1609499500406" />
     <state width="1491" height="38" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1609668340246" />
-    <state width="1876" height="204" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610549200985" />
-    <state width="1876" height="204" key="GridCell.Tab.0.left" timestamp="1610549200985">
+    <state width="1876" height="204" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610555339108" />
+    <state width="1876" height="204" key="GridCell.Tab.0.left" timestamp="1610555339101">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1491" height="190" key="GridCell.Tab.0.left/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1609499500406" />
     <state width="1491" height="38" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1609668340245" />
-    <state width="1876" height="204" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610549200985" />
-    <state width="1876" height="204" key="GridCell.Tab.0.right" timestamp="1610549200986">
+    <state width="1876" height="204" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610555339101" />
+    <state width="1876" height="204" key="GridCell.Tab.0.right" timestamp="1610555339108">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1491" height="190" key="GridCell.Tab.0.right/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1609499500406" />
     <state width="1491" height="38" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1609668340246" />
-    <state width="1876" height="204" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610549200986" />
+    <state width="1876" height="204" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610555339108" />
     <state width="1491" height="38" key="GridCell.Tab.1.bottom" timestamp="1609668340246">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -346,10 +365,11 @@
     <state x="475" y="144" width="585" height="536" key="find.popup/0.0.1536.824/-1920.0.1920.1040@0.0.1536.824" timestamp="1609492383450" />
     <state x="475" y="144" width="585" height="536" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1609313906528" />
     <state x="594" y="182" width="732" height="677" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1610274702573" />
-    <state x="425" y="187" key="run.anything.popup" timestamp="1609665822785">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="531" y="236" key="run.anything.popup" timestamp="1610555930550">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1609665822785" />
+    <state x="531" y="236" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1610555930550" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1609491927550">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -360,7 +380,7 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/hongsam/famstrory/fragment/MenuFragment.java</url>
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/MenuFragment.java</url>
           <line>38</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
