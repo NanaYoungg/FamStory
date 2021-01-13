@@ -1,11 +1,9 @@
 package com.hongsam.famstrory.fragment;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,18 +14,26 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
+import com.hongsam.famstrory.adapter.LetterListAdapter;
+import com.hongsam.famstrory.adapter.LetterPaperAdapter;
+import com.hongsam.famstrory.data.LetterContants;
+import com.hongsam.famstrory.data.LetterPaper;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.dialog.LetterReceiverDialog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -49,7 +55,11 @@ public class LetterWriteFragment extends Fragment {
     TextView mToTv;
     ImageButton mAddReciverBtn;
 
-    //CardView mCardView;
+    ArrayList<LetterPaper> mArrayList;
+    RecyclerView mRecyclerView;
+    LetterPaperAdapter mAdapter;
+//    int icons[];
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +88,7 @@ public class LetterWriteFragment extends Fragment {
 
         return mContentView;
     }
+
 
 
 
@@ -125,6 +136,18 @@ public class LetterWriteFragment extends Fragment {
         });
 
 
+        //편지지 선택하기
+        //recycle 관련
+//        mRecyclerView.setHasFixedSize(true);
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        mRecyclerView.scrollToPosition(0);
+//
+//        mAdapter = new LetterPaperAdapter(mArrayList);
+//        mRecyclerView.setAdapter(mAdapter);
+//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//
+//        return mContentView;
+
 
     }
 
@@ -142,12 +165,28 @@ public class LetterWriteFragment extends Fragment {
             mScrollView = mContentView.findViewById(R.id.letter_write_scroll);
             mBackgound = mContentView.findViewById(R.id.letter_write_img_view);
             mSendBtn = mContants.findViewById(R.id.letter_send_btn);
-            //mCardView = mContentView.findViewById(R.id.letter_cardView);
             mToTv = mContants.findViewById(R.id.f_letter_receiever_tv);
             mAddReciverBtn = mContentView.findViewById(R.id.f_receiver_add_img_btn);
+
+            mArrayList = new ArrayList<>();
+            mRecyclerView = mContentView.findViewById(R.id.recycler_letter_paper);
+
+
         }
     }
 
+    //편지지 이미지 목록
+//    private List<LetterPaper> initData() {
+//
+//        mArrayList = new ArrayList<>();
+//        mArrayList.add(new LetterContants(R.drawable.paper1_preview));
+//        mArrayList.add(new LetterContants(R.drawable.paper2_preview));
+//        mArrayList.add(new LetterContants(R.drawable.paper3_preview));
+//        mArrayList.add(new LetterContants(R.drawable.paper4_preview));
+//        mArrayList.add(new LetterContants(R.drawable.paper5_preview));
+//
+//        return mArrayList;
+//    }
 
     /**
      * 이미지 리소스 세팅해주는 함수

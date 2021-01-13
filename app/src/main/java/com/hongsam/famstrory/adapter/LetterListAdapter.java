@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,12 +18,11 @@ import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.define.Define;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.ViewHolder> {
 
-    ArrayList<LetterContants> letterItemList;
+    private ArrayList<LetterContants> letterItemList;
     private Context context;
 
     public LetterListAdapter(ArrayList<LetterContants> letterItemList, Context context) {
@@ -39,8 +36,8 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
     @NonNull
     @Override
     public LetterListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.latter_list_item,parent,false);
-        ViewHolder viewHolder=new ViewHolder(view);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_letter_list, parent,false);
+        ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
@@ -81,7 +78,6 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
             super(itemView);
 
             //뷰객체에 들어있는 텍스트뷰 등 참고
-//            itemImage=itemView.findViewById(R.id.itemImg);
             sender = itemView.findViewById(R.id.ltter_list_sender_tv);
             contants = itemView.findViewById(R.id.ltter_list_contents_tv);
             date = itemView.findViewById(R.id.ltter_list_date_tv);
