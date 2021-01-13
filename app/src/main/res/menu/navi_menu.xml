@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/main_menu"
         android:title=""
@@ -21,5 +22,10 @@
         android:title=""
         android:enabled="true"
         android:icon="@drawable/emotion_menu"/>
+    <item
+        android:id="@+id/setting_menu"
+        android:title=""
+        android:enabled="true"
+        android:icon="@drawable/menu_setting"/>
 
 </menu>
