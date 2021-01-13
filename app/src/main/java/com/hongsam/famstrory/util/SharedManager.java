@@ -44,6 +44,16 @@ public class SharedManager {
         editor.apply();
     }
 
+    public static long readLong(String key, long defValue) {
+        return pref.getLong(key, defValue);
+    }
+
+    public static void writeLong(String key, long value) {
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putLong(key, value);
+        editor.apply();
+    }
+
     public static boolean readBoolean(String key, boolean defValue) {
         return pref.getBoolean(key, defValue);
     }

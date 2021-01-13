@@ -21,8 +21,12 @@ public class Define {
     public static void setViewText(TextView view, String str){
         view.setText(str);
     }
+
     public static final String KEY_FAMILY_NAME = "KEY_FAMILY_NAME";
-    public static final String KEY_TEST = "KEY_TEST";
+    public static final String KEY_FAMILY_PICTURE = "KEY_FAMILY_PICTURE";
+    public static final String KEY_FAMILY_PICTURE_SIZE = "KEY_FAMILY_PICTURE_SIZE";
+    public static final String KEY_FAMILY_PICTURE_STRING = "KEY_IMAGE_STRING";
+    public static final String KEY_FAMILY_PICTURE_PATH = "KEY_FAMILY_PICTURE_PATH";
 
     public static final int VIEWTYPE_MEMBER = 0;
 
