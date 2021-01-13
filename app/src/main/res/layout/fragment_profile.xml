@@ -27,24 +27,27 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="길게 눌러서 가족사진을 설정해주세요."
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:visibility="gone"/>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/f_progile_cv_main"
+            android:id="@+id/f_profile_cv_main"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            app:cardCornerRadius="15dp"
+            app:cardCornerRadius="10dp"
             app:cardElevation="0dp"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/f_profile_iv_main"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                android:src="@drawable/familly"/>
+                android:src="@drawable/familly"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true" />
 
 
         </androidx.cardview.widget.CardView>

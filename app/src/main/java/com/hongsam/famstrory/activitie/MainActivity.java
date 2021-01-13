@@ -2,13 +2,19 @@ package com.hongsam.famstrory.activitie;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import android.view.WindowManager;
@@ -36,7 +42,7 @@ import com.hongsam.famstrory.interf.CallbackInterface;
 import com.hongsam.famstrory.interf.CustomDialogInterface;
 import com.hongsam.famstrory.util.SharedManager;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView navigationView;
 
@@ -59,18 +65,21 @@ public class MainActivity extends AppCompatActivity{
 
         SharedManager.getInstance(this);
 
-        changeFragment(Define.FRAGMENT_ID_EMOTION);
+        changeFragment(Define.FRAGMENT_ID_PROFILE);
 
-        changeFragment(Define.FRAGMENT_ID_EMOTION);
-        navigationView = (BottomNavigationView)findViewById(R.id.navi_view);
+        navigationView = (BottomNavigationView) findViewById(R.id.navi_view);
 
         readDB = new ReadDB(this);
         updateDB = new UpdateDB(this);
+
+        checkSelfPermission();
     }
+
     public void setCi(CallbackInterface ci) {
         this.ci = ci;
     }
-    public void setCdi(CustomDialogInterface cdi){
+
+    public void setCdi(CustomDialogInterface cdi) {
         this.cdi = cdi;
     }
 
@@ -78,15 +87,19 @@ public class MainActivity extends AppCompatActivity{
     public void databaseRead(String date) {
         readDB.databaseRead(date);
     }
-    public void calendarUpdateGetDialogText(CalendarDB data){
+
+    public void calendarUpdateGetDialogText(CalendarDB data) {
         cdi.calendarUpdateGetDialogText(data);
     }
+
     public void view_more_text(CalendarDB data) {
         ci.view_more_text(data);
     }
-    public void  isDataNull(String date){
+
+    public void isDataNull(String date) {
         ci.isDateNull(date);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -95,24 +108,25 @@ public class MainActivity extends AppCompatActivity{
             @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()){
-                case R.id.main_menu:
-                    changeFragment(Define.FRAGMENT_ID_MENU);
-                    break;
-                case R.id.calendar_menu:
-                    changeFragment(Define.FRAGMENT_ID_CALENDAR);
-                    break;
-                case R.id.message_menu:
-                    changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
-                    break;
-                case R.id.emotion_menu:
-                    changeFragment(Define.FRAGMENT_ID_EMOTION);
-                    break;
-            }
-            return true;
+                switch (item.getItemId()) {
+                    case R.id.main_menu:
+                        changeFragment(Define.FRAGMENT_ID_MENU);
+                        break;
+                    case R.id.calendar_menu:
+                        changeFragment(Define.FRAGMENT_ID_PROFILE);
+                        break;
+                    case R.id.message_menu:
+                        changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+                        break;
+                    case R.id.emotion_menu:
+                        changeFragment(Define.FRAGMENT_ID_EMOTION);
+                        break;
+                }
+                return true;
             }
         });
     }
+
     Fragment fragment = null;
 
     public void changeFragment(int fragmentId) {
@@ -201,5 +215,21 @@ public class MainActivity extends AppCompatActivity{
             }
         });
     }
+
+    public void checkSelfPermission() {
+        String temp = "";
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            temp += Manifest.permission.READ_EXTERNAL_STORAGE + " ";
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
+        }
+        if (TextUtils.isEmpty(temp) == false) {
+            ActivityCompat.requestPermissions(this, temp.trim().split(" "), 1);
+        } else {
+            Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }
