@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity{
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()){
                 case R.id.main_menu:
-                    changeFragment(Define.FRAGMENT_ID_MENU);
+                    changeFragment(Define.FRAGMENT_ID_PROFILE);
                     break;
                 case R.id.calendar_menu:
                     changeFragment(Define.FRAGMENT_ID_CALENDAR);
@@ -108,6 +108,12 @@ public class MainActivity extends AppCompatActivity{
                 case R.id.emotion_menu:
                     changeFragment(Define.FRAGMENT_ID_EMOTION);
                     break;
+                case R.id.setting_menu:
+                    changeFragment(Define.FRAGMENT_ID_PROFILE);
+                    break;
+                default:
+                    break;
+
             }
             return true;
             }

@@ -1,7 +1,29 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+android {
+
+    buildFeatures {
+
+        viewBinding = true
+
+    }
+
+}
+
+
 
 android {
+
+    buildFeatures{
+
+        dataBinding = true
+
+    }
+
+}
+android {
+
+
 
     compileSdkVersion 29
     buildToolsVersion '29.0.2'
