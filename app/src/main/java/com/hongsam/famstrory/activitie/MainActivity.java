@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case Define.FRAGMENT_ID_LETTER_READ:
-                fragment = new SettingFragment();
+                fragment = new LetterReadFragment();
                 break;
 
             default:

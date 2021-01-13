@@ -53,7 +53,7 @@ public class LetterReadFragment extends Fragment {
 
         mainActivity = (MainActivity) getActivity();
 
-        mContentView = inflater.inflate(R.layout.fragment_letter_write, container, false);
+        mContentView = inflater.inflate(R.layout.fragment_letter_read, container, false);
 
         init(mContentView);
 
@@ -75,6 +75,17 @@ public class LetterReadFragment extends Fragment {
          * */
     public void init(View v) {
         if (v != null) {
+        mBackBtn = mContentView.findViewById(R.id.letter_read_back_btn);
+
+            //toolbar의 뒤로가기 버튼
+            mBackBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+                }
+            });
+
+
 
         }
     }
@@ -84,7 +95,6 @@ public class LetterReadFragment extends Fragment {
      * 이미지 리소스 세팅해주는 함수
      * */
     public void setImageResource() {
-        mBackBtn = mContentView.findViewById(R.id.letter_read_back_btn);
     }
 
 

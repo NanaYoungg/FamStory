@@ -1,7 +1,5 @@
 package com.hongsam.famstrory.data;
 
-import android.graphics.Bitmap;
-
 //편지내용
 public class LetterContants {
 
@@ -9,7 +7,7 @@ public class LetterContants {
     private String contants;
     private String date;
 
-    public LetterContants(){}
+    public LetterContants(int paper1){}
 
     public LetterContants(String sender, String contants, String date) {
         this.sender = sender;

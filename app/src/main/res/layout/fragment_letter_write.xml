@@ -60,7 +60,7 @@
         android:layout_marginTop="80dp"
         android:layout_width="350dp"
         android:layout_height="500dp"
-        android:background="@drawable/testpaper"/>
+        android:background="@drawable/paper2"/>
 
     <TextView
         android:id="@+id/f_letter_to_tv"

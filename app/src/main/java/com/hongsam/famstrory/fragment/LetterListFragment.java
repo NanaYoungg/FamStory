@@ -1,5 +1,6 @@
 package com.hongsam.famstrory.fragment;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,13 +30,7 @@ import com.hongsam.famstrory.define.Define;
 
 import java.util.ArrayList;
 import java.util.List;
-//편지읽기로 이동
-//        mCardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_READ);
-//            }
-//        });
+
 
 public class LetterListFragment extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
@@ -50,7 +45,6 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
     LetterListAdapter letterListAdapter;
     CoordinatorLayout coordinatorLayout;
     FloatingActionButton fab;
-    //CardView mCardView;
 
 
     public LetterListFragment() {
@@ -98,7 +92,6 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
     public void onResume() {
         super.onResume();
 
-
         //recycle 관련
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -122,7 +115,6 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
             coordinatorLayout = mContentView.findViewById(R.id.coordinatorlayout);
             fab = mContentView.findViewById(R.id.f_latter_send_fab_btn);
             recyclerView = mContentView.findViewById(R.id.f_latter_list_recycler);
-            //mCardView = mContentView.findViewById(R.id.letter_cardView);
 
 
             //편지보내기로 전환
@@ -132,14 +124,6 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
                     mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_WRITE);
                 }
             });
-
-            //편지읽기로 이동
-        /*mCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_READ);
-            }
-        });*/
 
 
             //스크롤시 fab 숨기 , 스크롤시 fab 나타남
