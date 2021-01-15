@@ -171,7 +171,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (viewHolder instanceof LetterListAdapter.ViewHolder) {
             //보낸이를 snackbar에 띄워주기위해 get
-            String sender = itemList.get(viewHolder.getAdapterPosition()).getSender();
+            String sender = itemList.get(viewHolder.getAdapterPosition()).getReceiver();
 
             // undo시 백업
 //            final Item deletedItem = itemList.get(viewHolder.getAdapterPosition());

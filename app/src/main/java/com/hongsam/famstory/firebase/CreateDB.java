@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hongsam.famstory.data.Letter;
 import com.hongsam.famstory.define.Define;
 
 public class CreateDB {
@@ -20,4 +21,5 @@ public class CreateDB {
         CalendarDB calendarDB = new CalendarDB(getTitle,getText,getStartTime,getEndTime);
         database.child(getDate).setValue(calendarDB);
     }
+
 }

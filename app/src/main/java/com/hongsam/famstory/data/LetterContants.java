@@ -3,21 +3,21 @@ package com.hongsam.famstory.data;
 //편지내용
 public class LetterContants {
 
-    private String sender;
+    private String receiver;
     private String contants;
     private String date;
 
     public LetterContants(int paper1){}
 
-    public LetterContants(String sender, String contants, String date) {
-        this.sender = sender;
+    public LetterContants(String receiver, String contants, String date) {
+        this.receiver = receiver;
         this.contants = contants;
         this.date = date;
     }
 
-    public String getSender() { return sender; }
+    public String getReceiver() { return receiver; }
 
-    public void setSender(String sender) { this.sender = sender; }
+    public void setReceiver(String receiver) { this.receiver = receiver; }
 
     public String getContants() { return contants; }
 

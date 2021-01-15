@@ -15,6 +15,7 @@ import android.os.Bundle;
         import androidx.fragment.app.DialogFragment;
 
         import com.hongsam.famstory.R;
+import com.hongsam.famstory.fragment.LetterWriteFragment;
 
 /*
  * 편지 받는이 선택하기 다이얼로그
@@ -50,15 +51,17 @@ public class LetterReceiverDialog extends DialogFragment implements View.OnClick
 
         //확인버튼 누를시 스피너 값 LetterWriteFragment에 전달
         Button mOkBtn = (Button)v.findViewById(R.id.dialog_receiver_ok_btn);
-        mOkBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { Bundle args = new Bundle();
-               args.putString("reciever", str_receiver);
-               DialogFragment dialogFragment = new DialogFragment ();
-               dialogFragment.setArguments(args);
-               dialogFragment.show(getFragmentManager(), "dialog_event");
-            }
-        });
+//        mOkBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Bundle args = new Bundle();
+//                args.putString("reciever", str_receiver);
+//                LetterWriteFragment letterWriteFragment = new LetterWriteFragment ();
+//                letterWriteFragment.setArguments(args);
+//                letterWriteFragment.show(getFragmentManager(), "Dialog Fragment");
+//            }
+//        });
+
 
 
         Button mCancleBtn = (Button)v.findViewById(R.id.dialog_receiver_cancle_btn);
@@ -66,6 +69,7 @@ public class LetterReceiverDialog extends DialogFragment implements View.OnClick
         mCancleBtn.setOnClickListener(this);
         //화면터치시 꺼짐 막기
         setCancelable(false);
+
 
         return v;
     }

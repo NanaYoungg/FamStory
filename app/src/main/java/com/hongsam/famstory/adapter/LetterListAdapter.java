@@ -48,7 +48,8 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull LetterListAdapter.ViewHolder holder, final int position) {
 
-        holder.sender.setText(letterItemList.get(position).getSender());
+        //추후 호칭 자동 변경 서비스일때 보낸이가 선택한 Receiver 호칭 매칭..
+        holder.sender.setText(letterItemList.get(position).getReceiver());
         holder.contants.setText(letterItemList.get(position).getContants());
         holder.date.setText(letterItemList.get(position).getDate());
 
@@ -86,7 +87,7 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
             contants = itemView.findViewById(R.id.ltter_list_contents_tv);
             date = itemView.findViewById(R.id.ltter_list_date_tv);
             linearLayout = itemView.findViewById(R.id.layout_id);
-            viewBackgound = itemView.findViewById(R.id.view_background);
+//            viewBackgound = itemView.findViewById(R.id.view_background);
             cardView = itemView.findViewById(R.id.letter_cardView);
 
         }

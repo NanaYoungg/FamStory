@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +35,7 @@ import com.hongsam.famstory.dialog.LetterPaperDialog;
 import com.hongsam.famstory.dialog.LetterReceiverDialog;
 import com.hongsam.famstory.firebase.CreateDB;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,18 +61,14 @@ public class LetterWriteFragment extends Fragment {
     private InputMethodManager imm;
     private Button mSendBtn;
     private TextView mToTv, mWriteDate;
-    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy/M/d"); // 날짜 포맷
-
+    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy년MM월dd일"); // 날짜 포맷
     private ArrayList<LetterPaper> mArrayList;
-//    int icons[];
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
-
-
 
     }
 
@@ -103,6 +101,30 @@ public class LetterWriteFragment extends Fragment {
      * */
     public void onResume() {
         super.onResume();
+
+
+    }
+
+
+    /**
+     * 컨트롤 초기화 해주는 함수
+     */
+    public void init(View v) {
+        if (v != null) {
+            mBackBtn = mContentView.findViewById(R.id.letter_write_back_btn);
+            mContants = mContentView.findViewById(R.id.contants_tv);
+            mPhotoView = mContentView.findViewById(R.id.photo_iv);
+            mPhoto = mContentView.findViewById(R.id.gallery_img_btn);
+            mConstraintLayout = mContentView.findViewById(R.id.fragment_letter_write);
+            mScrollView = mContentView.findViewById(R.id.letter_write_scroll);
+            mBackgound = mContentView.findViewById(R.id.letter_write_img_view);
+            mSendBtn = mContentView.findViewById(R.id.letter_send_btn);
+            mToTv = mContentView.findViewById(R.id.f_letter_receiever_tv);
+            mAddReciverBtn = mContentView.findViewById(R.id.f_receiver_add_img_btn);
+            mAddPaperBtn = mContentView.findViewById(R.id.letter_paper_img_btn);
+            mWriteDate = mContentView.findViewById(R.id.letter_write_date);
+
+            mArrayList = new ArrayList<>();
 
         //toolbar의 뒤로가기 버튼
         mBackBtn.setOnClickListener(new View.OnClickListener() {
@@ -142,9 +164,9 @@ public class LetterWriteFragment extends Fragment {
         });
 
         //받는이 값 받아오기
-        Bundle mArgs = getArguments();
-        String mValue = mArgs.getString("key");
-        mToTv.setText(mValue);
+//        Bundle mArgs = getArguments();
+//        String mValue = mArgs.getString("reciever");
+//        mToTv.setText(mValue);
 
         //편지지 선택하기
         mAddPaperBtn.setOnClickListener(new View.OnClickListener() {
@@ -155,44 +177,19 @@ public class LetterWriteFragment extends Fragment {
             }
         });
 
-        //편지 보내는 날짜
+        //편지 보내는 현재 날짜
         Date date = new Date();
         String time = mFormat.format(date);
         mWriteDate.setText(time); // 현재 날짜로 설정
 
 
-
         //편지보내기
-//        mSendBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getContext(), "편지가 전송되었습니다.", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-    }
-
-
-    /**
-     * 컨트롤 초기화 해주는 함수
-     */
-    public void init(View v) {
-        if (v != null) {
-            mBackBtn = mContentView.findViewById(R.id.letter_write_back_btn);
-            mContants = mContentView.findViewById(R.id.contants_tv);
-            mPhotoView = mContentView.findViewById(R.id.photo_iv);
-            mPhoto = mContentView.findViewById(R.id.gallery_img_btn);
-            mConstraintLayout = mContentView.findViewById(R.id.fragment_letter_write);
-            mScrollView = mContentView.findViewById(R.id.letter_write_scroll);
-            mBackgound = mContentView.findViewById(R.id.letter_write_img_view);
-            mSendBtn = mContants.findViewById(R.id.letter_send_btn);
-            mToTv = mContants.findViewById(R.id.f_letter_receiever_tv);
-            mAddReciverBtn = mContentView.findViewById(R.id.f_receiver_add_img_btn);
-            mAddPaperBtn = mContentView.findViewById(R.id.letter_paper_img_btn);
-            mWriteDate = mContants.findViewById(R.id.letter_write_date);
-
-            mArrayList = new ArrayList<>();
-
+        mSendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "편지가 전송되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         }
     }
@@ -226,4 +223,6 @@ public class LetterWriteFragment extends Fragment {
         super.onDestroy();
         // 예시) button1 = null;
     }
+
+
 }
