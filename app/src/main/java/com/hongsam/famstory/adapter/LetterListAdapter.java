@@ -19,6 +19,10 @@ import com.hongsam.famstory.define.Define;
 
 import java.util.ArrayList;
 
+/*
+* 편지 목록 어댑터.
+* 1/5 , 오나영
+* */
 
 public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.ViewHolder> {
 

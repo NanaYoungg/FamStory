@@ -14,11 +14,16 @@ import com.hongsam.famstory.R;
 import com.hongsam.famstory.activitie.MainActivity;
 import com.hongsam.famstory.define.Define;
 
+/*
+ * 편지 읽기 화면 (편지목록 -> 편지읽기)
+ * 1/6 , 오나영
+ * */
+
 public class LetterReadFragment extends Fragment {
 
-    MainActivity mainActivity;
-    View mContentView;
-    ImageButton mBackBtn;
+    private MainActivity mainActivity;
+    private View mContentView;
+    private ImageButton mBackBtn;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

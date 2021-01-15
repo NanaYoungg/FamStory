@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -29,20 +30,24 @@ import com.hongsam.famstory.define.Define;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * 편지 목록 화면
+ * 1/4 , 오나영
+ * */
 
 public class LetterListFragment extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
-    MainActivity mainActivity;
-    View mContentView;
+    private MainActivity mainActivity;
+    private View mContentView;
 
-    FirebaseDatabase mDb;
-    DatabaseReference mFamRef;
+    private FirebaseDatabase mDb;
+    private DatabaseReference mFamRef;
 
-    RecyclerView recyclerView;
-    ArrayList<LetterContants> itemList;
-    LetterListAdapter letterListAdapter;
-    CoordinatorLayout coordinatorLayout;
-    FloatingActionButton fab;
+    private RecyclerView recyclerView;
+    private ArrayList<LetterContants> itemList;
+    private LetterListAdapter letterListAdapter;
+    private CoordinatorLayout coordinatorLayout;
+    private FloatingActionButton fab;
 
 
     public LetterListFragment() {

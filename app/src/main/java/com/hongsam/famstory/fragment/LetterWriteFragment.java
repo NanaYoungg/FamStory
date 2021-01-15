@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongsam.famstory.R;
@@ -26,33 +30,38 @@ import com.hongsam.famstory.activitie.MainActivity;
 import com.hongsam.famstory.adapter.LetterPaperAdapter;
 import com.hongsam.famstory.data.LetterPaper;
 import com.hongsam.famstory.define.Define;
+import com.hongsam.famstory.dialog.LetterPaperDialog;
 import com.hongsam.famstory.dialog.LetterReceiverDialog;
+import com.hongsam.famstory.firebase.CreateDB;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
+
+/*
+ * 편지 쓰기 화면 (편지목록의 플로팅버튼 -> 편지읽기)
+ * 1/4 , 오나영
+ * */
 
 public class LetterWriteFragment extends Fragment {
 
     private final int GET_GALLERY_IMAGE = 200;
 
-    MainActivity mainActivity;
-    View mContentView;
-    ImageButton mBackBtn;
-    ImageButton mPhoto;
-    ImageView mPhotoView;
-    EditText mContants;
-    ConstraintLayout mConstraintLayout;
-    ScrollView mScrollView;
-    ImageView mBackgound;
-    InputMethodManager imm;
-    Button mSendBtn;
-    TextView mToTv;
-    ImageButton mAddReciverBtn;
+    private MainActivity mainActivity;
+    private View mContentView;
+    private ImageButton mBackBtn, mPhoto, mAddReciverBtn, mAddPaperBtn;
+    private ImageView mPhotoView, mBackgound;
+    private EditText mContants;
+    private ConstraintLayout mConstraintLayout;
+    private ScrollView mScrollView;
+    private InputMethodManager imm;
+    private Button mSendBtn;
+    private TextView mToTv, mWriteDate;
+    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy/M/d"); // 날짜 포맷
 
-    ArrayList<LetterPaper> mArrayList;
-    RecyclerView mRecyclerView;
-    LetterPaperAdapter mAdapter;
+    private ArrayList<LetterPaper> mArrayList;
 //    int icons[];
 
 
@@ -60,6 +69,8 @@ public class LetterWriteFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
+
+
 
     }
 
@@ -106,7 +117,7 @@ public class LetterWriteFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(intent, GET_GALLERY_IMAGE);
             }
         });
@@ -130,19 +141,34 @@ public class LetterWriteFragment extends Fragment {
             }
         });
 
+        //받는이 값 받아오기
+        Bundle mArgs = getArguments();
+        String mValue = mArgs.getString("key");
+        mToTv.setText(mValue);
 
         //편지지 선택하기
-        //recycle 관련
-//        mRecyclerView.setHasFixedSize(true);
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        mRecyclerView.scrollToPosition(0);
-//
-//        mAdapter = new LetterPaperAdapter(mArrayList);
-//        mRecyclerView.setAdapter(mAdapter);
-//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-//
-//        return mContentView;
+        mAddPaperBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LetterPaperDialog mletterPaperDialog = LetterPaperDialog.getInstance();
+                mletterPaperDialog.show(getFragmentManager(), LetterPaperDialog.TAG_PAPER_DIALOG);
+            }
+        });
 
+        //편지 보내는 날짜
+        Date date = new Date();
+        String time = mFormat.format(date);
+        mWriteDate.setText(time); // 현재 날짜로 설정
+
+
+
+        //편지보내기
+//        mSendBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getContext(), "편지가 전송되었습니다.", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
     }
 
@@ -162,26 +188,15 @@ public class LetterWriteFragment extends Fragment {
             mSendBtn = mContants.findViewById(R.id.letter_send_btn);
             mToTv = mContants.findViewById(R.id.f_letter_receiever_tv);
             mAddReciverBtn = mContentView.findViewById(R.id.f_receiver_add_img_btn);
+            mAddPaperBtn = mContentView.findViewById(R.id.letter_paper_img_btn);
+            mWriteDate = mContants.findViewById(R.id.letter_write_date);
 
             mArrayList = new ArrayList<>();
-            mRecyclerView = mContentView.findViewById(R.id.recycler_letter_paper);
 
 
         }
     }
 
-    //편지지 이미지 목록
-//    private List<LetterPaper> initData() {
-//
-//        mArrayList = new ArrayList<>();
-//        mArrayList.add(new LetterContants(R.drawable.paper1_preview));
-//        mArrayList.add(new LetterContants(R.drawable.paper2_preview));
-//        mArrayList.add(new LetterContants(R.drawable.paper3_preview));
-//        mArrayList.add(new LetterContants(R.drawable.paper4_preview));
-//        mArrayList.add(new LetterContants(R.drawable.paper5_preview));
-//
-//        return mArrayList;
-//    }
 
     /**
      * 이미지 리소스 세팅해주는 함수

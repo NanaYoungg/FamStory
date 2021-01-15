@@ -8,32 +8,21 @@
     android:gravity="center"
     android:id="@+id/fragment_letter_write">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/latter_write_toolbar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+
         <ImageButton
             android:id="@+id/letter_write_back_btn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/back_btn_customise"/>
-        <TextView
-            style="@style/LatterUpBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/latter_write_name"/>
-    </androidx.appcompat.widget.Toolbar>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/back_arrow_press"/>
+
 
     <ImageButton
         android:id="@+id/letter_paper_img_btn"
-        app:layout_constraintTop_toBottomOf="@id/latter_write_toolbar"
+        app:layout_constraintTop_toTopOf="@id/letter_write_back_btn"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="100dp"
         android:layout_marginTop="10dp"
@@ -45,7 +34,7 @@
         android:id="@+id/gallery_img_btn"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@id/letter_paper_img_btn"
-        app:layout_constraintTop_toBottomOf="@id/latter_write_toolbar"
+        app:layout_constraintTop_toTopOf="@id/letter_write_back_btn"
         android:layout_marginTop="10dp"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -54,7 +43,7 @@
 
     <ImageView
         android:id="@+id/letter_write_img_view"
-        app:layout_constraintTop_toBottomOf="@id/latter_write_toolbar"
+        app:layout_constraintTop_toBottomOf="@id/letter_write_back_btn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="80dp"
@@ -90,7 +79,17 @@
         android:layout_marginLeft="10dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/plus"
+        android:background="@drawable/plus" />
+
+    <TextView
+        android:id="@+id/letter_write_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toRightOf="@id/f_receiver_add_img_btn"
+        app:layout_constraintBottom_toBottomOf="@id/f_letter_receiever_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="0000년00월00일"
+        android:textSize="15dp"
         />
 
 

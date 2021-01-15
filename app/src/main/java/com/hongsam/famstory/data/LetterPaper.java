@@ -3,7 +3,11 @@ package com.hongsam.famstory.data;
 public class LetterPaper {
     public int image;
 
-    public int getImage() {
+    public LetterPaper() {
+
+    }
+
+    public int getImage(int paper1_preview) {
         return image;
     }
 
