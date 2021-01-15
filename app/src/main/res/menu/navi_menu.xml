@@ -25,7 +25,7 @@
     <item
         android:id="@+id/setting_menu"
         android:title=""
-        android:enabled="true"
-        android:icon="@drawable/menu_setting"/>
+        android:enabled="true"/>
+<!--        android:icon="@drawable/menu_setting"-->
 
 </menu>
