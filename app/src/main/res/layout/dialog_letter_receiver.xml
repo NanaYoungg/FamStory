@@ -11,7 +11,8 @@
         android:layout_height="60dp"
         android:gravity="center"
         android:textSize="16dp"
-        android:text="받는 사람"/>
+        android:text="받는 사람"
+        android:background="@color/colorPrimary"/>
 
 
     <Spinner

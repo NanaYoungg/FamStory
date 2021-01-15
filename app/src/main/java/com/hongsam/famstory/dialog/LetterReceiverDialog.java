@@ -26,6 +26,8 @@ public class LetterReceiverDialog extends DialogFragment implements View.OnClick
 
     public static final String TAG_EVENT_DIALOG = "dialog_event";
 
+
+
     public LetterReceiverDialog(){}
 
     public static LetterReceiverDialog getInstance(){
@@ -51,16 +53,18 @@ public class LetterReceiverDialog extends DialogFragment implements View.OnClick
 
         //확인버튼 누를시 스피너 값 LetterWriteFragment에 전달
         Button mOkBtn = (Button)v.findViewById(R.id.dialog_receiver_ok_btn);
-//        mOkBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
+        mOkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 //                Bundle args = new Bundle();
-//                args.putString("reciever", str_receiver);
-//                LetterWriteFragment letterWriteFragment = new LetterWriteFragment ();
-//                letterWriteFragment.setArguments(args);
-//                letterWriteFragment.show(getFragmentManager(), "Dialog Fragment");
-//            }
-//        });
+//                args.putString("key", "mTotv");
+//                LetterWriteFragment LetterWriteFragment = new LetterWriteFragment ();
+//                LetterWriteFragment.setArguments(args);
+//                LetterWriteFragment.put(getFragmentManager(), "Sample Dialog Fragment");
+
+
+            }
+        });
 
 
 

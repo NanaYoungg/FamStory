@@ -168,6 +168,7 @@ public class LetterWriteFragment extends Fragment {
 //        String mValue = mArgs.getString("reciever");
 //        mToTv.setText(mValue);
 
+           
         //편지지 선택하기
         mAddPaperBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,6 +224,5 @@ public class LetterWriteFragment extends Fragment {
         super.onDestroy();
         // 예시) button1 = null;
     }
-
 
 }
