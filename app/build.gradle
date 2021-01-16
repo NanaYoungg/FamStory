@@ -1,13 +1,41 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+android {
+
+    buildFeatures {
+
+        viewBinding = true
+
+    }
+
+}
 
 
+
+<<<<<<< HEAD
 android {
     //안드로이드 스튜디오 4.0이상 버전 부터 DataBinding 에도 true 를 해줘야함
     buildFeatures{
         dataBinding = true
         viewBinding = true
     }
+=======
+    buildFeatures {
+
+        dataBinding = true
+
+    }
+
+}
+android {
+
+
+    viewBinding {
+        enabled = true
+    }
+
+
+>>>>>>> 3c773d7511568c0509dfb8f46feb3f3792a06073
     compileSdkVersion 29
     buildToolsVersion '29.0.2'
     defaultConfig {

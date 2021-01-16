@@ -34,6 +34,12 @@ public class CheckDB extends Fragment{
     CalendarDB calendarDB;
     ArrayList<String> list = new ArrayList<>();
     int view =1 ;
+<<<<<<< HEAD:app/src/main/java/com/hongsam/famstory/firebase/CheckDB.java
+=======
+
+
+    public void checkDB(final String date, Context context,final FragmentManager fm, final Fragment fr){
+>>>>>>> 3c773d7511568c0509dfb8f46feb3f3792a06073:app/src/main/java/com/hongsam/famstrory/firebase/CheckDB.java
 
 
     public void checkDB(int year,int month,int day,final String date, Context context,final FragmentManager fm, final Fragment fr){

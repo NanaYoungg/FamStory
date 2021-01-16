@@ -13,8 +13,11 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
+<<<<<<< HEAD:app/src/main/java/com/hongsam/famstory/activitie/MainActivity.java
 import android.widget.Toast;
 import android.widget.Toolbar;
+=======
+>>>>>>> 3c773d7511568c0509dfb8f46feb3f3792a06073:app/src/main/java/com/hongsam/famstrory/activitie/MainActivity.java
 
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -31,7 +34,10 @@ import com.hongsam.famstory.fragment.CalendarFragment;
 import com.hongsam.famstory.fragment.EmotionFragment;
 import com.hongsam.famstory.fragment.FamCreateFragment;
 import com.hongsam.famstory.fragment.LetterListFragment;
+<<<<<<< HEAD:app/src/main/java/com/hongsam/famstory/activitie/MainActivity.java
 import com.hongsam.famstory.fragment.LetterReadFragment;
+=======
+>>>>>>> 3c773d7511568c0509dfb8f46feb3f3792a06073:app/src/main/java/com/hongsam/famstrory/activitie/MainActivity.java
 import com.hongsam.famstory.fragment.LetterWriteFragment;
 import com.hongsam.famstory.fragment.MenuFragment;
 import com.hongsam.famstory.fragment.ProfileFragment;
@@ -42,7 +48,11 @@ import com.hongsam.famstory.interf.CallbackInterface;
 import com.hongsam.famstory.interf.CustomDialogInterface;
 import com.hongsam.famstory.util.SharedManager;
 
+<<<<<<< HEAD:app/src/main/java/com/hongsam/famstory/activitie/MainActivity.java
 public class MainActivity extends AppCompatActivity {
+=======
+public class MainActivity extends AppCompatActivity{
+>>>>>>> 3c773d7511568c0509dfb8f46feb3f3792a06073:app/src/main/java/com/hongsam/famstrory/activitie/MainActivity.java
 
     BottomNavigationView navigationView;
 
@@ -108,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+<<<<<<< HEAD:app/src/main/java/com/hongsam/famstory/activitie/MainActivity.java
 
                 switch (item.getItemId()){
                     case R.id.main_menu:
@@ -131,6 +142,29 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 return true;
+=======
+            switch (item.getItemId()){
+                case R.id.main_menu:
+                    changeFragment(Define.FRAGMENT_ID_PROFILE);
+                    break;
+                case R.id.calendar_menu:
+                    changeFragment(Define.FRAGMENT_ID_CALENDAR);
+                    break;
+                case R.id.message_menu:
+                    changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+                    break;
+                case R.id.emotion_menu:
+                    changeFragment(Define.FRAGMENT_ID_EMOTION);
+                    break;
+                case R.id.setting_menu:
+                    changeFragment(Define.FRAGMENT_ID_PROFILE);
+                    break;
+                default:
+                    break;
+
+            }
+            return true;
+>>>>>>> 3c773d7511568c0509dfb8f46feb3f3792a06073:app/src/main/java/com/hongsam/famstrory/activitie/MainActivity.java
             }
         });
     }

@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+<<<<<<< HEAD:app/src/main/java/com/hongsam/famstory/fragment/LetterWriteFragment.java
 import android.provider.MediaStore;
+=======
+>>>>>>> 3c773d7511568c0509dfb8f46feb3f3792a06073:app/src/main/java/com/hongsam/famstrory/fragment/LetterWriteFragment.java
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +18,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+<<<<<<< HEAD:app/src/main/java/com/hongsam/famstory/fragment/LetterWriteFragment.java
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,6 +42,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+=======
+
+import com.hongsam.famstory.R;
+import com.hongsam.famstory.activitie.MainActivity;
+import com.hongsam.famstory.define.Define;
+import com.hongsam.famstory.dialog.LetterReceiverDialog;
+>>>>>>> 3c773d7511568c0509dfb8f46feb3f3792a06073:app/src/main/java/com/hongsam/famstrory/fragment/LetterWriteFragment.java
 
 import static android.app.Activity.RESULT_OK;
 
