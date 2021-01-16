@@ -20,7 +20,7 @@ public class CreateDB {
         int Month = bundle.getInt("month");
         int Day = bundle.getInt("day");
         DatabaseReference database = FirebaseDatabase.getInstance().getReference("Family").child(user).child("CalendarDB")
-                .child(getDate);
+                .child(Year+"년").child(Month+"월").child(Day+"일");
         CalendarDB calendarDB = new CalendarDB(getTitle,getText,getStartTime,getEndTime);
         database.setValue(calendarDB);
     }

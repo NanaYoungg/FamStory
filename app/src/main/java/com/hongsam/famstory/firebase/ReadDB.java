@@ -1,6 +1,8 @@
 package com.hongsam.famstory.firebase;
 
 
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -22,7 +24,6 @@ public class ReadDB {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     String userName = Define.user;
-    DatabaseReference myRef = database.getReference("Family").child(userName).child("CalendarDB");
 
 
     CalendarDB calendarDB;
@@ -33,16 +34,19 @@ public class ReadDB {
     /*
        Calendar에서 onclick 이벤트가 발생했을때 파이어베이스가 비어있는지 확인
     */
-    public void databaseRead(final String date){
+    public void databaseRead(int year,int month,final int day,final String date){
 
 
-        Query query = myRef.orderByChild(date);
+        DatabaseReference myRef = database.getReference("Family").child(userName).child("CalendarDB")
+                .child(year+"년").child(month+"월");
+        Query query = myRef.orderByChild(day+"일");
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                if(Objects.equals(snapshot.getKey(), date)) {
+                if(Objects.equals(snapshot.getKey(), day+"일")) {
                     calendarDB = snapshot.getValue(CalendarDB.class);
+                    Toast.makeText(mainActivity,calendarDB.getDescription(),Toast.LENGTH_SHORT).show();
                     mainActivity.isDataNull(date);
                     mainActivity.view_more_text(calendarDB);
                 }
@@ -53,7 +57,8 @@ public class ReadDB {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (Objects.equals(snapshot.getKey(), date)) {
+                if (Objects.equals(snapshot.getKey(), day+"일")) {
+                    Toast.makeText(mainActivity,calendarDB.getDescription(),Toast.LENGTH_SHORT).show();
                     calendarDB = snapshot.getValue(CalendarDB.class);
                     mainActivity.isDataNull(date);
                     mainActivity.view_more_text(calendarDB);

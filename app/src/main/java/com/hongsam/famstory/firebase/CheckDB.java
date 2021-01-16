@@ -39,9 +39,10 @@ public class CheckDB extends Fragment{
 
 
     public void checkDB(int year,int month,int day,final String date, Context context,final FragmentManager fm, final Fragment fr){
-        DatabaseReference myRef = database.getReference("Family").child(userName).child("CalendarDB").child(date);
+        DatabaseReference myRef = database.getReference("Family").child(userName).child("CalendarDB")
+                .child(year+"년").child(month+"월").child(day+"일");
         Query query = myRef.orderByChild(date);
-
+        Log.e("a",year+" "+month+" "+day);
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {

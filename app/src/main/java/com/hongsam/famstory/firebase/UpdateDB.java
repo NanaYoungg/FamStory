@@ -24,15 +24,15 @@ public class UpdateDB {
         this.mainActivity = mainActivity;
     }
 
-    public void updateDB(final String date){
+    public void updateDB(int year, int month, final int day, final String date){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         String userName = Define.user;
-        DatabaseReference myRef = database.getReference("CalendarDB").child(userName);
-        Query query = myRef.orderByChild(date);
+        DatabaseReference myRef = database.getReference("family").child(userName).child("CalendarDB").child(year+"년").child(month+"월");
+        Query query = myRef.orderByChild(day+"일");
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(Objects.equals(snapshot.getKey(),date)) {
+                if(Objects.equals(snapshot.getKey(),day+"일")) {
                     calendarDB = snapshot.getValue(CalendarDB.class);
                     Log.e("Tag", calendarDB.getTitle());
                     mainActivity.calendarUpdateGetDialogText(calendarDB);
