@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void databaseRead(int year, int month, int day, String date) {
-        readDB.databaseRead(date);
+        readDB.databaseRead(year,month,day,date);
     }
 
     public void calendarUpdateGetDialogText(CalendarDB data) {
