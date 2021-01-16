@@ -12,15 +12,12 @@ import androidx.fragment.app.Fragment;
 
 import com.hongsam.famstory.R;
 import com.hongsam.famstory.activitie.MainActivity;
-<<<<<<< HEAD:app/src/main/java/com/hongsam/famstory/fragment/LetterReadFragment.java
 import com.hongsam.famstory.define.Define;
 
 /*
  * 편지 읽기 화면 (편지목록 -> 편지읽기)
  * 1/6 , 오나영
  * */
-=======
->>>>>>> 3c773d7511568c0509dfb8f46feb3f3792a06073:app/src/main/java/com/hongsam/famstrory/fragment/LetterReadFragment.java
 
 public class LetterReadFragment extends Fragment {
 
