@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hongsam.famstory.define.Define;
 import com.hongsam.famstory.R;
+
 import com.hongsam.famstory.firebase.CalendarDB;
 import com.hongsam.famstory.firebase.ReadDB;
 import com.hongsam.famstory.firebase.UpdateDB;
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void databaseRead(String date) {
+    public void databaseRead(int year,int month,int day,String date) {
         readDB.databaseRead(date);
     }
 
@@ -106,12 +108,14 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+
+                switch (item.getItemId()){
                     case R.id.main_menu:
-                        changeFragment(Define.FRAGMENT_ID_MENU);
+                        changeFragment(Define.FRAGMENT_ID_PROFILE);
+
                         break;
                     case R.id.calendar_menu:
-                        changeFragment(Define.FRAGMENT_ID_PROFILE);
+                        changeFragment(Define.FRAGMENT_ID_CALENDAR);
                         break;
                     case R.id.message_menu:
                         changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
@@ -119,6 +123,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.emotion_menu:
                         changeFragment(Define.FRAGMENT_ID_EMOTION);
                         break;
+                    case R.id.setting_menu:
+                        changeFragment(Define.FRAGMENT_ID_PROFILE);
+                        break;
+                    default:
+                        break;
+
                 }
                 return true;
             }
