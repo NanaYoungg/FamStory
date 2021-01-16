@@ -1,6 +1,7 @@
 package com.hongsam.famstory.dialog;
 
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,22 +22,24 @@ import androidx.annotation.RequiresApi;
 import com.hongsam.famstory.activitie.MainActivity;
 import com.hongsam.famstory.databinding.CalendarDialogBinding;
 import com.hongsam.famstory.define.Define;
+
 import com.hongsam.famstory.firebase.CalendarDB;
 import com.hongsam.famstory.firebase.CreateDB;
 import com.hongsam.famstory.firebase.UpdateDB;
 import com.hongsam.famstory.interf.CustomDialogInterface;
+
 import java.util.Calendar;
 
 
-/*
-    CalendarFragment 다이얼로그 일정 관련 이벤트
-*/
-
+/**
+ * CalendarFragment 에서 일정 추가 또는 수정시 나오는 대화창
+ * devaspirant0510
+ *
+ */
 public class CalendarCustomDialog extends Dialog implements CustomDialogInterface {
     private Dialog dialog;
-    private Button dialogOkBtn, dialogCancelBtn, startTimeBtn, endTimeBtn, timePickerSubmitButton;
+    private Button dialogOkBtn, dialogCancelBtn, startTimeBtn, endTimeBtn;
     private TextView startTimeTv, endTimeTv;
-    private TimePicker timePicker;
     private Spinner spinner;
     private EditText viewMoreTitleEt, viewMoreDescriptionEt;
     private TextView description_set_text;
@@ -45,26 +48,27 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
     View mBindingRoot;
 
 
-    String start_time_str, end_time_str;
-    // 시간 비교위해 초기값 설정
-    int start_time = -1, end_time = 86401;
+
     int type;
 
     // 일정추가시 파이어베이스 db 연동
     CreateDB createDB = new CreateDB();
-
+    int pickerHour, pickerMinute;
     // 현재 시간을 가져오기위해 객체 생성
     Calendar cal = Calendar.getInstance();
     int hour = cal.get(Calendar.HOUR_OF_DAY);
     int min = cal.get(Calendar.MINUTE);
-    int nowTime = hour * 60 + min;
     private CalendarDialogBinding mBinding;
     UpdateDB updateDB;
-
-    public CalendarCustomDialog(@NonNull MainActivity context, String date, int type) {
+    String state = "오전";
+    int getYear,getMonth, day;
+    public CalendarCustomDialog(int getYear, int getMonth, int getDay, @NonNull MainActivity context, String date, int type) {
         super(context);
         this.date = date;
         this.type = type;
+        this.getYear = getYear;
+        this.getMonth = getMonth;
+        this.day = getDay;
 
         dialog = new Dialog(context);
         if (type == Define.UPDATE_DIALOG) {
@@ -142,6 +146,9 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
                     bundle.putString("text", str_text);
                     bundle.putString("startT", str_start_time);
                     bundle.putString("endT", str_end_time);
+                    bundle.putInt("year",getYear);
+                    bundle.putInt("month",getMonth);
+                    bundle.putInt("day", day);
                     createDB.pushFireBaseDatabase(bundle);
                     dismiss();
                 }
@@ -161,56 +168,54 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
             @Override
             public void onClick(View view) {
                 pickerState = Define.TIME_PICKER_START;
-                timePicker.setVisibility(View.VISIBLE);
-                timePickerSubmitButton.setVisibility(View.VISIBLE);
-            }
-        });
-        // timePicker 관련 이벤트
-        timePickerSubmitButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void onClick(View view) {
-                int hour = timePicker.getHour();
-                int minute = timePicker.getMinute();
-                // 시간 비교위해 분으로 바꿈
-                start_time = hour * 60 + minute;
-                // 시간에 따라 오전 오후 정함
-                String full_time = "오전";
-                // 시간이 오후인경우 시간 -12를 해줌
 
-                if (hour > 12) {
-                    full_time = "오후";
-                    hour -= 12;
-                }
-                if (start_time > end_time) {
-                    Toast.makeText(getContext(), "종료시간보다 시작시간이 커질수 없죠", Toast.LENGTH_SHORT).show();
-                } else if (start_time < nowTime) {
-                    Toast.makeText(getContext(), "이미 지나간 시간은 돌아오지 않아요", Toast.LENGTH_SHORT).show();
-                } else {
-                    if (pickerState == Define.TIME_PICKER_START) {
-                        start_time_str = full_time + " " + hour + ":" + minute;
-                        startTimeTv.setText(start_time_str);
-                        // 시간 설정을 마치면 다시 Visibility 상태를 Gone 으로 바꿔줌
-                        timePicker.setVisibility(View.GONE);
-                        timePickerSubmitButton.setVisibility(View.GONE);
-                    } else if (pickerState == Define.TIME_PICKER_END) {
 
-                        end_time_str = full_time + " " + hour + ":" + minute;
-                        endTimeTv.setText(end_time_str);
-                        // 시간 설정을 마치면 다시 Visibility 상태를 Gone 으로 바꿔줌
-                        timePicker.setVisibility(View.GONE);
-                        timePickerSubmitButton.setVisibility(View.GONE);
+                CalendarTimePicker calendarTimePicker = new CalendarTimePicker(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                        pickerHour = hour;
+                        pickerMinute = minute;
+
+                        if (pickerHour >= 12) {
+                            state = "오후";
+                            pickerHour -= 12;
+                        }
+                        startTimeTv.setText(state + " " + pickerHour + ":" + pickerMinute);
                     }
-                }
+
+                }, hour, min, false);
+
+                calendarTimePicker.setMessage("시간을 설정해주세요");
+                calendarTimePicker.show();
+
             }
         });
+
 
         endTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pickerState = Define.TIME_PICKER_END;
-                timePicker.setVisibility(View.VISIBLE);
-                timePickerSubmitButton.setVisibility(View.VISIBLE);
+                CalendarTimePicker calendarTimePicker = new CalendarTimePicker(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+
+                        pickerHour = hour;
+                        pickerMinute = minute;
+
+                        if (pickerHour >= 12) {
+                            state = "오후";
+                            pickerHour -= 12;
+                        }
+                        endTimeTv.setText(state + " " + pickerHour + ":" + pickerMinute);
+
+                    }
+
+                }, hour, min, false);
+
+                calendarTimePicker.setMessage("시간을 설정해주세요");
+                calendarTimePicker.show();
+
             }
         });
 
@@ -222,15 +227,12 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
         viewMoreDescriptionEt = mBinding.viewMoreDescriptionEt;
         dialogOkBtn = mBinding.dialogOkBtn;
         dialogCancelBtn = mBinding.dialogCancelBtn;
-        timePicker = mBinding.timePicker;
         startTimeBtn = mBinding.startTimeBtn;
         startTimeTv = mBinding.startTimeTv;
         endTimeBtn = mBinding.endTimeBtn;
         endTimeTv = mBinding.endTimeTv;
-        timePickerSubmitButton = mBinding.timePickerSubmitBtn;
         spinner = mBinding.spinner;
         description_set_text = mBinding.descriptionSetText;
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
