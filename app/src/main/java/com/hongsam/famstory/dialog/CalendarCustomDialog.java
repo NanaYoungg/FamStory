@@ -66,19 +66,19 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
     private CalendarDialogBinding mBinding;
     UpdateDB updateDB;
     String state = "오전";
-    int getYear,getMonth, day;
+    int getYear,getMonth, getDay;
     public CalendarCustomDialog(int getYear, int getMonth, int getDay, @NonNull MainActivity context, String date, int type) {
         super(context);
         this.date = date;
         this.type = type;
         this.getYear = getYear;
         this.getMonth = getMonth;
-        this.day = getDay;
+        this.getDay = getDay;
 
         dialog = new Dialog(context);
         if (type == Define.UPDATE_DIALOG) {
             updateDB = new UpdateDB(context);
-            updateDB.updateDB(date);
+            updateDB.updateDB(getYear,getMonth,getDay,date);
         }
         context.setCdi(this);
 
@@ -138,6 +138,7 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
                 String str_start_time = startTimeTv.getText().toString();
                 String str_end_time = endTimeTv.getText().toString();
 
+
                 // 확인 버튼을 눌렀을때 채우지 않은 부분이 있는지 확인
                 if (str_text.length() == 0 || str_text.length() == 0 ||
                         startTimeTv.getText().toString().equals("시작시간") ||
@@ -153,7 +154,7 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
                     bundle.putString("endT", str_end_time);
                     bundle.putInt("year",getYear);
                     bundle.putInt("month",getMonth);
-                    bundle.putInt("day", day);
+                    bundle.putInt("day", getDay);
                     createDB.pushFireBaseDatabase(bundle);
                     dismiss();
                 }
@@ -191,6 +192,7 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
                 }, hour, min, false);
 
                 calendarTimePicker.setMessage("시간을 설정해주세요");
+                calendarTimePicker.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 calendarTimePicker.show();
 
             }
@@ -201,6 +203,7 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
             @Override
             public void onClick(View view) {
                 pickerState = Define.TIME_PICKER_END;
+
                 CalendarTimePicker calendarTimePicker = new CalendarTimePicker(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
