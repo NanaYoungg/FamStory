@@ -3,75 +3,99 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/calendar_fragment_layout"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
+
     <LinearLayout
-        android:background="#FFF176"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="right"
-        android:layout_weight="0.2">
+        android:layout_weight="0.2"
+        android:background="@color/colorGreen"
+        android:gravity="right">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.1">
+
+            <Button
+                android:id="@+id/month_calendar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="월별 일정 보기" />
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/calendar_update"
-            android:visibility="invisible"
-            android:background="@drawable/update"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="5dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"/>
+            android:background="@drawable/update"
+            android:visibility="invisible" />
+
         <Button
             android:id="@+id/calendar_delete"
-            android:visibility="invisible"
-            android:background="@drawable/delete"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="5dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"/>
+            android:background="@drawable/delete"
+            android:visibility="invisible" />
+
         <Button
             android:id="@+id/calendar_create"
-            android:visibility="visible"
-            android:background="@drawable/create"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_gravity="center"
             android:layout_marginHorizontal="5dp"
-            android:layout_width="35dp"
-            android:layout_height="35dp"/>
+            android:background="@drawable/create"
+            android:visibility="visible" />
 
     </LinearLayout>
+
     <CalendarView
         android:id="@+id/calendar_view"
-        android:layout_width="wrap_content"
-
+        android:layout_width="match_parent"
+        android:background="@color/colorWaterGreen"
         android:layout_height="0dp"
-        android:layout_weight="1.5"/>
+        android:layout_weight="1.7" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="#9575CD"
         android:id="@+id/calendar_view_more"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.9">
+        android:layout_weight="0.9"
+        android:background="@color/colorWaterBrown">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="16dp"
             android:text="세부일정"
             android:textSize="25sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textView3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/vm_name"
-            android:layout_width="wrap_content"
+            android:layout_width="49dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginTop="65dp"
             android:layout_marginEnd="324dp"
+            android:layout_marginBottom="15dp"
             android:text="일정명 : "
+            app:layout_constraintBottom_toTopOf="@+id/vm_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -81,7 +105,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="65dp"
+            android:layout_marginBottom="151dp"
             android:text="타입"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/vm_name"
             app:layout_constraintTop_toTopOf="parent" />
@@ -93,7 +119,9 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="324dp"
+            android:layout_marginBottom="41dp"
             android:text="세부내용 : "
+            app:layout_constraintBottom_toTopOf="@+id/vm_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/vm_name" />
@@ -105,7 +133,9 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="360dp"
+            android:layout_marginBottom="42dp"
             android:text="시간"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -116,7 +146,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
+            android:layout_marginBottom="188dp"
             android:text="날짜"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.267"
             app:layout_constraintStart_toEndOf="@+id/textView"
