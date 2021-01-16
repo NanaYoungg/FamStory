@@ -15,7 +15,7 @@ public class Define {
     public static final int FRAGMENT_ID_SETTING = FRAGMENT_ID + 9;
     public static final int FRAGMENT_ID_LETTER_READ = FRAGMENT_ID + 10;
 
-    public static String user = "user1234";
+    public static String user = "테스트가족";
     public static int UPDATE_DIALOG = 5000;
     public static int CREATE_DIALOG = UPDATE_DIALOG+1;
     public static void setViewText(TextView view, String str){
