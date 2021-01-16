@@ -1,11 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
-android {
 
+android {
+    //안드로이드 스튜디오 4.0이상 버전 부터 DataBinding 에도 true 를 해줘야함
+    buildFeatures{
+        dataBinding = true
+        viewBinding = true
+    }
     compileSdkVersion 29
     buildToolsVersion '29.0.2'
-
     defaultConfig {
         applicationId "com.hongsam.famstory"
         minSdkVersion 21
@@ -14,10 +18,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    viewBinding {
-        enabled = true
     }
 
     buildTypes {
@@ -40,10 +40,9 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:29.0.0'
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'com.google.code.gson:gson:2.8.6'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation platform('com.google.firebase:firebase-bom:26.2.0')
     implementation 'com.google.android.material:material:1.2.1'
@@ -59,8 +58,11 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     implementation 'com.android.support:design:29.0.0'
-    implementation 'com.google.android.material:material:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
 
     implementation 'com.google.firebase:firebase-storage'
 
 }
+apply plugin: 'com.google.gms.google-services'
+
