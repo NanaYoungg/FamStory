@@ -60,9 +60,9 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
     String date = nowDate.get(Calendar.YEAR) + "년" + nowDate.get(Calendar.MONTH) + "월" + nowDate.get(Calendar.DATE) + "일";
     int dateToInt = nowDate.get(Calendar.YEAR) + nowDate.get(Calendar.MONTH) + nowDate.get(Calendar.DATE);
 
-    int Year = nowDate.get(Calendar.YEAR);
-    int Month = nowDate.get(Calendar.MONTH);
-    int Day = nowDate.get(Calendar.DATE);
+    private int Year = nowDate.get(Calendar.YEAR);
+    private int Month = nowDate.get(Calendar.MONTH)+1;
+    private int Day = nowDate.get(Calendar.DATE);
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -96,10 +96,10 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
         }
         viewMoreFragment = new CalendarViewMoreFragment();
         ReadDB readDB = new ReadDB(mainActivity);
-        readDB.databaseRead(date);
+        readDB.databaseRead(getYear,getMonth,getDay,date);
         getFragmentManager().beginTransaction().replace(R.id.calendar_view_more, viewMoreFragment).commit();
         FragmentManager newFm = getFragmentManager();
-        checkDB.checkDB(Year,Month,Day,date, getContext(), newFm, viewMoreFragment);
+        checkDB.checkDB(getYear,getMonth,getDay,date, getContext(), newFm, viewMoreFragment);
 
 
         return root;
@@ -129,17 +129,19 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
 
                 month += 1;
                 date = year + "년" + month + "월" + dayOfMonth + "일";
-
+                getYear = year;
+                getMonth = month;
+                getDay = dayOfMonth;
 
                 dateToInt = year + month + dayOfMonth;
                 Toast.makeText(getContext(),dateToInt+"",Toast.LENGTH_SHORT).show();
                 ReadDB readDB = new ReadDB(mainActivity);
 
-                readDB.databaseRead(date);
+                readDB.databaseRead(getYear,getMonth,getDay,date);
                 if (getFragmentManager()!=null) {
                     getFragmentManager().beginTransaction().replace(R.id.calendar_view_more, viewMoreFragment).commit();
                     FragmentManager newFm = getFragmentManager();
-                    checkDB.checkDB(Year,Month,Day,date, getContext(), newFm, viewMoreFragment);
+                    checkDB.checkDB(getYear,getMonth,getDay,date, getContext(), newFm, viewMoreFragment);
                 }
                 Define.setViewText(vm_date, year + "." + month + "." + dayOfMonth);
                 if (state.equals("null")) {
@@ -158,11 +160,9 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
                 int todayDate = nowDate.get(Calendar.YEAR) + nowDate.get(Calendar.MONTH) + nowDate.get(Calendar.DATE);
 
                 if (dateToInt<=todayDate) {
-                    Toast.makeText(getContext(),dateToInt+"<="+todayDate,Toast.LENGTH_SHORT).show();
                     Toast.makeText(getContext(), "이미 시간이 지난 일정은 생성이 불가능 합니다.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getContext(),dateToInt+">"+todayDate,Toast.LENGTH_SHORT).show();
-                    CalendarCustomDialog dialog = new CalendarCustomDialog(Year,Month,Day,mainActivity, date, Define.CREATE_DIALOG);
+                    CalendarCustomDialog dialog = new CalendarCustomDialog(getYear,getMonth,getDay,mainActivity, date, Define.CREATE_DIALOG);
                     dialog.show();
                 }
             }
@@ -180,7 +180,7 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
 
                         Toast.makeText(getContext(), "일정을 삭제하였어요. 복구가 불가능합니다.", Toast.LENGTH_SHORT).show();
                         getFragmentManager().beginTransaction().replace(R.id.calendar_view_more, new CalendarViewMoreFragment()).commit();
-                        deleteDB.databaseDelete(date);
+                        deleteDB.databaseDelete(getYear,getMonth,getDay,date);
                         vm_text.setText("");
                         cal_delete_btn.setVisibility(View.GONE);
                         cal_update_btn.setVisibility(View.GONE);
