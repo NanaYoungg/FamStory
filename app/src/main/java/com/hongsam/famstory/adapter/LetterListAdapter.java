@@ -13,13 +13,10 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongsam.famstory.R;
-<<<<<<< HEAD:app/src/main/java/com/hongsam/famstory/adapter/LetterListAdapter.java
 import com.hongsam.famstory.activitie.MainActivity;
 import com.hongsam.famstory.data.LetterContants;
 import com.hongsam.famstory.define.Define;
-=======
 import com.hongsam.famstory.data.LetterContants;
->>>>>>> 3c773d7511568c0509dfb8f46feb3f3792a06073:app/src/main/java/com/hongsam/famstrory/adapter/LetterListAdapter.java
 
 import java.util.ArrayList;
 

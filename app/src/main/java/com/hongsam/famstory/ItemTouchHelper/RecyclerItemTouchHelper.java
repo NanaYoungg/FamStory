@@ -11,10 +11,7 @@ import android.view.View;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-<<<<<<< HEAD:app/src/main/java/com/hongsam/famstory/ItemTouchHelper/RecyclerItemTouchHelper.java
 import com.hongsam.famstory.R;
-=======
->>>>>>> 3c773d7511568c0509dfb8f46feb3f3792a06073:app/src/main/java/com/hongsam/famstrory/ItemTouchHelper/RecyclerItemTouchHelper.java
 import com.hongsam.famstory.adapter.LetterListAdapter;
 
 

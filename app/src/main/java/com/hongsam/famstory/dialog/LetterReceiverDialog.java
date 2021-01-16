@@ -15,15 +15,12 @@ import android.os.Bundle;
         import androidx.fragment.app.DialogFragment;
 
         import com.hongsam.famstory.R;
-<<<<<<< HEAD:app/src/main/java/com/hongsam/famstory/dialog/LetterReceiverDialog.java
 import com.hongsam.famstory.fragment.LetterWriteFragment;
 
 /*
  * 편지 받는이 선택하기 다이얼로그
  * 1/7 , 오나영
  * */
-=======
->>>>>>> 3c773d7511568c0509dfb8f46feb3f3792a06073:app/src/main/java/com/hongsam/famstrory/dialog/LetterReceiverDialog.java
 
 public class LetterReceiverDialog extends DialogFragment implements View.OnClickListener {
 
