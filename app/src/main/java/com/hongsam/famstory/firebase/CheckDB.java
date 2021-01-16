@@ -1,6 +1,7 @@
 package com.hongsam.famstory.firebase;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -23,21 +24,27 @@ import static com.hongsam.famstory.fragment.CalendarFragment.cal_delete_btn;
 import static com.hongsam.famstory.fragment.CalendarFragment.cal_update_btn;
 import static com.hongsam.famstory.fragment.CalendarFragment.state;
 
+/**
+ * 날짜 데이터를 생성자로 받아와 DB에 있는지 확인
+ * 2021-1-6 강력한 유클립트
+ */
 public class CheckDB extends Fragment{
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     String userName = Define.user;
     CalendarDB calendarDB;
     ArrayList<String> list = new ArrayList<>();
     int view =1 ;
-    public void checkDB(final String date, Context context,final FragmentManager fm, final Fragment fr){
 
-        DatabaseReference myRef = database.getReference("CalendarDB").child(userName).child(date);
+
+    public void checkDB(int year,int month,int day,final String date, Context context,final FragmentManager fm, final Fragment fr){
+        DatabaseReference myRef = database.getReference("Family").child(userName).child("CalendarDB").child(date);
         Query query = myRef.orderByChild(date);
 
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String getData = snapshot.getKey();
+                Log.e("a",getData);
                 if ("title".equals(getData)){
                     fm.beginTransaction().remove(fr).commit();
                     state = "ok";
@@ -50,6 +57,7 @@ public class CheckDB extends Fragment{
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String getData = snapshot.getKey();
+                Log.e("a",getData);
                 if ("title".equals(getData)){
                     fm.beginTransaction().remove(fr).commit();
                     state = "ok";

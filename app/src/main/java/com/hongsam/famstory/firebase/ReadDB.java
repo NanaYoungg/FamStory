@@ -22,7 +22,8 @@ public class ReadDB {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     String userName = Define.user;
-    DatabaseReference myRef = database.getReference("CalendarDB").child(userName);
+    DatabaseReference myRef = database.getReference("Family").child(userName).child("CalendarDB");
+
 
     CalendarDB calendarDB;
 

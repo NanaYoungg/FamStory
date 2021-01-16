@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.hongsam.famstory.data.Letter;
 import com.hongsam.famstory.define.Define;
 
 public class CreateDB {
@@ -17,9 +16,12 @@ public class CreateDB {
         String getDate=bundle.getString("date");
         String getStartTime = bundle.getString("startT");
         String getEndTime = bundle.getString("endT");
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("CalendarDB").child(user);
+        int Year = bundle.getInt("year");
+        int Month = bundle.getInt("month");
+        int Day = bundle.getInt("day");
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Family").child(user).child("CalendarDB")
+                .child(getDate);
         CalendarDB calendarDB = new CalendarDB(getTitle,getText,getStartTime,getEndTime);
-        database.child(getDate).setValue(calendarDB);
+        database.setValue(calendarDB);
     }
-
 }
