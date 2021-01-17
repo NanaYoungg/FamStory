@@ -43,7 +43,7 @@
         app:layout_constraintTop_toTopOf="@id/letter_read_img_view"
         app:layout_constraintLeft_toLeftOf="@id/letter_read_img_view"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="80dp"
         android:layout_height="wrap_content"
         android:textSize="25dp"
         android:text="From :"/>
@@ -79,7 +79,7 @@
         app:layout_constraintLeft_toLeftOf="@id/letter_read_img_view"
         app:layout_constraintRight_toRightOf="@id/letter_read_img_view"
         app:layout_constraintTop_toTopOf="@id/letter_read_img_view"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="170dp"
         android:scrollbarSize="7dp"
         android:scrollbarThumbVertical="@color/colorPrimary"
         android:scrollbarTrackVertical="@color/colorWhite">
