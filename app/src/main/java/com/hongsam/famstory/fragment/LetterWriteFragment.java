@@ -21,21 +21,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongsam.famstory.R;
 import com.hongsam.famstory.activitie.MainActivity;
-import com.hongsam.famstory.adapter.LetterPaperAdapter;
 import com.hongsam.famstory.data.LetterPaper;
 import com.hongsam.famstory.define.Define;
 import com.hongsam.famstory.dialog.LetterPaperDialog;
 import com.hongsam.famstory.dialog.LetterReceiverDialog;
-import com.hongsam.famstory.firebase.CreateDB;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -117,7 +110,7 @@ public class LetterWriteFragment extends Fragment {
             mPhoto = mContentView.findViewById(R.id.gallery_img_btn);
             mConstraintLayout = mContentView.findViewById(R.id.fragment_letter_write);
             mScrollView = mContentView.findViewById(R.id.letter_write_scroll);
-            mBackgound = mContentView.findViewById(R.id.letter_write_img_view);
+            mBackgound = mContentView.findViewById(R.id.letter_read_img_view);
             mSendBtn = mContentView.findViewById(R.id.letter_send_btn);
             mToTv = mContentView.findViewById(R.id.f_letter_receiever_tv);
             mAddReciverBtn = mContentView.findViewById(R.id.f_receiver_add_img_btn);

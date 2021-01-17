@@ -1,20 +1,17 @@
 package com.hongsam.famstory.data;
-
-//편지내용 (보낸이,내용,날짜,사진)
-public class LetterContants {
+//편지 목록 (보낸이,내용,날짜)
+public class LetterList {
 
     private String sender;
     private String contants;
     private String date;
-    private String photo;
 
-    public LetterContants(int paper1){}
+    public LetterList(int paper1){}
 
-    public LetterContants(String sender, String contants, String date, String photo) {
+    public LetterList(String sender, String contants, String date) {
         this.sender = sender;
         this.contants = contants;
         this.date = date;
-        this.photo = photo;
     }
 
     public String getSender() { return sender; }
@@ -28,9 +25,5 @@ public class LetterContants {
     public String getDate() { return date; }
 
     public void setDate(String date) { this.date = date; }
-
-    public String getPhoto() { return photo; }
-
-    public void setPhoto(String photo) { this.photo = photo; }
 
 }

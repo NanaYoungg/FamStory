@@ -1,6 +1,7 @@
 package com.hongsam.famstory.dialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyboardShortcutGroup;
 import android.view.LayoutInflater;
@@ -21,9 +22,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongsam.famstory.R;
+import com.hongsam.famstory.adapter.LetterListAdapter;
 import com.hongsam.famstory.adapter.LetterPaperAdapter;
+import com.hongsam.famstory.data.LetterContants;
+import com.hongsam.famstory.data.LetterPaper;
 import com.hongsam.famstory.dialog.LetterReceiverDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -34,6 +39,8 @@ import java.util.List;
 public class LetterPaperDialog extends DialogFragment implements View.OnClickListener {
 
     public static final String TAG_PAPER_DIALOG = "dialog_paper";
+    private ArrayList<LetterPaper> itemList;
+    private int numberOfColumns = 3;
 
     public LetterPaperDialog(){}
 
@@ -55,13 +62,27 @@ public class LetterPaperDialog extends DialogFragment implements View.OnClickLis
         //화면터치시 꺼짐 막기
         setCancelable(false);
 
+        //recycle 관련
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.scrollToPosition(0);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        //initData();
+        mRecyclerView.setAdapter(new LetterPaperAdapter(getContext(), (ArrayList<LetterPaper>) initData()));
 
         return v;
+    }
+
+
+    private ArrayList<LetterPaper> initData() {
+        itemList = new ArrayList<>();
+        itemList.add(new LetterPaper(R.drawable.paper1_preview));
+        itemList.add(new LetterPaper(R.drawable.paper2_preview));
+        itemList.add(new LetterPaper(R.drawable.paper3_preview));
+        itemList.add(new LetterPaper(R.drawable.paper4_preview));
+        itemList.add(new LetterPaper(R.drawable.paper5_preview));
+
+        return itemList;
+
     }
 
     @Override

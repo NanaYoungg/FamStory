@@ -18,4 +18,6 @@ public class LetterPaper {
     public LetterPaper(int image) {
         this.image = image;
     }
+
+
 }

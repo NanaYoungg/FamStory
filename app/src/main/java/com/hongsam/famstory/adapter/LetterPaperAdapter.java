@@ -46,9 +46,6 @@ public class LetterPaperAdapter extends RecyclerView.Adapter<LetterPaperAdapter.
 
         holder.paperImage.setImageResource(letterPaperItemList.get(position).getImage(R.drawable.paper1_preview));
 
-//        holder.paperImage.setImageResource(R.drawable.paper1_preview);
-
-
     }
 
 

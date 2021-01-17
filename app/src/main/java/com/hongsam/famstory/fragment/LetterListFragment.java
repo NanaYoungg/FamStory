@@ -25,6 +25,7 @@ import com.hongsam.famstory.R;
 import com.hongsam.famstory.activitie.MainActivity;
 import com.hongsam.famstory.adapter.LetterListAdapter;
 import com.hongsam.famstory.data.LetterContants;
+import com.hongsam.famstory.data.LetterList;
 import com.hongsam.famstory.define.Define;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
     private DatabaseReference mFamRef;
 
     private RecyclerView recyclerView;
-    private ArrayList<LetterContants> itemList;
+    private ArrayList<LetterList> itemList;
     private LetterListAdapter letterListAdapter;
     private CoordinatorLayout coordinatorLayout;
     private FloatingActionButton fab;
@@ -58,8 +59,8 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
 
-        mDb = FirebaseDatabase.getInstance();
-        mFamRef = mDb.getReference("Letter");
+//        mDb = FirebaseDatabase.getInstance();
+//        mFamRef = mDb.getReference("Letter");
 
         //데이터
 //        Letter letter = new Letter("가족이름",new LetterContants("아빠","내용2","날짜2"));
@@ -100,7 +101,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //initData();
-        recyclerView.setAdapter(new LetterListAdapter((ArrayList<LetterContants>) initData(), getContext()));
+        recyclerView.setAdapter(new LetterListAdapter((ArrayList<LetterList>) initData(), getContext()));
 
         //삭제 관련  :  왼쪽으로 밀때 삭제된다
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
@@ -171,7 +172,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (viewHolder instanceof LetterListAdapter.ViewHolder) {
             //보낸이를 snackbar에 띄워주기위해 get
-            String sender = itemList.get(viewHolder.getAdapterPosition()).getReceiver();
+            String sender = itemList.get(viewHolder.getAdapterPosition()).getSender();
 
             // undo시 백업
 //            final Item deletedItem = itemList.get(viewHolder.getAdapterPosition());
@@ -204,18 +205,18 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
 
 
     //편지리스트 아이템값 추가 -> 추후 DB값 불러오기
-    private List<LetterContants> initData() {
+    private List<LetterList> initData() {
 
         itemList = new ArrayList<>();
-        itemList.add(new LetterContants("엄마", "우리딸 안녕~!~!", "2020년 04일 13년"));
-        itemList.add(new LetterContants("아빠", "우리딸 안녕~!~!22222222222", "2020년 05일 13년"));
-        itemList.add(new LetterContants("동생", "우리딸 안녕~!~!3333332222222222222223333", "2020년 06일 13년"));
-        itemList.add(new LetterContants("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterContants("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterContants("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterContants("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterContants("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterContants("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+        itemList.add(new LetterList("엄마", "우리딸 안녕~!~!", "2020년 04일 13년"));
+        itemList.add(new LetterList("아빠", "우리딸 안녕~!~!22222222222", "2020년 05일 13년"));
+        itemList.add(new LetterList("동생", "우리딸 안녕~!~!3333332222222222222223333", "2020년 06일 13년"));
+        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
 
         return itemList;
     }
