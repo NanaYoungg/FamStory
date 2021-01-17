@@ -209,6 +209,7 @@ public class LetterWriteFragment extends Fragment {
                 letterContantsMap.put("1",new LetterContants(getSender, getContants, getDate));
 
                 writeNewLetter(letterContantsMap);
+//                writeNewUser("1",getUserName,getUserEmail);
 
                 Toast.makeText(getContext(), "편지가 전송되었습니다.", Toast.LENGTH_SHORT).show();
             }
@@ -223,8 +224,22 @@ public class LetterWriteFragment extends Fragment {
         FirebaseManager.dbFamRef.child(testfamily).child("LetterContants").setValue(letterContantsMap);
 
 //        LetterContants letterContants = new LetterContants(sender, contants, date);
-////        mDatabase.child("letterContants").child(userId).setValue(letterContants)
-
+//
+//        mDatabase.child("users").child(userId).setValue(letterContants)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        // Write was successful!
+//                        Toast.makeText(getContext(), "편지가 완료했습니다.", Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        // Write failed
+//                        Toast.makeText(getContext(), "저장을 실패했습니다..", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
     }
 
 

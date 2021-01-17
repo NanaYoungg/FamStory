@@ -1,18 +1,27 @@
 package com.hongsam.famstrory.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
+import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.define.Define;
+import com.hongsam.famstrory.util.FirebaseManager;
 
 /*
  * 편지 읽기 화면 (편지목록 -> 편지읽기)
@@ -24,6 +33,10 @@ public class LetterReadFragment extends Fragment {
     private MainActivity mainActivity;
     private View mContentView;
     private ImageButton mBackBtn;
+    private TextView mFromTv, mDate, mContants;
+    private ImageView mPhoto;
+
+    private String testfamily = "테스트가족";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,14 +67,6 @@ public class LetterReadFragment extends Fragment {
     }
 
 
-    /*
-     * 액티비티와 사용자의 상호작용 함수
-     * */
-    public void onResume() {
-        super.onResume();
-
-    }
-
 
         /**
          * 컨트롤 초기화 해주는 함수
@@ -69,6 +74,10 @@ public class LetterReadFragment extends Fragment {
     public void init(View v) {
         if (v != null) {
         mBackBtn = mContentView.findViewById(R.id.letter_read_back_btn);
+        mFromTv = mContentView.findViewById(R.id.f_letter_sender_tv);
+        mDate = mContentView.findViewById(R.id.letter_read_date);
+        mPhoto = mContentView.findViewById(R.id.read_photo_iv);
+        mContants = mContentView.findViewById(R.id.read_contants_tv);
 
             //toolbar의 뒤로가기 버튼
             mBackBtn.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +91,28 @@ public class LetterReadFragment extends Fragment {
 
         }
     }
-
+//    private void readUser(){
+//
+//        FirebaseManager.dbFamRef.child(testfamily).child("Lettercontants").child("1").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                // Get Post object and use the values to update the UI
+//                if(dataSnapshot.getValue(LetterContants.class) != null){
+//                    LetterContants post = dataSnapshot.getValue(LetterContants.class);
+//                    Log.d("FireBaseData", "getData" + post.toString());
+//                } else {
+//                    Toast.makeText(getContext(), "데이터 없음", Toast.LENGTH_SHORT).show();
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                // Getting Post failed, log a message
+//                Log.w("FireBaseData", "loadPost:onCancelled", databaseError.toException());
+//            }
+//        });
+//    }
 
     /**
      * 이미지 리소스 세팅해주는 함수
