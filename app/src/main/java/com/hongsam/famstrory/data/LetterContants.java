@@ -8,12 +8,13 @@ public class LetterContants {
     private String date;
 //    private String photo;
 
-    public LetterContants(int paper1){}
+    public LetterContants(){}
+
 
     public LetterContants(String sender, String contants, String date) {
-        this.sender = this.sender;
-        this.contants = this.contants;
-        this.date = this.date;
+        this.sender = sender;
+        this.contants = contants;
+        this.date = date;
 //        this.photo = photo;
     }
 

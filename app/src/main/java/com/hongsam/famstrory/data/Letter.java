@@ -9,6 +9,8 @@ public class Letter {
     //편지내용
     private ArrayList<LetterContants> letterContants;
 
+    public Letter(){};
+
     public Letter(String famName, LetterContants letterContants){};
 
     public Letter(String famName, ArrayList<LetterContants> letterContants) {

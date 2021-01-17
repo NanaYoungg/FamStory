@@ -6,7 +6,7 @@ public class LetterList {
     private String contants;
     private String date;
 
-    public LetterList(int paper1){}
+    public LetterList(){}
 
     public LetterList(String sender, String contants, String date) {
         this.sender = sender;

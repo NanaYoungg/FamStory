@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,9 +47,10 @@ import static android.app.Activity.RESULT_OK;
  * 1/4 , 오나영
  * */
 
-public class LetterWriteFragment extends Fragment {
+public class LetterWriteFragment extends Fragment implements LetterReceiverDialog.OnInputSelected {
 
     private final int GET_GALLERY_IMAGE = 200;
+    private static final String TAG = "LetterWriteFragment";
 
     private MainActivity mainActivity;
     private View mContentView;
@@ -65,6 +67,7 @@ public class LetterWriteFragment extends Fragment {
 
     private DatabaseReference mDatabase;
     private String testfamily = "테스트가족";
+
 
 
     @Override
@@ -98,7 +101,6 @@ public class LetterWriteFragment extends Fragment {
 
         return mContentView;
     }
-
 
 
 
@@ -168,12 +170,6 @@ public class LetterWriteFragment extends Fragment {
                 mletterReceiverDialog.show(getFragmentManager(), LetterReceiverDialog.TAG_EVENT_DIALOG);
             }
         });
-
-        //받는이 값 받아오기
-//        Bundle mArgs = getArguments();
-//        String mValue = mArgs.getString("reciever");
-//        mToTv.setText(mValue);
-
            
         //편지지 선택하기
         mAddPaperBtn.setOnClickListener(new View.OnClickListener() {
@@ -211,6 +207,7 @@ public class LetterWriteFragment extends Fragment {
                 writeNewLetter(letterContantsMap);
 //                writeNewUser("1",getUserName,getUserEmail);
 
+                mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
                 Toast.makeText(getContext(), "편지가 전송되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -218,29 +215,22 @@ public class LetterWriteFragment extends Fragment {
         }
     }
 
-    //편지내용 데이터 저장
+    //편지내용 DB저장
     private void writeNewLetter(Map<String, LetterContants> letterContantsMap) {
 
         FirebaseManager.dbFamRef.child(testfamily).child("LetterContants").setValue(letterContantsMap);
 
-//        LetterContants letterContants = new LetterContants(sender, contants, date);
-//
-//        mDatabase.child("users").child(userId).setValue(letterContants)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        // Write was successful!
-//                        Toast.makeText(getContext(), "편지가 완료했습니다.", Toast.LENGTH_SHORT).show();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        // Write failed
-//                        Toast.makeText(getContext(), "저장을 실패했습니다..", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
     }
+
+    //스피너 받는사람 다이얼로그에서 받아오기
+    @Override
+    public void sendInput(String input) {
+        Log.d(TAG, "sendInput: found incoming input: " + input);
+
+        mToTv.setText(input);
+    }
+
+
 
 
 

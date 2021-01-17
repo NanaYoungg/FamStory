@@ -1,12 +1,15 @@
 package com.hongsam.famstrory.dialog;
 
+import android.content.Context;
 import android.os.Bundle;
-        import android.view.LayoutInflater;
+import android.util.Log;
+import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
         import android.view.Window;
         import android.view.WindowManager;
-        import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
         import android.widget.Button;
         import android.widget.Spinner;
 
@@ -21,10 +24,9 @@ import android.os.Bundle;
  * 1/7 , 오나영
  * */
 
-public class LetterReceiverDialog extends DialogFragment implements View.OnClickListener {
+public class LetterReceiverDialog extends DialogFragment implements View.OnClickListener{
 
     public static final String TAG_EVENT_DIALOG = "dialog_event";
-
 
 
     public LetterReceiverDialog(){}
@@ -33,6 +35,12 @@ public class LetterReceiverDialog extends DialogFragment implements View.OnClick
         LetterReceiverDialog letterReceiverDialog = new LetterReceiverDialog();
         return letterReceiverDialog;
     }
+
+    public interface OnInputSelected{
+        void sendInput(String input);
+    }
+
+    public OnInputSelected mOnInputSelected;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,31 +54,23 @@ public class LetterReceiverDialog extends DialogFragment implements View.OnClick
         mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(mAdapter);
 
-        //스피너에서 선택한값
-        final String str_receiver = mSpinner.getSelectedItem().toString();
-
-
         //확인버튼 누를시 스피너 값 LetterWriteFragment에 전달
         Button mOkBtn = (Button)v.findViewById(R.id.dialog_receiver_ok_btn);
+
         mOkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Bundle args = new Bundle();
-//                args.putString("key", "mTotv");
-//                LetterWriteFragment LetterWriteFragment = new LetterWriteFragment ();
-//                LetterWriteFragment.setArguments(args);
-//                LetterWriteFragment.put(getFragmentManager(), "Sample Dialog Fragment");
-
-
+                String input = mSpinner.getSelectedItem().toString();
+                mOnInputSelected.sendInput(input);
+                getDialog().dismiss();
             }
+
         });
 
 
-
         Button mCancleBtn = (Button)v.findViewById(R.id.dialog_receiver_cancle_btn);
-        mOkBtn.setOnClickListener(this);
         mCancleBtn.setOnClickListener(this);
-        //화면터치시 꺼짐 막기
+//        화면터치시 꺼짐 막기
         setCancelable(false);
 
 
@@ -91,5 +91,14 @@ public class LetterReceiverDialog extends DialogFragment implements View.OnClick
         params.width = 1000;
         params.height = 1000;
         window.setAttributes(params);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try{
+            mOnInputSelected = (OnInputSelected) getTargetFragment();
+        }catch (ClassCastException e){
+        }
     }
 }
