@@ -28,6 +28,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
@@ -74,12 +76,16 @@ public class LetterWriteFragment extends Fragment implements LetterReceiverDialo
     private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy년MM월dd일"); // 날짜 포맷
     private SimpleDateFormat mFormatDB = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss"); // 날짜 포맷
 
+    private Date date = new Date();
+    private final String DBTime = mFormatDB.format(date);
+    private  Uri selectedImageUri;
+
+
     private ArrayList<LetterPaper> mArrayList;
 
     private DatabaseReference mDatabase;
     private static final String sTestFamily = "테스트가족";
     private static final String sFamName = "재훈이네가족";
-
 
 
     @Override
@@ -197,11 +203,8 @@ public class LetterWriteFragment extends Fragment implements LetterReceiverDialo
         });
 
         //편지 보내는 현재 날짜
-        Date date = new Date();
         String time = mFormat.format(date);
-        final String DBTime = mFormatDB.format(date);
         mWriteDate.setText(time); // 현재 날짜로 설정
-
 
 
         //편지보내기
@@ -231,6 +234,18 @@ public class LetterWriteFragment extends Fragment implements LetterReceiverDialo
                 Toast.makeText(getContext(), "편지가 전송되었습니다.", Toast.LENGTH_SHORT).show();
 
 
+                //사진 DB에 저장
+                //storage
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                //파일명 만들기
+                String letterFileName = DBTime + ".png";
+                //storage 주소와 폴더 파일명을 지정
+                StorageReference storageRef = storage.getReferenceFromUrl("gs://hongkathon.appspot.com").child("Family/")
+                                                      .child(sFamName).child("Letter/" + letterFileName);
+                //올라가거라...
+                storageRef.putFile(selectedImageUri);
+
+
             }
         });
 
@@ -253,29 +268,6 @@ public class LetterWriteFragment extends Fragment implements LetterReceiverDialo
     }
 
 
-    public void uploadPicture(final Bitmap bm) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-
-        UploadTask uploadTask = FirebaseManager.storageFamRef.child(sFamName+FirebaseManager.pathImgLetter).putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "이미지 업로드 실패!");
-            }
-        });
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.d(TAG, "이미지 업로드 성공!");
-                SharedManager.writeLong(Define.KEY_LETTER_PICTURE_SIZE, taskSnapshot.getTotalByteCount());
-
-                String picturePath = GlobalMethod.saveToInternalStorage(mainActivity, bm, "letter.jpg");
-                SharedManager.writeObject(Define.KEY_LETTER_PICTURE_PATH, picturePath);
-            }
-        });
-    }
 
 
     //갤러리에서 선택한 이미지 뿌려주기
@@ -284,12 +276,26 @@ public class LetterWriteFragment extends Fragment implements LetterReceiverDialo
 
         if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
-            Uri selectedImageUri = data.getData();
+            selectedImageUri = data.getData();
             mPhotoView.setImageURI(selectedImageUri);
         }
     }
 
-    @Override
+//    public void uploadPicture() {
+//        //storage
+//        FirebaseStorage storage = FirebaseStorage.getInstance();
+//
+//        //파일명 만들기
+//        String letterFileName = DBTime + ".png";
+//        //storage 주소와 폴더 파일명을 지정
+//        StorageReference storageRef = storage.getReferenceFromUrl("gs://hongkathon.appspot.com").child("Family/" + letterFileName);
+//        //올라가거라...
+//        storageRef.putFile(selectedImageUri);
+//
+//}
+
+
+        @Override
     public void onButtonClick(String input){
         mToTv.setText(input);
     }
