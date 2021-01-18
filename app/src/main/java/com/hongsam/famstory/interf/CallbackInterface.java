@@ -1,9 +1,9 @@
 package com.hongsam.famstory.interf;
 
-import com.hongsam.famstory.firebase.CalendarDB;
+import com.hongsam.famstory.data.Calendar;
 
 public interface CallbackInterface {
-    public void view_more_text(CalendarDB data);
+    public void view_more_text(Calendar data);
 
-    public void isDateNull(String date);
+    public void visibleView(int dataIsNull);
 }

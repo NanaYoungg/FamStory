@@ -1,7 +1,7 @@
 package com.hongsam.famstory.interf;
 
-import com.hongsam.famstory.firebase.CalendarDB;
+import com.hongsam.famstory.data.Calendar;
 
 public interface CustomDialogInterface {
-    public void calendarUpdateGetDialogText(CalendarDB data);
+    public void calendarUpdateGetDialogText(Calendar data);
 }
