@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,14 +25,13 @@ import com.hongsam.famstory.activitie.MainActivity;
 import com.hongsam.famstory.databinding.FragmentCalendarBinding;
 import com.hongsam.famstory.define.Define;
 import com.hongsam.famstory.dialog.CalendarCustomDialog;
-import com.hongsam.famstory.firebase.CalendarDB;
+import com.hongsam.famstory.data.Calendar;
+import com.hongsam.famstory.firebase.CalendarFirebaseDB;
 import com.hongsam.famstory.firebase.DeleteDB;
 import com.hongsam.famstory.firebase.ReadDB;
 import com.hongsam.famstory.firebase.CheckDB;
 import com.hongsam.famstory.firebase.UpdateDB;
 import com.hongsam.famstory.interf.CallbackInterface;
-
-import java.util.Calendar;
 
 
 /**
@@ -44,30 +44,32 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
     private MainActivity mainActivity;
     protected View mContentView;
     private CalendarView calendarView;
-    private TextView vm_name, vm_text, vm_date, vm_time;
+    private TextView vm_name, vm_text, vm_date;
+    public static TextView vm_time,calendarUpdateText,calendarCreateText,calendarDeleteText;
     protected ConstraintLayout view_more;
     protected String getDate;
-    public static Button cal_update_btn, cal_delete_btn, cal_create_btn;
+    public static Button calendarUpdateBtn, calendarDeleteBtn, calendarCreateBtn;
     protected DeleteDB deleteDB = new DeleteDB();
     protected FragmentTransaction ft_view_more;
     protected CalendarViewMoreFragment viewMoreFragment;
-    private Button monthCalendar;
+    private Button monthCalendar,spinnerManger;
     protected CheckDB checkDB = new CheckDB();
     public static String state = "null";
     protected View root;
-    private int getYear,getMonth,getDay;
-    Calendar nowDate = Calendar.getInstance();
-    String date = nowDate.get(Calendar.YEAR) + "년" + nowDate.get(Calendar.MONTH) + "월" + nowDate.get(Calendar.DATE) + "일";
-    int dateToInt = nowDate.get(Calendar.YEAR) + nowDate.get(Calendar.MONTH) + nowDate.get(Calendar.DATE);
+    java.util.Calendar nowDate = java.util.Calendar.getInstance();
+    int dateToInt = nowDate.get(java.util.Calendar.YEAR) + nowDate.get(java.util.Calendar.MONTH)+1 + nowDate.get(java.util.Calendar.DATE);
+    private int getCalendarYear = nowDate.get(java.util.Calendar.YEAR);
+    private int getCalendarMonth = nowDate.get(java.util.Calendar.MONTH)+1;
+    private int getCalendarDay = nowDate.get(java.util.Calendar.DATE);
+    CalendarFirebaseDB a123 = new CalendarFirebaseDB();
 
-    private int Year = nowDate.get(Calendar.YEAR);
-    private int Month = nowDate.get(Calendar.MONTH)+1;
-    private int Day = nowDate.get(Calendar.DATE);
+
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         mainActivity = (MainActivity) getActivity();
-        mainActivity.setCi(this);
+        mainActivity.setCallbackInterface(this);
 
     }
 
@@ -75,7 +77,6 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
-        Toast.makeText(getContext(), date, Toast.LENGTH_SHORT).show();
     }
 
     @Nullable
@@ -96,24 +97,38 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
         }
         viewMoreFragment = new CalendarViewMoreFragment();
         ReadDB readDB = new ReadDB(mainActivity);
-        readDB.databaseRead(getYear,getMonth,getDay,date);
+        readDB.databaseRead(getCalendarYear, getCalendarMonth, getCalendarDay);
         getFragmentManager().beginTransaction().replace(R.id.calendar_view_more, viewMoreFragment).commit();
         FragmentManager newFm = getFragmentManager();
-        checkDB.checkDB(getYear,getMonth,getDay,date, getContext(), newFm, viewMoreFragment);
+        checkDB.checkDB(getCalendarYear, getCalendarMonth, getCalendarDay,getContext(), newFm, viewMoreFragment);
 
 
         return root;
     }
 
-    @Override
-    public void isDateNull(String date) {
-        getDate = date;
-    }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void visibleView(int dataIsNull) {
+        if (dataIsNull==Define.DATA_IS_NULL){
+            calendarDeleteText.setVisibility(View.INVISIBLE);
+            calendarUpdateText.setVisibility(View.INVISIBLE);
+            calendarCreateText.setVisibility(View.VISIBLE);
+            calendarUpdateBtn.setVisibility(View.INVISIBLE);
+            calendarDeleteBtn.setVisibility(View.INVISIBLE);
+            calendarCreateBtn.setVisibility(View.VISIBLE);
+        }
+        else if (dataIsNull==Define.DATA_IS_NOT_NULL){
+            calendarDeleteText.setVisibility(View.VISIBLE);
+            calendarUpdateText.setVisibility(View.VISIBLE);
+            calendarCreateText.setVisibility(View.INVISIBLE);
+            calendarUpdateBtn.setVisibility(View.VISIBLE);
+            calendarDeleteBtn.setVisibility(View.VISIBLE);
+            calendarCreateBtn.setVisibility(View.INVISIBLE);
 
+        }
+        else{
+            Log.e("e","rr0");
+        }
     }
 
 
@@ -128,47 +143,51 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
                 vm_time.setText("");
 
                 month += 1;
-                date = year + "년" + month + "월" + dayOfMonth + "일";
-                getYear = year;
-                getMonth = month;
-                getDay = dayOfMonth;
+                getCalendarYear = year;
+                getCalendarMonth = month;
+                getCalendarDay = dayOfMonth;
 
                 dateToInt = year + month + dayOfMonth;
-                Toast.makeText(getContext(),dateToInt+"",Toast.LENGTH_SHORT).show();
                 ReadDB readDB = new ReadDB(mainActivity);
 
-                readDB.databaseRead(getYear,getMonth,getDay,date);
+                readDB.databaseRead(getCalendarYear, getCalendarMonth, getCalendarDay);
                 if (getFragmentManager()!=null) {
                     getFragmentManager().beginTransaction().replace(R.id.calendar_view_more, viewMoreFragment).commit();
                     FragmentManager newFm = getFragmentManager();
-                    checkDB.checkDB(getYear,getMonth,getDay,date, getContext(), newFm, viewMoreFragment);
+                    checkDB.checkDB(getCalendarYear, getCalendarMonth, getCalendarDay, getContext(), newFm, viewMoreFragment);
                 }
                 Define.setViewText(vm_date, year + "." + month + "." + dayOfMonth);
                 if (state.equals("null")) {
-                    cal_create_btn.setVisibility(View.VISIBLE);
-                    cal_delete_btn.setVisibility(View.INVISIBLE);
-                    cal_update_btn.setVisibility(View.INVISIBLE);
+                    calendarCreateBtn.setVisibility(View.VISIBLE);
+                    calendarCreateText.setVisibility(View.VISIBLE);
+                    calendarDeleteBtn.setVisibility(View.INVISIBLE);
+                    calendarDeleteText.setVisibility(View.INVISIBLE);
+                    calendarUpdateBtn.setVisibility(View.INVISIBLE);
+                    calendarUpdateText.setVisibility(View.INVISIBLE);
                 }
 
 
             }
         });
 
-        cal_create_btn.setOnClickListener(new View.OnClickListener() {
+        calendarCreateBtn.setOnClickListener(new View.OnClickListener() {
+            final int todayYear = nowDate.get(java.util.Calendar.YEAR);
+            final int todayMonth = nowDate.get(java.util.Calendar.MONTH)+1;
+            final int todayDay = nowDate.get(java.util.Calendar.DATE);
             @Override
             public void onClick(View v) {
-                int todayDate = nowDate.get(Calendar.YEAR) + nowDate.get(Calendar.MONTH) + nowDate.get(Calendar.DATE);
+                int todayDate = todayYear + todayMonth + todayDay;
 
-                if (dateToInt<=todayDate) {
+                if (todayDate>dateToInt) {
                     Toast.makeText(getContext(), "이미 시간이 지난 일정은 생성이 불가능 합니다.", Toast.LENGTH_SHORT).show();
                 } else {
-                    CalendarCustomDialog dialog = new CalendarCustomDialog(getYear,getMonth,getDay,mainActivity, date, Define.CREATE_DIALOG);
+                    CalendarCustomDialog dialog = new CalendarCustomDialog(getCalendarYear, getCalendarMonth, getCalendarDay,mainActivity, Define.CREATE_DIALOG);
                     dialog.show();
                 }
             }
         });
 
-        cal_delete_btn.setOnClickListener(new View.OnClickListener() {
+        calendarDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
@@ -180,11 +199,14 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
 
                         Toast.makeText(getContext(), "일정을 삭제하였어요. 복구가 불가능합니다.", Toast.LENGTH_SHORT).show();
                         getFragmentManager().beginTransaction().replace(R.id.calendar_view_more, new CalendarViewMoreFragment()).commit();
-                        deleteDB.databaseDelete(getYear,getMonth,getDay,date);
+                        deleteDB.databaseDelete(getCalendarYear, getCalendarMonth, getCalendarDay);
                         vm_text.setText("");
-                        cal_delete_btn.setVisibility(View.GONE);
-                        cal_update_btn.setVisibility(View.GONE);
-                        cal_create_btn.setVisibility(View.VISIBLE);
+                        calendarDeleteBtn.setVisibility(View.GONE);
+                        calendarDeleteText.setVisibility(View.GONE);
+                        calendarUpdateBtn.setVisibility(View.GONE);
+                        calendarUpdateText.setVisibility(View.GONE);
+                        calendarCreateBtn.setVisibility(View.VISIBLE);
+                        calendarCreateText.setVisibility(View.VISIBLE);
                     }
                 });
                 alertDialog.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
@@ -199,16 +221,14 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
 
             }
         });
-        cal_update_btn.setOnClickListener(new View.OnClickListener() {
+        calendarUpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "update dialog", Toast.LENGTH_SHORT).show();
                 //updateDB.updateDB(date);
-                int year = nowDate.get(Calendar.YEAR);
-                int month = nowDate.get(Calendar.MONTH);
-                int day = nowDate.get(Calendar.DATE);
-                CalendarCustomDialog dialog = new CalendarCustomDialog(year,month,day,mainActivity, date, Define.UPDATE_DIALOG);
-                Toast.makeText(getContext(), "update", Toast.LENGTH_SHORT).show();
+
+                CalendarCustomDialog dialog = new CalendarCustomDialog(getCalendarYear, getCalendarMonth, getCalendarDay,mainActivity, Define.UPDATE_DIALOG);
+                UpdateDB updateDB = new UpdateDB(mainActivity);
+                updateDB.updateDB(getCalendarYear, getCalendarMonth, getCalendarDay);
                 dialog.show();
 
             }
@@ -220,12 +240,15 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
         monthCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (getFragmentManager()!=null) {
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.calendar_fragment_layout,new MonthCalendar()).commit();
+                mainActivity.changeFragment(Define.FRAGMENT_ID_MONTH_LIST);
 
-                }
+            }
+        });
 
+        spinnerManger.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivity.changeFragment(Define.FRAGMENT_ID_SPINNER_MANGER);
             }
         });
 
@@ -244,10 +267,14 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
         vm_name = mBinding.vmName;
         vm_text = mBinding.vmText;
         vm_time = mBinding.vmTime;
-        cal_create_btn = mBinding.calendarCreate;
-        cal_delete_btn = mBinding.calendarDelete;
-        cal_update_btn = mBinding.calendarUpdate;
+        calendarCreateBtn = mBinding.calendarCreate;
+        calendarDeleteBtn = mBinding.calendarDelete;
+        calendarUpdateBtn = mBinding.calendarUpdate;
+        calendarCreateText = mBinding.calendarCreateText;
+        calendarUpdateText = mBinding.calendarUpdateText;
+        calendarDeleteText = mBinding.calendarDeleteText;
         monthCalendar = mBinding.monthCalendar;
+        spinnerManger = mBinding.spinnerMangerBtn;
     }
 
 
@@ -260,7 +287,7 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
 
 
     @Override
-    public void view_more_text(CalendarDB data) {
+    public void view_more_text(Calendar data) {
         String name = data.getTitle();
         String text = data.getDescription();
         String startTime = data.getStartTime();
