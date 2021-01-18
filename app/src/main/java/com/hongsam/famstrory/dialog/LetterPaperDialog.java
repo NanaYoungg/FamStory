@@ -11,6 +11,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,7 +54,8 @@ public class LetterPaperDialog extends DialogFragment implements View.OnClickLis
 
         //recycle 관련
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //GridLayoutManager 로 한줄에 3개씩 출력
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         //initData();
         mRecyclerView.setAdapter(new LetterPaperAdapter(getContext(), (ArrayList<LetterPaper>) initData()));
@@ -86,7 +88,7 @@ public class LetterPaperDialog extends DialogFragment implements View.OnClickLis
         if(window == null) return;
         WindowManager.LayoutParams params = window.getAttributes();
         params.width = 1000;
-        params.height = 1000;
+        params.height = 1100;
         window.setAttributes(params);
 
     }

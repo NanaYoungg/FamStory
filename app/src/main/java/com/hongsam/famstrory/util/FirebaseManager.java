@@ -32,4 +32,6 @@ public class FirebaseManager {
 
     public static final String pathImgTitle = "/title.jpg";
     public static final String pathImgSelfie = "/selfie.jpg";
+
+    public static final String pathImgLetter = "/letter.jpg";
 }

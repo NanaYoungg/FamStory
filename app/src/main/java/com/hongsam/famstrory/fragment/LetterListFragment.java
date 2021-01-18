@@ -2,6 +2,7 @@ package com.hongsam.famstrory.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -17,17 +18,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hongsam.famstrory.ItemTouchHelper.RecyclerItemTouchHelper;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.adapter.LetterListAdapter;
+import com.hongsam.famstrory.data.LetterContants;
+import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.LetterList;
 import com.hongsam.famstrory.define.Define;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.hongsam.famstrory.fragment.LetterWriteFragment.TEST_FAMILY;
 
 /*
  * 편지 목록 화면
@@ -43,10 +51,11 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
     private DatabaseReference mFamRef;
 
     private RecyclerView recyclerView;
-    private ArrayList<LetterList> itemList;
     private LetterListAdapter letterListAdapter;
     private CoordinatorLayout coordinatorLayout;
     private FloatingActionButton fab;
+
+    private ArrayList<LetterList> itemList;
 
 
     public LetterListFragment() {
@@ -57,11 +66,6 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
 
-//        mDb = FirebaseDatabase.getInstance();
-//        mFamRef = mDb.getReference("Letter");
-
-        //데이터
-//        Letter letter = new Letter("가족이름",new LetterContants("아빠","내용2","날짜2"));
 
     }
 
@@ -85,25 +89,38 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
         init(mContentView);
 
         return mContentView;
+
     }
 
 
-    /*
-     * 액티비티와 사용자의 상호작용 함수
-     * */
     public void onResume() {
         super.onResume();
-
         //recycle 관련
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        //initData();
-        recyclerView.setAdapter(new LetterListAdapter((ArrayList<LetterList>) initData(), getContext()));
+        itemList = new ArrayList<>();
 
-        //삭제 관련  :  왼쪽으로 밀때 삭제된다
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
-        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+        //DB에서 편지 리스트 뿌려주기
+        mFamRef = FirebaseDatabase.getInstance().getReference("Family").child(TEST_FAMILY).child("LetterContants");
+        mFamRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot npsnapshot : snapshot.getChildren()) {
+                        LetterList al = npsnapshot.getValue(LetterList.class);
+                        itemList.add(al);
+                    }
+                    letterListAdapter = new LetterListAdapter(itemList);
+                    recyclerView.setAdapter(letterListAdapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
     }
@@ -117,6 +134,11 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
             coordinatorLayout = mContentView.findViewById(R.id.coordinatorlayout);
             fab = mContentView.findViewById(R.id.f_latter_send_fab_btn);
             recyclerView = mContentView.findViewById(R.id.f_latter_list_recycler);
+
+
+            //삭제 관련  :  왼쪽으로 밀때 삭제된다
+            ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+            new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
 
             //편지보내기로 전환
@@ -203,21 +225,21 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
 
 
     //편지리스트 아이템값 추가 -> 추후 DB값 불러오기
-    private List<LetterList> initData() {
-
-        itemList = new ArrayList<>();
-        itemList.add(new LetterList("엄마", "우리딸 안녕~!~!", "2020년 04일 13년"));
-        itemList.add(new LetterList("아빠", "우리딸 안녕~!~!22222222222", "2020년 05일 13년"));
-        itemList.add(new LetterList("동생", "우리딸 안녕~!~!3333332222222222222223333", "2020년 06일 13년"));
-        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-
-        return itemList;
-    }
+//    private List<LetterList> initData() {
+//
+//        itemList = new ArrayList<>();
+//        itemList.add(new LetterList("엄마", "우리딸 안녕~!~!", "2020년 04일 13년"));
+//        itemList.add(new LetterList("아빠", "우리딸 안녕~!~!22222222222", "2020년 05일 13년"));
+//        itemList.add(new LetterList("동생", "우리딸 안녕~!~!3333332222222222222223333", "2020년 06일 13년"));
+//        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+//        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+//        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+//        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+//        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+//        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+//
+//        return itemList;
+//    }
 
 
     /**

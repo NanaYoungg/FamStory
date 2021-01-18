@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedManager.getInstance(this);
-
         db = DBFamstory.getInstance(this);
 
         // Firebase로부터 Token값을 받아 firebase database와 sharedPreference에 저장해준다.
@@ -139,6 +138,33 @@ public class MainActivity extends AppCompatActivity {
     public void saveToken(final String token) {
         SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
         writeMember("테스트가족", token, new Member("아들", "김아들"));
+    }
+
+
+    public void getFirebaseToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e(TAG, "파이어베이스 토큰 등록 실패", task.getException());
+                            return;
+                        }
+
+                        String token = task.getResult();
+                        Log.d(TAG, "파이어베이스 토큰 : " + token);
+                        saveToken(token);
+                    }
+                });
+    }
+
+    public void saveToken(final String token) {
+        SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
+        writeMember("테스트가족", token, new Member("엄마", "김엄마"));
+    }
+
+    public void writeMember(String famName, String token, Member member) {
+        FirebaseManager.dbFamRef.child(famName).child("members").child(token).setValue(member);
     }
 
     public void setCi(CallbackInterface ci) {
@@ -243,7 +269,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

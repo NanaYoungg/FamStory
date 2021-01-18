@@ -35,11 +35,14 @@ public class ViewHolderStruct {
             findViewById(itemView);
         }
 
-        public void findViewById(View itemView) {}
-        public void init(int position){}
+        public void findViewById(View itemView) {
+        }
+
+        public void init(int position) {
+        }
     }
 
-    public static class ViewHolderMember extends BasicViewHolder{
+    public static class ViewHolderMember extends BasicViewHolder {
 
         ArrayList<Member> memberList;
         TextView tvName;
@@ -49,7 +52,7 @@ public class ViewHolderStruct {
 
         public ViewHolderMember(@NonNull View itemView, Context context, Object dataList) {
             super(itemView, context, dataList);
-            memberList = (ArrayList<Member>)mDataList;
+            memberList = (ArrayList<Member>) mDataList;
         }
 
         @Override
@@ -73,7 +76,7 @@ public class ViewHolderStruct {
                     etEdit.setVisibility(View.VISIBLE);
                     btnEdit.setVisibility(View.VISIBLE);
                     tvCall.setVisibility(View.GONE);
-                    ((MainActivity)mContext).showKeyboard(etEdit, true);
+                    ((MainActivity) mContext).showKeyboard(etEdit, true);
                     return true;
                 }
             });
@@ -90,7 +93,7 @@ public class ViewHolderStruct {
                     tvCall.setVisibility(View.VISIBLE);
                     etEdit.setVisibility(View.GONE);
                     btnEdit.setVisibility(View.GONE);
-                    ((MainActivity)mContext).showKeyboard(etEdit, false);
+                    ((MainActivity) mContext).showKeyboard(etEdit, false);
                 }
             });
 
@@ -99,3 +102,5 @@ public class ViewHolderStruct {
     }
 
 }
+
+

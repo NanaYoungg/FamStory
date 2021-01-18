@@ -9,7 +9,6 @@ public class Member {
 
     private String relation;    // 관계 (할머니, 할아버지, 엄마, 아빠 등..)
     private String name;        // 이름
-
     public Member() { }
 
     public Member(String relation, String name) {
