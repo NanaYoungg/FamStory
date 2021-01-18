@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -24,7 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hongsam.famstory.define.Define;
 import com.hongsam.famstory.R;
 
-import com.hongsam.famstory.firebase.CalendarDB;
+import com.hongsam.famstory.data.Calendar;
 import com.hongsam.famstory.firebase.ReadDB;
 import com.hongsam.famstory.firebase.UpdateDB;
 import com.hongsam.famstory.fragment.CalendarFragment;
@@ -34,8 +33,10 @@ import com.hongsam.famstory.fragment.LetterListFragment;
 import com.hongsam.famstory.fragment.LetterReadFragment;
 import com.hongsam.famstory.fragment.LetterWriteFragment;
 import com.hongsam.famstory.fragment.MenuFragment;
+import com.hongsam.famstory.fragment.MonthCalendar;
 import com.hongsam.famstory.fragment.ProfileFragment;
 import com.hongsam.famstory.fragment.SettingFragment;
+import com.hongsam.famstory.fragment.SpinnerMangerFragment;
 import com.hongsam.famstory.fragment.TimeLineFragment;
 
 import com.hongsam.famstory.interf.CallbackInterface;
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedManager.getInstance(this);
 
-        changeFragment(Define.FRAGMENT_ID_PROFILE);
+        changeFragment(Define.FRAGMENT_ID_CALENDAR);
 
         navigationView = (BottomNavigationView) findViewById(R.id.navi_view);
 
@@ -75,30 +76,30 @@ public class MainActivity extends AppCompatActivity {
         checkSelfPermission();
     }
 
-    public void setCi(CallbackInterface ci) {
+    public void setCallbackInterface(CallbackInterface ci) {
         this.ci = ci;
     }
 
-    public void setCdi(CustomDialogInterface cdi) {
+    public void setCustomInterface(CustomDialogInterface cdi) {
         this.cdi = cdi;
     }
 
-
     public void databaseRead(int year, int month, int day, String date) {
-        readDB.databaseRead(year,month,day,date);
+        readDB.databaseRead(year,month,day);
     }
 
-    public void calendarUpdateGetDialogText(CalendarDB data) {
+    public void calendarUpdateGetDialogText(Calendar data) {
         cdi.calendarUpdateGetDialogText(data);
     }
+    public void visibleView(int dataIsNull){
+        ci.visibleView(dataIsNull);
 
-    public void view_more_text(CalendarDB data) {
+    }
+
+    public void view_more_text(Calendar data) {
         ci.view_more_text(data);
     }
 
-    public void isDataNull(String date) {
-        ci.isDateNull(date);
-    }
 
     @Override
     protected void onResume() {
@@ -108,13 +109,11 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-
                 switch (item.getItemId()) {
-                    case R.id.main_menu:
+                    case R.id.calendar_menu:
                         changeFragment(Define.FRAGMENT_ID_PROFILE);
                         break;
-                    case R.id.calendar_menu:
+                    case R.id.main_menu:
                         changeFragment(Define.FRAGMENT_ID_CALENDAR);
                         break;
                     case R.id.message_menu:
@@ -124,15 +123,13 @@ public class MainActivity extends AppCompatActivity {
                         changeFragment(Define.FRAGMENT_ID_EMOTION);
                         break;
                     case R.id.setting_menu:
-                        changeFragment(Define.FRAGMENT_ID_PROFILE);
+                        changeFragment(Define.FRAGMENT_ID_SETTING);
                         break;
-                    default:
-                        break;
-
                 }
                 return true;
             }
         });
+
     }
 
     Fragment fragment = null;
@@ -179,7 +176,12 @@ public class MainActivity extends AppCompatActivity {
             case Define.FRAGMENT_ID_LETTER_READ:
                 fragment = new LetterReadFragment();
                 break;
-
+            case Define.FRAGMENT_ID_MONTH_LIST:
+                fragment = new MonthCalendar();
+                break;
+            case Define.FRAGMENT_ID_SPINNER_MANGER:
+                fragment = new SpinnerMangerFragment();
+                break;
             default:
                 break;
         }
