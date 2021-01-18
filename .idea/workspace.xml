@@ -5,28 +5,40 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="862a0321-2b29-4960-8760-27293b3eef4e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/ItemTouchHelper/RecyclerItemTouchHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/ItemTouchHelper/RecyclerItemTouchHelper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/activitie/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/activitie/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/adapter/LetterListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/adapter/LetterListAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/define/Define.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/define/Define.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/dialog/CalendarCustomDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/dialog/CalendarCustomDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/dialog/LetterReceiverDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/dialog/LetterReceiverDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/CalendarDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/data/Calendar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/CheckDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/CheckDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/CreateDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/CreateDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/DeleteDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/DeleteDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/ReadDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/ReadDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/UpdateDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/firebase/UpdateDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/CalendarFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/CalendarFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/LetterReadFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/LetterReadFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/LetterWriteFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/LetterWriteFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/ProfileFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/interf/CallbackInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/interf/CallbackInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/interf/CustomDialogInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/interf/CustomDialogInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/service/MyFirebaseMessagingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/service/MyFirebaseMessagingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/util/FirebaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/util/FirebaseManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/util/GlobalMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/util/GlobalMethod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_calendar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_calendar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/month_calendar_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/month_calendar_layout.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[52008239ecdb64e1]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[9333e0d1]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -44,6 +56,15 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="resourceFile" />
+        <option value="layoutResourceFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -57,7 +78,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/layout" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../famstory - 복사본" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -149,9 +170,53 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="765" y="223" key="#com.intellij.ide.util.MemberChooser" timestamp="1610956291070">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="765" y="223" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1610956291070" />
+    <state x="371" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1610931413472">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="371" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610931413472" />
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1610948021754">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610948021754" />
     <state x="58" y="278" key="AndroidCreateResourceDirectoryDialog" timestamp="1610777227596">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="58" y="278" key="AndroidCreateResourceDirectoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610777227596" />
+    <state x="540" y="275" key="AndroidCreateResourceFileDialog" timestamp="1610970670832">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="540" y="275" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610970670832" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1610932407247">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1610932407247" />
+    <state width="1876" height="214" key="GridCell.Tab.0.bottom" timestamp="1610973911270">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="214" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610973911270" />
+    <state width="1876" height="214" key="GridCell.Tab.0.center" timestamp="1610973911262">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="214" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610973911262" />
+    <state width="1876" height="214" key="GridCell.Tab.0.left" timestamp="1610973911261">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="214" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610973911261" />
+    <state width="1876" height="214" key="GridCell.Tab.0.right" timestamp="1610973911262">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1876" height="214" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610973911262" />
+    <state x="754" y="297" key="chooseDestDirectoryDialog" timestamp="1610783539842">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="754" y="297" key="chooseDestDirectoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610783539842" />
+    <state x="668" y="236" width="582" height="568" key="find.popup" timestamp="1610933595362">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="668" y="236" width="582" height="568" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1610933595362" />
   </component>
 </project>
