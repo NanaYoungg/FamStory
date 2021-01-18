@@ -47,7 +47,7 @@ public class LetterReadFragment extends Fragment {
 
     /**
      * View 객체를 얻는 시점
-     * */
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -67,17 +67,16 @@ public class LetterReadFragment extends Fragment {
     }
 
 
-
-        /**
-         * 컨트롤 초기화 해주는 함수
-         * */
+    /**
+     * 컨트롤 초기화 해주는 함수
+     */
     public void init(View v) {
         if (v != null) {
-        mBackBtn = mContentView.findViewById(R.id.letter_read_back_btn);
-        mFromTv = mContentView.findViewById(R.id.f_letter_sender_tv);
-        mDate = mContentView.findViewById(R.id.letter_read_date);
-        mPhoto = mContentView.findViewById(R.id.read_photo_iv);
-        mContants = mContentView.findViewById(R.id.read_contants_tv);
+            mBackBtn = mContentView.findViewById(R.id.letter_read_back_btn);
+            mFromTv = mContentView.findViewById(R.id.f_letter_sender_tv);
+            mDate = mContentView.findViewById(R.id.letter_read_date);
+            mPhoto = mContentView.findViewById(R.id.read_photo_iv);
+            mContants = mContentView.findViewById(R.id.read_contants_tv);
 
             //toolbar의 뒤로가기 버튼
             mBackBtn.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +85,6 @@ public class LetterReadFragment extends Fragment {
                     mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
                 }
             });
-
 
 
         }
@@ -116,15 +114,14 @@ public class LetterReadFragment extends Fragment {
 
     /**
      * 이미지 리소스 세팅해주는 함수
-     * */
+     */
     public void setImageResource() {
     }
 
 
-
     /**
      * 각종 리소스 null 처리
-     * */
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();

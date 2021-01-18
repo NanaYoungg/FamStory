@@ -70,7 +70,7 @@
         android:layout_marginLeft="10dp"
         android:layout_height="wrap_content"
         android:textSize="25dp"
-        android:text="엄마"/>
+        android:text="받는사람"/>
     
     <ImageButton
         android:id="@+id/f_receiver_add_img_btn"
