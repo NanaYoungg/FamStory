@@ -5,7 +5,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+/**
+ * 파이어베이스 관련 객체 및 레퍼런스 관리
+ * 작성자 : 한재훈
+ */
+
 public class FirebaseManager {
+
+    private FirebaseManager() {}
+
+    private static class InnerInstanceClass {
+        private static final FirebaseManager instance = new FirebaseManager();
+    }
+
+    public static FirebaseManager getInstance() {
+        return InnerInstanceClass.instance;
+    }
 
     // 파이어베이스 db 객체
     public static FirebaseDatabase firebaseDB = FirebaseDatabase.getInstance();

@@ -22,6 +22,7 @@ public class Define {
         view.setText(str);
     }
 
+    public static final String KEY_FIREBASE_TOKEN = "KEY_FIREBASE_TOKEN";
     public static final String KEY_FAMILY_NAME = "KEY_FAMILY_NAME";
     public static final String KEY_FAMILY_PICTURE = "KEY_FAMILY_PICTURE";
     public static final String KEY_FAMILY_PICTURE_SIZE = "KEY_FAMILY_PICTURE_SIZE";

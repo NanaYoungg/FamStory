@@ -151,9 +151,9 @@ public class LetterWriteFragment extends Fragment {
             mConstraintLayout = mContentView.findViewById(R.id.fragment_letter_write);
             mScrollView = mContentView.findViewById(R.id.letter_write_scroll);
             mBackgound = mContentView.findViewById(R.id.letter_write_img_view);
-            mSendBtn = mContants.findViewById(R.id.letter_send_btn);
+            mSendBtn = mContentView.findViewById(R.id.letter_send_btn);
             //mCardView = mContentView.findViewById(R.id.letter_cardView);
-            mToTv = mContants.findViewById(R.id.f_letter_receiever_tv);
+            mToTv = mContentView.findViewById(R.id.f_letter_receiever_tv);
             mAddReciverBtn = mContentView.findViewById(R.id.f_receiver_add_img_btn);
         }
     }

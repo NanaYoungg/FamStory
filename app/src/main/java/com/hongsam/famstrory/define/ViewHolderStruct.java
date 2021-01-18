@@ -42,7 +42,6 @@ public class ViewHolderStruct {
     public static class ViewHolderMember extends BasicViewHolder{
 
         ArrayList<Member> memberList;
-        ImageView ivPhoto;
         TextView tvName;
         TextView tvCall;
         EditText etEdit;
@@ -56,8 +55,6 @@ public class ViewHolderStruct {
         @Override
         public void findViewById(View itemView) {
             super.findViewById(itemView);
-
-            ivPhoto = itemView.findViewById(R.id.i_member_iv_photo);
             tvName = itemView.findViewById(R.id.i_member_tv_name);
             tvCall = itemView.findViewById(R.id.i_member_tv_call);
             etEdit = itemView.findViewById(R.id.i_member_et_edit);
@@ -68,17 +65,7 @@ public class ViewHolderStruct {
         public void init(final int position) {
             super.init(position);
 
-            Glide.with(mView).load(memberList.get(position).getPhotoUrl()).into(ivPhoto);
             tvName.setText(memberList.get(position).getName());
-            tvCall.setText(memberList.get(position).getCall());
-
-            ivPhoto.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ProfileDialog profileDialog = new ProfileDialog(mContext, memberList.get(position).getPhotoUrl());
-                    profileDialog.show();
-                }
-            });
 
             tvCall.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

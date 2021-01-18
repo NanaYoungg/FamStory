@@ -37,11 +37,14 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.ViewHold
             btn_item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mainFlag) {
-                        int position = getAdapterPosition();
-                        emotionFragment.setSubKeyword(position);
-                    } else {
 
+                    int position = getAdapterPosition();
+
+                    if (mainFlag) {
+                        emotionFragment.setSubKeyword(position);
+                        emotionFragment.mainIdx = position;
+                    } else {
+                        emotionFragment.subIdx = position;
                     }
                 }
             });
@@ -67,10 +70,9 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         String text = mList.get(position);
         holder.btn_item.setText(text);
-
     }
 
     @Override

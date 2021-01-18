@@ -19,6 +19,7 @@ import java.io.IOException;
 
 public class GlobalMethod {
 
+    // 비트맵 회전이슈 관련 함수
     public static Bitmap RotateBitmap(Bitmap bm, String path) {
         Matrix matrix = new Matrix();
         try {
@@ -55,27 +56,8 @@ public class GlobalMethod {
         String filePath = file.getPath();
         Bitmap bitmap = BitmapFactory.decodeFile(filePath);
 
-        return  bitmap;
+        return bitmap;
     }
-
-//    public static String BitmapToString(Bitmap bitmap) {
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);
-//        byte[] b = baos.toByteArray();
-//        String temp = Base64.encodeToString(b, Base64.DEFAULT);
-//        return temp;
-//    }
-
-//    public static Bitmap StringToBitmap(String encodedString) {
-//        try {
-//            byte[] encodedByte = Base64.decode(encodedString, Base64.DEFAULT);
-//            Bitmap bitmap = BitmapFactory.decodeByteArray(encodedByte, 0, encodedByte.length);
-//            return bitmap;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
 
     public static String saveToInternalStorage(Context context, Bitmap bitmapImage, String fileName){
         ContextWrapper cw = new ContextWrapper(context);

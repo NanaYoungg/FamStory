@@ -1,15 +1,28 @@
 package com.hongsam.famstrory.data;
 
+/**
+ * 구성원 모델 클래스
+ * 작성자 : 한재훈
+ */
+
 public class Member {
 
-    String name;
-    String call;
-    String photoUrl;
+    private String relation;    // 관계 (할머니, 할아버지, 엄마, 아빠 등..)
+    private String name;        // 이름
 
-    public Member(String name, String call, String photoUrl) {
+    public Member() { }
+
+    public Member(String relation, String name) {
+        this.relation = relation;
         this.name = name;
-        this.call = call;
-        this.photoUrl = photoUrl;
+    }
+
+    public String getRelation() {
+        return relation;
+    }
+
+    public void setRelation(String relation) {
+        this.relation = relation;
     }
 
     public String getName() {
@@ -18,21 +31,5 @@ public class Member {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCall() {
-        return call;
-    }
-
-    public void setCall(String call) {
-        this.call = call;
-    }
-
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
     }
 }
