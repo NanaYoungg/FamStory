@@ -3,15 +3,15 @@ package com.hongsam.famstory.data;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
-public class CalendarDB {
+public class Calendar {
     public String title;
     public String description;
     public String startTime;
     public String endTime;
-    public CalendarDB(){
+    public Calendar(){
 
     }
-    public CalendarDB(String title, String description, String startTime, String endTime) {
+    public Calendar(String title, String description, String startTime, String endTime) {
         this.title = title;
         this.description = description;
         this.startTime = startTime;
