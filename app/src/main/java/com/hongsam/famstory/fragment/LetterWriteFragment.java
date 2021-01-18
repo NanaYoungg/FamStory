@@ -68,7 +68,7 @@ public class LetterWriteFragment extends Fragment {
     private TextView mToTv, mWriteDate;
     private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy년MM월dd일"); // 날짜 포맷
     private ArrayList<LetterPaper> mArrayList;
-
+    private String testfamily = "테스트가족";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
