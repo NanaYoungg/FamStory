@@ -31,6 +31,9 @@ public class Define {
 
     public static final int VIEWTYPE_MEMBER = 0;
 
+    public static int TIME_PICKER_START = 10000;
+    public static int TIME_PICKER_END = TIME_PICKER_START+1;
+
 
 //    public static int MEMBER_GRAND_MOTHER = 0;    // 할머니
 //    public static int MEMBER_GRAND_FATHER = 1;    // 할아버지

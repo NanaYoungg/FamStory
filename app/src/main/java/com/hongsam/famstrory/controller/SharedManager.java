@@ -1,12 +1,5 @@
 package com.hongsam.famstrory.controller;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
-
-import com.hongsam.famstrory.activitie.MainActivity;
-
-import static android.content.Context.MODE_PRIVATE;
-
 public class SharedManager {
 
 //    private static MainActivity mainActivity;

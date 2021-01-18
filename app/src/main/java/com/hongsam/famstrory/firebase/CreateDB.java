@@ -20,4 +20,5 @@ public class CreateDB {
         CalendarDB calendarDB = new CalendarDB(getTitle,getText,getStartTime,getEndTime);
         database.child(getDate).setValue(calendarDB);
     }
+
 }

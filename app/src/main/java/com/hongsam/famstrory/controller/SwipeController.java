@@ -1,6 +1,5 @@
 package com.hongsam.famstrory.controller;
 
-import androidx.recyclerview.widget.ItemTouchHelper.Callback;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 

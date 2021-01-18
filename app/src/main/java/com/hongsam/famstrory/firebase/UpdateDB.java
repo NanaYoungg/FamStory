@@ -13,7 +13,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.define.Define;
-import com.hongsam.famstrory.interf.CallbackInterface;
 
 import java.util.Objects;
 

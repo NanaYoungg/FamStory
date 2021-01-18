@@ -1,11 +1,10 @@
 package com.hongsam.famstrory.fragment;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,43 +19,64 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
+import com.hongsam.famstrory.data.LetterContants;
+import com.hongsam.famstrory.data.LetterPaper;
 import com.hongsam.famstrory.define.Define;
+import com.hongsam.famstrory.dialog.LetterPaperDialog;
 import com.hongsam.famstrory.dialog.LetterReceiverDialog;
+import com.hongsam.famstrory.util.FirebaseManager;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
+
+/*
+ * 편지 쓰기 화면 (편지목록의 플로팅버튼 -> 편지읽기)
+ * 1/4 , 오나영
+ * */
 
 public class LetterWriteFragment extends Fragment {
 
     private final int GET_GALLERY_IMAGE = 200;
 
-    MainActivity mainActivity;
-    View mContentView;
-    ImageButton mBackBtn;
-    ImageButton mPhoto;
-    ImageView mPhotoView;
-    EditText mContants;
-    ConstraintLayout mConstraintLayout;
-    ScrollView mScrollView;
-    ImageView mBackgound;
-    InputMethodManager imm;
-    Button mSendBtn;
-    TextView mToTv;
-    ImageButton mAddReciverBtn;
+    private MainActivity mainActivity;
+    private View mContentView;
+    private ImageButton mBackBtn, mPhoto, mAddReciverBtn, mAddPaperBtn;
+    private ImageView mPhotoView, mBackgound;
+    private EditText mContants;
+    private ConstraintLayout mConstraintLayout;
+    private ScrollView mScrollView;
+    private InputMethodManager imm;
+    private Button mSendBtn;
+    private TextView mToTv, mWriteDate;
+    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy년MM월dd일"); // 날짜 포맷
+    private ArrayList<LetterPaper> mArrayList;
 
-    //CardView mCardView;
+    private DatabaseReference mDatabase;
+    private String testfamily = "테스트가족";
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
 
+   //파이어베이스에서 데이터를 추가하거나 조회하려면 DatabaseReference의 인스턴스가 필요
+    mDatabase = FirebaseDatabase.getInstance().getReference("Family").child(testfamily);
+
     }
+
 
     /**
      * View 객체를 얻는 시점
@@ -81,11 +101,36 @@ public class LetterWriteFragment extends Fragment {
 
 
 
+
     /*
      * 액티비티와 사용자의 상호작용 함수
      * */
     public void onResume() {
         super.onResume();
+
+
+    }
+
+
+    /**
+     * 컨트롤 초기화 해주는 함수
+     */
+    public void init(View v) {
+        if (v != null) {
+            mBackBtn = mContentView.findViewById(R.id.letter_write_back_btn);
+            mContants = mContentView.findViewById(R.id.contants_tv);
+            mPhotoView = mContentView.findViewById(R.id.photo_iv);
+            mPhoto = mContentView.findViewById(R.id.gallery_img_btn);
+            mConstraintLayout = mContentView.findViewById(R.id.fragment_letter_write);
+            mScrollView = mContentView.findViewById(R.id.letter_write_scroll);
+            mBackgound = mContentView.findViewById(R.id.letter_read_img_view);
+            mSendBtn = mContentView.findViewById(R.id.letter_send_btn);
+            mToTv = mContentView.findViewById(R.id.f_letter_receiever_tv);
+            mAddReciverBtn = mContentView.findViewById(R.id.f_receiver_add_img_btn);
+            mAddPaperBtn = mContentView.findViewById(R.id.letter_paper_img_btn);
+            mWriteDate = mContentView.findViewById(R.id.letter_write_date);
+
+            mArrayList = new ArrayList<>();
 
         //toolbar의 뒤로가기 버튼
         mBackBtn.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +145,7 @@ public class LetterWriteFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(intent, GET_GALLERY_IMAGE);
             }
         });
@@ -124,20 +169,51 @@ public class LetterWriteFragment extends Fragment {
             }
         });
 
+        //받는이 값 받아오기
+//        Bundle mArgs = getArguments();
+//        String mValue = mArgs.getString("reciever");
+//        mToTv.setText(mValue);
+
+           
+        //편지지 선택하기
+        mAddPaperBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LetterPaperDialog mletterPaperDialog = LetterPaperDialog.getInstance();
+                mletterPaperDialog.show(getFragmentManager(), LetterPaperDialog.TAG_PAPER_DIALOG);
+            }
+        });
+
+        //편지 보내는 현재 날짜
+        Date date = new Date();
+        String time = mFormat.format(date);
+        mWriteDate.setText(time); // 현재 날짜로 설정
 
 
-        //보내기 버튼
-//        mSendBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getContext(),"편지가 전송되었습니다",Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
 
+        //편지보내기
+        mSendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String getSender = mToTv.getText().toString();
+                String getContants = mContants.getText().toString();
+                String getDate = mWriteDate.getText().toString();
 
-    }
+                //hashmap 만들기
+                HashMap result = new HashMap<>();
+                result.put("sender", getSender);
+                result.put("contants", getContants);
+                result.put("date", getDate);
 
+                Map<String, LetterContants> letterContantsMap = new HashMap<>();
+                letterContantsMap.put("1",new LetterContants(getSender, getContants, getDate));
+
+                writeNewLetter(letterContantsMap);
+//                writeNewUser("1",getUserName,getUserEmail);
+
+                Toast.makeText(getContext(), "편지가 전송되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     /**
      * 컨트롤 초기화 해주는 함수
@@ -157,6 +233,31 @@ public class LetterWriteFragment extends Fragment {
             mAddReciverBtn = mContentView.findViewById(R.id.f_receiver_add_img_btn);
         }
     }
+
+    //편지내용 데이터 저장
+    private void writeNewLetter(Map<String, LetterContants> letterContantsMap) {
+
+        FirebaseManager.dbFamRef.child(testfamily).child("LetterContants").setValue(letterContantsMap);
+
+//        LetterContants letterContants = new LetterContants(sender, contants, date);
+//
+//        mDatabase.child("users").child(userId).setValue(letterContants)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        // Write was successful!
+//                        Toast.makeText(getContext(), "편지가 완료했습니다.", Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        // Write failed
+//                        Toast.makeText(getContext(), "저장을 실패했습니다..", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+    }
+
 
 
     /**
@@ -187,4 +288,5 @@ public class LetterWriteFragment extends Fragment {
         super.onDestroy();
         // 예시) button1 = null;
     }
+
 }

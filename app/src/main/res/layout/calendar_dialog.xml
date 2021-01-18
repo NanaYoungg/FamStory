@@ -1,34 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
     android:orientation="vertical"
-    android:gravity="center"
     android:layout_height="wrap_content">
 
+
     <Spinner
-        android:layout_width="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:entries="@array/arr"/>
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="72dp"
         android:layout_height="wrap_content"
-        android:text="일정명"/>
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="일정명" />
+
     <EditText
         android:id="@+id/view_more_title_et"
         android:hint="일정명을 입력하세요"
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="일정내용"/>
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+
+            android:text="일정내용"/>
+        <TextView
+            android:id="@+id/description_set_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            android:gravity="bottom"
+            android:text="0/100"/>
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/view_more_description_et"
         android:hint="일정 내용을 입력하세요"
+        android:maxLength="100"
+        android:inputType="textMultiLine"
+        android:lines="3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,20 +93,15 @@
         android:visibility="gone"
         android:id="@+id/time_picker"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:timePickerMode="spinner"/>
     <Button
-        android:id="@+id/time_picker_submit_start_btn"
+        android:id="@+id/time_picker_submit_btn"
         android:visibility="gone"
         android:text="적용"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/time_picker_submit_end_btn"
-        android:visibility="gone"
-        android:text="적용"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

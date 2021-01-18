@@ -28,9 +28,6 @@ import com.hongsam.famstrory.firebase.CheckDB;
 import com.hongsam.famstrory.firebase.UpdateDB;
 import com.hongsam.famstrory.interf.CallbackInterface;
 
-import java.util.ArrayList;
-import java.util.TreeSet;
-
 /*
     Calendar 프레그먼트
 */

@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -24,33 +23,30 @@ import com.hongsam.famstrory.ItemTouchHelper.RecyclerItemTouchHelper;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.adapter.LetterListAdapter;
-import com.hongsam.famstrory.data.LetterContants;
+import com.hongsam.famstrory.data.LetterList;
 import com.hongsam.famstrory.define.Define;
 
 import java.util.ArrayList;
 import java.util.List;
-//편지읽기로 이동
-//        mCardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_READ);
-//            }
-//        });
+
+/*
+ * 편지 목록 화면
+ * 1/4 , 오나영
+ * */
 
 public class LetterListFragment extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
-    MainActivity mainActivity;
-    View mContentView;
+    private MainActivity mainActivity;
+    private View mContentView;
 
-    FirebaseDatabase mDb;
-    DatabaseReference mFamRef;
+    private FirebaseDatabase mDb;
+    private DatabaseReference mFamRef;
 
-    RecyclerView recyclerView;
-    ArrayList<LetterContants> itemList;
-    LetterListAdapter letterListAdapter;
-    CoordinatorLayout coordinatorLayout;
-    FloatingActionButton fab;
-    //CardView mCardView;
+    private RecyclerView recyclerView;
+    private ArrayList<LetterList> itemList;
+    private LetterListAdapter letterListAdapter;
+    private CoordinatorLayout coordinatorLayout;
+    private FloatingActionButton fab;
 
 
     public LetterListFragment() {
@@ -61,8 +57,8 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
 
-        mDb = FirebaseDatabase.getInstance();
-        mFamRef = mDb.getReference("Letter");
+//        mDb = FirebaseDatabase.getInstance();
+//        mFamRef = mDb.getReference("Letter");
 
         //데이터
 //        Letter letter = new Letter("가족이름",new LetterContants("아빠","내용2","날짜2"));
@@ -98,13 +94,12 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
     public void onResume() {
         super.onResume();
 
-
         //recycle 관련
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         //initData();
-        recyclerView.setAdapter(new LetterListAdapter((ArrayList<LetterContants>) initData(), getContext()));
+        recyclerView.setAdapter(new LetterListAdapter((ArrayList<LetterList>) initData(), getContext()));
 
         //삭제 관련  :  왼쪽으로 밀때 삭제된다
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
@@ -122,7 +117,6 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
             coordinatorLayout = mContentView.findViewById(R.id.coordinatorlayout);
             fab = mContentView.findViewById(R.id.f_latter_send_fab_btn);
             recyclerView = mContentView.findViewById(R.id.f_latter_list_recycler);
-            //mCardView = mContentView.findViewById(R.id.letter_cardView);
 
 
             //편지보내기로 전환
@@ -132,14 +126,6 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
                     mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_WRITE);
                 }
             });
-
-            //편지읽기로 이동
-        /*mCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_READ);
-            }
-        });*/
 
 
             //스크롤시 fab 숨기 , 스크롤시 fab 나타남
@@ -217,18 +203,18 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
 
 
     //편지리스트 아이템값 추가 -> 추후 DB값 불러오기
-    private List<LetterContants> initData() {
+    private List<LetterList> initData() {
 
         itemList = new ArrayList<>();
-        itemList.add(new LetterContants("엄마", "우리딸 안녕~!~!", "2020년 04일 13년"));
-        itemList.add(new LetterContants("아빠", "우리딸 안녕~!~!22222222222", "2020년 05일 13년"));
-        itemList.add(new LetterContants("동생", "우리딸 안녕~!~!3333332222222222222223333", "2020년 06일 13년"));
-        itemList.add(new LetterContants("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterContants("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterContants("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterContants("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterContants("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-        itemList.add(new LetterContants("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+        itemList.add(new LetterList("엄마", "우리딸 안녕~!~!", "2020년 04일 13년"));
+        itemList.add(new LetterList("아빠", "우리딸 안녕~!~!22222222222", "2020년 05일 13년"));
+        itemList.add(new LetterList("동생", "우리딸 안녕~!~!3333332222222222222223333", "2020년 06일 13년"));
+        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
+        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
 
         return itemList;
     }
