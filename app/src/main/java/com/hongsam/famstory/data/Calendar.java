@@ -1,4 +1,4 @@
-package com.hongsam.famstory.firebase;
+package com.hongsam.famstory.data;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
