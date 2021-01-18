@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -23,17 +24,14 @@ import com.hongsam.famstory.activitie.MainActivity;
 import com.hongsam.famstory.databinding.CalendarDialogBinding;
 import com.hongsam.famstory.define.Define;
 
-import com.hongsam.famstory.firebase.CalendarDB;
+import com.hongsam.famstory.data.Calendar;
+import com.hongsam.famstory.firebase.CalendarFirebaseDB;
 import com.hongsam.famstory.firebase.CreateDB;
 import com.hongsam.famstory.firebase.UpdateDB;
 import com.hongsam.famstory.interf.CustomDialogInterface;
 
-import com.hongsam.famstory.firebase.CalendarDB;
-import com.hongsam.famstory.firebase.CreateDB;
-import com.hongsam.famstory.firebase.UpdateDB;
-import com.hongsam.famstory.interf.CustomDialogInterface;
-
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -42,15 +40,17 @@ import java.util.Calendar;
  *
  */
 public class CalendarCustomDialog extends Dialog implements CustomDialogInterface {
-    private Dialog dialog;
-    private Button dialogOkBtn, dialogCancelBtn, startTimeBtn, endTimeBtn;
-    private TextView startTimeTv, endTimeTv;
-    private Spinner spinner;
+    protected Dialog dialog;
+    private Button dialogOkBtn, dialogCancelBtn, dialogStartTimeBtn, dialogEndTimeBtn;
+    private TextView dialogStartTimeTv, dialogEndTimeTv;
+    protected Spinner spinner;
     private EditText viewMoreTitleEt, viewMoreDescriptionEt;
     private TextView description_set_text;
-    String date;
-    private int pickerState;
-    View mBindingRoot;
+    protected View mBindingRoot;
+    private ArrayList<String> itemList = new ArrayList<>();
+    private ArrayAdapter<String> adapter;
+    private CalendarFirebaseDB firebaseDB = new CalendarFirebaseDB();
+    private CalendarFirebaseDB.SpinnerDB dbSpinner;
 
 
 
@@ -60,31 +60,35 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
     CreateDB createDB = new CreateDB();
     int pickerHour, pickerMinute;
     // 현재 시간을 가져오기위해 객체 생성
-    Calendar cal = Calendar.getInstance();
-    int hour = cal.get(Calendar.HOUR_OF_DAY);
-    int min = cal.get(Calendar.MINUTE);
+    java.util.Calendar cal = java.util.Calendar.getInstance();
+    int hour = cal.get(java.util.Calendar.HOUR_OF_DAY);
+    int min = cal.get(java.util.Calendar.MINUTE);
     private CalendarDialogBinding mBinding;
     UpdateDB updateDB;
     String state = "오전";
     int getYear,getMonth, getDay;
-    public CalendarCustomDialog(int getYear, int getMonth, int getDay, @NonNull MainActivity context, String date, int type) {
+    public CalendarCustomDialog(int getYear, int getMonth, int getDay, @NonNull MainActivity context, int type) {
         super(context);
-        this.date = date;
         this.type = type;
         this.getYear = getYear;
         this.getMonth = getMonth;
         this.getDay = getDay;
-
+        dbSpinner = firebaseDB.new SpinnerDB(getContext());
         dialog = new Dialog(context);
+
         if (type == Define.UPDATE_DIALOG) {
             updateDB = new UpdateDB(context);
-            updateDB.updateDB(getYear,getMonth,getDay,date);
+            updateDB.updateDB(getYear,getMonth,getDay);
         }
-        context.setCdi(this);
+        context.setCustomInterface(this);
 
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,11 +97,12 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
         mBindingRoot = mBinding.getRoot();
         setContentView(mBindingRoot);
 
-        //setContentView(R.layout.calendar_dialog);
 
         // xml id 연결
         init();
-
+        setSpinnerSetting();
+        acceptAdapter(adapter);
+        //setSpinnerSetting("회의");
         viewMoreDescriptionEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -135,19 +140,18 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
                 // EditText 에서 일정이름,일정내용을 가져옴
                 String str_title = viewMoreTitleEt.getText().toString();
                 String str_text = viewMoreDescriptionEt.getText().toString();
-                String str_start_time = startTimeTv.getText().toString();
-                String str_end_time = endTimeTv.getText().toString();
+                String str_start_time = dialogStartTimeTv.getText().toString();
+                String str_end_time = dialogEndTimeTv.getText().toString();
 
 
                 // 확인 버튼을 눌렀을때 채우지 않은 부분이 있는지 확인
                 if (str_text.length() == 0 || str_text.length() == 0 ||
-                        startTimeTv.getText().toString().equals("시작시간") ||
-                        endTimeTv.getText().toString().equals("종료시간")) {
+                        dialogStartTimeTv.getText().toString().equals("시작시간") ||
+                        dialogEndTimeTv.getText().toString().equals("종료시간")) {
                     Toast.makeText(getContext(), "빈칸을 채워주세요", Toast.LENGTH_SHORT).show();
                 } else {
                     // 번들객체에 데이터를 담아서 Firebase 로 데이터 처리
                     Bundle bundle = new Bundle();
-                    bundle.putString("date", date);
                     bundle.putString("title", str_title);
                     bundle.putString("text", str_text);
                     bundle.putString("startT", str_start_time);
@@ -155,6 +159,7 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
                     bundle.putInt("year",getYear);
                     bundle.putInt("month",getMonth);
                     bundle.putInt("day", getDay);
+                    Toast.makeText(getContext(),str_title,Toast.LENGTH_SHORT).show();
                     createDB.pushFireBaseDatabase(bundle);
                     dismiss();
                 }
@@ -170,10 +175,9 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
             }
         });
         // 시작시간을 설정하면 timePiker 와 시간 적용 버튼의 Visibility 의 상태를 gone 에서 Visible 로 바꿔줌
-        startTimeBtn.setOnClickListener(new View.OnClickListener() {
+        dialogStartTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pickerState = Define.TIME_PICKER_START;
 
 
                 CalendarTimePicker calendarTimePicker = new CalendarTimePicker(getContext(), new TimePickerDialog.OnTimeSetListener() {
@@ -186,7 +190,7 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
                             state = "오후";
                             pickerHour -= 12;
                         }
-                        startTimeTv.setText(state + " " + pickerHour + ":" + pickerMinute);
+                        dialogStartTimeTv.setText(state + " " + pickerHour + ":" + pickerMinute);
                     }
 
                 }, hour, min, false);
@@ -199,53 +203,56 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
         });
 
 
-        endTimeBtn.setOnClickListener(new View.OnClickListener() {
+        dialogEndTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pickerState = Define.TIME_PICKER_END;
-
                 CalendarTimePicker calendarTimePicker = new CalendarTimePicker(getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-
                         pickerHour = hour;
                         pickerMinute = minute;
-
                         if (pickerHour >= 12) {
                             state = "오후";
                             pickerHour -= 12;
                         }
-                        endTimeTv.setText(state + " " + pickerHour + ":" + pickerMinute);
-
+                        dialogEndTimeTv.setText(state + " " + pickerHour + ":" + pickerMinute);
                     }
-
                 }, hour, min, false);
-
                 calendarTimePicker.setMessage("시간을 설정해주세요");
                 calendarTimePicker.show();
-
             }
         });
-
     }
 
+    public void setSpinnerSetting(){
+        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item,itemList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        spinner.setAdapter(adapter);
+    }
+    public void acceptAdapter(ArrayAdapter<String> adapter){
+        dbSpinner.getSpinnerItem(adapter);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 
     public void init() {
         viewMoreTitleEt = mBinding.viewMoreTitleEt;
         viewMoreDescriptionEt = mBinding.viewMoreDescriptionEt;
         dialogOkBtn = mBinding.dialogOkBtn;
         dialogCancelBtn = mBinding.dialogCancelBtn;
-        startTimeBtn = mBinding.startTimeBtn;
-        startTimeTv = mBinding.startTimeTv;
-        endTimeBtn = mBinding.endTimeBtn;
-        endTimeTv = mBinding.endTimeTv;
+        dialogStartTimeBtn = mBinding.startTimeBtn;
+        dialogStartTimeTv = mBinding.startTimeTv;
+        dialogEndTimeBtn = mBinding.endTimeBtn;
+        dialogEndTimeTv = mBinding.endTimeTv;
         spinner = mBinding.spinner;
         description_set_text = mBinding.descriptionSetText;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public void calendarUpdateGetDialogText(CalendarDB data) {
+    public void calendarUpdateGetDialogText(Calendar data) {
 
         if (type == Define.UPDATE_DIALOG) {
             String dialogGetTitle = data.getTitle();
@@ -254,8 +261,8 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
             String dialogGetEndTime = data.getEndTime();
             viewMoreTitleEt.setText(dialogGetTitle);
             viewMoreDescriptionEt.setText(dialogGetDescription);
-            startTimeTv.setText(dialogGetStartTime);
-            endTimeTv.setText(dialogGetEndTime);
+            dialogStartTimeTv.setText(dialogGetStartTime);
+            dialogEndTimeTv.setText(dialogGetEndTime);
         }
     }
 }
