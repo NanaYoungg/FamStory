@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
+import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.LetterList;
 import com.hongsam.famstrory.define.Define;
 
@@ -29,13 +30,14 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
     private ArrayList<LetterList> letterItemList;
     private Context context;
 
-    public LetterListAdapter(ArrayList<LetterList> letterItemList, Context context) {
+    public LetterListAdapter(ArrayList<LetterList> letterItemList) {
 
         this.letterItemList = letterItemList;
         this.context = context;
 
 
     }
+
 
     @NonNull
     @Override
@@ -53,6 +55,7 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
         holder.contants.setText(letterItemList.get(position).getContants());
         holder.date.setText(letterItemList.get(position).getDate());
 
+        //카드뷰 클릭시 해당 내용 읽기로 이동
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

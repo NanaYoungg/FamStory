@@ -2,11 +2,9 @@ package com.hongsam.famstrory.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,26 +22,19 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
-import com.hongsam.famstrory.data.Letter;
 import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.LetterPaper;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.dialog.LetterPaperDialog;
 import com.hongsam.famstrory.dialog.LetterReceiverDialog;
 import com.hongsam.famstrory.util.FirebaseManager;
-import com.hongsam.famstrory.util.GlobalMethod;
-import com.hongsam.famstrory.util.SharedManager;
 
-import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -84,7 +75,7 @@ public class LetterWriteFragment extends Fragment implements LetterReceiverDialo
     private ArrayList<LetterPaper> mArrayList;
 
     private DatabaseReference mDatabase;
-    private static final String sTestFamily = "테스트가족";
+    public static final String TEST_FAMILY = "테스트가족";
     private static final String sFamName = "재훈이네가족";
 
 
@@ -94,7 +85,7 @@ public class LetterWriteFragment extends Fragment implements LetterReceiverDialo
         this.setHasOptionsMenu(true);
 
    //파이어베이스에서 데이터를 추가하거나 조회하려면 DatabaseReference의 인스턴스가 필요
-    mDatabase = FirebaseDatabase.getInstance().getReference("Family").child(sTestFamily);
+    mDatabase = FirebaseDatabase.getInstance().getReference("Family").child(TEST_FAMILY);
 
     }
 
@@ -215,6 +206,7 @@ public class LetterWriteFragment extends Fragment implements LetterReceiverDialo
                 String getSender = mToTv.getText().toString();
                 String getContants = mContants.getText().toString();
                 String getDate = mWriteDate.getText().toString();
+//                String getPhoto = mWriteDate.getText().toString();
 
                 String letterName = DBTime;
 
@@ -223,6 +215,7 @@ public class LetterWriteFragment extends Fragment implements LetterReceiverDialo
                 result.put("sender", getSender);
                 result.put("contants", getContants);
                 result.put("date", getDate);
+//                result.put("photo", getPhoto);
 
                 Map<String, LetterContants> letterContantsMap = new HashMap<>();
                 letterContantsMap.put(letterName, new LetterContants(getSender, getContants, getDate));
@@ -255,18 +248,9 @@ public class LetterWriteFragment extends Fragment implements LetterReceiverDialo
     //편지내용 DB저장
     private void writeNewLetter(Map<String, LetterContants> letterContantsMap) {
 
-        FirebaseManager.dbFamRef.child(sTestFamily).child("LetterContants").setValue(letterContantsMap);
+        FirebaseManager.dbFamRef.child(TEST_FAMILY).child("LetterContants").setValue(letterContantsMap);
 
     }
-
-
-    /**
-     * 이미지 리소스 세팅해주는 함수
-     */
-    public void setImageResource() {
-        // 예시) button1.setBackgroundResource(R.drawable.image1);
-    }
-
 
 
 
@@ -281,18 +265,6 @@ public class LetterWriteFragment extends Fragment implements LetterReceiverDialo
         }
     }
 
-//    public void uploadPicture() {
-//        //storage
-//        FirebaseStorage storage = FirebaseStorage.getInstance();
-//
-//        //파일명 만들기
-//        String letterFileName = DBTime + ".png";
-//        //storage 주소와 폴더 파일명을 지정
-//        StorageReference storageRef = storage.getReferenceFromUrl("gs://hongkathon.appspot.com").child("Family/" + letterFileName);
-//        //올라가거라...
-//        storageRef.putFile(selectedImageUri);
-//
-//}
 
 
         @Override

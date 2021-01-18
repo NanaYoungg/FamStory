@@ -6,7 +6,7 @@ public class LetterContants {
     private String sender;
     private String contants;
     private String date;
-//    private String photo;
+    private String photo;
 
     public LetterContants(){}
 
@@ -29,7 +29,7 @@ public class LetterContants {
     public String getDate() { return date; }
 
     public void setDate(String date) { this.date = date; }
-//
+
 //    public String getPhoto() { return photo; }
 //
 //    public void setPhoto(String photo) { this.photo = photo; }
