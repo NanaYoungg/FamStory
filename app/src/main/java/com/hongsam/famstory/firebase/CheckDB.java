@@ -1,7 +1,6 @@
 package com.hongsam.famstory.firebase;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -14,59 +13,72 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
+import com.hongsam.famstory.activitie.MainActivity;
+import com.hongsam.famstory.data.Calendar;
 import com.hongsam.famstory.define.Define;
 
 import java.util.ArrayList;
 
-import static com.hongsam.famstory.fragment.CalendarFragment.cal_create_btn;
-import static com.hongsam.famstory.fragment.CalendarFragment.cal_delete_btn;
-import static com.hongsam.famstory.fragment.CalendarFragment.cal_update_btn;
+import static com.hongsam.famstory.fragment.CalendarFragment.calendarCreateBtn;
+import static com.hongsam.famstory.fragment.CalendarFragment.calendarDeleteBtn;
+import static com.hongsam.famstory.fragment.CalendarFragment.calendarUpdateBtn;
+import static com.hongsam.famstory.fragment.CalendarFragment.calendarCreateText;
+import static com.hongsam.famstory.fragment.CalendarFragment.calendarDeleteText;
+import static com.hongsam.famstory.fragment.CalendarFragment.calendarUpdateText;
 import static com.hongsam.famstory.fragment.CalendarFragment.state;
+
 
 /**
  * 날짜 데이터를 생성자로 받아와 DB에 있는지 확인
- * 2021-1-6 강력한 유클립트
+ * 2021-1-6 devaspirant0510
  */
-public class CheckDB extends Fragment{
+public class CheckDB{
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     String userName = Define.user;
-    CalendarDB calendarDB;
+    Calendar calendarDB;
+    MainActivity mainActivity;
     ArrayList<String> list = new ArrayList<>();
     int view =1 ;
 
 
 
 
-    public void checkDB(int year,int month,int day,final String date, Context context,final FragmentManager fm, final Fragment fr){
+    public void checkDB(int year,int month,int day, Context context,final FragmentManager fm, final Fragment fr){
         DatabaseReference myRef = database.getReference("Family").child(userName).child("CalendarDB")
                 .child(year+"년").child(month+"월").child(day+"일");
-        Query query = myRef.orderByChild(date);
-        Log.e("a",year+" "+month+" "+day);
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String getData = snapshot.getKey();
-                Log.e("a",getData);
                 if ("title".equals(getData)){
                     fm.beginTransaction().remove(fr).commit();
                     state = "ok";
-                    cal_create_btn.setVisibility(View.INVISIBLE);
-                    cal_delete_btn.setVisibility(View.VISIBLE);
-                    cal_update_btn.setVisibility(View.VISIBLE);
+                    //mainActivity.visibleView(Define.DATA_IS_NOT_NULL);
+                    calendarCreateBtn.setVisibility(View.INVISIBLE);
+                    calendarDeleteBtn.setVisibility(View.VISIBLE);
+                    calendarUpdateBtn.setVisibility(View.VISIBLE);
+                    calendarCreateText.setVisibility(View.INVISIBLE);
+                    calendarDeleteText.setVisibility(View.VISIBLE);
+                    calendarUpdateText.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String getData = snapshot.getKey();
-                Log.e("a",getData);
                 if ("title".equals(getData)){
                     fm.beginTransaction().remove(fr).commit();
                     state = "ok";
-                    cal_create_btn.setVisibility(View.INVISIBLE);
+                    //mainActivity.visibleView(Define.DATA_IS_NOT_NULL);
+                    calendarCreateBtn.setVisibility(View.INVISIBLE);
+                    calendarDeleteBtn.setVisibility(View.VISIBLE);
+                    calendarUpdateBtn.setVisibility(View.VISIBLE);
+                    calendarCreateText.setVisibility(View.INVISIBLE);
+                    calendarDeleteText.setVisibility(View.VISIBLE);
+                    calendarUpdateText.setVisibility(View.VISIBLE);
+    /*                cal_create_btn.setVisibility(View.INVISIBLE);
                     cal_delete_btn.setVisibility(View.VISIBLE);
-                    cal_update_btn.setVisibility(View.VISIBLE);
+                    cal_update_btn.setVisibility(View.VISIBLE);*/
                 }
 
             }
