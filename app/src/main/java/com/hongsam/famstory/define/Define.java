@@ -14,6 +14,8 @@ public class Define {
     public static final int FRAGMENT_ID_PROFILE = FRAGMENT_ID + 8;
     public static final int FRAGMENT_ID_SETTING = FRAGMENT_ID + 9;
     public static final int FRAGMENT_ID_LETTER_READ = FRAGMENT_ID + 10;
+    public static final int FRAGMENT_ID_MONTH_LIST = FRAGMENT_ID + 11;
+    public static final int FRAGMENT_ID_SPINNER_MANGER = FRAGMENT_ID+12;
 
     public static String user = "테스트가족";
     public static int UPDATE_DIALOG = 5000;
@@ -22,6 +24,12 @@ public class Define {
         view.setText(str);
     }
 
+
+    public static final String DB_REFERENCE = "Family";
+    public static final String CALENDAR_DB = "CalendarDB";
+    public static final String LETTER_CONTENTS = "";
+    public static final String MEMBERS = "members";
+    public static final String MESSAGES = "messages";
     public static final String KEY_FAMILY_NAME = "KEY_FAMILY_NAME";
     public static final String KEY_FAMILY_PICTURE = "KEY_FAMILY_PICTURE";
     public static final String KEY_FAMILY_PICTURE_SIZE = "KEY_FAMILY_PICTURE_SIZE";
@@ -33,6 +41,8 @@ public class Define {
     public static int TIME_PICKER_START = 10000;
     public static int TIME_PICKER_END = TIME_PICKER_START+1;
 
+    public static int DATA_IS_NULL = 510;
+    public static int DATA_IS_NOT_NULL = DATA_IS_NULL+1;
 
 //    public static int MEMBER_GRAND_MOTHER = 0;    // 할머니
 //    public static int MEMBER_GRAND_FATHER = 1;    // 할아버지
