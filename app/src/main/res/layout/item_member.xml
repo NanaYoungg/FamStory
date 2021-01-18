@@ -19,7 +19,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="엄마"/>
-
         <TextView
             android:id="@+id/i_member_tv_name"
             android:layout_width="0dp"

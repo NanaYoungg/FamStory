@@ -3,7 +3,7 @@ package com.hongsam.famstrory.data;
 import java.util.ArrayList;
 
 /**
- * 감정표현 키워드 관련 클래스
+ * 감정표현 키워드 모델 클래스
  * 작성자 : 한재훈
  * */
 

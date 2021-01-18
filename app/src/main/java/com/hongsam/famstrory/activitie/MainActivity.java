@@ -21,10 +21,19 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.hongsam.famstrory.data.Family;
+import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.Member;
+import com.hongsam.famstrory.database.DBFamstory;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.firebase.CalendarDB;
@@ -46,7 +55,11 @@ import com.hongsam.famstrory.interf.CustomDialogInterface;
 import com.hongsam.famstrory.util.FirebaseManager;
 import com.hongsam.famstrory.util.SharedManager;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
+    private final String TAG = "MainActivity";
 
     BottomNavigationView navigationView;
 
@@ -56,22 +69,25 @@ public class MainActivity extends AppCompatActivity {
     UpdateDB updateDB;
     InputMethodManager imm;
 
-    private String TAG = "MainActivity";
+    public DBFamstory db;
+
+    // 가족객체. db에서 받아와서 넣어줄 예정
+    private Family myFamily;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SharedManager.getInstance(this);
+        db = DBFamstory.getInstance(this);
 
+        // Firebase로부터 Token값을 받아 firebase database와 sharedPreference에 저장해준다.
         getFirebaseToken();
-
-        changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
 
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        SharedManager.getInstance(this);
 
         changeFragment(Define.FRAGMENT_ID_PROFILE);
 
@@ -80,7 +96,48 @@ public class MainActivity extends AppCompatActivity {
         readDB = new ReadDB(this);
         updateDB = new UpdateDB(this);
 
-        checkSelfPermission();
+        changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+    }
+
+    public void writeMember(String famName, String token, Member member) {
+        FirebaseManager.dbFamRef.child(famName).child("members").child(token).setValue(member);
+    }
+
+    public void updateMember(String famName, Member member) {
+        String token = SharedManager.readString(Define.KEY_FIREBASE_TOKEN, "");
+        Map<String, Object> memberMap = new HashMap<>();
+        memberMap.put(token, member);
+        FirebaseManager.dbFamRef.child(famName).child("members").updateChildren(memberMap);
+    }
+
+    public void getFirebaseToken() {
+        FirebaseMessaging.getInstance().getToken()
+            .addOnCompleteListener(new OnCompleteListener<String>() {
+                @Override
+                public void onComplete(@NonNull Task<String> task) {
+                    if (!task.isSuccessful()) {
+                        Log.e(TAG, "파이어베이스 토큰 등록 실패", task.getException());
+                        return;
+                    }
+
+                    String token = task.getResult();
+                    Log.d(TAG, "파이어베이스 토큰 : " + token);
+                    saveToken(token);
+                }
+            });
+    }
+
+    // 가족 객체를 얻어오는 함수
+    public Family getMyFamily() {
+        if (myFamily != null)
+            return myFamily;
+        else
+            return null;
+    }
+
+    public void saveToken(final String token) {
+        SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
+        writeMember("테스트가족", token, new Member("아들", "김아들"));
     }
 
 
@@ -139,13 +196,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        checkSelfPermission();
+
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.main_menu:
-                        changeFragment(Define.FRAGMENT_ID_MENU);
+                        changeFragment(Define.FRAGMENT_ID_CALENDAR);
                         break;
                     case R.id.calendar_menu:
                         changeFragment(Define.FRAGMENT_ID_PROFILE);
@@ -252,13 +311,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkSelfPermission() {
         String temp = "";
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             temp += Manifest.permission.READ_EXTERNAL_STORAGE + " ";
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " ";
         }
-        if (TextUtils.isEmpty(temp) == false) {
+
+        if (!TextUtils.isEmpty(temp)) {
             ActivityCompat.requestPermissions(this, temp.trim().split(" "), 1);
         } else {
             Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show();

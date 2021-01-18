@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,9 +21,19 @@ import com.google.firebase.database.ValueEventListener;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.adapter.EmotionAdapter;
+import com.hongsam.famstrory.data.Emotion;
+import com.hongsam.famstrory.data.Family;
 import com.hongsam.famstrory.data.Keyword;
+import com.hongsam.famstrory.data.Member;
+import com.hongsam.famstrory.define.Define;
+import com.hongsam.famstrory.util.FirebaseManager;
+import com.hongsam.famstrory.util.SharedManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EmotionFragment extends Fragment {
     private final String TAG = "EmotionFragment";
@@ -34,10 +45,17 @@ public class EmotionFragment extends Fragment {
     DatabaseReference mKeywordRef;
 
     RecyclerView rvMain,rvSub;
+    Button btnSend;
+    EditText etMessage;
 
-    //ArrayList<Keyword> keywordList;
     ArrayList<String> mainKeywordList;
     ArrayList<ArrayList<String>> subKeywordList;
+
+    // 임시변수. 가족생성 or 참가 할 때 저장된 값 SharedPreference에서 가져올 것.
+    String famName = "테스트가족";
+    public int mainIdx = 0;
+    public int subIdx = 0;
+    // 임시변수 끝
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,11 +89,6 @@ public class EmotionFragment extends Fragment {
 
         mContentView = inflater.inflate(R.layout.fragment_emotion, null);
 
-        //init(mContentView);
-        //initDefault();
-
-        init(mContentView);
-
         return mContentView;
     }
 
@@ -94,7 +107,16 @@ public class EmotionFragment extends Fragment {
             rvSub = v.findViewById(R.id.f_emotion_rv_sub);
             rvSub.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
 
-            // 예시) button1 = v.findViewById(R.id.button1);
+            etMessage = v.findViewById(R.id.f_emotion_et_input);
+
+            btnSend = v.findViewById(R.id.f_emotion_btn_send);
+            btnSend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String msg = etMessage.getText().toString() + " " + subKeywordList.get(mainIdx).get(subIdx);
+                    getFamTokens(msg, SharedManager.readString(Define.KEY_FIREBASE_TOKEN, ""));
+                }
+            });
 
         }
     }
@@ -123,10 +145,6 @@ public class EmotionFragment extends Fragment {
                     }
 
                     init(mContentView);
-//                    for (int i = 0; i < keywordList.size(); i++) {
-//                        mainKeywordList.add(keywordList.get(i).getStrMain());
-//                        subKeywordList.add(keywordList.get(i).getSubList());
-//                    }
                 }
 
                 @Override
@@ -145,44 +163,43 @@ public class EmotionFragment extends Fragment {
         }
     }
 
-    public void initDefault() {
-        ArrayList<Keyword> list = new ArrayList<>();
+    public void getFamTokens(final String msg, final String token) {
+        if(msg.isEmpty())
+            return;
 
-        ArrayList feelList = new ArrayList();
-        feelList.add("약간");
-        feelList.add("매우");
-        feelList.add("별로");
-        feelList.add("조금");
+        DatabaseReference ref = FirebaseManager.dbFamRef.child(famName).child("members");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<String> relationList = new ArrayList<>();
+                ArrayList<String> tokenList = new ArrayList<>();
 
-        ArrayList stateList = new ArrayList();
-        stateList.add("출발");
-        stateList.add("도착");
-        stateList.add("가는중");
+                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+                    if (!singleSnapshot.getKey().equals(token)) {
+                        Log.d(TAG, "saveToken : singleSnapshot.getKey : " + singleSnapshot.getKey());
+                        tokenList.add(singleSnapshot.getKey());
+                        relationList.add(singleSnapshot.getValue(Member.class).getRelation());
+                    }
+                }
 
-        ArrayList foodList = new ArrayList();
-        foodList.add("사가는중");
-        foodList.add("먹고싶음");
-        foodList.add("요리중");
+                sendEmotion(relationList, tokenList, msg);
+            }
 
-        ArrayList actionList = new ArrayList();
-        actionList.add("뛰는중");
-        actionList.add("걷는중");
-        actionList.add("자는중");
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        ArrayList buyList = new ArrayList();
-        buyList.add("사와");
-        buyList.add("사줘");
-        buyList.add("사줄까");
+            }
+        });
+    }
 
-        list.add(new Keyword("기분", feelList));
-        list.add(new Keyword("상태", stateList));
-        list.add(new Keyword("음식", foodList));
-        list.add(new Keyword("행동", actionList));
-        list.add(new Keyword("심부름", buyList));
+    public void sendEmotion(ArrayList<String> relationList, ArrayList<String> tokenList, String msg) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        String today = sdf.format(date);
 
-
-        if (mKeywordRef != null) {
-            mKeywordRef.setValue(list);
+        for (int i = 0; i < tokenList.size(); i++) {
+            DatabaseReference ref = FirebaseManager.dbFamRef.child(famName).child("messages").child(tokenList.get(i));
+            ref.setValue(new Emotion(relationList.get(i), msg, today));
         }
     }
 
@@ -192,6 +209,5 @@ public class EmotionFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // 예시) button1 = null;
     }
 }

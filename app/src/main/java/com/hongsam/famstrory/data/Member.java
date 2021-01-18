@@ -1,10 +1,14 @@
 package com.hongsam.famstrory.data;
 
+/**
+ * 구성원 모델 클래스
+ * 작성자 : 한재훈
+ */
+
 public class Member {
 
     private String relation;    // 관계 (할머니, 할아버지, 엄마, 아빠 등..)
     private String name;        // 이름
-
     public Member() { }
 
     public Member(String relation, String name) {

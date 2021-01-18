@@ -63,8 +63,6 @@ public class ProfileFragment extends Fragment {
 
     ProfileOnLongClickListener mLongClickListener;
 
-    //StorageReference storageRef;
-
     String famName = "재훈이네가족";
 
     @Override
@@ -73,7 +71,6 @@ public class ProfileFragment extends Fragment {
         this.setHasOptionsMenu(true);
 
         mLongClickListener = new ProfileOnLongClickListener();
-        //storageRef = FirebaseManager.firebaseStorage.getReference("family");
     }
 
 
@@ -134,17 +131,17 @@ public class ProfileFragment extends Fragment {
                     mainActivity.showKeyboard(etTitle, false);
                 }
             });
-
-            //ivMain.setClipToOutline(true);
             ivMain.setOnLongClickListener(mLongClickListener);
 
             tvFamName.setText(famName);
 
+            String[] test = {"엄마", "아빠", "딸", "아들"};
+            String[] test2 = {"김엄마", "김아빠", "김딸", "김아들"};
             ArrayList<Member> memberList = new ArrayList<>();
-//            for (int i = 1; i <= 5; i++) {
-//                Member member = new Member("홍길동"+i, "호칭"+i, "https://firebasestorage.googleapis.com/v0/b/hongkathon.appspot.com/o/selfie.png?alt=media&token=2b623453-a82f-4a33-8195-d6ae948ebc59");
-//                memberList.add(member);
-//            }
+            for (int i = 0; i < 4; i++) {
+                Member member = new Member(test[i], test2[i]);
+                memberList.add(member);
+            }
 
             rvMember = mContentView.findViewById(R.id.f_profile_rv_member);
             RecyclerAdapter rvAdapterB = new RecyclerAdapter(mainActivity, R.layout.item_member, Define.VIEWTYPE_MEMBER, memberList);
@@ -188,6 +185,7 @@ public class ProfileFragment extends Fragment {
 
                 String picturePath = GlobalMethod.saveToInternalStorage(mainActivity, bm, "family.jpg");
                 SharedManager.writeObject(Define.KEY_FAMILY_PICTURE_PATH, picturePath);
+
             }
         });
     }
