@@ -8,7 +8,8 @@ public class LetterContants {
     private String date;
     private String photo;
 
-    public LetterContants(){}
+    public LetterContants() {
+    }
 
 
     public LetterContants(String sender, String contants, String date) {
@@ -18,17 +19,29 @@ public class LetterContants {
 //        this.photo = photo;
     }
 
-    public String getSender() { return sender; }
+    public String getSender() {
+        return sender;
+    }
 
-    public void setSender(String sender) { this.sender = sender; }
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
 
-    public String getContants() { return contants; }
+    public String getContants() {
+        return contants;
+    }
 
-    public void setContants(String contants) { this.contants = contants; }
+    public void setContants(String contants) {
+        this.contants = contants;
+    }
 
-    public String getDate() { return date; }
+    public String getDate() {
+        return date;
+    }
 
-    public void setDate(String date) { this.date = date; }
+    public void setDate(String date) {
+        this.date = date;
+    }
 
 //    public String getPhoto() { return photo; }
 //

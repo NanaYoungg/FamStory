@@ -33,33 +33,30 @@ public class LetterReceiverDialog extends DialogFragment {
     public static final String TAG_EVENT_DIALOG = "dialog_event";
 
 
-    public LetterReceiverDialog(){}
+    public LetterReceiverDialog() {
+    }
 
-    public static LetterReceiverDialog getInstance(){
+    public static LetterReceiverDialog getInstance() {
         LetterReceiverDialog letterReceiverDialog = new LetterReceiverDialog();
         return letterReceiverDialog;
     }
 
+    //LetterWriteFragment에 데이터를 넘겨주기 위한 인터페이스
     public interface MyFragmentInterfacer {
         void onButtonClick(String input);
     }
 
     private MyFragmentInterfacer fragmentInterfacer;
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        fragmentInterfacer = (MyFragmentInterfacer) context;
-    }
 
-    public void setFragmentInterfacer(MyFragmentInterfacer fragmentInterfacer){
+    public void setFragmentInterfacer(MyFragmentInterfacer fragmentInterfacer) {
         this.fragmentInterfacer = fragmentInterfacer;
     }
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_letter_receiver, container);
-        final Spinner mSpinner = (Spinner)v.findViewById(R.id.dialog_receiver);
+        final Spinner mSpinner = (Spinner) v.findViewById(R.id.dialog_receiver);
 
         //스피너 String-array와 연동
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(getActivity(),
@@ -68,15 +65,15 @@ public class LetterReceiverDialog extends DialogFragment {
         mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(mAdapter);
 
-        Button mCancleBtn = (Button)v.findViewById(R.id.dialog_receiver_cancle_btn);
+        Button mCancleBtn = (Button) v.findViewById(R.id.dialog_receiver_cancle_btn);
 
         //확인버튼 누를시 스피너 값 LetterWriteFragment에 전달
-        Button mOkBtn = (Button)v.findViewById(R.id.dialog_receiver_ok_btn);
+        Button mOkBtn = (Button) v.findViewById(R.id.dialog_receiver_ok_btn);
         mOkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Toast.makeText(getContext(), "test.", Toast.LENGTH_SHORT).show();
-                 //선택한 스피너값 String으로 받기
+                //선택한 스피너값 String으로 받기
                 String input = mSpinner.getSelectedItem().toString();
                 fragmentInterfacer.onButtonClick(input);
                 getDialog().dismiss();
@@ -85,7 +82,13 @@ public class LetterReceiverDialog extends DialogFragment {
         });
 
 //        mOkBtn.setOnClickListener(this);
-//        mCancleBtn.setOnClickListener(this);
+
+        mCancleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+            }
+        });
 //        화면터치시 꺼짐 막기
         setCancelable(false);
 
@@ -94,12 +97,11 @@ public class LetterReceiverDialog extends DialogFragment {
     }
 
 
-
     @Override
     public void onResume() {
         super.onResume();
         Window window = getDialog().getWindow();
-        if(window == null) return;
+        if (window == null) return;
         WindowManager.LayoutParams params = window.getAttributes();
         params.width = 1000;
         params.height = 1000;

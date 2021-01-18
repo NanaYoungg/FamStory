@@ -28,6 +28,7 @@ import java.util.ArrayList;
 public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.ViewHolder> {
 
     private ArrayList<LetterList> letterItemList;
+
     private Context context;
 
     public LetterListAdapter(ArrayList<LetterList> letterItemList) {

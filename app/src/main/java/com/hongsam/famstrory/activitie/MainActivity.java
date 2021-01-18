@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -19,7 +20,11 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.hongsam.famstrory.data.Member;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.firebase.CalendarDB;
@@ -38,6 +43,7 @@ import com.hongsam.famstrory.fragment.TimeLineFragment;
 
 import com.hongsam.famstrory.interf.CallbackInterface;
 import com.hongsam.famstrory.interf.CustomDialogInterface;
+import com.hongsam.famstrory.util.FirebaseManager;
 import com.hongsam.famstrory.util.SharedManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,10 +56,14 @@ public class MainActivity extends AppCompatActivity {
     UpdateDB updateDB;
     InputMethodManager imm;
 
+    private String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getFirebaseToken();
 
         changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
 
@@ -71,6 +81,33 @@ public class MainActivity extends AppCompatActivity {
         updateDB = new UpdateDB(this);
 
         checkSelfPermission();
+    }
+
+
+    public void getFirebaseToken() {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e(TAG, "파이어베이스 토큰 등록 실패", task.getException());
+                            return;
+                        }
+
+                        String token = task.getResult();
+                        Log.d(TAG, "파이어베이스 토큰 : " + token);
+                        saveToken(token);
+                    }
+                });
+    }
+
+    public void saveToken(final String token) {
+        SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
+        writeMember("테스트가족", token, new Member("엄마", "김엄마"));
+    }
+
+    public void writeMember(String famName, String token, Member member) {
+        FirebaseManager.dbFamRef.child(famName).child("members").child(token).setValue(member);
     }
 
     public void setCi(CallbackInterface ci) {
@@ -173,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

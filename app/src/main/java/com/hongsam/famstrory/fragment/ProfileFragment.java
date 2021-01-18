@@ -141,10 +141,10 @@ public class ProfileFragment extends Fragment {
             tvFamName.setText(famName);
 
             ArrayList<Member> memberList = new ArrayList<>();
-            for (int i = 1; i <= 5; i++) {
-                Member member = new Member("홍길동"+i, "호칭"+i, "https://firebasestorage.googleapis.com/v0/b/hongkathon.appspot.com/o/selfie.png?alt=media&token=2b623453-a82f-4a33-8195-d6ae948ebc59");
-                memberList.add(member);
-            }
+//            for (int i = 1; i <= 5; i++) {
+//                Member member = new Member("홍길동"+i, "호칭"+i, "https://firebasestorage.googleapis.com/v0/b/hongkathon.appspot.com/o/selfie.png?alt=media&token=2b623453-a82f-4a33-8195-d6ae948ebc59");
+//                memberList.add(member);
+//            }
 
             rvMember = mContentView.findViewById(R.id.f_profile_rv_member);
             RecyclerAdapter rvAdapterB = new RecyclerAdapter(mainActivity, R.layout.item_member, Define.VIEWTYPE_MEMBER, memberList);

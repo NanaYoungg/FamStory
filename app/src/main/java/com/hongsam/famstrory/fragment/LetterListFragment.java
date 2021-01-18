@@ -66,6 +66,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
 
+
     }
 
 
@@ -87,7 +88,6 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
 
         init(mContentView);
 
-
         return mContentView;
 
     }
@@ -95,10 +95,10 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
 
     public void onResume() {
         super.onResume();
-
         //recycle 관련
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         itemList = new ArrayList<>();
 
         //DB에서 편지 리스트 뿌려주기
@@ -106,8 +106,8 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
         mFamRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot npsnapshot : snapshot.getChildren()){
+                if (snapshot.exists()) {
+                    for (DataSnapshot npsnapshot : snapshot.getChildren()) {
                         LetterList al = npsnapshot.getValue(LetterList.class);
                         itemList.add(al);
                     }
@@ -121,11 +121,6 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
 
             }
         });
-
-
-
-        //initData();
-//        recyclerView.setAdapter(new LetterListAdapter((ArrayList<LetterList>) initData(), getContext()));
 
 
     }
