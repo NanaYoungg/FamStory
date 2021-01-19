@@ -1,22 +1,14 @@
 package com.hongsam.famstory.service;
 
-
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
-import com.google.firebase.messaging.FirebaseMessagingService;
-import com.google.firebase.messaging.RemoteMessage;
-
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
-    String TAG = "d";
-
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -37,12 +29,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-
-        Log.d(TAG, remoteMessage.getData().get("sender"));
-        Log.d(TAG, remoteMessage.getData().get("message"));
-    }
-}
-
 
         String sender = remoteMessage.getData().get("sender");
         String message = remoteMessage.getData().get("message");
@@ -81,4 +67,3 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     }
 }
- 

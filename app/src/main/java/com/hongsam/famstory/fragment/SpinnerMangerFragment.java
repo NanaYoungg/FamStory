@@ -30,7 +30,6 @@ import java.util.ArrayList;
 
 public class SpinnerMangerFragment extends Fragment {
  
-    private SpinnerMangerBinding mBinding;
     protected MainActivity mainActivity;
     private Button addItem,deleteItem;
     private ListView spinnerList;
@@ -41,16 +40,11 @@ public class SpinnerMangerFragment extends Fragment {
 
 
     private SpinnerMangerBinding mb;
-    protected MainActivity mainActivity;
 
-    private View root;
     Spinner spinner;
     ArrayAdapter<String> adapter;
-    private CalendarFirebaseDB firebaseDB = new CalendarFirebaseDB();
-    CalendarFirebaseDB.SpinnerMangerDB mangerDB= firebaseDB.new SpinnerMangerDB();
     CalendarFirebaseDB.SpinnerDB spinnerDB = firebaseDB.new SpinnerDB(getContext());
 
-    View mContentView;
 
     public SpinnerMangerFragment(ArrayAdapter<String> adapter, Spinner spinner) {
         this.spinner = spinner;
@@ -67,41 +61,11 @@ public class SpinnerMangerFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (container == null){
+        if(container==null){
             return null;
         }
- 
-        mBinding = SpinnerMangerBinding.inflate(getLayoutInflater());
-        mContentView = inflater.inflate(R.layout.spinner_manger,container,false);
-        root = mBinding.getRoot();
-        init();
-        ArrayList<String> list =new ArrayList<>();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 
-        mb = SpinnerMangerBinding.inflate(getLayoutInflater());
-        mContentView = inflater.inflate(R.layout.spinner_manger,container,false);
-        root = mb.getRoot();
-        ArrayList<String> list =new ArrayList<>();
-
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
- 
-                getContext(),
-                android.R.layout.simple_list_item_1,
-                list
-        );
-        mangerDB.getDBShowListView(adapter);
- 
-        spinnerList.setAdapter(adapter);
-        return root;
-    }
-
-    private void init() {
-        addItem = mBinding.addItem;
-        deleteItem = mBinding.deleteItem;
-        spinnerList = mBinding.spinnerList;
-
-    }
 
         mb.spinnerList.setAdapter(adapter);
 
