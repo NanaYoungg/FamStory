@@ -7,13 +7,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
-
-
-import android.view.View;
-
-import android.widget.Toast;
-
-
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -31,14 +24,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.hongsam.famstory.R;
 import com.hongsam.famstory.data.Calendar;
@@ -68,45 +53,15 @@ import com.hongsam.famstory.util.SharedManager;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.hongsam.famstory.databinding.ActivityMainBinding;
-import com.hongsam.famstory.define.Define;
-import com.hongsam.famstory.R;
-
-import com.hongsam.famstory.data.Calendar;
-import com.hongsam.famstory.firebase.ReadDB;
-import com.hongsam.famstory.firebase.UpdateDB;
-import com.hongsam.famstory.fragment.CalendarFragment;
-import com.hongsam.famstory.fragment.EmotionFragment;
-import com.hongsam.famstory.fragment.FamCreateFragment;
-import com.hongsam.famstory.fragment.LetterListFragment;
-import com.hongsam.famstory.fragment.LetterReadFragment;
-import com.hongsam.famstory.fragment.LetterWriteFragment;
-import com.hongsam.famstory.fragment.MenuFragment;
-import com.hongsam.famstory.fragment.MonthCalendar;
-import com.hongsam.famstory.fragment.ProfileFragment;
-import com.hongsam.famstory.fragment.SettingFragment;
-import com.hongsam.famstory.fragment.SpinnerMangerFragment;
-import com.hongsam.famstory.fragment.TimeLineFragment;
-
-import com.hongsam.famstory.interf.CallbackInterface;
-import com.hongsam.famstory.interf.CustomDialogInterface;
-import com.hongsam.famstory.util.SharedManager;
-
-
-
 public class MainActivity extends AppCompatActivity implements CalendarFragment.DataSender {
-
     private final String TAG = "MainActivity";
 
     BottomNavigationView navigationView;
 
-
-    private CallbackInterface ci;
-    private CustomDialogInterface cdi;
-    private ReadDB readDB;
-    private ActivityMainBinding mBinding;
-    private View root;
-
+    CallbackInterface ci;
+    CustomDialogInterface cdi;
+    ReadDB readDB;
+    UpdateDB updateDB;
     InputMethodManager imm;
     Spinner spinner;
     ArrayAdapter<String> adapter;
@@ -119,14 +74,9 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_main);
         SharedManager.getInstance(this);
         db = DBFamstory.getInstance(this);
-
-        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
-        root = mBinding.getRoot();
-        setContentView(root);
-
 
         // Firebase로부터 Token값을 받아 firebase database와 sharedPreference에 저장해준다.
         getFirebaseToken();
@@ -136,14 +86,12 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
 
-        changeFragment(Define.FRAGMENT_ID_CALENDAR);
+        changeFragment(Define.FRAGMENT_ID_PROFILE);
 
         navigationView = (BottomNavigationView) findViewById(R.id.navi_view);
 
         readDB = new ReadDB(this);
-
         updateDB = new UpdateDB(this);
-
 
         changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
     }
@@ -158,72 +106,6 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         memberMap.put(token, member);
         FirebaseManager.dbFamRef.child(famName).child("members").updateChildren(memberMap);
     }
-
-    public void getFirebaseToken() {
-        FirebaseMessaging.getInstance().getToken()
-            .addOnCompleteListener(new OnCompleteListener<String>() {
-                @Override
-                public void onComplete(@NonNull Task<String> task) {
-                    if (!task.isSuccessful()) {
-                        Log.e(TAG, "파이어베이스 토큰 등록 실패", task.getException());
-                        return;
-                    }
-
-                    String token = task.getResult();
-                    Log.d(TAG, "파이어베이스 토큰 : " + token);
-                    saveToken(token);
-                }
-            });
-    }
-
-    // 가족 객체를 얻어오는 함수
-    public Family getMyFamily() {
-        if (myFamily != null)
-            return myFamily;
-        else
-            return null;
-    }
-
-
-
-
-
-    public void saveToken(final String token) {
-        SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
-        writeMember("테스트가족", token, new Member("아들", "김아들"));
-    }
-
-    public void setCi(CallbackInterface ci) {
-        this.ci = ci;
-    }
-
-    public void setCdi(CustomDialogInterface cdi) {
-        this.cdi = cdi;
-    }
-
-
-    public void databaseRead(String date) {
-        readDB.databaseRead(date);
-    }
-
-    public void calendarUpdateGetDialogText(CalendarDB data) {
-        cdi.calendarUpdateGetDialogText(data);
-    }
-
-    public void view_more_text(CalendarDB data) {
-        ci.view_more_text(data);
-    }
-
-    public void isDataNull(String date) {
-        ci.isDateNull(date);
-    }
-
-
-    public void saveToken(final String token) {
-        SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
-        writeMember("테스트가족", token, new Member("아들", "김아들"));
-    }
-
 
     public void getFirebaseToken() {
         FirebaseMessaging.getInstance().getToken()
@@ -242,15 +124,18 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                 });
     }
 
+    // 가족 객체를 얻어오는 함수
+    public Family getMyFamily() {
+        if (myFamily != null)
+            return myFamily;
+        else
+            return null;
+    }
+
     public void saveToken(final String token) {
         SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
-        writeMember("테스트가족", token, new Member("엄마", "김엄마"));
+        writeMember("테스트가족", token, new Member("아들", "김아들"));
     }
-
-    public void writeMember(String famName, String token, Member member) {
-        FirebaseManager.dbFamRef.child(famName).child("members").child(token).setValue(member);
-    }
-
 
     public void setCallbackInterface(CallbackInterface ci) {
         this.ci = ci;
@@ -276,8 +161,6 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         ci.view_more_text(data);
     }
 
-
- 
     @Override
     protected void onResume() {
         super.onResume();
@@ -289,25 +172,18 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-
-
-                    case R.id.main_menu:
-                        changeFragment(Define.FRAGMENT_ID_CALENDAR);
-                        break;
-
                     case R.id.calendar_menu:
                         changeFragment(Define.FRAGMENT_ID_PROFILE);
                         break;
-
-
-
+                    case R.id.main_menu:
+                        changeFragment(Define.FRAGMENT_ID_CALENDAR);
+                        break;
                     case R.id.message_menu:
                         changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
                         break;
                     case R.id.emotion_menu:
                         changeFragment(Define.FRAGMENT_ID_EMOTION);
                         break;
-
                     case R.id.setting_menu:
                         changeFragment(Define.FRAGMENT_ID_SETTING);
                         break;
@@ -315,9 +191,6 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                 return true;
             }
         });
-
-
- 
     }
 
     Fragment fragment = null;
@@ -364,14 +237,12 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
             case Define.FRAGMENT_ID_LETTER_READ:
                 fragment = new LetterReadFragment();
                 break;
-
             case Define.FRAGMENT_ID_MONTH_LIST:
                 fragment = new MonthCalendar();
                 break;
             case Define.FRAGMENT_ID_SPINNER_MANGER:
                 fragment = new SpinnerMangerFragment(adapter,spinner);
                 break;
-
             default:
                 break;
         }
