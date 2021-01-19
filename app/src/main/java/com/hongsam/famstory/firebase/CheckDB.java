@@ -1,7 +1,10 @@
 package com.hongsam.famstory.firebase;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,12 +22,6 @@ import com.hongsam.famstory.define.Define;
 
 import java.util.ArrayList;
 
-import static com.hongsam.famstory.fragment.CalendarFragment.calendarCreateBtn;
-import static com.hongsam.famstory.fragment.CalendarFragment.calendarCreateText;
-import static com.hongsam.famstory.fragment.CalendarFragment.calendarDeleteBtn;
-import static com.hongsam.famstory.fragment.CalendarFragment.calendarDeleteText;
-import static com.hongsam.famstory.fragment.CalendarFragment.calendarUpdateBtn;
-import static com.hongsam.famstory.fragment.CalendarFragment.calendarUpdateText;
 import static com.hongsam.famstory.fragment.CalendarFragment.state;
 
 
@@ -43,7 +40,9 @@ public class CheckDB{
 
 
 
-    public void checkDB(int year,int month,int day, Context context,final FragmentManager fm, final Fragment fr){
+    public void checkDB(int year, int month, int day, Context context, final FragmentManager fm, final Fragment fr,
+                        final Button calendarCreateBtn, final Button calendarDeleteBtn, final Button calendarUpdateBtn,
+                        final TextView calendarCreateText,final TextView calendarDeleteText,final TextView calendarUpdateText){
         DatabaseReference myRef = database.getReference("Family").child(userName).child("CalendarDB")
                 .child(year+"년").child(month+"월").child(day+"일");
         myRef.addChildEventListener(new ChildEventListener() {
@@ -53,7 +52,9 @@ public class CheckDB{
                 if ("title".equals(getData)){
                     fm.beginTransaction().remove(fr).commit();
                     state = "ok";
+                    Log.e("checkFB",Define.DATA_IS_NOT_NULL+"");
                     //mainActivity.visibleView(Define.DATA_IS_NOT_NULL);
+                    //mainActivity.visibleView(3);
                     calendarCreateBtn.setVisibility(View.INVISIBLE);
                     calendarDeleteBtn.setVisibility(View.VISIBLE);
                     calendarUpdateBtn.setVisibility(View.VISIBLE);
@@ -69,16 +70,15 @@ public class CheckDB{
                 if ("title".equals(getData)){
                     fm.beginTransaction().remove(fr).commit();
                     state = "ok";
-                    //mainActivity.visibleView(Define.DATA_IS_NOT_NULL);
+                    Log.e("checkFB",Define.DATA_IS_NOT_NULL+"");
+                    mainActivity.visibleView(Define.DATA_IS_NOT_NULL);
                     calendarCreateBtn.setVisibility(View.INVISIBLE);
                     calendarDeleteBtn.setVisibility(View.VISIBLE);
                     calendarUpdateBtn.setVisibility(View.VISIBLE);
                     calendarCreateText.setVisibility(View.INVISIBLE);
                     calendarDeleteText.setVisibility(View.VISIBLE);
                     calendarUpdateText.setVisibility(View.VISIBLE);
-    /*                cal_create_btn.setVisibility(View.INVISIBLE);
-                    cal_delete_btn.setVisibility(View.VISIBLE);
-                    cal_update_btn.setVisibility(View.VISIBLE);*/
+
                 }
 
             }
