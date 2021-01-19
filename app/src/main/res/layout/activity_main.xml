@@ -11,11 +11,10 @@
         android:layout_height="0dp"
         app:itemIconSize="30dp"
         android:background="#FFFFFF"
-
-        app:itemIconTint="@color/menu_selector"
-        app:itemTextColor="@color/menu_selector"
+        app:itemIconTint="#000000"
+        app:itemTextColor="#000000"
         app:menu="@menu/navi_menu"
-        android:layout_weight="0.7"/>
+        android:layout_weight="0.6"/>
 
     <FrameLayout
         android:id="@+id/basic"

@@ -18,10 +18,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_letter_paper"
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
-        android:layout_marginTop="135dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal">

@@ -2,8 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/calendar_dialog_layout_shape"
-
     android:layout_height="wrap_content">
 
 
@@ -66,8 +64,6 @@
         <Button
             android:id="@+id/start_time_btn"
             android:text="시작시간"
-            android:layout_margin="10dp"
-            android:background="@drawable/calendar_dialog_button_shape"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
@@ -85,8 +81,6 @@
         <Button
             android:id="@+id/end_time_btn"
             android:text="종료시간"
-            android:layout_margin="10dp"
-            android:background="@drawable/calendar_dialog_button_shape"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
@@ -95,21 +89,28 @@
             android:layout_height="wrap_content"
             android:text="종료시간"/>
     </LinearLayout>
-
-
+    <TimePicker
+        android:visibility="gone"
+        android:id="@+id/time_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:timePickerMode="spinner"/>
+    <Button
+        android:id="@+id/time_picker_submit_btn"
+        android:visibility="gone"
+        android:text="적용"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/dialog_cancel_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_marginHorizontal="10dp"
-            android:background="@drawable/calendar_dialog_button_shape"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:text="취소"/>
@@ -118,8 +119,6 @@
             android:id="@+id/dialog_ok_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_marginHorizontal="10dp"
-            android:background="@drawable/calendar_dialog_button_shape"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:text="확인" />

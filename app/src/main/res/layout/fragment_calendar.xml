@@ -3,198 +3,124 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/calendar_fragment_layout"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:gravity="center">
     <LinearLayout
+        android:background="#FFF176"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
-        android:background="@color/colorGreen"
-        android:gravity="right">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1.1">
-
-            <Button
-                android:id="@+id/month_calendar"
-                android:layout_width="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="월별 일정 보기" />
-            <Button
-                android:id="@+id/spinner_manger_btn"
-                android:layout_marginStart="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="일정 분류"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        android:gravity="right"
+        android:layout_weight="0.2">
+        <Button
+            android:id="@+id/calendar_update"
+            android:visibility="invisible"
+            android:background="@drawable/update"
             android:layout_gravity="center"
             android:layout_marginHorizontal="5dp"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/calendar_update"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="5dp"
-                android:background="@drawable/update"
-                android:visibility="invisible" />
-            <TextView
-                android:id="@+id/calendar_update_text"
-                android:visibility="invisible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="일정수정"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"/>
+        <Button
+            android:id="@+id/calendar_delete"
+            android:visibility="invisible"
+            android:background="@drawable/delete"
             android:layout_gravity="center"
             android:layout_marginHorizontal="5dp"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/calendar_delete"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="5dp"
-                android:background="@drawable/delete"
-                android:visibility="invisible" />
-            <TextView
-                android:id="@+id/calendar_delete_text"
-                android:visibility="invisible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="일정삭제"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"/>
+        <Button
+            android:id="@+id/calendar_create"
+            android:visibility="visible"
+            android:background="@drawable/create"
             android:layout_gravity="center"
             android:layout_marginHorizontal="5dp"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/calendar_create"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="5dp"
-                android:background="@drawable/create"
-                android:visibility="visible" />
-            <TextView
-                android:id="@+id/calendar_create_text"
-                android:visibility="visible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="일정추가"/>
-
-        </LinearLayout>
+            android:layout_width="35dp"
+            android:layout_height="35dp"/>
 
     </LinearLayout>
-
     <CalendarView
         android:id="@+id/calendar_view"
-        android:layout_width="match_parent"
-        android:background="@color/colorWaterGreen"
+        android:layout_width="wrap_content"
+
         android:layout_height="0dp"
-        android:layout_weight="1.7" />
+        android:layout_weight="1.5"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="#9575CD"
         android:id="@+id/calendar_view_more"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.9"
-        android:background="@color/colorWaterBrown">
+        android:layout_weight="0.9">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="세부일정"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.082" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/vm_name"
-            android:layout_width="49dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="65dp"
+            android:layout_marginEnd="324dp"
             android:text="일정명 : "
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.044"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.24" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
             android:text="타입"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.863"
             app:layout_constraintStart_toEndOf="@+id/vm_name"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.149" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/vm_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="324dp"
             android:text="세부내용 : "
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.045"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.394" />
+            app:layout_constraintTop_toBottomOf="@+id/vm_name" />
 
         <TextView
             android:id="@+id/vm_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="360dp"
             android:text="시간"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.041"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.759" />
+            app:layout_constraintTop_toBottomOf="@+id/vm_text" />
 
         <TextView
             android:id="@+id/vm_date"
             android:layout_width="wrap_content"
-            android:layout_height="19dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
             android:text="날짜"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.21"
+            app:layout_constraintHorizontal_bias="0.267"
             app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.149" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
