@@ -1,12 +1,21 @@
 package com.hongsam.famstory.fragment;
 
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+ 
 import android.widget.Button;
 import android.widget.ListView;
+
+import android.widget.EditText;
+import android.widget.Spinner;
+ 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +29,7 @@ import com.hongsam.famstory.firebase.CalendarFirebaseDB;
 import java.util.ArrayList;
 
 public class SpinnerMangerFragment extends Fragment {
+ 
     private SpinnerMangerBinding mBinding;
     protected MainActivity mainActivity;
     private Button addItem,deleteItem;
@@ -28,6 +38,24 @@ public class SpinnerMangerFragment extends Fragment {
     private CalendarFirebaseDB firebaseDB = new CalendarFirebaseDB();
     CalendarFirebaseDB.SpinnerMangerDB mangerDB= firebaseDB.new SpinnerMangerDB();
     View mContentView;
+
+
+    private SpinnerMangerBinding mb;
+    protected MainActivity mainActivity;
+
+    private View root;
+    Spinner spinner;
+    ArrayAdapter<String> adapter;
+    private CalendarFirebaseDB firebaseDB = new CalendarFirebaseDB();
+    CalendarFirebaseDB.SpinnerMangerDB mangerDB= firebaseDB.new SpinnerMangerDB();
+    CalendarFirebaseDB.SpinnerDB spinnerDB = firebaseDB.new SpinnerDB(getContext());
+
+    View mContentView;
+
+    public SpinnerMangerFragment(ArrayAdapter<String> adapter, Spinner spinner) {
+        this.spinner = spinner;
+        this.adapter =adapter;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +70,7 @@ public class SpinnerMangerFragment extends Fragment {
         if (container == null){
             return null;
         }
+ 
         mBinding = SpinnerMangerBinding.inflate(getLayoutInflater());
         mContentView = inflater.inflate(R.layout.spinner_manger,container,false);
         root = mBinding.getRoot();
@@ -49,11 +78,20 @@ public class SpinnerMangerFragment extends Fragment {
         ArrayList<String> list =new ArrayList<>();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+
+        mb = SpinnerMangerBinding.inflate(getLayoutInflater());
+        mContentView = inflater.inflate(R.layout.spinner_manger,container,false);
+        root = mb.getRoot();
+        ArrayList<String> list =new ArrayList<>();
+
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+ 
                 getContext(),
                 android.R.layout.simple_list_item_1,
                 list
         );
         mangerDB.getDBShowListView(adapter);
+ 
         spinnerList.setAdapter(adapter);
         return root;
     }
@@ -64,4 +102,43 @@ public class SpinnerMangerFragment extends Fragment {
         spinnerList = mBinding.spinnerList;
 
     }
+
+        mb.spinnerList.setAdapter(adapter);
+
+        mb.addItem.setOnClickListener(new View.OnClickListener() {
+            final EditText editText = new EditText(getContext());
+
+            //CustomAlertDialog alertDialog = new CustomAlertDialog(getContext());
+
+
+            @Override
+            public void onClick(View view) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                editText.setHint("아이템을 입력해주세요");
+
+                builder.setTitle("추가하실 아이템을 입력하세요");
+                builder.setView(editText);
+                builder.setPositiveButton("추가", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        adapter.add(editText.getText().toString());
+
+                        mangerDB.getDBShowListView(adapter);
+                        //dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        });
+        return root;
+    }
+
+
 }
