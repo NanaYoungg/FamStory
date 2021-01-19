@@ -1,6 +1,7 @@
 package com.hongsam.famstrory.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.data.LetterList;
+import com.hongsam.famstrory.databinding.FragmentLetterReadBinding;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.dialog.LetterReceiverDialog;
+import com.hongsam.famstrory.fragment.LetterReadFragment;
 
 import java.util.ArrayList;
 
@@ -92,6 +95,7 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
             sender = itemView.findViewById(R.id.ltter_list_sender_tv);
             contants = itemView.findViewById(R.id.ltter_list_contents_tv);
             date = itemView.findViewById(R.id.ltter_list_date_tv);
+
             linearLayout = itemView.findViewById(R.id.layout_id);
 //            viewBackgound = itemView.findViewById(R.id.view_background);
             cardView = itemView.findViewById(R.id.letter_cardView);
@@ -100,8 +104,15 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    int position = getAdapterPosition();
+                    int position = getAdapterPosition();
 //                    cvInterface.OnCardClick(letterItemList.get((position)));
+//                    LetterReadFragment fragment = new LetterReadFragment();
+//                    Bundle bundle = new Bundle();
+//                    bundle.putString("sender",letterItemList.get(position).getSender());
+//                    bundle.putString("contants",letterItemList.get(position).getContants());
+//                    bundle.putString("date",letterItemList.get(position).getSender());
+//
+//                    fragment.setArguments(bundle);
 
                     ((MainActivity) context).changeFragment(Define.FRAGMENT_ID_LETTER_READ);
                 }

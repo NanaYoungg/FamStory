@@ -2,6 +2,8 @@ package com.hongsam.famstrory.define;
 
 import android.widget.TextView;
 
+import com.hongsam.famstrory.R;
+
 public class Define {
     public static final int FRAGMENT_ID = 1000;
     public static final int FRAGMENT_ID_MENU = FRAGMENT_ID + 1;
@@ -37,7 +39,13 @@ public class Define {
     public static int TIME_PICKER_START = 10000;
     public static int TIME_PICKER_END = TIME_PICKER_START+1;
 
-
+    public static int[] LetterPaperArray = {
+            R.drawable.paper1,
+            R.drawable.paper2,
+            R.drawable.paper3,
+            R.drawable.paper4,
+            R.drawable.paper5
+    };
 //    public static int MEMBER_GRAND_MOTHER = 0;    // 할머니
 //    public static int MEMBER_GRAND_FATHER = 1;    // 할아버지
 //    public static int MEMBER_MOTHER = 2;          // 엄마

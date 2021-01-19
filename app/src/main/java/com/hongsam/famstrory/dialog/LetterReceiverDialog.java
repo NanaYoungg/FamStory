@@ -1,27 +1,20 @@
 package com.hongsam.famstrory.dialog;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.hongsam.famstrory.R;
-import com.hongsam.famstrory.fragment.LetterWriteFragment;
 
 /*
  * 편지 받는이 선택하기 다이얼로그
@@ -42,15 +35,15 @@ public class LetterReceiverDialog extends DialogFragment {
     }
 
     //LetterWriteFragment에 데이터를 넘겨주기 위한 인터페이스
-    public interface MyFragmentInterfacer {
+    public interface ReceiverInterfacer {
         void onButtonClick(String input);
     }
 
-    private MyFragmentInterfacer fragmentInterfacer;
+    private ReceiverInterfacer reinterface;
 
 
-    public void setFragmentInterfacer(MyFragmentInterfacer fragmentInterfacer) {
-        this.fragmentInterfacer = fragmentInterfacer;
+    public void setReinterface(ReceiverInterfacer reinterface) {
+        this.reinterface = reinterface;
     }
 
 
@@ -75,7 +68,7 @@ public class LetterReceiverDialog extends DialogFragment {
 //                Toast.makeText(getContext(), "test.", Toast.LENGTH_SHORT).show();
                 //선택한 스피너값 String으로 받기
                 String input = mSpinner.getSelectedItem().toString();
-                fragmentInterfacer.onButtonClick(input);
+                reinterface.onButtonClick(input);
                 getDialog().dismiss();
             }
 

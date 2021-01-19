@@ -180,6 +180,7 @@ public class EmotionFragment extends Fragment {
                     if (!singleSnapshot.getKey().equals(token)) {
                         Log.d(TAG, "saveToken : singleSnapshot.getKey : " + singleSnapshot.getKey());
                         tokenList.add(singleSnapshot.getKey());
+                        //관계 불러오기
                         relationList.add(singleSnapshot.getValue(Member.class).getRelation());
                     }
                 }

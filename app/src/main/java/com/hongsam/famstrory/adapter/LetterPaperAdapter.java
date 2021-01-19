@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.data.LetterPaper;
+import com.hongsam.famstrory.define.Define;
+import com.hongsam.famstrory.dialog.LetterPaperDialog;
+import com.hongsam.famstrory.fragment.LetterWriteFragment;
 
 import java.util.ArrayList;
 
@@ -23,10 +26,14 @@ public class LetterPaperAdapter extends RecyclerView.Adapter<LetterPaperAdapter.
 
     private Context context;
     private ArrayList<LetterPaper> letterPaperItemList;
+    private LetterWriteFragment letterWriteFragment;
 
-    public LetterPaperAdapter(Context context, ArrayList<LetterPaper> letterPaperItemList){
+    int id;
+
+    public LetterPaperAdapter(Context context, ArrayList<LetterPaper> letterPaperItemList, LetterWriteFragment letterWriteFragment){
         this.context = context;
         this.letterPaperItemList = letterPaperItemList;
+        this.letterWriteFragment = letterWriteFragment;
     }
 
     @NonNull
@@ -60,6 +67,16 @@ public class LetterPaperAdapter extends RecyclerView.Adapter<LetterPaperAdapter.
             super(itemView);
 
             paperImage = itemView.findViewById(R.id.letter_paper_icon);
+
+            //리소스값 바로 받아서 실시간으로 뿌려주기
+            paperImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    id = Define.LetterPaperArray[getAdapterPosition()];
+                    letterWriteFragment.setLetterPaper(id);
+                }
+            });
         }
+
     }
 }

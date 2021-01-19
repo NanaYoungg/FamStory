@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,6 +52,7 @@ public class LetterListFragment extends Fragment {
     private FirebaseDatabase mDb;
     private DatabaseReference mFamRef;
 
+    private TextView mSender, mContants, mDate;
     private RecyclerView recyclerView;
     private LetterListAdapter letterListAdapter;
     private CoordinatorLayout coordinatorLayout;
@@ -114,12 +116,15 @@ public class LetterListFragment extends Fragment {
                     letterListAdapter = new LetterListAdapter(itemList, mainActivity);
                     recyclerView.setAdapter(letterListAdapter);
                 }
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
+
         });
 
     }
@@ -134,6 +139,9 @@ public class LetterListFragment extends Fragment {
             coordinatorLayout = mContentView.findViewById(R.id.coordinatorlayout);
             fab = mContentView.findViewById(R.id.f_latter_send_fab_btn);
             recyclerView = mContentView.findViewById(R.id.f_latter_list_recycler);
+            mSender = mContentView.findViewById(R.id.ltter_list_sender_tv);
+            mContants = mContentView.findViewById(R.id.ltter_list_contents_tv);
+            mDate = mContentView.findViewById(R.id.ltter_list_date_tv);
 
 
             //편지보내기로 전환

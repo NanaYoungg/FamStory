@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.hongsam.famstrory.data.Emotion;
+import com.hongsam.famstrory.data.LetterContants;
 
 import java.util.ArrayList;
 
@@ -98,5 +99,29 @@ public class DBFamstory {
      */
     public void deleteAllEmotions() {
         db.delete(DBSchema.TB_EMOTION, null, null);
+    }
+
+    /**
+     * @param letter
+     * @Description : LetterContants 데이터를 insert하는 함수
+    "SEQ_NO INTEGER primary key autoincrement -- 시퀀스넘버\n" +
+    ",LETTER_SENDER VARCHAR(20) -- 보내는사람\n" +
+    ",LETTER_CONTANTS TEXT -- 편지내용\n" +
+    ",LETTER_DATE VARCHAR(20) -- 보낸날짜\n" +
+    ",LETTER_PHOTO VARCHAR(100) -- 사진\n" +
+    ",LETTER_PAPER_TYPE INTEGER --편지지\n" +
+     */
+    public void insertLetterContants(LetterContants letter) {
+        if (isOpen()) {
+            ContentValues values = new ContentValues();
+            values.put("LETTER_SENDER", letter.getSender());
+            values.put("LETTER_CONTANTS", letter.getContants());
+            values.put("LETTER_DATE", letter.getDate());
+            values.put("LETTER_PHOTO", letter.getPhoto());
+            values.put("LETTER_PAPER_TYPE", letter.getPaperType());
+            db.insert(DBSchema.TB_EMOTION, null, values);
+        } else {
+            Log.d(TAG, "db null OR not open");
+        }
     }
 }

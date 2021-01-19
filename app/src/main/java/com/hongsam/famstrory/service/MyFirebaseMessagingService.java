@@ -18,8 +18,10 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.data.Emotion;
+import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.database.DBFamstory;
 
+//팝업메세지
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private String TAG = "MyFirebaseMessagingService";
 
@@ -30,17 +32,35 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        String sender = remoteMessage.getData().get("sender");
-        String message = remoteMessage.getData().get("message");
-        String sendDate = remoteMessage.getData().get("sendDate");
+        String fcmType = remoteMessage.getData().get("fcmType");
 
-        Emotion emotion = new Emotion(sender, message, sendDate);
-        DBFamstory.getInstance(this).insertEmotion(emotion);
+        if (fcmType.equals("Emotion")) {
+            Log.d(TAG, "Emotion 받아옴!!");
+            String sender = remoteMessage.getData().get("sender");
+            String message = remoteMessage.getData().get("message");
+            String sendDate = remoteMessage.getData().get("sendDate");
 
-        sendNotification(emotion);
+            Emotion emotion = new Emotion(sender, message, sendDate);
+            DBFamstory.getInstance(this).insertEmotion(emotion);
+
+            sendNotification(sender, message);
+        } else if (fcmType.equals("LetterContants")) {
+            Log.d(TAG, "LetterContants 받아옴!!");
+            String sender = remoteMessage.getData().get("sender");
+            String contants = remoteMessage.getData().get("contants");
+            String date = remoteMessage.getData().get("date ");
+            String photo = remoteMessage.getData().get("photo");
+            String paperType = remoteMessage.getData().get("paperType");
+
+            LetterContants letterContants = new LetterContants(sender, contants, date, photo, Integer.parseInt(paperType));
+            // db insert하는 코드 들어가야됨
+            DBFamstory.getInstance(this).insertLetterContants(letterContants);
+
+            sendNotification(sender, contants);
+        }
     }
 
-    private void sendNotification(Emotion emotion)
+    private void sendNotification(String title, String contents)
     {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -49,8 +69,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         String chId = "test";
         NotificationCompat.Builder notiBuilder = new NotificationCompat.Builder(this, chId)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(emotion.getSender())
-                .setContentText(emotion.getMessage())
+                .setContentTitle(title)
+                .setContentText(contents)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
 
@@ -64,6 +84,5 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             manager.createNotificationChannel(channel);
         }
         manager.notify(0, notiBuilder.build());
-
     }
 }
