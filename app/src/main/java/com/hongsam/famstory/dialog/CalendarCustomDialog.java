@@ -9,10 +9,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -21,17 +17,15 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.hongsam.famstory.activitie.MainActivity;
+import com.hongsam.famstory.data.Calendar;
 import com.hongsam.famstory.databinding.CalendarDialogBinding;
 import com.hongsam.famstory.define.Define;
-
-import com.hongsam.famstory.data.Calendar;
 import com.hongsam.famstory.firebase.CalendarFirebaseDB;
 import com.hongsam.famstory.firebase.CreateDB;
 import com.hongsam.famstory.firebase.UpdateDB;
 import com.hongsam.famstory.interf.CustomDialogInterface;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -39,14 +33,9 @@ import java.util.List;
  * devaspirant0510
  *
  */
-public class CalendarCustomDialog extends Dialog implements CustomDialogInterface {
+public class CalendarCustomDialog extends Dialog implements  CustomDialogInterface{
     protected Dialog dialog;
-    private Button dialogOkBtn, dialogCancelBtn, dialogStartTimeBtn, dialogEndTimeBtn;
-    private TextView dialogStartTimeTv, dialogEndTimeTv;
-    protected Spinner spinner;
-    private EditText viewMoreTitleEt, viewMoreDescriptionEt;
-    private TextView description_set_text;
-    protected View mBindingRoot;
+    protected View root;
     private ArrayList<String> itemList = new ArrayList<>();
     private ArrayAdapter<String> adapter;
     private CalendarFirebaseDB firebaseDB = new CalendarFirebaseDB();
@@ -63,7 +52,7 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
     java.util.Calendar cal = java.util.Calendar.getInstance();
     int hour = cal.get(java.util.Calendar.HOUR_OF_DAY);
     int min = cal.get(java.util.Calendar.MINUTE);
-    private CalendarDialogBinding mBinding;
+    private CalendarDialogBinding mb;
     UpdateDB updateDB;
     String state = "오전";
     int getYear,getMonth, getDay;
@@ -85,25 +74,20 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBinding = CalendarDialogBinding.inflate(getLayoutInflater());
-        mBindingRoot = mBinding.getRoot();
-        setContentView(mBindingRoot);
+        mb = CalendarDialogBinding.inflate(getLayoutInflater());
+        root = mb.getRoot();
+        setContentView(root);
 
 
         // xml id 연결
-        init();
         setSpinnerSetting();
         acceptAdapter(adapter);
         //setSpinnerSetting("회의");
-        viewMoreDescriptionEt.addTextChangedListener(new TextWatcher() {
+        mb.viewMoreDescriptionEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -111,18 +95,18 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                int len = viewMoreDescriptionEt.getText().toString().length();
+                int len = mb.viewMoreDescriptionEt.getText().toString().length();
 
-                description_set_text.setText(len + "/100");
+                mb.descriptionSetText.setText(len + "/100");
                 if (len < 70) {
 
-                    description_set_text.setTextColor(Color.parseColor("#000000"));
+                    mb.descriptionSetText.setTextColor(Color.parseColor("#000000"));
                 } else if (len < 90) {
 
-                    description_set_text.setTextColor(Color.parseColor("#FB8C00"));
+                    mb.descriptionSetText.setTextColor(Color.parseColor("#FB8C00"));
                 } else {
 
-                    description_set_text.setTextColor(Color.parseColor("#CD0202"));
+                    mb.descriptionSetText.setTextColor(Color.parseColor("#CD0202"));
                 }
 
             }
@@ -134,20 +118,20 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
         });
 
 
-        dialogOkBtn.setOnClickListener(new View.OnClickListener() {
+        mb.dialogOkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // EditText 에서 일정이름,일정내용을 가져옴
-                String str_title = viewMoreTitleEt.getText().toString();
-                String str_text = viewMoreDescriptionEt.getText().toString();
-                String str_start_time = dialogStartTimeTv.getText().toString();
-                String str_end_time = dialogEndTimeTv.getText().toString();
+                String str_title = mb.viewMoreTitleEt.getText().toString();
+                String str_text = mb.viewMoreDescriptionEt.getText().toString();
+                String str_start_time = mb.startTimeTv.getText().toString();
+                String str_end_time = mb.endTimeTv.getText().toString();
 
 
                 // 확인 버튼을 눌렀을때 채우지 않은 부분이 있는지 확인
                 if (str_text.length() == 0 || str_text.length() == 0 ||
-                        dialogStartTimeTv.getText().toString().equals("시작시간") ||
-                        dialogEndTimeTv.getText().toString().equals("종료시간")) {
+                        mb.startTimeTv.getText().toString().equals("시작시간") ||
+                        mb.endTimeTv.getText().toString().equals("종료시간")) {
                     Toast.makeText(getContext(), "빈칸을 채워주세요", Toast.LENGTH_SHORT).show();
                 } else {
                     // 번들객체에 데이터를 담아서 Firebase 로 데이터 처리
@@ -167,7 +151,7 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
             }
         });
         // 취소버튼을 눌렀을때 다이얼로그 종료
-        dialogCancelBtn.setOnClickListener(new View.OnClickListener() {
+        mb.dialogCancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "취소하였습니다.", Toast.LENGTH_SHORT).show();
@@ -175,7 +159,7 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
             }
         });
         // 시작시간을 설정하면 timePiker 와 시간 적용 버튼의 Visibility 의 상태를 gone 에서 Visible 로 바꿔줌
-        dialogStartTimeBtn.setOnClickListener(new View.OnClickListener() {
+        mb.startTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -190,7 +174,7 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
                             state = "오후";
                             pickerHour -= 12;
                         }
-                        dialogStartTimeTv.setText(state + " " + pickerHour + ":" + pickerMinute);
+                        mb.startTimeTv.setText(state + " " + pickerHour + ":" + pickerMinute);
                     }
 
                 }, hour, min, false);
@@ -203,7 +187,7 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
         });
 
 
-        dialogEndTimeBtn.setOnClickListener(new View.OnClickListener() {
+        mb.endTimeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 CalendarTimePicker calendarTimePicker = new CalendarTimePicker(getContext(), new TimePickerDialog.OnTimeSetListener() {
@@ -215,7 +199,7 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
                             state = "오후";
                             pickerHour -= 12;
                         }
-                        dialogEndTimeTv.setText(state + " " + pickerHour + ":" + pickerMinute);
+                        mb.endTimeTv.setText(state + " " + pickerHour + ":" + pickerMinute);
                     }
                 }, hour, min, false);
                 calendarTimePicker.setMessage("시간을 설정해주세요");
@@ -227,28 +211,12 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
     public void setSpinnerSetting(){
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item,itemList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        spinner.setAdapter(adapter);
+        mb.spinner.setAdapter(adapter);
     }
     public void acceptAdapter(ArrayAdapter<String> adapter){
         dbSpinner.getSpinnerItem(adapter);
     }
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
 
-    public void init() {
-        viewMoreTitleEt = mBinding.viewMoreTitleEt;
-        viewMoreDescriptionEt = mBinding.viewMoreDescriptionEt;
-        dialogOkBtn = mBinding.dialogOkBtn;
-        dialogCancelBtn = mBinding.dialogCancelBtn;
-        dialogStartTimeBtn = mBinding.startTimeBtn;
-        dialogStartTimeTv = mBinding.startTimeTv;
-        dialogEndTimeBtn = mBinding.endTimeBtn;
-        dialogEndTimeTv = mBinding.endTimeTv;
-        spinner = mBinding.spinner;
-        description_set_text = mBinding.descriptionSetText;
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -259,10 +227,10 @@ public class CalendarCustomDialog extends Dialog implements CustomDialogInterfac
             String dialogGetDescription = data.getDescription();
             String dialogGetStartTime = data.getStartTime();
             String dialogGetEndTime = data.getEndTime();
-            viewMoreTitleEt.setText(dialogGetTitle);
-            viewMoreDescriptionEt.setText(dialogGetDescription);
-            dialogStartTimeTv.setText(dialogGetStartTime);
-            dialogEndTimeTv.setText(dialogGetEndTime);
+            mb.viewMoreTitleEt.setText(dialogGetTitle);
+            mb.viewMoreDescriptionEt.setText(dialogGetDescription);
+            mb.startTimeTv.setText(dialogGetStartTime);
+            mb.endTimeTv.setText(dialogGetEndTime);
         }
     }
 }
