@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,6 +43,7 @@ import com.hongsam.famstory.fragment.MenuFragment;
 import com.hongsam.famstory.fragment.MonthCalendar;
 import com.hongsam.famstory.fragment.ProfileFragment;
 import com.hongsam.famstory.fragment.SettingFragment;
+import com.hongsam.famstory.fragment.SpinnerMangerFragment;
 import com.hongsam.famstory.fragment.TimeLineFragment;
 import com.hongsam.famstory.interf.CallbackInterface;
 import com.hongsam.famstory.interf.CustomDialogInterface;
@@ -50,7 +53,7 @@ import com.hongsam.famstory.util.SharedManager;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CalendarFragment.DataSender {
     private final String TAG = "MainActivity";
 
     BottomNavigationView navigationView;
@@ -60,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
     ReadDB readDB;
     UpdateDB updateDB;
     InputMethodManager imm;
+    Spinner spinner;
+    ArrayAdapter<String> adapter;
 
     public DBFamstory db;
 
@@ -236,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new MonthCalendar();
                 break;
             case Define.FRAGMENT_ID_SPINNER_MANGER:
-                //fragment = new SpinnerMangerFragment();
+                fragment = new SpinnerMangerFragment(adapter,spinner);
                 break;
             default:
                 break;
@@ -299,4 +304,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void spinnerFragment(Spinner spinner, ArrayAdapter<String> adapter) {
+        this.spinner = spinner;
+        this.adapter = adapter;
+    }
 }
