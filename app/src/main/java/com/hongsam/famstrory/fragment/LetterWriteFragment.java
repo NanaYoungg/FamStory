@@ -1,3 +1,4 @@
+
 package com.hongsam.famstrory.fragment;
 
 import android.content.Context;
@@ -49,7 +50,7 @@ import static android.app.Activity.RESULT_OK;
  * 1/4 , 오나영
  * */
 
-public class LetterWriteFragment extends Fragment{
+public class LetterWriteFragment extends Fragment {
 
     private final int GET_GALLERY_IMAGE = 200;
     private static final String TAG = "LetterWriteFragment";
@@ -65,8 +66,8 @@ public class LetterWriteFragment extends Fragment{
     private Button mSendBtn;
     private TextView mToTv, mWriteDate;
 
-    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy년MM월dd일"); // 날짜 포맷
-    private SimpleDateFormat mFormatDB = new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss"); // 날짜 포맷
+    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); // 날짜 포맷
+    private SimpleDateFormat mFormatDB = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss"); // 날짜 포맷
 
     private Date date = new Date();
     private final String DBTime = mFormatDB.format(date);
@@ -233,26 +234,8 @@ public class LetterWriteFragment extends Fragment{
                     mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
                     Toast.makeText(getContext(), "편지가 전송되었습니다.", Toast.LENGTH_SHORT).show();
 
-    /**
-     * 컨트롤 초기화 해주는 함수
-     */
-    public void init(View v) {
-        if (v != null) {
-            mBackBtn = mContentView.findViewById(R.id.letter_write_back_btn);
-            mContants = mContentView.findViewById(R.id.contants_tv);
-            mPhotoView = mContentView.findViewById(R.id.photo_iv);
-            mPhoto = mContentView.findViewById(R.id.gallery_img_btn);
-            mConstraintLayout = mContentView.findViewById(R.id.fragment_letter_write);
-            mScrollView = mContentView.findViewById(R.id.letter_write_scroll);
-            mBackgound = mContentView.findViewById(R.id.letter_write_img_view);
-            mSendBtn = mContentView.findViewById(R.id.letter_send_btn);
-            //mCardView = mContentView.findViewById(R.id.letter_cardView);
-            mToTv = mContentView.findViewById(R.id.f_letter_receiever_tv);
-            mAddReciverBtn = mContentView.findViewById(R.id.f_receiver_add_img_btn);
-        }
-    }
-
                     //사진 DB에 저장
+                    if(selectedImageUri != null){
                     //storage
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     //파일명 만들기
@@ -262,6 +245,11 @@ public class LetterWriteFragment extends Fragment{
                             .child(sFamName).child("Letter/" + letterFileName);
                     //올라가거라...
                     storageRef.putFile(selectedImageUri);
+
+                    }
+//                    else{
+//                        Toast.makeText(getContext(), "갤러리에서 이미지를 선택하세요.", Toast.LENGTH_SHORT).show();
+//                    }
 
 
                 }

@@ -28,7 +28,6 @@ public class Define {
     public static final String KEY_FAMILY_PICTURE_SIZE = "KEY_FAMILY_PICTURE_SIZE";
     public static final String KEY_FAMILY_PICTURE_STRING = "KEY_IMAGE_STRING";
     public static final String KEY_FAMILY_PICTURE_PATH = "KEY_FAMILY_PICTURE_PATH";
-    public static final String KEY_FIREBASE_TOKEN = "KEY_FIREBASE_TOKEN";
 
     public static final String KEY_LETTER_PICTURE_SIZE = "KEY_LETTER_PICTURE_SIZE";
     public static final String KEY_LETTER_PICTURE_PATH = "KEY_LETTER_PICTURE_PATH";

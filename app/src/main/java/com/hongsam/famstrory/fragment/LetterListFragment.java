@@ -1,3 +1,4 @@
+
 package com.hongsam.famstrory.fragment;
 
 import android.graphics.Color;
@@ -42,7 +43,7 @@ import static com.hongsam.famstrory.fragment.LetterWriteFragment.TEST_FAMILY;
  * 1/4 , 오나영
  * */
 
-public class LetterListFragment extends Fragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
+public class LetterListFragment extends Fragment {
 
     private MainActivity mainActivity;
     private View mContentView;
@@ -54,7 +55,6 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
     private LetterListAdapter letterListAdapter;
     private CoordinatorLayout coordinatorLayout;
     private FloatingActionButton fab;
-
     private ArrayList<LetterList> itemList;
 
 
@@ -111,7 +111,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
                         LetterList al = npsnapshot.getValue(LetterList.class);
                         itemList.add(al);
                     }
-                    letterListAdapter = new LetterListAdapter(itemList);
+                    letterListAdapter = new LetterListAdapter(itemList, mainActivity);
                     recyclerView.setAdapter(letterListAdapter);
                 }
             }
@@ -122,8 +122,8 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
             }
         });
 
-
     }
+
 
 
     /**
@@ -134,11 +134,6 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
             coordinatorLayout = mContentView.findViewById(R.id.coordinatorlayout);
             fab = mContentView.findViewById(R.id.f_latter_send_fab_btn);
             recyclerView = mContentView.findViewById(R.id.f_latter_list_recycler);
-
-
-            //삭제 관련  :  왼쪽으로 밀때 삭제된다
-            ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
-            new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
 
             //편지보내기로 전환
@@ -155,10 +150,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
                 @Override
                 //스크롤이 얼마나 되었는지의 값
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-//                if (dy > 0 ||dy < 0 && fab.isShown())
-//                {
-//                    fab.hide();
-//                }
+
                 }
 
                 @Override
@@ -176,70 +168,6 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
 
         }
     }
-
-
-//    /**
-//     * 이미지 리소스 세팅해주는 함수
-//     * */
-//     * */
-//    public void setImageResource() {
-//        // 예시) button1.setBackgroundResource(R.drawable.image1);
-//    }
-
-
-    //swipe시 아이템 삭제, snackbar의 undo 누를시 아이템 복원
-    @Override
-    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (viewHolder instanceof LetterListAdapter.ViewHolder) {
-            //보낸이를 snackbar에 띄워주기위해 get
-            String sender = itemList.get(viewHolder.getAdapterPosition()).getSender();
-
-            // undo시 백업
-//            final Item deletedItem = itemList.get(viewHolder.getAdapterPosition());
-            final int deletedIndex = viewHolder.getAdapterPosition();
-
-            // 리사이클뷰에서 아이템 삭제
-            letterListAdapter.removeItem(viewHolder.getAdapterPosition());
-
-            // snackbar 옵션
-            Snackbar snackbar = Snackbar
-                    .make(coordinatorLayout, sender + " 가 보낸 편지가 삭제되었습니다!", Snackbar.LENGTH_LONG);
-            snackbar.setAction("UNDO", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    // undo 누를시 편지 복구하기
-//                    letterListAdapter.restoreItem(deletedItem, deletedIndex);
-                }
-            });
-            snackbar.setActionTextColor(Color.YELLOW);
-            snackbar.show();
-        }
-    }
-
-    //undo시 편지 복구
-    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate();
-        return true;
-    }
-
-
-    //편지리스트 아이템값 추가 -> 추후 DB값 불러오기
-//    private List<LetterList> initData() {
-//
-//        itemList = new ArrayList<>();
-//        itemList.add(new LetterList("엄마", "우리딸 안녕~!~!", "2020년 04일 13년"));
-//        itemList.add(new LetterList("아빠", "우리딸 안녕~!~!22222222222", "2020년 05일 13년"));
-//        itemList.add(new LetterList("동생", "우리딸 안녕~!~!3333332222222222222223333", "2020년 06일 13년"));
-//        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-//        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-//        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-//        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-//        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-//        itemList.add(new LetterList("언니", "우리딸 안녕~!~!34444433333333334444", "2020년 07일 13년"));
-//
-//        return itemList;
-//    }
 
 
     /**

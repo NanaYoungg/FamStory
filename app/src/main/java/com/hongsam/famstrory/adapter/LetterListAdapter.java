@@ -12,38 +12,48 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.ValueEventListener;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
-import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.LetterList;
 import com.hongsam.famstrory.define.Define;
+import com.hongsam.famstrory.dialog.LetterReceiverDialog;
 
 import java.util.ArrayList;
 
 /*
-* 편지 목록 리싸이클 뷰의 어댑터.    (보낸이,내용,날짜)
-* 1/5 , 오나영
-* */
+ * 편지 목록 리싸이클 뷰의 어댑터.    (보낸이,내용,날짜)
+ * 1/5 , 오나영
+ * */
 
 public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.ViewHolder> {
 
     private ArrayList<LetterList> letterItemList;
-
     private Context context;
+//    private CVInterface cvInterface;
+//
+//
+//    public interface CVInterface {
+//        void OnCardClick(LetterList letterList);
+//    }
+//
 
-    public LetterListAdapter(ArrayList<LetterList> letterItemList) {
-
+    public LetterListAdapter(ArrayList<LetterList> letterItemList, Context context) {
         this.letterItemList = letterItemList;
         this.context = context;
-
-
     }
+
+//    public LetterListAdapter(ArrayList<LetterList> letterItemList, Context context, CVInterface cvInterface) {
+//        this.letterItemList = letterItemList;
+//        this.context = context;
+//        this.cvInterface = cvInterface;
+//    }
 
 
     @NonNull
     @Override
     public LetterListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_letter_list, parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_letter_list, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -55,14 +65,6 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
         holder.sender.setText(letterItemList.get(position).getSender());
         holder.contants.setText(letterItemList.get(position).getContants());
         holder.date.setText(letterItemList.get(position).getDate());
-
-        //카드뷰 클릭시 해당 내용 읽기로 이동
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity)context).changeFragment(Define.FRAGMENT_ID_LETTER_READ);
-            }
-        });
 
 
     }
@@ -94,17 +96,22 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
 //            viewBackgound = itemView.findViewById(R.id.view_background);
             cardView = itemView.findViewById(R.id.letter_cardView);
 
+            //카드뷰 클릭시 해당 내용 읽기로 이동
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    int position = getAdapterPosition();
+//                    cvInterface.OnCardClick(letterItemList.get((position)));
+
+                    ((MainActivity) context).changeFragment(Define.FRAGMENT_ID_LETTER_READ);
+                }
+            });
         }
+
     }
 
-    //아이템 지우기
-    public void removeItem(int position) {
-        letterItemList.remove(position);
-        // notify the item removed by position
-        // to perform recycler view delete animations
-        // NOTE: don't call notifyDataSetChanged()
-        notifyItemRemoved(position);
-    }
+
+
 }
 
 

@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.hongsam.famstrory.data.Family;
 import com.hongsam.famstrory.data.LetterContants;
+import com.hongsam.famstrory.data.LetterList;
 import com.hongsam.famstrory.data.Member;
 import com.hongsam.famstrory.database.DBFamstory;
 import com.hongsam.famstrory.define.Define;
@@ -141,32 +142,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void getFirebaseToken() {
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Log.e(TAG, "파이어베이스 토큰 등록 실패", task.getException());
-                            return;
-                        }
-
-                        String token = task.getResult();
-                        Log.d(TAG, "파이어베이스 토큰 : " + token);
-                        saveToken(token);
-                    }
-                });
-    }
-
-    public void saveToken(final String token) {
-        SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
-        writeMember("테스트가족", token, new Member("엄마", "김엄마"));
-    }
-
-    public void writeMember(String famName, String token, Member member) {
-        FirebaseManager.dbFamRef.child(famName).child("members").child(token).setValue(member);
-    }
-
     public void setCi(CallbackInterface ci) {
         this.ci = ci;
     }
@@ -223,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
     Fragment fragment = null;
 
+    //프레그먼트 전환을 위한 함수
     public void changeFragment(int fragmentId) {
 
         switch (fragmentId) {
@@ -294,6 +270,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    //LetterList,LetterRead값 통신을 위한 함수
+//    public void changeFragment(int fragmentId, LetterList item) {
+//
+//        switch (fragmentId) {
+//
+//            case Define.FRAGMENT_ID_LETTER_LIST:
+//                fragment = new LetterListFragment();
+//                break;
+//
+//            case Define.FRAGMENT_ID_LETTER_READ:
+//                fragment = new LetterReadFragment(item);
+//                break;
+//
+//            default:
+//                break;
+//        }
+//
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//
+//                for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); ++i) {
+//                    try {
+//                        getSupportFragmentManager().popBackStack();
+//                    } catch (IllegalStateException e) {
+//                        if (getSupportFragmentManager() != null && !getSupportFragmentManager().isStateSaved()) {
+//                            getSupportFragmentManager().popBackStack();
+//                        }
+//                    }
+//                }
+//
+//                ft.replace(R.id.basic, fragment);
+//
+//                if (fragment.isStateSaved()) {
+//                    ft.commitAllowingStateLoss();
+//                } else {
+//                    ft.commit();
+//                }
+//            }
+//        });
+//    }
 
     public void showKeyboard(final EditText et, final boolean flag) {
         runOnUiThread(new Runnable() {
