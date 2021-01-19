@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,11 +80,14 @@ public class LetterWriteFragment extends Fragment {
     private Uri selectedImageUri;
     private int paperType;
 
-
     private ArrayList<LetterPaper> mArrayList;
     ArrayList<String> Letter;
 
     private DatabaseReference mDatabase, mMomRef, mDadRef, mSisRef, mBroRef;
+    private String mom = "엄마";
+    private String dad = "아빠";
+    private String sis = "누나";
+    private String bro = "형";
     public static final String TEST_FAMILY = "테스트가족";
     private static final String sFamName = "재훈이네가족";
 
@@ -96,10 +100,17 @@ public class LetterWriteFragment extends Fragment {
         //파이어베이스에서 데이터를 추가하거나 조회하려면 DatabaseReference의 인스턴스가 필요
         mDatabase = FirebaseDatabase.getInstance().getReference("Family").child(TEST_FAMILY);
 
-        mMomRef = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Family").child(TEST_FAMILY).child("members").equalTo("relation","엄마");
-        mDadRef = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Family").child(TEST_FAMILY).child("members").equalTo("relation","아빠");
-        mSisRef = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Family").child(TEST_FAMILY).child("members").equalTo("relation","누나");
-        mBroRef = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Family").child(TEST_FAMILY).child("members").equalTo("relation","형");
+        mMomRef = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Family").child(TEST_FAMILY)
+                .child("members").orderByChild("relation").equalTo(mom);
+
+        mDadRef = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Family")
+                .child(TEST_FAMILY).child("members").orderByChild("relation").equalTo(dad);
+
+        mSisRef = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Family")
+                .child(TEST_FAMILY).child("members").orderByChild("relation").equalTo(sis);
+
+        mBroRef = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Family")
+                .child(TEST_FAMILY).child("members").orderByChild("relation").equalTo(bro);
 
 
 
@@ -261,13 +272,12 @@ public class LetterWriteFragment extends Fragment {
                     String getDate = mWriteDate.getText().toString();
                     String getPhoto = selectedImageUri.toString();
                     int type = paperType;
+
+                    //임시로 토큰값 설정
                     String receiverToken = "";;
                     Map<String, LetterContants> letterContantsMap = new HashMap<>();
 
                     // 받는사람 토큰값 받아오기
-                    // 온클릭 -> 함수 -> 비교 -> 전송
-
-
                     //토큰값, 편지내용 DB 저장
                     letterContantsMap.put(receiverToken, new LetterContants(getSender, getContants, getDate, getPhoto, type));
                     writeNewLetter(letterContantsMap);
@@ -279,20 +289,14 @@ public class LetterWriteFragment extends Fragment {
     }
 
 
-
-    public void getKeywords() {
-        if (mKeywordRef != null) {
-            mKeywordRef.addListenerForSingleValueEvent(new ValueEventListener() {
+    //레퍼런스값 대조하여 편지값 알맞은 경로값에 저장
+    public void letterSave(DatabaseReference dbRef){
+        if (dbRef.equals(mMomRef)) {
+            mMomRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
-                        Keyword keyword = singleSnapshot.getValue(Keyword.class);
-                        mainKeywordList.add(keyword.getStrMain());
-                        subKeywordList.add(keyword.getSubList());
-                        //keywordList.add(singleSnapshot.getValue(Keyword.class));
+                    for(DataSnapshot singleSnapshot : snapshot.getChildren()){
                     }
-
-                    init(mContentView);
                 }
 
                 @Override
@@ -300,57 +304,57 @@ public class LetterWriteFragment extends Fragment {
 
                 }
             });
+
+        } else if (dbRef.equals(mDadRef)) {
+            mDadRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot singleSnapshot : snapshot.getChildren()){
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        } else if (dbRef.equals(mSisRef)) {
+            mSisRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot singleSnapshot : snapshot.getChildren()){
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        } else if (dbRef.equals(mBroRef)) {
+            mBroRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot singleSnapshot : snapshot.getChildren()){
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        } else {
+
+            Log.d(TAG,"없는 레퍼런스값");
         }
+
     }
 
-
-
-//    public void getFamTokens(final String msg, final String token) {
-//        if(msg.isEmpty())
-//            return;
-//
-//        DatabaseReference ref = FirebaseManager.dbFamRef.child(famName).child("members");
-//        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                ArrayList<String> relationList = new ArrayList<>();
-//                ArrayList<String> tokenList = new ArrayList<>();
-//
-//                for (DataSnapshot singleSnapshot : snapshot.getChildren()) { //정보를 올려 파이어베이스가 변경되었으니
-//                    if (!singleSnapshot.getKey().equals(token)) {
-//                        Log.d(TAG, "saveToken : singleSnapshot.getKey : " + singleSnapshot.getKey());
-//                        tokenList.add(singleSnapshot.getKey());
-//                        //관계리스트에 추가하겠다
-//                        relationList.add(singleSnapshot.getValue(Member.class).getRelation());
-//                    }
-//                }
-//
-//                sendEmotion(relationList, tokenList, msg);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
-
-
-
-//    public void sendLetter(ArrayList<String> relationList, ArrayList<String> tokenList, String letterMsg) {
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Date date = new Date(System.currentTimeMillis());
-//        String today = sdf.format(date);
-//
-//        for (int i = 0; i < tokenList.size(); i++) {
-//            DatabaseReference ref = FirebaseManager.dbFamRef.child(TEST_FAMILY).child("LetterContants").child(tokenList.get(i));
-//            ref.setValue(new LetterContants(s);
-//        }
-//    }
-
-
-
-
+    
 
 
     //편지지 설정. 이미지뷰에 뿌려주기
