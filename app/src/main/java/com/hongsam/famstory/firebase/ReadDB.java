@@ -14,8 +14,6 @@ import com.hongsam.famstory.activitie.MainActivity;
 import com.hongsam.famstory.data.Calendar;
 import com.hongsam.famstory.define.Define;
 
-import java.util.Objects;
-
 public class ReadDB {
     public static String TAG = "DB Read";
 
@@ -43,7 +41,7 @@ public class ReadDB {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                if(Objects.equals(snapshot.getKey(), day+"일")) {
+                if((day+"일").equals(snapshot.getKey())) {
                     calendarDB = snapshot.getValue(Calendar.class);
                     mainActivity.view_more_text(calendarDB);
                 }
@@ -54,7 +52,7 @@ public class ReadDB {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (Objects.equals(snapshot.getKey(), day+"일")) {
+                if ((day+"일").equals(snapshot.getKey())) {
                     calendarDB = snapshot.getValue(Calendar.class);
                     mainActivity.view_more_text(calendarDB);
 
