@@ -83,7 +83,6 @@ public class CalendarCustomDialog extends Dialog implements  CustomDialogInterfa
         setContentView(root);
 
 
-        // xml id 연결
         setSpinnerSetting();
         acceptAdapter(adapter);
         //setSpinnerSetting("회의");
@@ -211,7 +210,9 @@ public class CalendarCustomDialog extends Dialog implements  CustomDialogInterfa
     public void setSpinnerSetting(){
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item,itemList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+
         mb.spinner.setAdapter(adapter);
+        dbSpinner.putSpinnerItem(mb.spinner,adapter,itemList,"생일");
     }
     public void acceptAdapter(ArrayAdapter<String> adapter){
         dbSpinner.getSpinnerItem(adapter);
