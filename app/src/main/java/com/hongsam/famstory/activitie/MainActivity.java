@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import android.view.WindowManager;
@@ -20,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.hongsam.famstory.databinding.ActivityMainBinding;
 import com.hongsam.famstory.define.Define;
 import com.hongsam.famstory.R;
 
@@ -47,16 +49,19 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView navigationView;
 
-    CallbackInterface ci;
-    CustomDialogInterface cdi;
-    ReadDB readDB;
-    UpdateDB updateDB;
+    private CallbackInterface ci;
+    private CustomDialogInterface cdi;
+    private ReadDB readDB;
+    private ActivityMainBinding mBinding;
+    private View root;
     InputMethodManager imm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        root = mBinding.getRoot();
+        setContentView(root);
 
         changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
 
@@ -71,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         navigationView = (BottomNavigationView) findViewById(R.id.navi_view);
 
         readDB = new ReadDB(this);
-        updateDB = new UpdateDB(this);
 
         checkSelfPermission();
     }
