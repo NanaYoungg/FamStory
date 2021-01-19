@@ -1,12 +1,5 @@
 package com.hongsam.famstory.activitie;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
@@ -14,23 +7,28 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
-
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.hongsam.famstory.R;
 import com.hongsam.famstory.data.Calendar;
 import com.hongsam.famstory.data.Family;
 import com.hongsam.famstory.data.Member;
 import com.hongsam.famstory.database.DBFamstory;
 import com.hongsam.famstory.define.Define;
-import com.hongsam.famstory.R;
-import com.hongsam.famstory.firebase.CalendarDB;
 import com.hongsam.famstory.firebase.ReadDB;
 import com.hongsam.famstory.firebase.UpdateDB;
 import com.hongsam.famstory.fragment.CalendarFragment;
@@ -43,9 +41,7 @@ import com.hongsam.famstory.fragment.MenuFragment;
 import com.hongsam.famstory.fragment.MonthCalendar;
 import com.hongsam.famstory.fragment.ProfileFragment;
 import com.hongsam.famstory.fragment.SettingFragment;
-import com.hongsam.famstory.fragment.SpinnerMangerFragment;
 import com.hongsam.famstory.fragment.TimeLineFragment;
-
 import com.hongsam.famstory.interf.CallbackInterface;
 import com.hongsam.famstory.interf.CustomDialogInterface;
 import com.hongsam.famstory.util.FirebaseManager;
