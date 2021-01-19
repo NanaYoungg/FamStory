@@ -50,6 +50,7 @@ import com.hongsam.famstory.interf.CustomDialogInterface;
 import com.hongsam.famstory.util.FirebaseManager;
 import com.hongsam.famstory.util.SharedManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -241,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                 fragment = new MonthCalendar();
                 break;
             case Define.FRAGMENT_ID_SPINNER_MANGER:
-                fragment = new SpinnerMangerFragment(adapter,spinner);
+                fragment = new SpinnerMangerFragment();
                 break;
             default:
                 break;
