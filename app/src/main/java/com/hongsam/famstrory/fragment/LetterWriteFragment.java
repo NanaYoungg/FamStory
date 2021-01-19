@@ -236,7 +236,11 @@ public class LetterWriteFragment extends Fragment{
     /**
      * 컨트롤 초기화 해주는 함수
      */
+
+/*    public void init(View v) {
+=======
     public void init(View v) {
+>>>>>>> master
         if (v != null) {
             mBackBtn = mContentView.findViewById(R.id.letter_write_back_btn);
             mContants = mContentView.findViewById(R.id.contants_tv);
@@ -244,12 +248,19 @@ public class LetterWriteFragment extends Fragment{
             mPhoto = mContentView.findViewById(R.id.gallery_img_btn);
             mConstraintLayout = mContentView.findViewById(R.id.fragment_letter_write);
             mScrollView = mContentView.findViewById(R.id.letter_write_scroll);
+<<<<<<< HEAD
+            //mBackgound = mContentView.findViewById(R.id.letter_write_img_view);
+=======
             mBackgound = mContentView.findViewById(R.id.letter_write_img_view);
+>>>>>>> master
             mSendBtn = mContentView.findViewById(R.id.letter_send_btn);
             //mCardView = mContentView.findViewById(R.id.letter_cardView);
             mToTv = mContentView.findViewById(R.id.f_letter_receiever_tv);
             mAddReciverBtn = mContentView.findViewById(R.id.f_receiver_add_img_btn);
         }
+<<<<<<< HEAD
+    }*/
+
     }
 
                     //사진 DB에 저장

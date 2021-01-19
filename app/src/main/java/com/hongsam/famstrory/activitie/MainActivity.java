@@ -14,6 +14,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
+ 
+
+import android.view.View;
+
 import android.widget.Toast;
 
 import android.view.WindowManager;
@@ -25,6 +29,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
@@ -58,15 +63,43 @@ import com.hongsam.famstrory.util.SharedManager;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.hongsam.famstory.databinding.ActivityMainBinding;
+import com.hongsam.famstory.define.Define;
+import com.hongsam.famstory.R;
+
+import com.hongsam.famstory.data.Calendar;
+import com.hongsam.famstory.firebase.ReadDB;
+import com.hongsam.famstory.firebase.UpdateDB;
+import com.hongsam.famstory.fragment.CalendarFragment;
+import com.hongsam.famstory.fragment.EmotionFragment;
+import com.hongsam.famstory.fragment.FamCreateFragment;
+import com.hongsam.famstory.fragment.LetterListFragment;
+import com.hongsam.famstory.fragment.LetterReadFragment;
+import com.hongsam.famstory.fragment.LetterWriteFragment;
+import com.hongsam.famstory.fragment.MenuFragment;
+import com.hongsam.famstory.fragment.MonthCalendar;
+import com.hongsam.famstory.fragment.ProfileFragment;
+import com.hongsam.famstory.fragment.SettingFragment;
+import com.hongsam.famstory.fragment.SpinnerMangerFragment;
+import com.hongsam.famstory.fragment.TimeLineFragment;
+
+import com.hongsam.famstory.interf.CallbackInterface;
+import com.hongsam.famstory.interf.CustomDialogInterface;
+import com.hongsam.famstory.util.SharedManager;
+
+
 public class MainActivity extends AppCompatActivity {
     private final String TAG = "MainActivity";
 
     BottomNavigationView navigationView;
 
-    CallbackInterface ci;
-    CustomDialogInterface cdi;
-    ReadDB readDB;
-    UpdateDB updateDB;
+
+    private CallbackInterface ci;
+    private CustomDialogInterface cdi;
+    private ReadDB readDB;
+    private ActivityMainBinding mBinding;
+    private View root;
+
     InputMethodManager imm;
 
     public DBFamstory db;
@@ -77,9 +110,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
         SharedManager.getInstance(this);
         db = DBFamstory.getInstance(this);
+
+        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        root = mBinding.getRoot();
+        setContentView(root);
+
 
         // Firebase로부터 Token값을 받아 firebase database와 sharedPreference에 저장해준다.
         getFirebaseToken();
@@ -89,12 +127,14 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
 
-        changeFragment(Define.FRAGMENT_ID_PROFILE);
+        changeFragment(Define.FRAGMENT_ID_CALENDAR);
 
         navigationView = (BottomNavigationView) findViewById(R.id.navi_view);
 
         readDB = new ReadDB(this);
+
         updateDB = new UpdateDB(this);
+
 
         changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
     }
@@ -135,6 +175,41 @@ public class MainActivity extends AppCompatActivity {
             return null;
     }
 
+
+
+
+
+    public void saveToken(final String token) {
+        SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
+        writeMember("테스트가족", token, new Member("아들", "김아들"));
+    }
+
+    public void setCi(CallbackInterface ci) {
+        this.ci = ci;
+    }
+
+    public void setCdi(CustomDialogInterface cdi) {
+        this.cdi = cdi;
+    }
+
+
+    public void databaseRead(String date) {
+        readDB.databaseRead(date);
+    }
+
+    public void calendarUpdateGetDialogText(CalendarDB data) {
+        cdi.calendarUpdateGetDialogText(data);
+    }
+
+    public void view_more_text(CalendarDB data) {
+        ci.view_more_text(data);
+    }
+
+    public void isDataNull(String date) {
+        ci.isDateNull(date);
+    }
+
+
     public void saveToken(final String token) {
         SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
         writeMember("테스트가족", token, new Member("아들", "김아들"));
@@ -167,31 +242,32 @@ public class MainActivity extends AppCompatActivity {
         FirebaseManager.dbFamRef.child(famName).child("members").child(token).setValue(member);
     }
 
-    public void setCi(CallbackInterface ci) {
+    public void setCallbackInterface(CallbackInterface ci) {
         this.ci = ci;
     }
 
-    public void setCdi(CustomDialogInterface cdi) {
+    public void setCustomInterface(CustomDialogInterface cdi) {
         this.cdi = cdi;
     }
 
-
-    public void databaseRead(String date) {
-        readDB.databaseRead(date);
+    public void databaseRead(int year, int month, int day, String date) {
+        readDB.databaseRead(year,month,day);
     }
 
-    public void calendarUpdateGetDialogText(CalendarDB data) {
+    public void calendarUpdateGetDialogText(Calendar data) {
         cdi.calendarUpdateGetDialogText(data);
     }
+    public void visibleView(int dataIsNull){
+        ci.visibleView(dataIsNull);
 
-    public void view_more_text(CalendarDB data) {
+    }
+
+    public void view_more_text(Calendar data) {
         ci.view_more_text(data);
     }
 
-    public void isDataNull(String date) {
-        ci.isDateNull(date);
-    }
 
+ 
     @Override
     protected void onResume() {
         super.onResume();
@@ -203,22 +279,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
+
                     case R.id.main_menu:
                         changeFragment(Define.FRAGMENT_ID_CALENDAR);
                         break;
+
                     case R.id.calendar_menu:
                         changeFragment(Define.FRAGMENT_ID_PROFILE);
                         break;
+
                     case R.id.message_menu:
                         changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
                         break;
                     case R.id.emotion_menu:
                         changeFragment(Define.FRAGMENT_ID_EMOTION);
                         break;
+
+                    case R.id.setting_menu:
+                        changeFragment(Define.FRAGMENT_ID_SETTING);
+                        break;
+
                 }
                 return true;
             }
         });
+
+
+ 
     }
 
     Fragment fragment = null;
@@ -264,6 +351,13 @@ public class MainActivity extends AppCompatActivity {
 
             case Define.FRAGMENT_ID_LETTER_READ:
                 fragment = new LetterReadFragment();
+                break;
+
+            case Define.FRAGMENT_ID_MONTH_LIST:
+                fragment = new MonthCalendar();
+                break;
+            case Define.FRAGMENT_ID_SPINNER_MANGER:
+                fragment = new SpinnerMangerFragment();
                 break;
 
             default:
