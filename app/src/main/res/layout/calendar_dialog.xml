@@ -23,6 +23,8 @@
     <EditText
         android:id="@+id/view_more_title_et"
         android:hint="일정명을 입력하세요"
+        android:lines="1"
+        android:maxLength="15"
         android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
