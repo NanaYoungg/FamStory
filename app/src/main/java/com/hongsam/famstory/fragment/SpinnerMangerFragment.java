@@ -7,9 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -24,11 +22,12 @@ import com.hongsam.famstory.firebase.CalendarFirebaseDB;
 import java.util.ArrayList;
 
 public class SpinnerMangerFragment extends Fragment {
-    private SpinnerMangerBinding mBinding;
+    private SpinnerMangerBinding mb;
     protected MainActivity mainActivity;
-    private Button addItem,deleteItem;
-    private ListView spinnerList;
+
     private View root;
+    Spinner spinner;
+    ArrayAdapter<String> adapter;
     private CalendarFirebaseDB firebaseDB = new CalendarFirebaseDB();
     CalendarFirebaseDB.SpinnerMangerDB mangerDB= firebaseDB.new SpinnerMangerDB();
     CalendarFirebaseDB.SpinnerDB spinnerDB = firebaseDB.new SpinnerDB(getContext());
@@ -36,6 +35,8 @@ public class SpinnerMangerFragment extends Fragment {
     View mContentView;
 
     public SpinnerMangerFragment(ArrayAdapter<String> adapter, Spinner spinner) {
+        this.spinner = spinner;
+        this.adapter =adapter;
     }
 
     @Override
@@ -51,10 +52,9 @@ public class SpinnerMangerFragment extends Fragment {
         if (container == null){
             return null;
         }
-        mBinding = SpinnerMangerBinding.inflate(getLayoutInflater());
+        mb = SpinnerMangerBinding.inflate(getLayoutInflater());
         mContentView = inflater.inflate(R.layout.spinner_manger,container,false);
-        root = mBinding.getRoot();
-        init();
+        root = mb.getRoot();
         ArrayList<String> list =new ArrayList<>();
 
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -63,15 +63,18 @@ public class SpinnerMangerFragment extends Fragment {
                 list
         );
         mangerDB.getDBShowListView(adapter);
-        spinnerList.setAdapter(adapter);
+        mb.spinnerList.setAdapter(adapter);
 
-        addItem.setOnClickListener(new View.OnClickListener() {
+        mb.addItem.setOnClickListener(new View.OnClickListener() {
             final EditText editText = new EditText(getContext());
+
+            //CustomAlertDialog alertDialog = new CustomAlertDialog(getContext());
+
 
             @Override
             public void onClick(View view) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                final AlertDialog dialog = builder.create();
+
                 editText.setHint("아이템을 입력해주세요");
 
                 builder.setTitle("추가하실 아이템을 입력하세요");
@@ -91,16 +94,12 @@ public class SpinnerMangerFragment extends Fragment {
                         //dialog.dismiss();
                     }
                 });
-                dialog.show();
+                builder.show();
             }
         });
         return root;
     }
 
-    private void init() {
-        addItem = mBinding.addItem;
-        deleteItem = mBinding.deleteItem;
-        spinnerList = mBinding.spinnerList;
 
-    }
+
 }
