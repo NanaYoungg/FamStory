@@ -52,7 +52,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String photo = remoteMessage.getData().get("photo");
             String paperType = remoteMessage.getData().get("paperType");
 
-            LetterContants letterContants = new LetterContants(sender, contants, date, photo, Integer.parseInt(paperType));
+            LetterContants letterContants;
+            if (paperType.equals("")) {
+                letterContants = new LetterContants(sender, contants, date, photo, 0);
+            } else {
+                letterContants = new LetterContants(sender, contants, date, photo, Integer.parseInt(paperType));
+            }
+
+
             // db insert하는 코드 들어가야됨
             DBFamstory.getInstance(this).insertLetterContants(letterContants);
 

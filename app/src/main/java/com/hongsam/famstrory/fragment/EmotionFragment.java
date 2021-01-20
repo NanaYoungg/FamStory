@@ -180,7 +180,6 @@ public class EmotionFragment extends Fragment {
                     if (!singleSnapshot.getKey().equals(token)) {
                         Log.d(TAG, "saveToken : singleSnapshot.getKey : " + singleSnapshot.getKey());
                         tokenList.add(singleSnapshot.getKey());
-                        //관계 불러오기
                         relationList.add(singleSnapshot.getValue(Member.class).getRelation());
                     }
                 }
@@ -194,7 +193,7 @@ public class EmotionFragment extends Fragment {
             }
         });
     }
-
+    //보낸이 토큰
     public void sendEmotion(ArrayList<String> relationList, ArrayList<String> tokenList, String msg) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());

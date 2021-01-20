@@ -25,6 +25,7 @@ public class Define {
     }
 
     public static final String KEY_FIREBASE_TOKEN = "KEY_FIREBASE_TOKEN";
+
     public static final String KEY_FAMILY_NAME = "KEY_FAMILY_NAME";
     public static final String KEY_FAMILY_PICTURE = "KEY_FAMILY_PICTURE";
     public static final String KEY_FAMILY_PICTURE_SIZE = "KEY_FAMILY_PICTURE_SIZE";
@@ -39,14 +40,16 @@ public class Define {
     public static int TIME_PICKER_START = 10000;
     public static int TIME_PICKER_END = TIME_PICKER_START+1;
 
-    public static int[] LetterPaperArray = {
+    public static int[] LETTER_PAPAER_ARRAY = {
             R.drawable.paper1,
             R.drawable.paper2,
             R.drawable.paper3,
             R.drawable.paper4,
             R.drawable.paper5
     };
-//    public static int MEMBER_GRAND_MOTHER = 0;    // 할머니
+
+
+//    public static int MEMBER_GRAND_MOTHER = 0;    // 할머니`
 //    public static int MEMBER_GRAND_FATHER = 1;    // 할아버지
 //    public static int MEMBER_MOTHER = 2;          // 엄마
 //    public static int MEMBER_FATHER = 3;          // 아빠

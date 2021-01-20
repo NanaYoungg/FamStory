@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.data.LetterPaper;
 import com.hongsam.famstrory.define.Define;
-import com.hongsam.famstrory.dialog.LetterPaperDialog;
 import com.hongsam.famstrory.fragment.LetterWriteFragment;
 
 import java.util.ArrayList;
@@ -72,7 +71,7 @@ public class LetterPaperAdapter extends RecyclerView.Adapter<LetterPaperAdapter.
             paperImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    id = Define.LetterPaperArray[getAdapterPosition()];
+                    id = Define.LETTER_PAPAER_ARRAY[getAdapterPosition()];
                     letterWriteFragment.setLetterPaper(id);
                 }
             });

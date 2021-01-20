@@ -35,13 +35,16 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
+import com.hongsam.famstrory.data.Emotion;
 import com.hongsam.famstrory.data.Keyword;
 import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.LetterPaper;
+import com.hongsam.famstrory.data.Member;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.dialog.LetterPaperDialog;
 import com.hongsam.famstrory.dialog.LetterReceiverDialog;
 import com.hongsam.famstrory.util.FirebaseManager;
+import com.hongsam.famstrory.util.SharedManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -77,17 +80,16 @@ public class LetterWriteFragment extends Fragment {
 
     private Date date = new Date();
     private final String DBTime = mFormatDB.format(date);
+
+    private String urlPath;
     private Uri selectedImageUri;
     private int paperType;
 
-    private ArrayList<LetterPaper> mArrayList;
+
     ArrayList<String> Letter;
 
-    private DatabaseReference mDatabase, mMomRef, mDadRef, mSisRef, mBroRef;
-    private String mom = "엄마";
-    private String dad = "아빠";
-    private String sis = "누나";
-    private String bro = "형";
+    private DatabaseReference mDatabase;
+
     public static final String TEST_FAMILY = "테스트가족";
     private static final String sFamName = "재훈이네가족";
 
@@ -97,20 +99,8 @@ public class LetterWriteFragment extends Fragment {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
 
-        //파이어베이스에서 데이터를 추가하거나 조회하려면 DatabaseReference의 인스턴스가 필요
+//        파이어베이스에서 데이터를 추가하거나 조회하려면 DatabaseReference의 인스턴스가 필요
         mDatabase = FirebaseDatabase.getInstance().getReference("Family").child(TEST_FAMILY);
-
-        mMomRef = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Family").child(TEST_FAMILY)
-                .child("members").orderByChild("relation").equalTo(mom);
-
-        mDadRef = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Family")
-                .child(TEST_FAMILY).child("members").orderByChild("relation").equalTo(dad);
-
-        mSisRef = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Family")
-                .child(TEST_FAMILY).child("members").orderByChild("relation").equalTo(sis);
-
-        mBroRef = (DatabaseReference) FirebaseDatabase.getInstance().getReference("Family")
-                .child(TEST_FAMILY).child("members").orderByChild("relation").equalTo(bro);
 
 
 
@@ -168,7 +158,7 @@ public class LetterWriteFragment extends Fragment {
             mAddPaperBtn = mContentView.findViewById(R.id.letter_paper_img_btn);
             mWriteDate = mContentView.findViewById(R.id.letter_write_date);
 
-            mArrayList = new ArrayList<>();
+//            mArrayList = new ArrayList<>();
 
 
             //toolbar의 뒤로가기 버튼
@@ -241,7 +231,6 @@ public class LetterWriteFragment extends Fragment {
 
                     uploadLetterDB();
 
-
                 }
             });
 
@@ -249,9 +238,10 @@ public class LetterWriteFragment extends Fragment {
     }
 
     /*   편지 DB
-    * 1. 로그인 했을때 엄마,아빠 등 릴레이션이 정해짐.
-    * 2. 릴레이션 값을 equalTo로 불러와서 해당 릴레이션 밑에 저장 (각자 보낸 편지 저장)
-    * 3. 리스트에서 불러올때도 해당 릴레이션에 맞게 불러와야함
+    * 1. member들의 토큰값을 참조한다
+    *    - MainActivity 의 getFirebaseToken() 으로 등록한 SharedManager의 KEY_FIREBASE_TOKEN 값으로 토큰값 참조
+    * 2. member들의 토큰값으로 편지를 전송한다. (LetterContants 의 토큰값 = sender와 매칭된 relation의 토큰값 )
+    * 3. sender에 따라 보낸 편지 내용이 DB에 저장된다.
     * */
     public void uploadLetterDB() {
         //사진 DB에 저장
@@ -267,105 +257,93 @@ public class LetterWriteFragment extends Fragment {
             storageRef.putFile(selectedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    String getSender = mToTv.getText().toString();
-                    String getContants = mContants.getText().toString();
-                    String getDate = mWriteDate.getText().toString();
-                    String getPhoto = selectedImageUri.toString();
-                    int type = paperType;
-
-                    //임시로 토큰값 설정
-                    String receiverToken = "";;
-                    Map<String, LetterContants> letterContantsMap = new HashMap<>();
-
-                    // 받는사람 토큰값 받아오기
-                    //토큰값, 편지내용 DB 저장
-                    letterContantsMap.put(receiverToken, new LetterContants(getSender, getContants, getDate, getPhoto, type));
-                    writeNewLetter(letterContantsMap);
-                    mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
-                    Toast.makeText(getContext(), "편지가 전송되었습니다.", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "사진 스토리지 업로드 성공 !");
                 }
             });
-        }
-    }
-
-
-    //레퍼런스값 대조하여 편지값 알맞은 경로값에 저장
-    public void letterSave(DatabaseReference dbRef){
-        if (dbRef.equals(mMomRef)) {
-            mMomRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot singleSnapshot : snapshot.getChildren()){
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-        } else if (dbRef.equals(mDadRef)) {
-            mDadRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot singleSnapshot : snapshot.getChildren()){
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-        } else if (dbRef.equals(mSisRef)) {
-            mSisRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot singleSnapshot : snapshot.getChildren()){
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-        } else if (dbRef.equals(mBroRef)) {
-            mBroRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot singleSnapshot : snapshot.getChildren()){
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
         } else {
-
-            Log.d(TAG,"없는 레퍼런스값");
+            urlPath = "";
         }
 
+        String getSender = mToTv.getText().toString();
+        String getContants = mContants.getText().toString();
+        String getDate = mWriteDate.getText().toString();
+        String getPhoto = urlPath;
+        int type = paperType;
+
+        LetterContants letterContants = new LetterContants( getSender, getContants, getDate, getPhoto, type);
+
+        //생성된 가족 구성원의 토큰값 (KEY_FIREBASE_TOKEN) 으로 전송
+        //letterContantsMap.put(SharedManager.readString(Define.KEY_FIREBASE_TOKEN, ""), new LetterContants(getSender, getContants, getDate, getPhoto, type));
+        getFamTokens("아빠", letterContants);
+        mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+        Toast.makeText(getContext(), "편지가 전송되었습니다.", Toast.LENGTH_SHORT).show();
     }
 
-    
+
+    //get한 토큰값, 편지내용을 LetterContants DB에 저장
+    private void writeNewLetter(LetterContants letterContants) {
+        mDatabase.child("LetterContants").setValue(letterContants);
+    }
 
 
-    //편지지 설정. 이미지뷰에 뿌려주기
+    // 받는사람 토큰값 받아오기 (for each문 사용하여 sender = members 참조하여 같은 토큰값 get)
+    //  저장되어있는 토큰 따로받아서 저장
+    public void getFamTokens(final String receiver, final LetterContants letterContants) {
+
+        DatabaseReference ref = FirebaseManager.dbFamRef.child(TEST_FAMILY).child("members");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                ArrayList<String> relationList = new ArrayList<>();
+//                ArrayList<String> tokenList = new ArrayList<>();
+
+                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+                    Member member = singleSnapshot.getValue(Member.class);
+                    if (member.getRelation().equals(receiver)) {
+                        sendLetter(singleSnapshot.getKey(), letterContants);
+                    }
+//                    if (!singleSnapshot.getKey().equals(token)) {
+//                        Log.d(TAG, "saveToken : singleSnapshot.getKey : " + singleSnapshot.getKey());
+//                        tokenList.add(singleSnapshot.getKey());
+//                        relationList.add(singleSnapshot.getValue(Member.class).getRelation());
+//                    }
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+        //자기자신 토큰값 (sender 토큰값)
+//    public void sendLetter(ArrayList<String> relationList, ArrayList<String> tokenList, String sender, String contants, String date, String photo, int paperType ) {
+//        for (int i = 0; i < tokenList.size(); i++) {
+//            DatabaseReference ref = FirebaseManager.dbFamRef.child(TEST_FAMILY).child("LetterContants").child(tokenList.get(i));
+//            ref.setValue(new LetterContants(relationList.get(i), contants, date, photo, paperType));
+//        }
+//    }
+
+    public void sendLetter(String receiverToken, LetterContants letterContants) {
+        FirebaseManager.dbFamRef.child(TEST_FAMILY).child("LetterContants").child(receiverToken).setValue(letterContants);
+
+        Log.d(TAG, letterContants.getContants());
+        Log.d(TAG, letterContants.getSender());
+        Log.d(TAG, letterContants.getDate());
+        Log.d(TAG, letterContants.getPhoto());
+        Log.d(TAG, Integer.toString(letterContants.getPaperType()));
+
+        selectedImageUri = null;
+    }
+
+
+
     public void setLetterPaper(int id) {
+        paperType = id;
         mBackgound.setImageResource(id);
-    }
-
-    //편지내용 DB저장
-    private void writeNewLetter(Map<String, LetterContants> letterContantsMap) {
-        FirebaseManager.dbFamRef.child(TEST_FAMILY).child("LetterContants").setValue(letterContantsMap);
-
     }
 
 
@@ -376,6 +354,8 @@ public class LetterWriteFragment extends Fragment {
         if (requestCode == GET_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             selectedImageUri = data.getData();
+            urlPath = selectedImageUri.toString();
+            Log.d(TAG, "사진 Path : " + urlPath );
             mPhotoView.setImageURI(selectedImageUri);
         }
     }

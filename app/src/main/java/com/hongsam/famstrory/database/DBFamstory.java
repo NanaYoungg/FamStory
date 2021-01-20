@@ -119,7 +119,7 @@ public class DBFamstory {
             values.put("LETTER_DATE", letter.getDate());
             values.put("LETTER_PHOTO", letter.getPhoto());
             values.put("LETTER_PAPER_TYPE", letter.getPaperType());
-            db.insert(DBSchema.TB_EMOTION, null, values);
+            db.insert(DBSchema.TB_LETTER, null, values);
         } else {
             Log.d(TAG, "db null OR not open");
         }

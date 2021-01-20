@@ -104,12 +104,25 @@ public class MainActivity extends AppCompatActivity {
         FirebaseManager.dbFamRef.child(famName).child("members").child(token).setValue(member);
     }
 
-    public void updateMember(String famName, Member member) {
+//    public void writeLetter(String famName, String token, LetterContants letterContants) {
+//        FirebaseManager.dbFamRef.child(famName).child(token).setValue(letterContants);
+//    }
+
+
+    public void updateMember(String famName, LetterContants member) {
         String token = SharedManager.readString(Define.KEY_FIREBASE_TOKEN, "");
         Map<String, Object> memberMap = new HashMap<>();
         memberMap.put(token, member);
         FirebaseManager.dbFamRef.child(famName).child("members").updateChildren(memberMap);
     }
+
+//    public void updateLetter(String famName, Member letterContants) {
+//        String token = SharedManager.readString(Define.KEY_FIREBASE_TOKEN, "");
+//        Map<String, Object> memberMap = new HashMap<>();
+//        memberMap.put(token, letterContants);
+//        FirebaseManager.dbFamRef.child(famName).updateChildren(memberMap);
+//    }
+
 
     public void getFirebaseToken() {
         FirebaseMessaging.getInstance().getToken()
@@ -136,9 +149,12 @@ public class MainActivity extends AppCompatActivity {
             return null;
     }
 
+    // 멤버 토큰값 저장
     public void saveToken(final String token) {
         SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
-        writeMember("테스트가족", token, new Member("아들", "김아들"));
+
+        writeMember("테스트가족", token, new Member("누나", "김아들"));
+//        writeLetter("테스트가족", token, new LetterContants);
     }
 
 

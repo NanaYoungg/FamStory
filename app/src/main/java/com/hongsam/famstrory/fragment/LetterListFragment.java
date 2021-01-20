@@ -54,10 +54,12 @@ public class LetterListFragment extends Fragment {
 
     private TextView mSender, mContants, mDate;
     private RecyclerView recyclerView;
-    private LetterListAdapter letterListAdapter;
     private CoordinatorLayout coordinatorLayout;
     private FloatingActionButton fab;
+
     private ArrayList<LetterList> itemList;
+    private LetterListAdapter letterListAdapter;
+
 
 
     public LetterListFragment() {

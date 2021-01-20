@@ -46,7 +46,6 @@ public class LetterPaperDialog extends DialogFragment {
         View v = inflater.inflate(R.layout.dialog_letter_paper, container);
         LetterPaperAdapter mAdapter = null;
         RecyclerView mRecyclerView = (RecyclerView) v.findViewById(R.id.recycler_letter_paper);
-        Button mCancleBtn = (Button) v.findViewById(R.id.dialog_paper_cancle_btn);
 
         Button mOkBtn = (Button) v.findViewById(R.id.dialog_paper_ok_btn);
         mOkBtn.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +69,7 @@ public class LetterPaperDialog extends DialogFragment {
 
         return v;
     }
+
 
 
     private ArrayList<LetterPaper> initData() {

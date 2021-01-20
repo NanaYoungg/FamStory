@@ -27,6 +27,7 @@ import com.hongsam.famstrory.adapter.LetterListAdapter;
 import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.LetterList;
 import com.hongsam.famstrory.define.Define;
+import com.hongsam.famstrory.dialog.LetterReceiverDialog;
 import com.hongsam.famstrory.util.FirebaseManager;
 
 import static com.hongsam.famstrory.fragment.LetterWriteFragment.TEST_FAMILY;
@@ -102,46 +103,26 @@ public class LetterReadFragment extends Fragment {
                 }
             });
 
-
-            //리싸이클러뷰에서 텍스트 데이터 그대로 전달받아 뿌려주기
-            Bundle extra = this.getArguments();
-            if (extra != null) {
-                extra = getArguments();
-                String sender = extra.getString("sender");
-                String contants = extra.getString("contants");
-                String date = extra.getString("date");
-
-                mFromTv.setText(sender);
-                mContants.setText(contants);
-                mDate.setText(date);
-
-
-
-                //휴지통 이미지버튼 누를시 DB에서 삭제
-                mDB.getInstance().getReference("Family").child(TEST_FAMILY).child("LetterContants").removeValue()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getContext(), "삭제 완료", Toast.LENGTH_LONG).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() { // DB에서 Fail날경우는 거의 없음..
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "삭제 실패", Toast.LENGTH_LONG).show();
-                    }
-                });
-
-
-            }
+//
+//            mdeletBtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    //휴지통 이미지버튼 누를시 DB에서 삭제
+//                    mDB.getInstance().getReference("Family").child(TEST_FAMILY).child("LetterContants").removeValue()
+//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    Toast.makeText(getContext(), "삭제 완료", Toast.LENGTH_LONG).show();
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() { // DB에서 Fail날경우는 거의 없음..
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(getContext(), "삭제 실패", Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+//
+//                }
+//            });
         }
     }
 }
-
-//    public void OnCardClick(LetterList letterList) {
-//                mFromTv.setText(letterList.getSender());
-//                mContants.setText(letterList.getContants());
-//                mDate.setText(letterList.getDate());
-//    }
-
-
-

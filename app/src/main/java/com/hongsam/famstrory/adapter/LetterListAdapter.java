@@ -21,6 +21,7 @@ import com.hongsam.famstrory.databinding.FragmentLetterReadBinding;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.dialog.LetterReceiverDialog;
 import com.hongsam.famstrory.fragment.LetterReadFragment;
+import com.hongsam.famstrory.fragment.LetterWriteFragment;
 
 import java.util.ArrayList;
 
@@ -33,24 +34,13 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
 
     private ArrayList<LetterList> letterItemList;
     private Context context;
-//    private CVInterface cvInterface;
-//
-//
-//    public interface CVInterface {
-//        void OnCardClick(LetterList letterList);
-//    }
-//
+
 
     public LetterListAdapter(ArrayList<LetterList> letterItemList, Context context) {
         this.letterItemList = letterItemList;
         this.context = context;
-    }
 
-//    public LetterListAdapter(ArrayList<LetterList> letterItemList, Context context, CVInterface cvInterface) {
-//        this.letterItemList = letterItemList;
-//        this.context = context;
-//        this.cvInterface = cvInterface;
-//    }
+    }
 
 
     @NonNull
@@ -64,11 +54,16 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull LetterListAdapter.ViewHolder holder, final int position) {
 
-        //추후 호칭 자동 변경 서비스일때 보낸이가 선택한 Receiver 호칭 매칭..
         holder.sender.setText(letterItemList.get(position).getSender());
         holder.contants.setText(letterItemList.get(position).getContants());
         holder.date.setText(letterItemList.get(position).getDate());
 
+//        LetterReadFragment letterReadFragment = new LetterReadFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putString("sender", current.sender);
+//        bundle.putString("contants", current.contants);
+//        bundle.putString("date", current.date);
+//        letterReadFragment.setArguments(bundle);
 
     }
 
@@ -100,27 +95,20 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
 //            viewBackgound = itemView.findViewById(R.id.view_background);
             cardView = itemView.findViewById(R.id.letter_cardView);
 
-            //카드뷰 클릭시 해당 내용 읽기로 이동
+//            카드뷰 클릭시 해당 내용 읽기로 이동
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int position = getAdapterPosition();
-//                    cvInterface.OnCardClick(letterItemList.get((position)));
-//                    LetterReadFragment fragment = new LetterReadFragment();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("sender",letterItemList.get(position).getSender());
-//                    bundle.putString("contants",letterItemList.get(position).getContants());
-//                    bundle.putString("date",letterItemList.get(position).getSender());
-//
-//                    fragment.setArguments(bundle);
+                    //값 넘겨주기
 
+
+                    //화면 넘어가기 함수
                     ((MainActivity) context).changeFragment(Define.FRAGMENT_ID_LETTER_READ);
                 }
             });
         }
 
     }
-
 
 
 }
