@@ -1,6 +1,9 @@
 package com.hongsam.famstory.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.text.method.TimeKeyListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +15,27 @@ import androidx.fragment.app.Fragment;
 import com.hongsam.famstory.R;
 import com.hongsam.famstory.activitie.MainActivity;
 import com.hongsam.famstory.databinding.ChattingFragmentBinding;
+import com.hongsam.famstory.firebase.TimelineDB;
+
+import java.sql.Time;
 
 public class ChattingFragment extends Fragment {
     MainActivity mainActivity;
     View mContentView;
     private ChattingFragmentBinding mb;
     View root;
+    private String name,nickname;
+
+    public ChattingFragment(String name, String nickName) {
+       this.name = name;
+       this.nickname = nickName;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +60,10 @@ public class ChattingFragment extends Fragment {
         mainActivity = (MainActivity) getActivity();
 
         mContentView = inflater.inflate(R.layout.fragment_setting, container,false);
-
-
+        String user = name+"("+nickname+")";
+        mb.user.setText(user);
+        TimelineDB timelineDB = new TimelineDB();
+        timelineDB.getToken();
         return root;
     }
 
