@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <LinearLayout
         android:id="@+id/f_emotion_layout_large_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
         <!--<TextView-->
@@ -32,6 +34,7 @@
         android:id="@+id/f_emotion_layout_middle_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
         <!--<TextView-->
@@ -55,6 +58,7 @@
         android:id="@+id/f_emotion_layout_small_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
         <!--<TextView-->
@@ -79,6 +83,7 @@
         android:id="@+id/f_emotion_layout_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
@@ -86,7 +91,7 @@
             android:layout_height="60dp"
             android:paddingHorizontal="10dp"
             android:orientation="horizontal"
-            android:gravity="center|left">
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/f_emotion_tv_large"
@@ -117,7 +122,7 @@
             android:id="@+id/f_emotion_btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="전송"/>
+            android:text="감정 전송"/>
     </LinearLayout>
 
 
