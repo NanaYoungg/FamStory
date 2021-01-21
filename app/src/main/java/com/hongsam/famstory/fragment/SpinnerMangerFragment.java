@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +25,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.hongsam.famstory.R;
 import com.hongsam.famstory.activitie.MainActivity;
 import com.hongsam.famstory.databinding.SpinnerMangerBinding;
-import com.hongsam.famstory.firebase.CalendarFirebaseDB;
+import com.hongsam.famstory.firebase.SpinnerDB;
 
 import java.util.ArrayList;
 
@@ -42,8 +42,7 @@ public class SpinnerMangerFragment extends Fragment {
     private Button addItem, deleteItem;
     private ListView spinnerList;
     private View root;
-    private CalendarFirebaseDB firebaseDB = new CalendarFirebaseDB();
-    CalendarFirebaseDB.SpinnerMangerDB mangerDB = firebaseDB.new SpinnerMangerDB();
+    private SpinnerDB spinnerDB = new SpinnerDB(getContext());
     View mContentView;
 
 
@@ -52,7 +51,6 @@ public class SpinnerMangerFragment extends Fragment {
     Spinner spinner;
     ArrayAdapter<String> adapter1;
     ArrayList<String> itemList;
-    CalendarFirebaseDB.SpinnerDB spinnerDB = firebaseDB.new SpinnerDB(getContext());
 
 
     public SpinnerMangerFragment() {
@@ -75,12 +73,15 @@ public class SpinnerMangerFragment extends Fragment {
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, itemList);
 
         mb.spinnerList.setAdapter(adapter);
+
+        spinnerDB.setSpinner(adapter);
+        //spinnerDB.setSpinner(adapter);
         mb.spinnerList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String clickItem =((TextView)view).getText().toString();
+                String clickItem = ((TextView) view).getText().toString();
                 adapter.remove(clickItem);
-                Toast.makeText(getContext(),"삭제되었습니다.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -100,7 +101,18 @@ public class SpinnerMangerFragment extends Fragment {
         });
         return root;
     }
-    private void addItem(){
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    private void addItem() {
         final EditText editText = new EditText(getContext());
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -111,7 +123,14 @@ public class SpinnerMangerFragment extends Fragment {
         builder.setPositiveButton("추가", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                adapter.add(editText.getText().toString());
+
+                itemList.clear();
+                String addItem = editText.getText().toString();
+                itemList.add(addItem);
+                spinnerDB.firstPutSpinnerItem(adapter, itemList, addItem);
+                adapter.notifyDataSetChanged();
+
+
             }
         });
         builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -122,6 +141,7 @@ public class SpinnerMangerFragment extends Fragment {
         });
         builder.show();
     }
+
     private void removeAll() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("전체삭제됩니다");
