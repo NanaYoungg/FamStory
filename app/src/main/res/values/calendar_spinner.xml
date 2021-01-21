@@ -3,6 +3,11 @@
     <string-array name="arr">
         <item>생일</item>
         <item>기념</item>
+        <item>모임</item>
+        <item>약속</item>
+        <item>휴가</item>
+        <item>외식</item>
+
 
     </string-array>
 </resources>
