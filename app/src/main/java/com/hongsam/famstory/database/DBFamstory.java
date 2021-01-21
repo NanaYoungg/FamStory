@@ -30,7 +30,7 @@ public class DBFamstory {
         return dbFamstory = new DBFamstory(context);
     }
 
-    private DBFamstory(Context context) {
+    public DBFamstory(Context context) {
         helper = new DBHelper(context, DB_NAME, null, DB_VERSION);
         db = helper.open();
     }
