@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/main_menu"
-        android:title="일정"
+        android:title="@string/timeline_calendar"
         android:enabled="true"
         android:icon="@drawable/main_menu"/>
 
