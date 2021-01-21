@@ -1,4 +1,4 @@
-package com.hongsam.famstrory;
+package com.hongsam.famstory;
 
 import org.junit.Test;
 
