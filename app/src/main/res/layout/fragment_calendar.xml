@@ -29,6 +29,7 @@
                 android:layout_gravity="center"
                 android:text="월별 일정 보기" />
             <Button
+                android:visibility="gone"
                 android:id="@+id/spinner_manger_btn"
                 android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
@@ -138,7 +139,7 @@
 
         <TextView
             android:id="@+id/vm_name"
-            android:layout_width="49dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="일정명 : "
             app:layout_constraintBottom_toBottomOf="parent"
@@ -149,7 +150,7 @@
             app:layout_constraintVertical_bias="0.24" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="타입"
