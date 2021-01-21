@@ -1,10 +1,12 @@
 package com.hongsam.famstory.firebase;
 
+import android.annotation.SuppressLint;
 import android.icu.util.Calendar;
 import android.nfc.Tag;
 import android.os.Build;
 import android.util.Log;
 import android.widget.Adapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -20,18 +22,15 @@ import com.hongsam.famstory.data.Member;
 import com.hongsam.famstory.data.TimeLineFamily;
 import com.hongsam.famstory.define.Define;
 
-@RequiresApi(api = Build.VERSION_CODES.N)
-public class TimelineDB<hour> {
+import java.text.SimpleDateFormat;
+
+public class TimelineDB {
     String Family = Define.DB_REFERENCE;
     String User = Define.USER;
     FirebaseDatabase fireDB = FirebaseDatabase.getInstance();
     DatabaseReference myRef = fireDB.getReference(Family).child(User).child("members");
     private static final String TAG = "TimelineDB";
-    java.util.Calendar cal = java.util.Calendar.getInstance();
-    int hour = cal.get(java.util.Calendar.HOUR);
-    int minute = cal.get(java.util.Calendar.MINUTE);
-    String day =  (hour>12)?"오후":"오전";
-    int h = (hour>12)?hour-12:hour;
+
 
 
     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -44,15 +43,39 @@ public class TimelineDB<hour> {
 
 
     }
-    public void getTokenFamily(final FamilyAdapter adapter){
+    public void getToken(){
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.e("a",snapshot.getValue()+"");
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public void setFamilyAdapter(final FamilyAdapter adapter){
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("HH시mm분");
+                Calendar time = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    time = Calendar.getInstance();
+                }
+                String getTime = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                    getTime = dateFormat.format(time.getTime());
+                }
+
                 Log.e(TAG,snapshot.getChildrenCount()+"");
                 for(DataSnapshot singleShot : snapshot.getChildren()){
                     Member member = singleShot.getValue(Member.class);
-                    adapter.addItem(new TimeLineFamily(null,member.getName(),member.getRelation(),"asdf",day+" "+h+":"+minute));
+                    adapter.addItem(new TimeLineFamily(null,member.getName(),member.getRelation(),"메시지 미리보기",""));
                     adapter.notifyDataSetChanged();
                 }
             }
