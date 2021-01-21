@@ -8,14 +8,16 @@ public class Calendar {
     public String description;
     public String startTime;
     public String endTime;
+    public String type;
     public Calendar(){
 
     }
-    public Calendar(String title, String description, String startTime, String endTime) {
+    public Calendar(String title, String description, String startTime, String endTime,String type) {
         this.title = title;
         this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.type = type;
     }
 
     public String getTitle() {
@@ -32,6 +34,10 @@ public class Calendar {
 
     public String getEndTime() {
         return endTime;
+    }
+
+    public String getType(){
+        return type;
     }
 
 }

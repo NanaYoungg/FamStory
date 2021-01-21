@@ -1,4 +1,4 @@
-package com.hongsam.famstrory.database;
+package com.hongsam.famstory.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,17 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.hongsam.famstrory.data.Emotion;
+import com.hongsam.famstory.activitie.MainActivity;
+import com.hongsam.famstory.data.Emotion;
+import com.hongsam.famstory.define.Define;
 
 import java.util.ArrayList;
 
-/**
- * DB 관련 함수 정의
- * 작성자 : 한재훈
- */
-
-public class DBFamstory {
-    private final String TAG = "DBFamstory";
+public class MyMessageDB {
+    private static final String TAG = "myMessage.db";
 
     private static final String DB_NAME = "famstory.db";
     private static final int DB_VERSION = 1;
@@ -24,13 +21,13 @@ public class DBFamstory {
     private DBHelper helper;
     private SQLiteDatabase db;
 
-    private static DBFamstory dbFamstory;
+    private static MyMessageDB myMessageDB;
 
-    public static DBFamstory getInstance(Context context) {
-        return dbFamstory = new DBFamstory(context);
+    public static MyMessageDB getInstance(Context context) {
+        return myMessageDB = new MyMessageDB(context);
     }
 
-    public DBFamstory(Context context) {
+    public MyMessageDB(Context context) {
         helper = new DBHelper(context, DB_NAME, null, DB_VERSION);
         db = helper.open();
     }

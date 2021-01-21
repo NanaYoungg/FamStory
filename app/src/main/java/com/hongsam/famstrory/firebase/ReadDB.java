@@ -20,7 +20,7 @@ public class ReadDB {
     MainActivity mainActivity;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    String userName = Define.user;
+    String userName = Define.USER;
 
 
     Calendar calendarDB;

@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.data.Calendar;
 import com.hongsam.famstrory.databinding.CalendarDialogBinding;
@@ -24,6 +25,7 @@ import com.hongsam.famstrory.firebase.CalendarFirebaseDB;
 import com.hongsam.famstrory.firebase.CreateDB;
 import com.hongsam.famstrory.firebase.UpdateDB;
 import com.hongsam.famstrory.interf.CustomDialogInterface;
+
 
 import java.util.ArrayList;
 
@@ -38,8 +40,6 @@ public class CalendarCustomDialog extends Dialog implements  CustomDialogInterfa
     protected View root;
     private ArrayList<String> itemList = new ArrayList<>();
     private ArrayAdapter<String> adapter;
-    private CalendarFirebaseDB firebaseDB = new CalendarFirebaseDB();
-    private CalendarFirebaseDB.SpinnerDB dbSpinner;
 
 
 
@@ -62,7 +62,6 @@ public class CalendarCustomDialog extends Dialog implements  CustomDialogInterfa
         this.getYear = getYear;
         this.getMonth = getMonth;
         this.getDay = getDay;
-        dbSpinner = firebaseDB.new SpinnerDB(getContext());
         dialog = new Dialog(context);
 
         if (type == Define.UPDATE_DIALOG) {
@@ -83,10 +82,6 @@ public class CalendarCustomDialog extends Dialog implements  CustomDialogInterfa
         setContentView(root);
 
 
-        // xml id 연결
-        setSpinnerSetting();
-        acceptAdapter(adapter);
-        //setSpinnerSetting("회의");
         mb.viewMoreDescriptionEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -126,6 +121,7 @@ public class CalendarCustomDialog extends Dialog implements  CustomDialogInterfa
                 String str_text = mb.viewMoreDescriptionEt.getText().toString();
                 String str_start_time = mb.startTimeTv.getText().toString();
                 String str_end_time = mb.endTimeTv.getText().toString();
+                String str_type = mb.spinner.getSelectedItem().toString();
 
 
                 // 확인 버튼을 눌렀을때 채우지 않은 부분이 있는지 확인
@@ -143,6 +139,7 @@ public class CalendarCustomDialog extends Dialog implements  CustomDialogInterfa
                     bundle.putInt("year",getYear);
                     bundle.putInt("month",getMonth);
                     bundle.putInt("day", getDay);
+                    bundle.putString("type",str_type);
                     Toast.makeText(getContext(),str_title,Toast.LENGTH_SHORT).show();
                     createDB.pushFireBaseDatabase(bundle);
                     dismiss();
@@ -208,14 +205,6 @@ public class CalendarCustomDialog extends Dialog implements  CustomDialogInterfa
         });
     }
 
-    public void setSpinnerSetting(){
-        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item,itemList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        mb.spinner.setAdapter(adapter);
-    }
-    public void acceptAdapter(ArrayAdapter<String> adapter){
-        dbSpinner.getSpinnerItem(adapter);
-    }
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)

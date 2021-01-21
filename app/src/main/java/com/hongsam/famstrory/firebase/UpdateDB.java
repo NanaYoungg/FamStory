@@ -25,7 +25,7 @@ public class UpdateDB {
 
     public void updateDB(int year, int month, final int day){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        String userName = Define.user;
+        String userName = Define.USER;
         DatabaseReference myRef = database.getReference("Family").child(userName).child("CalendarDB")
                 .child(year+"년").child(month+"월");
 
