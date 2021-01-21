@@ -31,7 +31,7 @@ import static com.hongsam.famstory.fragment.CalendarFragment.state;
  */
 public class CheckDB{
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    String userName = Define.user;
+    String userName = Define.USER;
     Calendar calendarDB;
     MainActivity mainActivity;
     ArrayList<String> list = new ArrayList<>();
@@ -71,7 +71,7 @@ public class CheckDB{
                     fm.beginTransaction().remove(fr).commit();
                     state = "ok";
                     Log.e("checkFB",Define.DATA_IS_NOT_NULL+"");
-                    mainActivity.visibleView(Define.DATA_IS_NOT_NULL);
+                    //mainActivity.visibleView(Define.DATA_IS_NOT_NULL);
                     calendarCreateBtn.setVisibility(View.INVISIBLE);
                     calendarDeleteBtn.setVisibility(View.VISIBLE);
                     calendarUpdateBtn.setVisibility(View.VISIBLE);
