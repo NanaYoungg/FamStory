@@ -56,7 +56,6 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.ViewHold
                             emotionFragment.showChildLayout(true);
 
                             emotionFragment.showEditText(ITEM_LARGE, false);
-                            emotionFragment.makeSentence(ITEM_LARGE, mList.get(position).getKeyword());
 
                             emotionFragment.setMiddleKeyword(position);
                             emotionFragment.largeIdx = position;
@@ -66,7 +65,7 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.ViewHold
                             emotionFragment.showEditText(ITEM_MIDDLE, true);
                         } else {
                             emotionFragment.showEditText(ITEM_MIDDLE, false);
-                            emotionFragment.makeSentence(ITEM_MIDDLE, mList.get(position).getKeyword());
+                            emotionFragment.inputText(ITEM_MIDDLE, mList.get(position).getKeyword());
                             emotionFragment.middleIdx = position;
                         }
                     } else if (itemFlag == ITEM_SMALL) {
@@ -74,7 +73,7 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.ViewHold
                             emotionFragment.showEditText(ITEM_SMALL, true);
                         } else {
                             emotionFragment.showEditText(ITEM_SMALL, false);
-                            emotionFragment.makeSentence(ITEM_SMALL, mList.get(position).getKeyword());
+                            emotionFragment.inputText(ITEM_SMALL, mList.get(position).getKeyword());
                             emotionFragment.smallIdx = position;
                         }
                     }

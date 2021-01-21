@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +33,7 @@ import com.hongsam.famstrory.data.Member;
 import com.hongsam.famstrory.database.DBFamstory;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.util.FirebaseManager;
+import com.hongsam.famstrory.util.SharedManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -137,6 +139,8 @@ public class EmotionFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     // 감정표현 보내기
+
+                    getFamTokens(makeSentence(), SharedManager.readString(Define.KEY_FIREBASE_TOKEN, ""));
                 }
             });
 
@@ -174,7 +178,7 @@ public class EmotionFragment extends Fragment {
                         Define.keywordMap.put(singleSnapshot.getKey(), keyword);
                     }
 
-                    largeKeywordList.add(new KeywordItem("직접입력"));
+                    largeKeywordList.add(0, new KeywordItem("직접입력"));
                     init(mContentView);
                 }
 
@@ -192,7 +196,7 @@ public class EmotionFragment extends Fragment {
                 smallKeywordList.add(keyword.getSmallKeyword());
             }
 
-            largeKeywordList.add(new KeywordItem("직접입력"));
+            largeKeywordList.add(0, new KeywordItem("직접입력"));
             init(mContentView);
         }
     }
@@ -251,7 +255,7 @@ public class EmotionFragment extends Fragment {
         tvSmall.setText("");
     }
 
-    public void makeSentence(int type, String msg) {
+    public void inputText(int type, String msg) {
         switch (type) {
             case 0:
                 tvLarge.setText(msg);
@@ -265,9 +269,24 @@ public class EmotionFragment extends Fragment {
         }
     }
 
+    public String makeSentence() {
+        if (largeIdx == 0) {
+            return tvLarge.getText().toString();
+        } else {
+            String strLarge = tvLarge.getText().toString();
+            String strMiddle = tvMiddle.getText().toString();
+            String strSmall = tvSmall.getText().toString();
+
+            String result = largeIdx == 1 ? strLarge + " " + strMiddle + " " + strSmall : strMiddle + " " + strSmall;
+            return result;
+        }
+    }
+
     public void getFamTokens(final String msg, final String token) {
-        if(msg.isEmpty())
+        if (msg.isEmpty()) {
+            Toast.makeText(mainActivity, "다시 입력해주십시오.", Toast.LENGTH_SHORT).show();
             return;
+        }
 
         DatabaseReference ref = FirebaseManager.dbFamRef.child(famName).child("members");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
