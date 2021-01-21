@@ -65,6 +65,7 @@ public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.TimeLineVi
         TextView name;
         TextView nickName;
         TextView showMessage;
+        TextView time;
         public TimeLineViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -84,12 +85,13 @@ public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.TimeLineVi
             name = itemView.findViewById(R.id.name);
             nickName = itemView.findViewById(R.id.nickname);
             showMessage = itemView.findViewById(R.id.show_message);
-
+            time = itemView.findViewById(R.id.get_time);
         }
         public void setItem(TimeLineFamily family){
             name.setText(family.getName());
             nickName.setText(family.getNickName());
             showMessage.setText(family.getShowMessage());
+            time.setText(family.getTime());
         }
     }
 }
