@@ -36,8 +36,7 @@ public class MonthCalendar extends Fragment {
     DatabaseReference mFamRef;
     private MonthCalendarLayoutBinding mBinding;
     private View root;
-    private RecyclerView monthCalendarList;
-    private TextView title;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +63,6 @@ public class MonthCalendar extends Fragment {
         root = mBinding.getRoot();
         mContentView = inflater.inflate(R.layout.month_calendar_layout, null);
 
-        init();
 
         return root;
     }
@@ -73,11 +71,7 @@ public class MonthCalendar extends Fragment {
     /**
      * 컨트롤 초기화 해주는 함수
      */
-    public void init() {
-        // 예시) button1 = v.findViewById(R.id.button1);
-        monthCalendarList = mBinding.monthCalendarList;
-        title = mBinding.title;
-    }
+
 
 
     /**
