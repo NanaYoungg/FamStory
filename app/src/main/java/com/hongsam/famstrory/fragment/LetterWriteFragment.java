@@ -232,26 +232,6 @@ public class LetterWriteFragment extends Fragment{
 
                     mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
                     Toast.makeText(getContext(), "편지가 전송되었습니다.", Toast.LENGTH_SHORT).show();
-
-    /**
-     * 컨트롤 초기화 해주는 함수
-     */
-    public void init(View v) {
-        if (v != null) {
-            mBackBtn = mContentView.findViewById(R.id.letter_write_back_btn);
-            mContants = mContentView.findViewById(R.id.contants_tv);
-            mPhotoView = mContentView.findViewById(R.id.photo_iv);
-            mPhoto = mContentView.findViewById(R.id.gallery_img_btn);
-            mConstraintLayout = mContentView.findViewById(R.id.fragment_letter_write);
-            mScrollView = mContentView.findViewById(R.id.letter_write_scroll);
-            mBackgound = mContentView.findViewById(R.id.letter_write_img_view);
-            mSendBtn = mContentView.findViewById(R.id.letter_send_btn);
-            //mCardView = mContentView.findViewById(R.id.letter_cardView);
-            mToTv = mContentView.findViewById(R.id.f_letter_receiever_tv);
-            mAddReciverBtn = mContentView.findViewById(R.id.f_receiver_add_img_btn);
-        }
-    }
-
                     //사진 DB에 저장
                     //storage
                     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -266,7 +246,6 @@ public class LetterWriteFragment extends Fragment{
 
                 }
             });
-
         }
     }
 

@@ -45,6 +45,7 @@ public class ViewHolderStruct {
     public static class ViewHolderMember extends BasicViewHolder {
 
         ArrayList<Member> memberList;
+        TextView tvRelation;
         TextView tvName;
         TextView tvCall;
         EditText etEdit;
@@ -58,6 +59,7 @@ public class ViewHolderStruct {
         @Override
         public void findViewById(View itemView) {
             super.findViewById(itemView);
+            tvRelation = itemView.findViewById(R.id.i_member_tv_relation);
             tvName = itemView.findViewById(R.id.i_member_tv_name);
             tvCall = itemView.findViewById(R.id.i_member_tv_call);
             etEdit = itemView.findViewById(R.id.i_member_et_edit);
@@ -68,6 +70,7 @@ public class ViewHolderStruct {
         public void init(final int position) {
             super.init(position);
 
+            tvRelation.setText(memberList.get(position).getRelation());
             tvName.setText(memberList.get(position).getName());
 
             tvCall.setOnLongClickListener(new View.OnLongClickListener() {

@@ -7,11 +7,14 @@ package com.hongsam.famstrory.data;
 
 public class Member {
 
+    private String fcmType;
     private String relation;    // 관계 (할머니, 할아버지, 엄마, 아빠 등..)
     private String name;        // 이름
+
     public Member() { }
 
     public Member(String relation, String name) {
+        this.fcmType = "Member";
         this.relation = relation;
         this.name = name;
     }
@@ -30,5 +33,13 @@ public class Member {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFcmType() {
+        return fcmType;
+    }
+
+    public void setFcmType(String fcmType) {
+        this.fcmType = fcmType;
     }
 }

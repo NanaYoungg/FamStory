@@ -8,26 +8,30 @@ import java.util.ArrayList;
  * */
 
 public class Keyword {
-    private String strMain;  // 메인주제
-    private ArrayList<String> subList;
+    private ArrayList<KeywordItem> middleKeyword;
+    private ArrayList<KeywordItem> smallKeyword;
 
     public Keyword() { }
 
-    public Keyword(String strMain, ArrayList<String> subList) {
-        this.strMain = strMain;
-        this.subList = subList;
+    public Keyword(ArrayList<KeywordItem> middleKeyword, ArrayList<KeywordItem> smallKeyword) {
+        this.middleKeyword = middleKeyword;
+        this.smallKeyword = smallKeyword;
     }
 
-    public String getStrMain() {
-        return strMain;
+    public ArrayList<KeywordItem> getMiddleKeyword() {
+        return middleKeyword;
     }
-    public void setStrMain(String strMain) {
-        this.strMain = strMain;
+
+    public void setMiddleKeyword(ArrayList<KeywordItem> middleKeyword) {
+        this.middleKeyword = middleKeyword;
     }
-    public ArrayList<String> getSubList() {
-        return subList;
+
+    public ArrayList<KeywordItem> getSmallKeyword() {
+        return smallKeyword;
     }
-    public void setSubList(ArrayList<String> subList) {
-        this.subList = subList;
+
+    public void setSmallKeyword(ArrayList<KeywordItem> smallKeyword) {
+        this.smallKeyword = smallKeyword;
     }
 }
+

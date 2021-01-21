@@ -25,6 +25,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
@@ -63,7 +66,9 @@ public class ProfileFragment extends Fragment {
 
     ProfileOnLongClickListener mLongClickListener;
 
-    String famName = "재훈이네가족";
+    String famName = "테스트가족";
+    ArrayList<Member> memberList;
+    RecyclerAdapter memberAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +76,7 @@ public class ProfileFragment extends Fragment {
         this.setHasOptionsMenu(true);
 
         mLongClickListener = new ProfileOnLongClickListener();
+        memberList = new ArrayList<>();
     }
 
 
@@ -92,6 +98,7 @@ public class ProfileFragment extends Fragment {
 
         init(mContentView);
         setImageResource();
+        checkServerTitle();
 
         return mContentView;
     }
@@ -123,32 +130,30 @@ public class ProfileFragment extends Fragment {
                         return;
                     }
 
-                    tvTitle.setText(etTitle.getText().toString());
+                    String title = etTitle.getText().toString();
+                    tvTitle.setText(title);
                     tvTitle.setVisibility(View.VISIBLE);
+                    etTitle.setText("");
                     etTitle.setVisibility(View.GONE);
                     btnTitle.setVisibility(View.GONE);
 
                     mainActivity.showKeyboard(etTitle, false);
+
+                    //SharedPreference와 firebase에 저장
+                    SharedManager.writeString(Define.KEY_FAMILY_TITLE, title);
+                    FirebaseManager.dbFamRef.child(famName).child("famTitle").setValue(title);
+                    Log.d(TAG, "가훈 저장! : " + title);
                 }
             });
             ivMain.setOnLongClickListener(mLongClickListener);
 
             tvFamName.setText(famName);
 
-            String[] test = {"엄마", "아빠", "딸", "아들"};
-            String[] test2 = {"김엄마", "김아빠", "김딸", "김아들"};
-            ArrayList<Member> memberList = new ArrayList<>();
-            for (int i = 0; i < 4; i++) {
-                Member member = new Member(test[i], test2[i]);
-                memberList.add(member);
-            }
-
             rvMember = mContentView.findViewById(R.id.f_profile_rv_member);
-            RecyclerAdapter rvAdapterB = new RecyclerAdapter(mainActivity, R.layout.item_member, Define.VIEWTYPE_MEMBER, memberList);
-            rvMember.setAdapter(rvAdapterB);
+            memberAdapter = new RecyclerAdapter(mainActivity, R.layout.item_member, Define.VIEWTYPE_MEMBER, memberList);
+            rvMember.setAdapter(memberAdapter);
 
-
-
+            getFamilyMembers();
         }
     }
 
@@ -159,6 +164,25 @@ public class ProfileFragment extends Fragment {
     public void setImageResource() {
         // 예시) button1.setBackgroundResource(R.drawable.image1);
         checkServerPicture();
+    }
+
+    public void getFamilyMembers() {
+
+        FirebaseManager.dbFamRef.child(famName).child("members").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot singleShapshot : snapshot.getChildren()) {
+                    memberList.add(singleShapshot.getValue(Member.class));
+                }
+                memberAdapter = new RecyclerAdapter(mainActivity, R.layout.item_member, Define.VIEWTYPE_MEMBER, memberList);
+                rvMember.setAdapter(memberAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void uploadPicture(final Bitmap bm) {
@@ -215,6 +239,25 @@ public class ProfileFragment extends Fragment {
         } catch (Exception e) {
 
         }
+    }
+
+    public void checkServerTitle() {
+        FirebaseManager.dbFamRef.child(famName).child("famTitle").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String serverTitle = snapshot.getValue(String.class);
+                if (!tvTitle.getText().toString().equals(serverTitle)) {
+                    Log.d(TAG, "가훈이 서버랑 다름! : " + serverTitle);
+                    SharedManager.writeString(Define.KEY_FAMILY_TITLE, serverTitle);
+                    tvTitle.setText(serverTitle);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void checkServerPicture() {
@@ -276,6 +319,11 @@ public class ProfileFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     /**

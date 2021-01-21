@@ -31,7 +31,7 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
 
     private Context context;
 
-    public LetterListAdapter(ArrayList<LetterList> letterItemList) {
+    public LetterListAdapter(ArrayList<LetterList> letterItemList, Context context) {
 
         this.letterItemList = letterItemList;
         this.context = context;

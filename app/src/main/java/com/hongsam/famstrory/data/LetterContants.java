@@ -3,20 +3,36 @@ package com.hongsam.famstrory.data;
 //편지내용 (보낸이,내용,날짜,사진)
 public class LetterContants {
 
+    private String fcmType;
     private String sender;
     private String contants;
     private String date;
     private String photo;
 
-    public LetterContants() {
-    }
-
+    public LetterContants() { }
 
     public LetterContants(String sender, String contants, String date) {
+        this.fcmType = "LetterContants";
         this.sender = sender;
         this.contants = contants;
         this.date = date;
 //        this.photo = photo;
+    }
+
+    public String getFcmType() {
+        return fcmType;
+    }
+
+    public void setFcmType(String fcmType) {
+        this.fcmType = fcmType;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public String getSender() {

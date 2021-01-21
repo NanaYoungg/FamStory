@@ -2,6 +2,11 @@ package com.hongsam.famstrory.define;
 
 import android.widget.TextView;
 
+import com.hongsam.famstrory.data.Keyword;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Define {
     public static final int FRAGMENT_ID = 1000;
     public static final int FRAGMENT_ID_MENU = FRAGMENT_ID + 1;
@@ -28,7 +33,7 @@ public class Define {
     public static final String KEY_FAMILY_PICTURE_SIZE = "KEY_FAMILY_PICTURE_SIZE";
     public static final String KEY_FAMILY_PICTURE_STRING = "KEY_IMAGE_STRING";
     public static final String KEY_FAMILY_PICTURE_PATH = "KEY_FAMILY_PICTURE_PATH";
-    public static final String KEY_FIREBASE_TOKEN = "KEY_FIREBASE_TOKEN";
+    public static final String KEY_FAMILY_TITLE = "KEY_FAMILY_TITLE";
 
     public static final String KEY_LETTER_PICTURE_SIZE = "KEY_LETTER_PICTURE_SIZE";
     public static final String KEY_LETTER_PICTURE_PATH = "KEY_LETTER_PICTURE_PATH";
@@ -38,6 +43,7 @@ public class Define {
     public static int TIME_PICKER_START = 10000;
     public static int TIME_PICKER_END = TIME_PICKER_START+1;
 
+    public static Map<String, Keyword> keywordMap = null;
 
 //    public static int MEMBER_GRAND_MOTHER = 0;    // 할머니
 //    public static int MEMBER_GRAND_FATHER = 1;    // 할아버지

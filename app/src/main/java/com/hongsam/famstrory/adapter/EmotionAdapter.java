@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongsam.famstrory.R;
+import com.hongsam.famstrory.data.KeywordItem;
 import com.hongsam.famstrory.fragment.EmotionFragment;
 
 import java.util.ArrayList;
@@ -21,13 +23,19 @@ import java.util.ArrayList;
 
 public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.ViewHolder> {
 
-    private ArrayList<String> mList = null;
+    private final int ITEM_LARGE = 0;
+    private final int ITEM_MIDDLE = 1;
+    private final int ITEM_SMALL = 2;
+
+    private final int USER_WRITE = 0;
+
+    private ArrayList<KeywordItem> mList = null;
     private EmotionFragment emotionFragment = null;
 
-    boolean mainFlag = false; // true - 메인, false - sub
+    int itemFlag = 0;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        Button btn_item;
+        ToggleButton btn_item;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -40,21 +48,53 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.ViewHold
 
                     int position = getAdapterPosition();
 
-                    if (mainFlag) {
-                        emotionFragment.setSubKeyword(position);
-                        emotionFragment.mainIdx = position;
-                    } else {
-                        emotionFragment.subIdx = position;
+                    if (itemFlag == ITEM_LARGE) {
+                        if (position == USER_WRITE) {
+                            emotionFragment.showChildLayout(false);
+                            emotionFragment.showEditText(ITEM_LARGE, true);
+                            emotionFragment.clearTextView();
+                        } else {
+                            emotionFragment.showChildLayout(true);
+
+                            emotionFragment.showEditText(ITEM_LARGE, false);
+                            emotionFragment.makeSentence(ITEM_LARGE, mList.get(position).getKeyword());
+
+                            emotionFragment.setMiddleKeyword(position);
+                            emotionFragment.largeIdx = position;
+                        }
+                    } else if(itemFlag == ITEM_MIDDLE){
+                        if (position == USER_WRITE) {
+                            emotionFragment.showEditText(ITEM_MIDDLE, true);
+                        } else {
+                            emotionFragment.showEditText(ITEM_MIDDLE, false);
+                            emotionFragment.makeSentence(ITEM_MIDDLE, mList.get(position).getKeyword());
+                            emotionFragment.middleIdx = position;
+                        }
+                    } else if (itemFlag == ITEM_SMALL) {
+                        if (position == USER_WRITE) {
+                            emotionFragment.showEditText(ITEM_SMALL, true);
+                        } else {
+                            emotionFragment.showEditText(ITEM_SMALL, false);
+                            emotionFragment.makeSentence(ITEM_SMALL, mList.get(position).getKeyword());
+                            emotionFragment.smallIdx = position;
+                        }
                     }
+
+                    for (int i = 0; i < mList.size(); i++) {
+                        mList.get(i).setIsClick(false);
+                    }
+                    mList.get(position).setIsClick(true);
+
+                    notifyDataSetChanged();
                 }
             });
         }
     }
 
-    public EmotionAdapter(ArrayList<String> list, EmotionFragment emotionFragment, Boolean mainFlag) {
+    public EmotionAdapter(ArrayList<KeywordItem> list, EmotionFragment emotionFragment, int itemFlag) {
         mList = list;
         this.emotionFragment = emotionFragment;
-        this.mainFlag = mainFlag;
+        this.itemFlag = itemFlag;
     }
 
     @NonNull
@@ -71,7 +111,13 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        String text = mList.get(position);
+        if (mList.get(position).getIsClick()) {
+            holder.btn_item.setChecked(true);
+        } else {
+            holder.btn_item.setChecked(false);
+        }
+
+        String text = mList.get(position).getKeyword();
         holder.btn_item.setText(text);
     }
 

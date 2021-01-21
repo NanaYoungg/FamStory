@@ -111,7 +111,7 @@ public class LetterListFragment extends Fragment implements RecyclerItemTouchHel
                         LetterList al = npsnapshot.getValue(LetterList.class);
                         itemList.add(al);
                     }
-                    letterListAdapter = new LetterListAdapter(itemList);
+                    letterListAdapter = new LetterListAdapter(itemList, mainActivity);
                     recyclerView.setAdapter(letterListAdapter);
                 }
             }

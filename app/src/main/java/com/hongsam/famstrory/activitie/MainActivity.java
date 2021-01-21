@@ -55,6 +55,7 @@ import com.hongsam.famstrory.interf.CustomDialogInterface;
 import com.hongsam.famstrory.util.FirebaseManager;
 import com.hongsam.famstrory.util.SharedManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,7 +73,9 @@ public class MainActivity extends AppCompatActivity {
     public DBFamstory db;
 
     // 가족객체. db에서 받아와서 넣어줄 예정
-    private Family myFamily;
+    public Family myFamily;
+    String famName = "테스트가족";
+    ArrayList<Member> memberList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
         readDB = new ReadDB(this);
         updateDB = new UpdateDB(this);
+
+        getFamilyMembers();
 
         changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
     }
@@ -122,49 +127,57 @@ public class MainActivity extends AppCompatActivity {
 
                     String token = task.getResult();
                     Log.d(TAG, "파이어베이스 토큰 : " + token);
-                    saveToken(token);
+                    checkToken(token);
                 }
             });
     }
 
-    // 가족 객체를 얻어오는 함수
-    public Family getMyFamily() {
-        if (myFamily != null)
-            return myFamily;
-        else
-            return null;
+    // 파이어베이스로부터 가족 객체를 얻어오는 함수
+    public void getFamilyMembers() {
+        Query query = FirebaseManager.dbFamRef.child(famName).child("members").orderByChild("relation");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+                    //Log.d(TAG, "멤버 relation : " + singleSnapshot.getValue(HashMap.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
-    public void saveToken(final String token) {
-        SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
-        writeMember("테스트가족", token, new Member("아들", "김아들"));
-    }
-
-
-    public void getFirebaseToken() {
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Log.e(TAG, "파이어베이스 토큰 등록 실패", task.getException());
-                            return;
-                        }
-
-                        String token = task.getResult();
-                        Log.d(TAG, "파이어베이스 토큰 : " + token);
-                        saveToken(token);
+    public void checkToken(final String token) {
+        FirebaseManager.dbFamRef.child(famName).child("members").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean flag = false;
+                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+                    if (singleSnapshot.getKey().equals(SharedManager.readString(Define.KEY_FIREBASE_TOKEN, ""))) {
+                        flag = true;
                     }
-                });
+                }
+
+                if (!flag) {
+                    Log.d(TAG, "db에 토큰 없음! 새로 추가!");
+                    saveToken(token);
+                } else
+                    Log.d(TAG, "db에 토큰 있음!");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void saveToken(final String token) {
         SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
-        writeMember("테스트가족", token, new Member("엄마", "김엄마"));
-    }
-
-    public void writeMember(String famName, String token, Member member) {
-        FirebaseManager.dbFamRef.child(famName).child("members").child(token).setValue(member);
+        writeMember(famName, token, new Member("아들", "김아들"));
     }
 
     public void setCi(CallbackInterface ci) {
