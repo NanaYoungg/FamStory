@@ -1,4 +1,4 @@
-package com.hongsam.famstory.adapter;
+package com.hongsam.famstrory.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,9 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.hongsam.famstory.R;
-import com.hongsam.famstory.data.MonthCalendar;
+import com.hongsam.famstrory.data.MonthCalendar;
+import com.hongsam.famstrory.R;
 
 import java.util.ArrayList;
 

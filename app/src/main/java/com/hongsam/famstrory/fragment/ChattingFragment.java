@@ -1,4 +1,4 @@
-package com.hongsam.famstory.fragment;
+package com.hongsam.famstrory.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,11 +11,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.hongsam.famstory.R;
-import com.hongsam.famstory.activitie.MainActivity;
-import com.hongsam.famstory.databinding.ChattingFragmentBinding;
-import com.hongsam.famstory.firebase.TimelineDB;
+import com.hongsam.famstrory.firebase.TimelineDB;
+import com.hongsam.famstrory.R;
+import com.hongsam.famstrory.activitie.MainActivity;
+import com.hongsam.famstrory.databinding.ChattingFragmentBinding;
 
 import java.sql.Time;
 

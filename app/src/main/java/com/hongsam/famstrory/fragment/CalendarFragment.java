@@ -30,7 +30,7 @@ import com.hongsam.famstrory.data.Calendar;
 import com.hongsam.famstrory.databinding.FragmentCalendarBinding;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.dialog.CalendarCustomDialog;
-import com.hongsam.famstrory.firebase.CalendarFirebaseDB;
+import com.hongsam.famstrory.dialog.MonthCalendarDialog;
 import com.hongsam.famstrory.firebase.CheckDB;
 import com.hongsam.famstrory.firebase.DeleteDB;
 import com.hongsam.famstrory.firebase.ReadDB;
@@ -38,7 +38,7 @@ import com.hongsam.famstrory.firebase.UpdateDB;
 import com.hongsam.famstrory.interf.CallbackInterface;
 
 
-import com.hongsam.famstory.database.MyMessageDB.*;
+import com.hongsam.famstrory.database.MyMessageDB.*;
 
 /**
  * 메인화면에서 일정관리 화면
@@ -122,7 +122,6 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
     @Override
     public void onResume() {
         super.onResume();
-        mb.calendarView.setLis
         // 달력 선택했을때
         mb.calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
