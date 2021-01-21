@@ -12,18 +12,26 @@
   <component name="ChangeListManager">
     <list default="true" id="862a0321-2b29-4960-8760-27293b3eef4e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_interop_18_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_interop_18_0_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_database_19_6_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_database_19_6_0_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_database_collection_17_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_database_collection_17_0_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/activitie/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/activitie/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/define/Define.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/define/Define.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/SpinnerMangerFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/SpinnerMangerFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/service/MyFirebaseMessagingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/service/MyFirebaseMessagingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/CalendarFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hongsam/famstory/fragment/CalendarFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[52008239ecdb64e1]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[9333e0d1]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -63,9 +71,15 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android-custom-viewC:/Users/volum/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED" value="RecyclerView" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="multi-representation-previewC:/Users/volum/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_selected" value="Custom views" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Console Font" />
   </component>
   <component name="RecentsManager">
+    <key name="android.template.-1620777676">
+      <recent name="com.hongsam.famstory.activitie" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.hongsam.famstory.dialog" />
     </key>
@@ -155,11 +169,21 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
-    <state x="765" y="223" key="#com.intellij.ide.util.MemberChooser" timestamp="1610956291070">
+    <state x="765" y="223" key="#com.intellij.ide.util.MemberChooser" timestamp="1611242455724">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="223" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1610956291070" />
+    <state x="765" y="223" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1611242455724" />
     <state x="371" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1610931413472">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -168,41 +192,61 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610948021754" />
+    <state x="92" y="92" width="1736" height="856" key="AVDManager" timestamp="1611217498730">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="AVDManager/0.0.1920.1040@0.0.1920.1040" timestamp="1611217498730" />
     <state x="58" y="278" key="AndroidCreateResourceDirectoryDialog" timestamp="1610777227596">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="58" y="278" key="AndroidCreateResourceDirectoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610777227596" />
-    <state x="540" y="275" key="AndroidCreateResourceFileDialog" timestamp="1610970670832">
+    <state x="540" y="275" key="AndroidCreateResourceFileDialog" timestamp="1611150787428">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="540" y="275" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610970670832" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1611049743325">
+    <state x="540" y="275" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611150787428" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1611109540897">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1611049743325" />
-    <state width="1876" height="214" key="GridCell.Tab.0.bottom" timestamp="1610973911270">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1611109540897" />
+    <state width="1876" height="274" key="GridCell.Tab.0.bottom" timestamp="1611247566817">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="214" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1610973911270" />
-    <state width="1876" height="214" key="GridCell.Tab.0.center" timestamp="1610973911262">
+    <state width="1876" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1611247566817" />
+    <state width="1876" height="274" key="GridCell.Tab.0.center" timestamp="1611247566816">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="214" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1610973911262" />
-    <state width="1876" height="214" key="GridCell.Tab.0.left" timestamp="1610973911261">
+    <state width="1876" height="274" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1611247566816" />
+    <state width="1876" height="274" key="GridCell.Tab.0.left" timestamp="1611247566816">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="214" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1610973911261" />
-    <state width="1876" height="214" key="GridCell.Tab.0.right" timestamp="1610973911262">
+    <state width="1876" height="274" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1611247566816" />
+    <state width="1876" height="274" key="GridCell.Tab.0.right" timestamp="1611247566816">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="214" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1610973911262" />
+    <state width="1876" height="274" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1611247566816" />
+    <state x="388" y="209" key="SettingsEditor" timestamp="1611241766902">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="388" y="209" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1611241766902" />
     <state x="754" y="297" key="chooseDestDirectoryDialog" timestamp="1610783539842">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="754" y="297" key="chooseDestDirectoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1610783539842" />
-    <state x="668" y="236" width="582" height="568" key="find.popup" timestamp="1610933595362">
+    <state x="731" y="263" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1611071015249">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="668" y="236" width="582" height="568" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1610933595362" />
+    <state x="731" y="263" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1611071015249" />
+    <state x="668" y="236" width="582" height="568" key="find.popup" timestamp="1611242611525">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="668" y="236" width="582" height="568" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1611242611525" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1611154178231">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1611154178231" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1611217408231">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1611217408231" />
   </component>
 </project>

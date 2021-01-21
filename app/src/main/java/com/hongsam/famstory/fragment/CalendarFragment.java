@@ -134,7 +134,7 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
     @Override
     public void onResume() {
         super.onResume();
-        mb.calendarView.setLis
+        //mb.calendarView.set
         // 달력 선택했을때
         mb.calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
