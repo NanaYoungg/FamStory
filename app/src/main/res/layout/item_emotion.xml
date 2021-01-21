@@ -4,10 +4,15 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <Button
+    <ToggleButton
         android:id="@+id/i_emotion_btn_item"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:text="기분"/>
+        android:layout_marginHorizontal="3dp"
+        android:background="@drawable/selector_emotion_button"
+        android:text="기분"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"/>
 
 </LinearLayout>

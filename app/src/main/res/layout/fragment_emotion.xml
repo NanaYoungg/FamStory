@@ -2,69 +2,128 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <LinearLayout
-        android:id="@+id/f_emotion_layout_main_category"
+        android:id="@+id/f_emotion_layout_large_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="대분류"/>
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="대분류"/>-->
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/f_emotion_rv_main"
+            android:id="@+id/f_emotion_rv_large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/f_emotion_et_large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/f_emotion_layout_middle_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="중분류"/>
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="중분류"/>-->
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/f_emotion_rv_sub"
+            android:id="@+id/f_emotion_rv_middle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/f_emotion_et_middle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/f_emotion_layout_small_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+        <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="중분류"/>-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/f_emotion_rv_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/f_emotion_et_small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/f_emotion_layout_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/f_emotion_et_input"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="우울해"/>
+            android:layout_height="60dp"
+            android:paddingHorizontal="10dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/f_emotion_tv_large"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:textSize="20dp"
+                android:textColor="#000000"/>
+
+            <TextView
+                android:id="@+id/f_emotion_tv_middle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:textSize="20dp"
+                android:textColor="#000000" />
+
+            <TextView
+                android:id="@+id/f_emotion_tv_small"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:textColor="#000000" />
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/f_emotion_btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="전송"/>
+            android:text="감정 전송"/>
     </LinearLayout>
-
-    android:orientation="vertical"
-    android:gravity="center">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="EmotionFragment"/>
 
 
 </LinearLayout>
