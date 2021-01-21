@@ -3,10 +3,13 @@ package com.hongsam.famstory.activitie;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -15,32 +18,40 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.amitshekhar.DebugDB;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.hongsam.famstory.R;
+import com.hongsam.famstory.adapter.ViewPagerAdapter;
 import com.hongsam.famstory.data.Calendar;
 import com.hongsam.famstory.data.Family;
 import com.hongsam.famstory.data.Member;
 import com.hongsam.famstory.database.DBFamstory;
+import com.hongsam.famstory.database.MyMessageDB;
+import com.hongsam.famstory.databinding.ActivityMainBinding;
 import com.hongsam.famstory.define.Define;
 import com.hongsam.famstory.firebase.ReadDB;
 import com.hongsam.famstory.firebase.UpdateDB;
 import com.hongsam.famstory.fragment.CalendarFragment;
+import com.hongsam.famstory.fragment.ChattingFragment;
 import com.hongsam.famstory.fragment.EmotionFragment;
 import com.hongsam.famstory.fragment.FamCreateFragment;
 import com.hongsam.famstory.fragment.LetterListFragment;
 import com.hongsam.famstory.fragment.LetterReadFragment;
 import com.hongsam.famstory.fragment.LetterWriteFragment;
 import com.hongsam.famstory.fragment.MenuFragment;
-import com.hongsam.famstory.fragment.MonthCalendar;
+import com.hongsam.famstory.fragment.MonthCalendarFragment;
 import com.hongsam.famstory.fragment.ProfileFragment;
 import com.hongsam.famstory.fragment.SettingFragment;
 import com.hongsam.famstory.fragment.SpinnerMangerFragment;
@@ -50,11 +61,10 @@ import com.hongsam.famstory.interf.CustomDialogInterface;
 import com.hongsam.famstory.util.FirebaseManager;
 import com.hongsam.famstory.util.SharedManager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements CalendarFragment.DataSender {
+public class MainActivity extends AppCompatActivity implements CalendarFragment.DataSender,TimeLineFragment.sendTimeLineFR {
     private final String TAG = "MainActivity";
 
     BottomNavigationView navigationView;
@@ -66,8 +76,12 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     InputMethodManager imm;
     Spinner spinner;
     ArrayAdapter<String> adapter;
-
+    String name;
+    String nickName;
+    private ActivityMainBinding mb;
+    private View root;
     public DBFamstory db;
+    private SQLiteDatabase sqLiteDatabase;
 
     // 가족객체. db에서 받아와서 넣어줄 예정
     private Family myFamily;
@@ -75,7 +89,9 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        mb = ActivityMainBinding.inflate(getLayoutInflater());
+        root = mb.getRoot();
+        setContentView(root);
         SharedManager.getInstance(this);
         db = DBFamstory.getInstance(this);
 
@@ -91,10 +107,12 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
 
         navigationView = (BottomNavigationView) findViewById(R.id.navi_view);
 
+
         readDB = new ReadDB(this);
         updateDB = new UpdateDB(this);
 
         changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+        DebugDB.getAddressLog();
     }
 
     public void writeMember(String famName, String token, Member member) {
@@ -162,30 +180,53 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         ci.view_more_text(data);
     }
 
+    Fragment fragment = null;
     @Override
     protected void onResume() {
         super.onResume();
 
+        ViewPagerAdapter viewPagerAdapter =  new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPagerAdapter.addItem(new CalendarFragment());
+        viewPagerAdapter.addItem(new TimeLineFragment());
+
+        mb.viewPager.setAdapter(viewPagerAdapter);
+        mb.tabLayout.setupWithViewPager(mb.viewPager);
         checkSelfPermission();
 
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.calendar_menu:
+                        mb.basic.setVisibility(View.VISIBLE);
+                        mb.viewPager.setVisibility(View.GONE);
+                        mb.tabLayout.setVisibility(View.GONE);
                         changeFragment(Define.FRAGMENT_ID_PROFILE);
                         break;
                     case R.id.main_menu:
-                        changeFragment(Define.FRAGMENT_ID_CALENDAR);
+                        mb.basic.setVisibility(View.GONE);
+                        mb.viewPager.setVisibility(View.VISIBLE);
+                        mb.tabLayout.setVisibility(View.VISIBLE);
+                        //changeFragment(Define.FRAGMENT_ID_CALENDAR);
                         break;
                     case R.id.message_menu:
+                        mb.basic.setVisibility(View.VISIBLE);
+                        mb.viewPager.setVisibility(View.GONE);
+                        mb.tabLayout.setVisibility(View.GONE);
                         changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
                         break;
                     case R.id.emotion_menu:
+                        mb.basic.setVisibility(View.VISIBLE);
+                        mb.viewPager.setVisibility(View.GONE);
+                        mb.tabLayout.setVisibility(View.GONE);
                         changeFragment(Define.FRAGMENT_ID_EMOTION);
                         break;
                     case R.id.setting_menu:
+                        mb.basic.setVisibility(View.VISIBLE);
+                        mb.viewPager.setVisibility(View.GONE);
+                        mb.tabLayout.setVisibility(View.GONE);
                         changeFragment(Define.FRAGMENT_ID_SETTING);
                         break;
                 }
@@ -194,8 +235,12 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         });
     }
 
-    Fragment fragment = null;
 
+    @Override
+    public void sendName(String name, String nickName) {
+        this.name = name;
+        this.nickName = nickName;
+    }
     public void changeFragment(int fragmentId) {
 
         switch (fragmentId) {
@@ -239,11 +284,14 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                 fragment = new LetterReadFragment();
                 break;
             case Define.FRAGMENT_ID_MONTH_LIST:
-                fragment = new MonthCalendar();
+                fragment = new MonthCalendarFragment();
                 break;
             case Define.FRAGMENT_ID_SPINNER_MANGER:
                 fragment = new SpinnerMangerFragment();
                 break;
+            case Define.FRAGMENT_ID_CHATTING:
+                Log.e(TAG,name+nickName);
+                fragment = new ChattingFragment(name,nickName);
             default:
                 break;
         }
@@ -310,4 +358,5 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         this.spinner = spinner;
         this.adapter = adapter;
     }
+
 }
