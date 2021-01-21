@@ -404,3 +404,11 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/android,androidstudio
 >>>>>>> 7cadc7fbbe585b8c23daa3854d633909d7f4204d
+.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_0_0_aar.xml
+.idea/libraries/Gradle__com_google_firebase_firebase_auth_interop_18_0_0_aar.xml
+.idea/libraries/Gradle__com_google_firebase_firebase_common_19_5_0_aar.xml
+.idea/libraries/Gradle__com_google_firebase_firebase_components_16_1_0_aar.xml
+.idea/libraries/Gradle__com_google_firebase_firebase_database_19_6_0_aar.xml
+.idea/libraries/Gradle__com_google_firebase_firebase_database_collection_17_0_1_aar.xml
+.idea/markdown-navigator.xml
+.idea/workspace.xml~3c773d7511568c0509dfb8f46feb3f3792a06073

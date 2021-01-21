@@ -4,10 +4,12 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <Button
+    <ToggleButton
         android:id="@+id/i_emotion_btn_item"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:text="기분"/>
+        android:text="기분"
+        android:textOff=""
+        android:textOn=""/>
 
 </LinearLayout>
