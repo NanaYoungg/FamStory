@@ -1,8 +1,12 @@
 package com.hongsam.famstory.data;
 
-import com.google.firebase.database.IgnoreExtraProperties;
+
 
 import java.util.ArrayList;
+
+
+import com.google.firebase.database.IgnoreExtraProperties;
+
 
 @IgnoreExtraProperties
 public class CalendarSpinner {
@@ -32,3 +36,5 @@ public class CalendarSpinner {
         this.size = size;
     }
 }
+
+
