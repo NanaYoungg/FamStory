@@ -97,6 +97,16 @@ public class ViewHolderStruct {
         }
 
     }
+/*    public static class FamilyViewHolder extends BasicViewHolder{
+
+        public FamilyViewHolder(@NonNull View itemView, Context context, Object dataList) {
+            super(itemView, context, dataList);
+        }
+        TextView Name;
+        TextView NickName;
+
+    }*/
+
 
 }
 
