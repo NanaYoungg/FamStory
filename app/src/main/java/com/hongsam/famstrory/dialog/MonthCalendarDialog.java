@@ -1,11 +1,9 @@
-package com.hongsam.famstory.dialog;
+package com.hongsam.famstrory.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
@@ -14,11 +12,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.hongsam.famstory.adapter.MonthAdapter;
-import com.hongsam.famstory.data.Calendar;
-import com.hongsam.famstory.data.MonthCalendar;
-import com.hongsam.famstory.databinding.MonthCalendarLayoutBinding;
-import com.hongsam.famstory.define.Define;
+import com.hongsam.famstrory.adapter.MonthAdapter;
+import com.hongsam.famstrory.data.MonthCalendar;
+import com.hongsam.famstrory.data.Calendar;
+import com.hongsam.famstrory.databinding.MonthCalendarLayoutBinding;
+import com.hongsam.famstrory.define.Define;
 
 import java.util.ArrayList;
 

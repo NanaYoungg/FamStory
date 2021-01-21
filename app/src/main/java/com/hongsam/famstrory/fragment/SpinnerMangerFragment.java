@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.databinding.SpinnerMangerBinding;
-import com.hongsam.famstrory.firebase.CalendarFirebaseDB;
+import com.hongsam.famstrory.firebase.SpinnerDB;
 
 
 /**

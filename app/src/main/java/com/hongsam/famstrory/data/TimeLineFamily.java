@@ -1,4 +1,4 @@
-package com.hongsam.famstory.data;
+package com.hongsam.famstrory.data;
 
 import android.graphics.Bitmap;
 import android.widget.ImageView;

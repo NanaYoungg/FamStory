@@ -1,4 +1,4 @@
-package com.hongsam.famstory.adapter;
+package com.hongsam.famstrory.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,10 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.hongsam.famstory.R;
-import com.hongsam.famstory.activitie.MainActivity;
-import com.hongsam.famstory.data.TimeLineFamily;
+import com.hongsam.famstrory.R;
+import com.hongsam.famstrory.activitie.MainActivity;
+import com.hongsam.famstrory.data.TimeLineFamily;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.hongsam.famstory.database;
+package com.hongsam.famstrory.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,9 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.hongsam.famstory.activitie.MainActivity;
-import com.hongsam.famstory.data.Emotion;
-import com.hongsam.famstory.define.Define;
+import com.hongsam.famstrory.data.Emotion;
 
 import java.util.ArrayList;
 
