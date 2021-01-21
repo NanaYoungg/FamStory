@@ -42,7 +42,15 @@ public class TimeLineFamily {
         this.showMessage = showMessage;
     }
 
-    public TimeLineFamily(Bitmap profile, String name, String nickName, String showMessage,String time) {
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public TimeLineFamily(Bitmap profile, String name, String nickName, String showMessage, String time) {
         this.profile = profile;
         this.name = name;
         this.nickName = nickName;
