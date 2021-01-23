@@ -38,6 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.adapter.ViewPagerAdapter;
+import com.hongsam.famstrory.animation.ZoomOutPageTransformer;
 import com.hongsam.famstrory.data.Calendar;
 import com.hongsam.famstrory.data.Family;
 import com.hongsam.famstrory.data.Member;
@@ -70,7 +71,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements CalendarFragment.DataSender,TimeLineFragment.sendTimeLineFR {
+public class MainActivity extends AppCompatActivity implements TimeLineFragment.sendTimeLineFR {
     private final String TAG = "MainActivity";
 
     BottomNavigationView navigationView;
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         SharedManager.getInstance(this);
         db = DBFamstory.getInstance(this);
 
+
         // Firebase로부터 Token값을 받아 firebase database와 sharedPreference에 저장해준다.
         getFirebaseToken();
 
@@ -120,8 +122,9 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         updateDB = new UpdateDB(this);
 
         getFamilyMembers();
-
-        changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+        mb.basic.setVisibility(View.GONE);
+        mb.viewPager.setVisibility(View.VISIBLE);
+        mb.tabLayout.setVisibility(View.VISIBLE);
         DebugDB.getAddressLog();
     }
 
@@ -231,11 +234,12 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         super.onResume();
 
         ViewPagerAdapter viewPagerAdapter =  new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPagerAdapter.addItem(new CalendarFragment());
         viewPagerAdapter.addItem(new TimeLineFragment());
+        viewPagerAdapter.addItem(new EmotionFragment());
 
         mb.viewPager.setAdapter(viewPagerAdapter);
         mb.tabLayout.setupWithViewPager(mb.viewPager);
+        mb.viewPager.setPageTransformer(true,new ZoomOutPageTransformer());
         checkSelfPermission();
 
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -266,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                         mb.basic.setVisibility(View.VISIBLE);
                         mb.viewPager.setVisibility(View.GONE);
                         mb.tabLayout.setVisibility(View.GONE);
-                        changeFragment(Define.FRAGMENT_ID_EMOTION);
+                        changeFragment(Define.FRAGMENT_ID_CALENDAR);
                         break;
                     case R.id.setting_menu:
                         mb.basic.setVisibility(View.VISIBLE);
@@ -398,10 +402,5 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     }
 
 
-    @Override
-    public void spinnerFragment(Spinner spinner, ArrayAdapter<String> adapter) {
-        this.spinner = spinner;
-        this.adapter = adapter;
-    }
 
 }
