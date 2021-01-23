@@ -38,6 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.adapter.ViewPagerAdapter;
+import com.hongsam.famstrory.animation.ZoomOutPageTransformer;
 import com.hongsam.famstrory.data.Calendar;
 import com.hongsam.famstrory.data.Family;
 import com.hongsam.famstrory.data.Member;
@@ -70,7 +71,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements CalendarFragment.DataSender,TimeLineFragment.sendTimeLineFR {
+public class MainActivity extends AppCompatActivity implements TimeLineFragment.sendTimeLineFR {
     private final String TAG = "MainActivity";
 
     BottomNavigationView navigationView;
@@ -196,8 +197,9 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         });
 
         getFamilyMembers();
-
-        changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+        mb.basic.setVisibility(View.GONE);
+        mb.viewPager.setVisibility(View.VISIBLE);
+        mb.tabLayout.setVisibility(View.VISIBLE);
         DebugDB.getAddressLog();
     }
 
@@ -357,7 +359,6 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     @Override
     protected void onResume() {
         super.onResume();
-
         checkSelfPermission();
     }
 
@@ -479,10 +480,5 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     }
 
 
-    @Override
-    public void spinnerFragment(Spinner spinner, ArrayAdapter<String> adapter) {
-        this.spinner = spinner;
-        this.adapter = adapter;
-    }
 
 }

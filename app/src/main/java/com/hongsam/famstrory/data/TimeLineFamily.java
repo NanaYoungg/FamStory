@@ -9,6 +9,7 @@ public class TimeLineFamily {
     String nickName;
     String showMessage;
     String time;
+    int ViewType;
 
     public Bitmap getProfile() {
         return profile;
@@ -50,12 +51,21 @@ public class TimeLineFamily {
         this.time = time;
     }
 
-    public TimeLineFamily(Bitmap profile, String name, String nickName, String showMessage, String time) {
+    public int getViewType() {
+        return ViewType;
+    }
+
+    public void setViewType(int viewType) {
+        ViewType = viewType;
+    }
+
+    public TimeLineFamily(Bitmap profile, String name, String nickName, String showMessage, String time, int ViewType) {
         this.profile = profile;
         this.name = name;
         this.nickName = nickName;
         this.showMessage = showMessage;
         this.time = time;
+        this.ViewType = ViewType;
     }
 
 

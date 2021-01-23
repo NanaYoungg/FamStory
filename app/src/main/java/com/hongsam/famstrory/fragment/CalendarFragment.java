@@ -39,6 +39,12 @@ import com.hongsam.famstrory.interf.CallbackInterface;
 
 
 import com.hongsam.famstrory.database.MyMessageDB.*;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
+
+import java.time.LocalDate;
 
 /**
  * 메인화면에서 일정관리 화면
@@ -50,7 +56,6 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
     private FragmentCalendarBinding mb;
     private MainActivity mainActivity;
     protected View mContentView;
-    protected String getDate;
     protected DeleteDB deleteDB = new DeleteDB();
     protected FragmentTransaction ft_view_more;
     protected CalendarViewMoreFragment viewMoreFragment;
@@ -58,7 +63,6 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
     public static String state = "null";
     protected View root;
     java.util.Calendar nowDate = java.util.Calendar.getInstance();
-    int dateToInt = nowDate.get(java.util.Calendar.YEAR) + nowDate.get(java.util.Calendar.MONTH)+1 + nowDate.get(java.util.Calendar.DATE);
     private int getCalendarYear = nowDate.get(java.util.Calendar.YEAR);
     private int getCalendarMonth = nowDate.get(java.util.Calendar.MONTH)+1;
     private int getCalendarDay = nowDate.get(java.util.Calendar.DATE);
@@ -107,9 +111,6 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
         ReadDB readDB = new ReadDB(mainActivity);
         readDB.databaseRead(getCalendarYear, getCalendarMonth, getCalendarDay);
         getFragmentManager().beginTransaction().replace(R.id.calendar_view_more, viewMoreFragment).commit();
-        FragmentManager newFm = getFragmentManager();
-        checkDB.checkDB(getCalendarYear, getCalendarMonth, getCalendarDay,getContext(), newFm, viewMoreFragment,
-                mb.calendarCreate,mb.calendarDelete,mb.calendarUpdate,mb.calendarCreateText,mb.calendarDeleteText,mb.calendarUpdateText);
 
 
         return root;
@@ -122,24 +123,24 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
     @Override
     public void onResume() {
         super.onResume();
+
         // 달력 선택했을때
-        mb.calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        mb.calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                state = "null";
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 mb.vmText.setText("");
                 mb.vmTime.setText("");
+                int year = date.getYear();
+                int month = date.getMonth();
+                int dayOfMonth = date.getDay();
 
-                month += 1;
                 getCalendarYear = year;
                 getCalendarMonth = month;
                 getCalendarDay = dayOfMonth;
-
-                dateToInt = getCalendarMonth  + getCalendarMonth + getCalendarDay;
-                Toast.makeText(getContext(),year+month+dayOfMonth+",",Toast.LENGTH_SHORT).show();
+                state = "null";
                 ReadDB readDB = new ReadDB(mainActivity);
                 checkDB.checkDB(getCalendarYear,getCalendarMonth,getCalendarDay,getContext(),getFragmentManager(),new CalendarFragment(),
-                                mb.calendarCreate,mb.calendarDelete,mb.calendarUpdate,mb.calendarCreateText,mb.calendarDeleteText,mb.calendarUpdateText);
+                        mb.calendarCreate,mb.calendarDelete,mb.calendarUpdate,mb.calendarCreateText,mb.calendarDeleteText,mb.calendarUpdateText);
                 readDB.databaseRead(getCalendarYear, getCalendarMonth, getCalendarDay);
                 if (getFragmentManager()!=null) {
                     getFragmentManager().beginTransaction().replace(R.id.calendar_view_more, viewMoreFragment).commit();
@@ -156,27 +157,61 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
                     mb.calendarUpdate.setVisibility(View.INVISIBLE);
                     mb.calendarUpdateText.setVisibility(View.INVISIBLE);
                 }
-
-
             }
         });
+        mb.calendarView.setOnMonthChangedListener(new OnMonthChangedListener() {
+            @Override
+            public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
+                int year = date.getYear();
+                int month = date.getMonth();
+                int dayOfMonth = date.getDay();
+
+                getCalendarYear = year;
+                getCalendarMonth = month;
+                getCalendarDay = dayOfMonth;
+            }
+        });
+
         // 일정생성버튼 눌렀을때
         mb.calendarCreate.setOnClickListener(new View.OnClickListener() {
             final int todayYear = nowDate.get(java.util.Calendar.YEAR);
             final int todayMonth = nowDate.get(java.util.Calendar.MONTH)+1;
             final int todayDay = nowDate.get(java.util.Calendar.DATE);
             //오늘 날짜랑 캘린더에서 선택된 날짜랑 비교
+            //TODO: 이 로직은 추후에 최적하 시킬 예정
             @Override
             public void onClick(View v) {
-                final int todayDate = todayYear + todayMonth + todayDay;
-                int CalendarDate = getCalendarDay+getCalendarYear+getCalendarMonth;
-                Log.e("aaaa","Today"+todayDate+"Calendar"+getCalendarYear);
-
-                if (todayDate>CalendarDate) {
-                    Toast.makeText(getContext(), "이미 시간이 지난 일정은 생성이 불가능 합니다.", Toast.LENGTH_SHORT).show();
-                } else {
+                if (todayYear<getCalendarYear){
+                    //dialog
                     CalendarCustomDialog dialog = new CalendarCustomDialog(getCalendarYear, getCalendarMonth, getCalendarDay,mainActivity, Define.CREATE_DIALOG);
                     dialog.show();
+                }
+                else if (todayYear>getCalendarYear){
+                    //message
+                    Toast.makeText(getContext(), "이미 시간이 지난 일정은 생성이 불가능 합니다.", Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+                    if (todayMonth>getCalendarMonth){
+                        //message
+                        Toast.makeText(getContext(), "이미 시간이 지난 일정은 생성이 불가능 합니다.", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (todayMonth<getCalendarMonth){
+                        //dialog
+                        CalendarCustomDialog dialog = new CalendarCustomDialog(getCalendarYear, getCalendarMonth, getCalendarDay,mainActivity, Define.CREATE_DIALOG);
+                        dialog.show();
+                    }
+                    else{
+                        if(todayDay>getCalendarDay){
+                            //message
+                            Toast.makeText(getContext(), "이미 시간이 지난 일정은 생성이 불가능 합니다.", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            //dialog
+                            CalendarCustomDialog dialog = new CalendarCustomDialog(getCalendarYear, getCalendarMonth, getCalendarDay,mainActivity, Define.CREATE_DIALOG);
+                            dialog.show();
+                        }
+                    }
                 }
             }
         });
@@ -185,7 +220,6 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
-                Toast.makeText(getContext(),dateToInt+"",Toast.LENGTH_SHORT).show();
                 alertDialog.setMessage("다시 한번 생각해보세요.\n삭제할경우 복구가 불가능합니다.")
                         .setTitle("후회 하지 않으시겠습니까?");
                 alertDialog.setPositiveButton("네", new DialogInterface.OnClickListener() {
@@ -193,7 +227,9 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         Toast.makeText(getContext(), "일정을 삭제하였어요. 복구가 불가능합니다.", Toast.LENGTH_SHORT).show();
-                        getFragmentManager().beginTransaction().replace(R.id.calendar_view_more, new CalendarViewMoreFragment()).commit();
+                        if(getFragmentManager()!=null) {
+                            getFragmentManager().beginTransaction().replace(R.id.calendar_view_more, new CalendarViewMoreFragment()).commit();
+                        }
                         deleteDB.databaseDelete(getCalendarYear, getCalendarMonth, getCalendarDay);
                         mb.vmText.setText("");
                         mb.calendarDelete.setVisibility(View.GONE);
@@ -208,7 +244,6 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Toast.makeText(getContext(), "삭제가 취소되었습니다.", Toast.LENGTH_SHORT).show();
-
                     }
                 });
                 alertDialog.show();
@@ -220,13 +255,10 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
         mb.calendarUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //updateDB.updateDB(date);
-
                 CalendarCustomDialog dialog = new CalendarCustomDialog(getCalendarYear, getCalendarMonth, getCalendarDay,mainActivity, Define.UPDATE_DIALOG);
                 UpdateDB updateDB = new UpdateDB(mainActivity);
                 updateDB.updateDB(getCalendarYear, getCalendarMonth, getCalendarDay);
                 dialog.show();
-
             }
         });
 
@@ -236,32 +268,14 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
         mb.monthCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("dd",getCalendarYear+" "+getCalendarMonth);
                 MonthCalendarDialog monthDialog = new MonthCalendarDialog(mainActivity,getCalendarYear,getCalendarMonth);
-
                 monthDialog.show();
-/*                FragmentManager fm = getFragmentManager();
-                if(fm!=null) {
-                    FragmentTransaction ft = fm.beginTransaction();
-                    MonthCalendarFragment mcf = new MonthCalendarFragment();
-                    ft.add(R.id.calendar_fragment_layout,mcf).commit();
-
-                }*/
-                //mainActivity.changeFragment(Define.FRAGMENT_ID_MONTH_LIST);
-
             }
         });
 
 
 
 
-    }
-
-
-
-
-    public interface DataSender{
-        public void spinnerFragment(Spinner spinner, ArrayAdapter<String> adapter);
     }
     /**
      * 이미지 리소스 세팅해주는 함수
@@ -288,9 +302,7 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
 
     @Override
     public void visibleView(int dataIsNull) {
-
     }
-
 
     /**
      * 각종 리소스 null 처리
@@ -298,6 +310,5 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // 예시) button1 = null;
     }
 }
