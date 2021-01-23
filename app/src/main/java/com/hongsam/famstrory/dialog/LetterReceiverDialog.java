@@ -54,7 +54,7 @@ public class LetterReceiverDialog extends DialogFragment {
         //스피너 String-array와 연동
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_item,
-                getResources().getStringArray(R.array.member_call));
+                getResources().getStringArray(R.array.member_relation));
         mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(mAdapter);
 

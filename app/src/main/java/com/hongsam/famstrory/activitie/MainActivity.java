@@ -90,9 +90,9 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
     public DBFamstory db;
     private SQLiteDatabase sqLiteDatabase;
 
-    // 가족객체. db에서 받아와서 넣어줄 예정
-    public Family myFamily;
-    String famName = "테스트가족";
+    String famName = "";
+    String relation = "";
+    String myName = "";
     ArrayList<Member> memberList;
 
     @Override
@@ -101,9 +101,22 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
         mb = ActivityMainBinding.inflate(getLayoutInflater());
         root = mb.getRoot();
         setContentView(root);
+
         SharedManager.getInstance(this);
         db = DBFamstory.getInstance(this);
 
+        Define.memberList = new ArrayList<>();
+        Define.memberTokenList = new ArrayList<>();
+
+        famName = getIntent().getStringExtra("famName");
+        relation = getIntent().getStringExtra("relation");
+        myName = getIntent().getStringExtra("name");
+
+        if (famName == null && relation == null && myName == null) {
+            loadMyInfo();
+        } else {
+            saveMyInfo();
+        }
 
         // Firebase로부터 Token값을 받아 firebase database와 sharedPreference에 저장해준다.
         getFirebaseToken();
@@ -112,14 +125,76 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-
-        changeFragment(Define.FRAGMENT_ID_PROFILE);
-
-        navigationView = (BottomNavigationView) findViewById(R.id.navi_view);
-
-
         readDB = new ReadDB(this);
         updateDB = new UpdateDB(this);
+
+        navigationView = (BottomNavigationView) findViewById(R.id.navi_view);
+        ViewPagerAdapter viewPagerAdapter =  new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPagerAdapter.addItem(new CalendarFragment());
+        viewPagerAdapter.addItem(new TimeLineFragment());
+
+        mb.viewPager.setAdapter(viewPagerAdapter);
+        mb.tabLayout.setupWithViewPager(mb.viewPager);
+
+        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.calendar_menu:
+                        mb.basic.setVisibility(View.VISIBLE);
+                        mb.viewPager.setVisibility(View.GONE);
+                        mb.tabLayout.setVisibility(View.GONE);
+
+                        if (fragment instanceof ProfileFragment) {
+
+                        } else {
+                            changeFragment(Define.FRAGMENT_ID_PROFILE);
+                        }
+                        break;
+                    case R.id.main_menu:
+                        mb.basic.setVisibility(View.GONE);
+                        mb.viewPager.setVisibility(View.VISIBLE);
+                        mb.tabLayout.setVisibility(View.VISIBLE);
+                        //changeFragment(Define.FRAGMENT_ID_CALENDAR);
+                        break;
+                    case R.id.message_menu:
+                        mb.basic.setVisibility(View.VISIBLE);
+                        mb.viewPager.setVisibility(View.GONE);
+                        mb.tabLayout.setVisibility(View.GONE);
+
+                        if (fragment instanceof LetterListFragment) {
+
+                        } else {
+                            changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+                        }
+                        break;
+                    case R.id.emotion_menu:
+                        mb.basic.setVisibility(View.VISIBLE);
+                        mb.viewPager.setVisibility(View.GONE);
+                        mb.tabLayout.setVisibility(View.GONE);
+
+                        if (fragment instanceof EmotionFragment) {
+
+                        } else {
+                            changeFragment(Define.FRAGMENT_ID_EMOTION);
+                        }
+                        break;
+                    case R.id.setting_menu:
+                        mb.basic.setVisibility(View.VISIBLE);
+                        mb.viewPager.setVisibility(View.GONE);
+                        mb.tabLayout.setVisibility(View.GONE);
+                        if (fragment instanceof SettingFragment) {
+
+                        } else {
+                            changeFragment(Define.FRAGMENT_ID_SETTING);
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
 
         getFamilyMembers();
         mb.basic.setVisibility(View.GONE);
@@ -128,17 +203,57 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
         DebugDB.getAddressLog();
     }
 
-    public void writeMember(String famName, String token, Member member) {
+    public void loadMyInfo() {
+        famName = SharedManager.readString(Define.KEY_FAMILY_NAME, "");
+        relation = SharedManager.readString(Define.KEY_MY_RELATION, "");;
+        myName = SharedManager.readString(Define.KEY_MY_NAME, "");
+    }
+
+    public void saveMyInfo() {
+        SharedManager.writeString(Define.KEY_FAMILY_NAME, famName);
+        SharedManager.writeString(Define.KEY_MY_RELATION, relation);;
+        SharedManager.writeString(Define.KEY_MY_NAME, myName);
+    }
+
+    public void writeMember(String token, Member member) {
         FirebaseManager.dbFamRef.child(famName).child("members").child(token).setValue(member);
     }
 
-    public void updateMember(String famName, Member member) {
-        String token = SharedManager.readString(Define.KEY_FIREBASE_TOKEN, "");
-        Map<String, Object> memberMap = new HashMap<>();
-        memberMap.put(token, member);
-        FirebaseManager.dbFamRef.child(famName).child("members").updateChildren(memberMap);
+    public void deleteMember(String token) {
+        FirebaseManager.dbFamRef.child(famName).child("members").child(token).removeValue();
     }
 
+    // 중복된 관계가 있는지 판단하는 함수
+    public void checkOverwriteRelation(final String relation, final String token) {
+        FirebaseManager.dbFamRef.child(famName).child("members").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.getChildrenCount() == 0) {
+                    saveToken(relation, myName, token);
+                } else {
+                    for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+                        Member member = singleSnapshot.getValue(Member.class);
+                        if (member.getRelation().equals(relation)) {
+                            if (!singleSnapshot.getKey().equals(token)) {
+                                saveToken(relation, myName, token);
+                                deleteMember(singleSnapshot.getKey());
+                            }
+                        } else {
+                            saveToken(relation, myName, token);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    // 파이어베이스 토큰을 생성하는 함수
     public void getFirebaseToken() {
         FirebaseMessaging.getInstance().getToken()
             .addOnCompleteListener(new OnCompleteListener<String>() {
@@ -151,45 +266,28 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
 
                     String token = task.getResult();
                     Log.d(TAG, "파이어베이스 토큰 : " + token);
-                    checkToken(token);
+
+                    checkOverwriteRelation(relation, token);
                 }
             });
     }
 
     // 파이어베이스로부터 가족 객체를 얻어오는 함수
+    // 앱 실행 시 한번만 가져오면 이후에는 내부 db에서 꺼내서 사용할 수 있게하기 위함
     public void getFamilyMembers() {
-        Query query = FirebaseManager.dbFamRef.child(famName).child("members").orderByChild("relation");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
-                    //Log.d(TAG, "멤버 relation : " + singleSnapshot.getValue(HashMap.class));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    public void checkToken(final String token) {
         FirebaseManager.dbFamRef.child(famName).child("members").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                boolean flag = false;
                 for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
-                    if (singleSnapshot.getKey().equals(SharedManager.readString(Define.KEY_FIREBASE_TOKEN, ""))) {
-                        flag = true;
-                    }
-                }
+                    String token = singleSnapshot.getKey();
+                    Member member = singleSnapshot.getValue(Member.class);
 
-                if (!flag) {
-                    Log.d(TAG, "db에 토큰 없음! 새로 추가!");
-                    saveToken(token);
-                } else
-                    Log.d(TAG, "db에 토큰 있음!");
+                    Define.memberTokenList.add(token);
+                    Define.memberList.add(member);
+
+                    // 파이어베이스에서 멤버 정보를 받자마자 내부 db에 저장
+                    DBFamstory.getInstance(MainActivity.this).insertMemberOnDuplicate(member);
+                }
             }
 
             @Override
@@ -199,9 +297,38 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
         });
     }
 
-    public void saveToken(final String token) {
+//    public void checkToken(final String token) {
+//        FirebaseManager.dbFamRef.child(famName).child("members").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                boolean flag = false;
+//                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+//                    if (singleSnapshot.getKey().equals(SharedManager.readString(Define.KEY_FIREBASE_TOKEN, ""))) {
+//                        flag = true;
+//                    }
+//                }
+//
+//                if (!flag) {
+//                    Log.d(TAG, "firebase 안에 토큰 없음! 새로 추가!");
+//                    saveToken("아들", "김아들", token);
+//                } else {
+//                    Log.d(TAG, "firebase 안에 토큰 있음!");
+//                    // firebase 안에 있는 토큰이 현재 생성한 토큰과 같은지 체크한 후
+//                    // 다르면 delete하는 함수를 호출한다.
+//                    deleteMember("아들");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
+
+    public void saveToken(String relation, String name, String token) {
         SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
-        writeMember("테스트가족", token, new Member("아들", "김아들"));
+        writeMember(token, new Member(relation, name, token));
     }
 
     public void setCallbackInterface(CallbackInterface ci) {
@@ -232,56 +359,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
     @Override
     protected void onResume() {
         super.onResume();
-
-        ViewPagerAdapter viewPagerAdapter =  new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        viewPagerAdapter.addItem(new TimeLineFragment());
-        viewPagerAdapter.addItem(new EmotionFragment());
-
-        mb.viewPager.setAdapter(viewPagerAdapter);
-        mb.tabLayout.setupWithViewPager(mb.viewPager);
-        mb.viewPager.setPageTransformer(true,new ZoomOutPageTransformer());
         checkSelfPermission();
-
-        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @SuppressLint("NonConstantResourceId")
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.calendar_menu:
-                        mb.basic.setVisibility(View.VISIBLE);
-                        mb.viewPager.setVisibility(View.GONE);
-                        mb.tabLayout.setVisibility(View.GONE);
-                        changeFragment(Define.FRAGMENT_ID_PROFILE);
-                        break;
-                    case R.id.main_menu:
-                        mb.basic.setVisibility(View.GONE);
-                        mb.viewPager.setVisibility(View.VISIBLE);
-                        mb.tabLayout.setVisibility(View.VISIBLE);
-                        //changeFragment(Define.FRAGMENT_ID_CALENDAR);
-                        break;
-                    case R.id.message_menu:
-                        mb.basic.setVisibility(View.VISIBLE);
-                        mb.viewPager.setVisibility(View.GONE);
-                        mb.tabLayout.setVisibility(View.GONE);
-                        changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
-                        break;
-                    case R.id.emotion_menu:
-                        mb.basic.setVisibility(View.VISIBLE);
-                        mb.viewPager.setVisibility(View.GONE);
-                        mb.tabLayout.setVisibility(View.GONE);
-                        changeFragment(Define.FRAGMENT_ID_CALENDAR);
-                        break;
-                    case R.id.setting_menu:
-                        mb.basic.setVisibility(View.VISIBLE);
-                        mb.viewPager.setVisibility(View.GONE);
-                        mb.tabLayout.setVisibility(View.GONE);
-                        changeFragment(Define.FRAGMENT_ID_SETTING);
-                        break;
-                }
-                return true;
-            }
-        });
     }
 
 
@@ -397,7 +475,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
         if (!TextUtils.isEmpty(temp)) {
             ActivityCompat.requestPermissions(this, temp.trim().split(" "), 1);
         } else {
-            Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show();
         }
     }
 
