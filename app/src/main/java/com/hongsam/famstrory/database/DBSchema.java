@@ -17,4 +17,15 @@ public interface DBSchema {
     String DROP_TB_EMOTION = "drop table if exists TB_EMOTION";
 
     String TB_LETTER = "TB_LETTER";
+
+    String TB_MEMBER = "TB_MEMBER";
+    String CREATE_TB_MEMBER = "create table if not exists TB_MEMBER (" +
+            "SEQ_NO INTEGER primary key autoincrement -- 시퀀스넘버\n" +
+            ",MEMBER_RELATION VARCHAR(20) -- 관계\n" +
+            ",MEMBER_NAME VARCHAR(20) -- 이름\n" +
+            ",MEMBER_CALL VARCHAR(20) -- 호칭\n" +
+            ",MEMBER_TOKEN VARCHAR(100) -- 토큰\n" +
+            ",UNIQUE (MEMBER_RELATION,MEMBER_NAME)\n" +
+            ")";
+    String DROP_TB_MEMBER = "drop table if exists TB_MEMBER";
 }

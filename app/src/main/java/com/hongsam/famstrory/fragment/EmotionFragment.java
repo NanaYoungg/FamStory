@@ -77,6 +77,8 @@ public class EmotionFragment extends Fragment {
         smallKeywordList = new ArrayList<>();
         Define.keywordMap = new HashMap<>();
 
+        famName = SharedManager.readString(Define.KEY_FAMILY_NAME, "");
+
         getKeywords();
     }
 
@@ -196,11 +198,32 @@ public class EmotionFragment extends Fragment {
                 smallKeywordList.add(keyword.getSmallKeyword());
             }
 
+            allButtonCheckReset();
+
             largeKeywordList.add(0, new KeywordItem("직접입력"));
             init(mContentView);
         }
     }
 
+    public void allButtonCheckReset() {
+        for (int i = 0; i < largeKeywordList.size(); i++) {
+            if(i == 1)
+                largeKeywordList.get(i).setIsClick(true);
+            else
+                largeKeywordList.get(i).setIsClick(false);
+            for (int j = 0; j < largeKeywordList.size(); j++) {
+                if (j == 1) {
+                    middleKeywordList.get(i).get(j).setIsClick(true);
+                    smallKeywordList.get(i).get(j).setIsClick(true);
+                } else {
+                    middleKeywordList.get(i).get(j).setIsClick(false);
+                    smallKeywordList.get(i).get(j).setIsClick(false);
+                }
+            }
+        }
+    }
+
+    // 대분류 버튼 클릭하면 그에 맞는 중분류,소분류 리스트 보여주는 함수
     public void setMiddleKeyword(int position) {
 
         // 대분류 직접입력때문에 인덱스가 안맞아서 하나 빼줘야됨...
@@ -221,16 +244,25 @@ public class EmotionFragment extends Fragment {
         }
     }
 
+    public void allEditTextGone() {
+        etLarge.setVisibility(View.GONE);
+        etMiddle.setVisibility(View.GONE);
+        etSmall.setVisibility(View.GONE);
+    }
+
     public void showEditText(int type, boolean flag) {
         switch (type) {
             case 0:
                 etLarge.setVisibility(flag ? View.VISIBLE : View.GONE);
+                mainActivity.showKeyboard(etLarge, flag);
                 break;
             case 1:
                 etMiddle.setVisibility(flag ? View.VISIBLE : View.GONE);
+                mainActivity.showKeyboard(etMiddle, flag);
                 break;
             case 2:
                 etSmall.setVisibility(flag ? View.VISIBLE : View.GONE);
+                mainActivity.showKeyboard(etMiddle, flag);
                 break;
         }
     }
@@ -247,8 +279,8 @@ public class EmotionFragment extends Fragment {
 
     public void clearTextView() {
         etLarge.setText("");
-        etLarge.setText("");
-        etLarge.setText("");
+        etMiddle.setText("");
+        etSmall.setText("");
 
         tvLarge.setText("");
         tvMiddle.setText("");
@@ -288,6 +320,7 @@ public class EmotionFragment extends Fragment {
             return;
         }
 
+        // members에서 토큰리스트를 가져옴
         DatabaseReference ref = FirebaseManager.dbFamRef.child(famName).child("members");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -296,6 +329,8 @@ public class EmotionFragment extends Fragment {
                 ArrayList<String> tokenList = new ArrayList<>();
 
                 for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+
+                    // 내 토큰과 다른 토큰들만 저장
                     if (!singleSnapshot.getKey().equals(token)) {
                         Log.d(TAG, "saveToken : singleSnapshot.getKey : " + singleSnapshot.getKey());
                         tokenList.add(singleSnapshot.getKey());
@@ -320,10 +355,10 @@ public class EmotionFragment extends Fragment {
 
         for (int i = 0; i < tokenList.size(); i++) {
             DatabaseReference ref = FirebaseManager.dbFamRef.child(famName).child("messages").child(tokenList.get(i));
-            ref.setValue(new Emotion(relationList.get(i), msg, today));
+            ref.setValue(new Emotion(SharedManager.readString(Define.KEY_MY_RELATION, ""), msg, today));
         }
 
-        Emotion emotionMe = new Emotion("아들", msg, today);
+        Emotion emotionMe = new Emotion(SharedManager.readString(Define.KEY_MY_RELATION, ""), msg, today);
         DBFamstory.getInstance(mainActivity).insertEmotion(emotionMe);
     }
 

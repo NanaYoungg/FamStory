@@ -16,7 +16,9 @@ import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.data.Emotion;
 import com.hongsam.famstrory.data.LetterContants;
+import com.hongsam.famstrory.data.Member;
 import com.hongsam.famstrory.database.DBFamstory;
+import com.hongsam.famstrory.define.Define;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private String TAG = "MyFirebaseMessagingService";
@@ -34,6 +36,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String sender = remoteMessage.getData().get("sender");
             String message = remoteMessage.getData().get("message");
             String sendDate = remoteMessage.getData().get("sendDate");
+            Log.d(TAG, "sender : " + sender);
+            Log.d(TAG, "message : " + message);
+            Log.d(TAG, "sendDate : " + sendDate);
+
+            // 관계를 호칭으로 바꿔준다
+            sender = DBFamstory.getInstance(this).selectMemberCallByRelation(sender);
+
+//            for (Member member : Define.memberList) {
+//                if (sender.equals(member.getRelation())) {
+//                    sender = member.getCall();
+//                }
+//            }
 
             Emotion emotion = new Emotion(sender, message, sendDate);
             DBFamstory.getInstance(this).insertEmotion(emotion);
