@@ -19,7 +19,7 @@
         android:icon="@drawable/message_menu"/>
     <item
         android:id="@+id/emotion_menu"
-        android:title="이모티콘"
+        android:title="일정"
         android:enabled="true"
         android:icon="@drawable/emotion_menu"/>
     <item

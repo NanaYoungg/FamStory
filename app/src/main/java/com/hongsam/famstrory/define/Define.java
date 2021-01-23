@@ -23,7 +23,9 @@ public class Define {
     public static final int FRAGMENT_ID_CHATTING = FRAGMENT_ID+13;
 
 
-    
+    public static final int TIME_LINE_VIEW_OTHER_MSG=8080;
+    public static final int TIME_LINE_VIEW_MY_MESSAGE=TIME_LINE_VIEW_OTHER_MSG+1;
+    public static final int TIME_LINE_DATE_LINE = TIME_LINE_VIEW_OTHER_MSG+2;
 
 
 

@@ -75,7 +75,7 @@ public class TimelineDB {
                 Log.e(TAG,snapshot.getChildrenCount()+"");
                 for(DataSnapshot singleShot : snapshot.getChildren()){
                     Member member = singleShot.getValue(Member.class);
-                    adapter.addItem(new TimeLineFamily(null,member.getName(),member.getRelation(),"메시지 미리보기",""));
+                    adapter.addItem(new TimeLineFamily(null,member.getName(),member.getRelation(),"메시지 미리보기","",8081));
                     adapter.notifyDataSetChanged();
                 }
             }
