@@ -32,13 +32,6 @@ import static com.hongsam.famstrory.fragment.CalendarFragment.state;
 public class CheckDB{
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     String userName = Define.USER;
-    Calendar calendarDB;
-    MainActivity mainActivity;
-    ArrayList<String> list = new ArrayList<>();
-    int view =1 ;
-
-
-
 
     public void checkDB(int year, int month, int day, Context context, final FragmentManager fm, final Fragment fr,
                         final Button calendarCreateBtn, final Button calendarDeleteBtn, final Button calendarUpdateBtn,
@@ -53,8 +46,6 @@ public class CheckDB{
                     fm.beginTransaction().remove(fr).commit();
                     state = "ok";
                     Log.e("checkFB",Define.DATA_IS_NOT_NULL+"");
-                    //mainActivity.visibleView(Define.DATA_IS_NOT_NULL);
-                    //mainActivity.visibleView(3);
                     calendarCreateBtn.setVisibility(View.INVISIBLE);
                     calendarDeleteBtn.setVisibility(View.VISIBLE);
                     calendarUpdateBtn.setVisibility(View.VISIBLE);
@@ -70,8 +61,6 @@ public class CheckDB{
                 if ("title".equals(getData)){
                     fm.beginTransaction().remove(fr).commit();
                     state = "ok";
-                    Log.e("checkFB",Define.DATA_IS_NOT_NULL+"");
-                    //mainActivity.visibleView(Define.DATA_IS_NOT_NULL);
                     calendarCreateBtn.setVisibility(View.INVISIBLE);
                     calendarDeleteBtn.setVisibility(View.VISIBLE);
                     calendarUpdateBtn.setVisibility(View.VISIBLE);
