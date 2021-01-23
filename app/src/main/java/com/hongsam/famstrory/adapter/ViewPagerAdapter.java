@@ -37,8 +37,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 // 타임라인
                 return "타임라인";
             case 1:
-                // 일정
-                return "일정";
+                // 감정표현
+                return "감정표현";
             default:
                 return null;
         }
