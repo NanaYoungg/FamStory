@@ -81,6 +81,7 @@ public class TimeLineFragment extends Fragment {
         mb.familyChatList.setAdapter(adapter);
         DBFamstory dbFamstory = new DBFamstory(getContext());
         ArrayList<Emotion> emotions  = dbFamstory.selectEmotionList();
+
         for(Emotion emotion:emotions){
 
             adapter.addItem(new TimeLineFamily(null,emotion.getSender(),"",emotion.getMessage(),emotion.getSendDate(),8080));
@@ -90,6 +91,7 @@ public class TimeLineFragment extends Fragment {
         adapter.setOnItemClickListener(new FamilyAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(ArrayList<TimeLineFamily> list , View v, int position) {
+
                 TimeLineFamily getItem = list.get(position);
                 mainActivity.sendName(getItem.getName(),getItem.getNickName());
 
