@@ -44,6 +44,7 @@ import com.hongsam.famstrory.data.Family;
 import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.LetterList;
 import com.hongsam.famstrory.data.Member;
+import com.hongsam.famstrory.data.Notice;
 import com.hongsam.famstrory.database.DBFamstory;
 import com.hongsam.famstrory.databinding.ActivityMainBinding;
 import com.hongsam.famstrory.define.Define;
@@ -96,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
     String relation = "";
     String myName = "";
     ArrayList<Member> memberList;
+
+    boolean isJoin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,6 +201,9 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
             }
         });
 
+        //getFamilyMembers();
+
+        changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
         getFamilyMembers();
         mb.basic.setVisibility(View.GONE);
         mb.viewPager.setVisibility(View.VISIBLE);
@@ -219,6 +225,9 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
 
     public void writeMember(String token, Member member) {
         FirebaseManager.dbFamRef.child(famName).child("members").child(token).setValue(member);
+
+        Log.d(TAG, "공지 전송 : " + myName + "(" + relation + ")" + "님이 참여했습니다!");
+        sendNotice(myName + "(" + relation + ")" + "님이 참여했습니다!");
     }
 
     public void deleteMember(String token) {
@@ -234,16 +243,23 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
                 if (snapshot.getChildrenCount() == 0) {
                     saveToken(relation, myName, token);
                 } else {
+                    boolean existsFlag = false;
                     for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
                         Member member = singleSnapshot.getValue(Member.class);
                         if (member.getRelation().equals(relation)) {
+                            existsFlag = true;
                             if (!singleSnapshot.getKey().equals(token)) {
                                 saveToken(relation, myName, token);
                                 deleteMember(singleSnapshot.getKey());
                             }
-                        } else {
-                            saveToken(relation, myName, token);
                         }
+                    }
+
+                    if (!existsFlag) {
+                        // members에 자기 relation이 없으면 저장
+                        saveToken(relation, myName, token);
+                    } else {
+                        getFamilyMembers();
                     }
                 }
             }
@@ -298,11 +314,62 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
         });
     }
 
+    // 공지 전달 ex) 가족 참여 등
+    public void sendNotice(final String msg) {
+        FirebaseManager.dbFamRef.child(famName).child("members").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+                    Member member = singleSnapshot.getValue(Member.class);
+
+                    if (!member.getRelation().equals(relation)) {
+                        FirebaseManager.dbFamRef.child(famName).child("notice").child(singleSnapshot.getKey()).setValue(new Notice(msg));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+//    public void checkToken(final String token) {
+//        FirebaseManager.dbFamRef.child(famName).child("members").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                boolean flag = false;
+//                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+//                    if (singleSnapshot.getKey().equals(SharedManager.readString(Define.KEY_FIREBASE_TOKEN, ""))) {
+//                        flag = true;
+//                    }
+//                }
+//
+//                if (!flag) {
+//                    Log.d(TAG, "firebase 안에 토큰 없음! 새로 추가!");
+//                    saveToken("아들", "김아들", token);
+//                } else {
+//                    Log.d(TAG, "firebase 안에 토큰 있음!");
+//                    // firebase 안에 있는 토큰이 현재 생성한 토큰과 같은지 체크한 후
+//                    // 다르면 delete하는 함수를 호출한다.
+//                    deleteMember("아들");
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
 
 
     public void saveToken(String relation, String name, String token) {
         SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
         writeMember(token, new Member(relation, name, token));
+
+        getFamilyMembers();
     }
 
     public void setCallbackInterface(CallbackInterface ci) {
