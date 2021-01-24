@@ -46,10 +46,10 @@
         app:layout_constraintTop_toBottomOf="@id/letter_write_back_btn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:background="@drawable/paper1"/>
+        android:background="@drawable/paper2"/>
 
     <TextView
         android:id="@+id/f_letter_to_tv"
@@ -60,6 +60,7 @@
         android:layout_marginTop="15dp"
         android:layout_height="wrap_content"
         android:textSize="25dp"
+        android:fontFamily="@font/tmoney_bold"
         android:text="To :"/>
 
      <TextView
@@ -69,17 +70,19 @@
         app:layout_constraintLeft_toRightOf="@id/f_letter_to_tv"
         android:layout_marginLeft="10dp"
         android:layout_height="wrap_content"
+         android:fontFamily="@font/tmoney_regular"
         android:textSize="25dp"
         android:text="받는사람"/>
     
     <ImageButton
         android:id="@+id/f_receiver_add_img_btn"
         app:layout_constraintLeft_toRightOf="@id/f_letter_receiever_tv"
+        app:layout_constraintBottom_toBottomOf="@id/f_letter_receiever_tv"
         app:layout_constraintTop_toTopOf="@id/f_letter_receiever_tv"
         android:layout_marginLeft="10dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/plus" />
+        android:background="@drawable/add_btn_customise" />
 
     <TextView
         android:id="@+id/letter_write_date"
@@ -87,8 +90,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/f_receiver_add_img_btn"
         app:layout_constraintBottom_toBottomOf="@id/f_letter_receiever_tv"
+        android:layout_marginBottom="10dp"
         app:layout_constraintRight_toRightOf="parent"
         android:text="0000년00월00일"
+        android:fontFamily="@font/tmoney_regular"
         android:textSize="15dp"
         />
 
@@ -117,7 +122,8 @@
                 android:layout_width="200dp"
                 android:layout_height="150dp"
                 android:layout_marginLeft="80dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorTransparent"
+
                 />
 
             <EditText

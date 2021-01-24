@@ -35,15 +35,15 @@ public class LetterReceiverDialog extends DialogFragment {
     }
 
     //LetterWriteFragment에 데이터를 넘겨주기 위한 인터페이스
-    public interface MyFragmentInterfacer {
+    public interface ReceiverInterfacer {
         void onButtonClick(String input);
     }
 
-    private MyFragmentInterfacer fragmentInterfacer;
+    private ReceiverInterfacer reinterface;
 
 
-    public void setFragmentInterfacer(MyFragmentInterfacer fragmentInterfacer) {
-        this.fragmentInterfacer = fragmentInterfacer;
+    public void setReinterface(ReceiverInterfacer reinterface) {
+        this.reinterface = reinterface;
     }
 
 
@@ -68,7 +68,7 @@ public class LetterReceiverDialog extends DialogFragment {
 //                Toast.makeText(getContext(), "test.", Toast.LENGTH_SHORT).show();
                 //선택한 스피너값 String으로 받기
                 String input = mSpinner.getSelectedItem().toString();
-                fragmentInterfacer.onButtonClick(input);
+                reinterface.onButtonClick(input);
                 getDialog().dismiss();
             }
 

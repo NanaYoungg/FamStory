@@ -21,8 +21,8 @@ import com.hongsam.famstrory.data.Keyword;
 import com.hongsam.famstrory.data.Member;
 import com.hongsam.famstrory.data.TimeLineFamily;
 import com.hongsam.famstrory.define.Define;
-
 import java.text.SimpleDateFormat;
+
 
 public class TimelineDB {
     String Family = Define.DB_REFERENCE;
@@ -75,7 +75,7 @@ public class TimelineDB {
                 Log.e(TAG,snapshot.getChildrenCount()+"");
                 for(DataSnapshot singleShot : snapshot.getChildren()){
                     Member member = singleShot.getValue(Member.class);
-                    adapter.addItem(new TimeLineFamily(null,member.getName(),member.getRelation(),"메시지 미리보기",""));
+                    adapter.addItem(new TimeLineFamily(null,member.getName(),member.getRelation(),"메시지 미리보기","",8081));
                     adapter.notifyDataSetChanged();
                 }
             }

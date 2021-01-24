@@ -38,8 +38,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.adapter.ViewPagerAdapter;
+import com.hongsam.famstrory.animation.ZoomOutPageTransformer;
 import com.hongsam.famstrory.data.Calendar;
 import com.hongsam.famstrory.data.Family;
+import com.hongsam.famstrory.data.LetterContants;
+import com.hongsam.famstrory.data.LetterList;
 import com.hongsam.famstrory.data.Member;
 import com.hongsam.famstrory.data.Notice;
 import com.hongsam.famstrory.database.DBFamstory;
@@ -71,7 +74,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements CalendarFragment.DataSender,TimeLineFragment.sendTimeLineFR {
+public class MainActivity extends AppCompatActivity implements TimeLineFragment.sendTimeLineFR {
     private final String TAG = "MainActivity";
 
     BottomNavigationView navigationView;
@@ -201,6 +204,10 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         //getFamilyMembers();
 
         changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
+        getFamilyMembers();
+        mb.basic.setVisibility(View.GONE);
+        mb.viewPager.setVisibility(View.VISIBLE);
+        mb.tabLayout.setVisibility(View.VISIBLE);
         DebugDB.getAddressLog();
     }
 
@@ -292,7 +299,6 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                 for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
                     String token = singleSnapshot.getKey();
                     Member member = singleSnapshot.getValue(Member.class);
-
                     Define.memberTokenList.add(token);
                     Define.memberList.add(member);
 
@@ -358,6 +364,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
 //        });
 //    }
 
+
     public void saveToken(String relation, String name, String token) {
         SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
         writeMember(token, new Member(relation, name, token));
@@ -393,16 +400,15 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     @Override
     protected void onResume() {
         super.onResume();
-
         checkSelfPermission();
     }
-
 
     @Override
     public void sendName(String name, String nickName) {
         this.name = name;
         this.nickName = nickName;
     }
+
     public void changeFragment(int fragmentId) {
 
         switch (fragmentId) {
@@ -483,6 +489,49 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         });
     }
 
+    //LetterList,LetterRead값 통신을 위한 함수
+//    public void changeFragment(int fragmentId, LetterList item) {
+//
+//        switch (fragmentId) {
+//
+//            case Define.FRAGMENT_ID_LETTER_LIST:
+//                fragment = new LetterListFragment();
+//                break;
+//
+//            case Define.FRAGMENT_ID_LETTER_READ:
+//                fragment = new LetterReadFragment(item);
+//                break;
+//
+//            default:
+//                break;
+//        }
+//
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//
+//                for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); ++i) {
+//                    try {
+//                        getSupportFragmentManager().popBackStack();
+//                    } catch (IllegalStateException e) {
+//                        if (getSupportFragmentManager() != null && !getSupportFragmentManager().isStateSaved()) {
+//                            getSupportFragmentManager().popBackStack();
+//                        }
+//                    }
+//                }
+//
+//                ft.replace(R.id.basic, fragment);
+//
+//                if (fragment.isStateSaved()) {
+//                    ft.commitAllowingStateLoss();
+//                } else {
+//                    ft.commit();
+//                }
+//            }
+//        });
+//    }
+
     public void showKeyboard(final EditText et, final boolean flag) {
         runOnUiThread(new Runnable() {
             @Override
@@ -515,10 +564,5 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     }
 
 
-    @Override
-    public void spinnerFragment(Spinner spinner, ArrayAdapter<String> adapter) {
-        this.spinner = spinner;
-        this.adapter = adapter;
-    }
 
 }

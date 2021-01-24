@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.hongsam.famstrory.data.Emotion;
+import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.Member;
 
 import java.util.ArrayList;
@@ -102,6 +103,64 @@ public class DBFamstory {
         db.delete(DBSchema.TB_EMOTION, null, null);
     }
 
+//    /**
+//     * @Description : TB_LETTERTB_LETTER 데이터들을 모두 삭제하는 함수
+//     */
+//    public void deleteAllLetter() {
+//        db.delete(DBSchema.TB_LETTER, null, null);
+//    }
+
+    /**
+     * @param letter
+     * @Description : LetterContants 데이터를 insert하는 함수
+    "SEQ_NO INTEGER primary key autoincrement -- 시퀀스넘버\n" +
+    ",LETTER_SENDER VARCHAR(20) -- 보내는사람\n" +
+    ",LETTER_CONTANTS TEXT -- 편지내용\n" +
+    ",LETTER_DATE VARCHAR(20) -- 보낸날짜\n" +
+    ",LETTER_PHOTO VARCHAR(100) -- 사진\n" +
+    ",LETTER_PAPER_TYPE INTEGER --편지지\n" +
+     */
+    public void insertLetterContants(LetterContants letter) {
+        if (isOpen()) {
+            ContentValues values = new ContentValues();
+            values.put("LETTER_SENDER", letter.getSender());
+            values.put("LETTER_CONTANTS", letter.getContants());
+            values.put("LETTER_DATE", letter.getDate());
+            values.put("LETTER_PHOTO", letter.getPhoto());
+            values.put("LETTER_PAPER_TYPE", letter.getPaperType());
+            db.insert(DBSchema.TB_LETTER, null, values);
+        }
+    }
+
+
+    /**
+     * @Description : letterContants 데이터들을 select하는 함수
+     * SEQ_NO INTEGER primary key autoincrement 시퀀스넘버
+     * LETTER_SENDER VARCHAR(20) 보내는사람
+     * LETTER_MESSAGE TEXT 메세지내용
+     * LETTER_SEND_DATE VARCHAR(20) 보낸시간
+     * LETTER_PHOTO VARCHAR(100) 사진
+     * LETTER_PAPER_TYPE INTEGER 편지지
+     */
+    public ArrayList<LetterContants> selectLetterList() {
+        String query = "select * from " + DBSchema.TB_LETTER;
+        ArrayList<LetterContants> letterList = new ArrayList<>();
+        Cursor cursor = db.rawQuery(query, null);
+        while (cursor.moveToNext()) {
+            LetterContants letterContants = new LetterContants();
+            letterContants.setSender(cursor.getString(1));
+            letterContants.setContants(cursor.getString(2));
+            letterContants.setDate(cursor.getString(3));
+            letterContants.setPhoto(cursor.getString(4));
+            letterContants.setPaperType(cursor.getInt(5));
+
+            letterList.add(letterContants);
+        }
+
+        return letterList;
+    }
+
+
     /**
      * @param member
      * @Description : Member 데이터를 insert하는 함수
@@ -113,6 +172,7 @@ public class DBFamstory {
      * MEMBER_TOKEN VARCHAR(100) -- 토큰
      * UNIQUE (MEMBER_RELATION,MEMBER_NAME)
      */
+
     public void insertMemberOnDuplicate(Member member) {
         if (isOpen()) {
             ContentValues values = new ContentValues();

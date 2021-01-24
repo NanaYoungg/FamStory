@@ -347,7 +347,7 @@ public class EmotionFragment extends Fragment {
             }
         });
     }
-
+    //보낸이 토큰
     public void sendEmotion(ArrayList<String> relationList, ArrayList<String> tokenList, String msg) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());

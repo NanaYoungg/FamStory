@@ -1,6 +1,6 @@
 package com.hongsam.famstrory.data;
 
-//편지내용 (보낸이,내용,날짜,사진)
+//편지내용 (보낸이,내용,날짜,사진,편지지)
 public class LetterContants {
 
     private String fcmType;
@@ -8,15 +8,18 @@ public class LetterContants {
     private String contants;
     private String date;
     private String photo;
+    private int paperType;
 
-    public LetterContants() { }
+    public LetterContants() {
+    }
 
-    public LetterContants(String sender, String contants, String date) {
+    public LetterContants(String sender, String contants, String date, String photo, int paperType) {
         this.fcmType = "LetterContants";
         this.sender = sender;
         this.contants = contants;
         this.date = date;
-//        this.photo = photo;
+        this.photo = photo;
+        this.paperType = paperType;
     }
 
     public String getFcmType() {
@@ -25,14 +28,6 @@ public class LetterContants {
 
     public void setFcmType(String fcmType) {
         this.fcmType = fcmType;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     public String getSender() {
@@ -59,8 +54,19 @@ public class LetterContants {
         this.date = date;
     }
 
-//    public String getPhoto() { return photo; }
-//
-//    public void setPhoto(String photo) { this.photo = photo; }
+    public String getPhoto() {
+        return photo;
+    }
 
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public int getPaperType() {
+        return paperType;
+    }
+
+    public void setPaperType(int paperType) {
+        this.paperType = paperType;
+    }
 }

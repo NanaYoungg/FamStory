@@ -2,9 +2,9 @@ package com.hongsam.famstrory.data;
 //편지 목록 (보낸이,내용,날짜)
 public class LetterList {
 
-    private String sender;
-    private String contants;
-    private String date;
+    public String sender;
+    public String contants;
+    public String date;
 
     public LetterList(){}
 

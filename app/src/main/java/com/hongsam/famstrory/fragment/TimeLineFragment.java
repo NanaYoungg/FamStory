@@ -54,7 +54,6 @@ public class TimeLineFragment extends Fragment {
         mFamRef = mDb.getReference("Family");
         Log.e("timelin","timeline");
 
-
     }
 
 
@@ -83,7 +82,7 @@ public class TimeLineFragment extends Fragment {
         ArrayList<Emotion> emotions  = dbFamstory.selectEmotionList();
         for(Emotion emotion:emotions){
 
-            adapter.addItem(new TimeLineFamily(null,emotion.getSender(),"",emotion.getMessage(),emotion.getSendDate()));
+            adapter.addItem(new TimeLineFamily(null,emotion.getSender(),"",emotion.getMessage(),emotion.getSendDate(),8080));
         }
 
         //timelineDB.setFamilyAdapter(adapter);
@@ -97,7 +96,6 @@ public class TimeLineFragment extends Fragment {
         });
         return root;
     }
-
 
 
     /**
