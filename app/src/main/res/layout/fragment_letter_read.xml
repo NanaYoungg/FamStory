@@ -23,9 +23,10 @@
             android:layout_height="30dp"
             app:layout_constraintLeft_toLeftOf="@+id/letter_read_img_view"
             app:layout_constraintTop_toTopOf="@+id/letter_read_img_view"
+            app:layout_constraintBottom_toBottomOf="@id/trash_img_btn"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/back_arrow_press"/>
+            android:background="@drawable/back_btn_customise"/>
 
     <ImageButton
         android:id="@+id/trash_img_btn"

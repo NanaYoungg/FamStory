@@ -84,7 +84,7 @@ public class LetterWriteFragment extends Fragment {
     private Button mSendBtn;
     private TextView mToTv, mWriteDate;
 
-    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy년MM월dd일 hh-mm-ss"); // 날짜 포맷
+    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy년MM월dd일 hh시mm분ss초"); // 날짜 포맷
     private SimpleDateFormat mFormatDB = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss"); // 날짜 포맷
 
     private Date date = new Date();

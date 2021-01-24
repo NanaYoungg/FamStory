@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,6 +60,20 @@ public class LetterReceiverDialog extends DialogFragment {
         mSpinner.setAdapter(mAdapter);
 
         Button mCancleBtn = (Button) v.findViewById(R.id.dialog_receiver_cancle_btn);
+        mCancleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(getContext(), "test.", Toast.LENGTH_SHORT).show();
+                //선택한 스피너값 String으로 받기
+                Toast.makeText(getContext(), "취소", Toast.LENGTH_SHORT).show();
+                String input = mSpinner.getSelectedItem().toString();
+                reinterface.onButtonClick(input);
+                getDialog().dismiss();
+            }
+
+        });
+
+
 
         //확인버튼 누를시 스피너 값 LetterWriteFragment에 전달
         Button mOkBtn = (Button) v.findViewById(R.id.dialog_receiver_ok_btn);
@@ -67,6 +82,7 @@ public class LetterReceiverDialog extends DialogFragment {
             public void onClick(View v) {
 //                Toast.makeText(getContext(), "test.", Toast.LENGTH_SHORT).show();
                 //선택한 스피너값 String으로 받기
+                Toast.makeText(getContext(), "선택 완료", Toast.LENGTH_SHORT).show();
                 String input = mSpinner.getSelectedItem().toString();
                 reinterface.onButtonClick(input);
                 getDialog().dismiss();
