@@ -78,16 +78,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Notice 받아옴!!");
             String contents = remoteMessage.getData().get("contents");
             sendNotification("가족참여알림", contents);
-        }
-//        else if (fcmType.equals("Member")) {
-//            Log.d(TAG, "Member 받아옴!!");
-//            String name = remoteMessage.getData().get("name");
-//            String relation = remoteMessage.getData().get("relation");
-//
-//            sendNotification("가족참여알림", name+"(" + relation + ") 이 참여했습니다.");
-//        }
-
-            // sendNotification(sender, contants);
         } else if (fcmType.equals("Member")) {
             Log.d(TAG, "Member 받아옴!!");
             String name = remoteMessage.getData().get("name");
