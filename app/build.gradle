@@ -51,7 +51,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview'
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'com.android.support:design:29.0.2'
-    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
+    implementation 'com.github.prolificinteractive:material-calendarview:1.4.3'
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-analytics'
 
