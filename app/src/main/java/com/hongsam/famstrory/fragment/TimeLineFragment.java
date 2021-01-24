@@ -54,7 +54,6 @@ public class TimeLineFragment extends Fragment {
         mFamRef = mDb.getReference("Family");
         Log.e("timelin","timeline");
 
-
     }
 
 
@@ -97,7 +96,6 @@ public class TimeLineFragment extends Fragment {
         });
         return root;
     }
-
 
 
     /**

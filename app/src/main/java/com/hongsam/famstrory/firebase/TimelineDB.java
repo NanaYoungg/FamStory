@@ -21,8 +21,8 @@ import com.hongsam.famstrory.data.Keyword;
 import com.hongsam.famstrory.data.Member;
 import com.hongsam.famstrory.data.TimeLineFamily;
 import com.hongsam.famstrory.define.Define;
-
 import java.text.SimpleDateFormat;
+
 
 public class TimelineDB {
     String Family = Define.DB_REFERENCE;

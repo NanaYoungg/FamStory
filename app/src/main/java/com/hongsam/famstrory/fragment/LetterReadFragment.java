@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -103,26 +104,26 @@ public class LetterReadFragment extends Fragment {
                 }
             });
 
-//
-//            mdeletBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //휴지통 이미지버튼 누를시 DB에서 삭제
-//                    mDB.getInstance().getReference("Family").child(TEST_FAMILY).child("LetterContants").removeValue()
-//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void aVoid) {
-//                                    Toast.makeText(getContext(), "삭제 완료", Toast.LENGTH_LONG).show();
-//                                }
-//                            }).addOnFailureListener(new OnFailureListener() { // DB에서 Fail날경우는 거의 없음..
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(getContext(), "삭제 실패", Toast.LENGTH_LONG).show();
-//                        }
-//                    });
-//
-//                }
-//            });
+
+            mdeletBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //휴지통 이미지버튼 누를시 DB에서 삭제
+                    mDB.getInstance().getReference("Family").child(TEST_FAMILY).child("LetterContants").removeValue()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getContext(), "삭제 완료", Toast.LENGTH_LONG).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() { // DB에서 Fail날경우는 거의 없음..
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getContext(), "삭제 실패", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                }
+            });
         }
     }
 }
