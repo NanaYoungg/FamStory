@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.hongsam.famstrory.activitie.MainActivity;
-import com.hongsam.famstrory.data.Calendar;
+import com.hongsam.famstrory.data.CalendarData;
 import com.hongsam.famstrory.define.Define;
 
 public class ReadDB {
@@ -23,7 +23,7 @@ public class ReadDB {
     String userName = Define.USER;
 
 
-    Calendar calendarDB;
+    CalendarData calendarDataDB;
 
     public ReadDB(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -42,8 +42,8 @@ public class ReadDB {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
                 if((day+"일").equals(snapshot.getKey())) {
-                    calendarDB = snapshot.getValue(Calendar.class);
-                    mainActivity.view_more_text(calendarDB);
+                    calendarDataDB = snapshot.getValue(CalendarData.class);
+                    mainActivity.view_more_text(calendarDataDB);
                 }
 
 
@@ -53,8 +53,8 @@ public class ReadDB {
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if ((day+"일").equals(snapshot.getKey())) {
-                    calendarDB = snapshot.getValue(Calendar.class);
-                    mainActivity.view_more_text(calendarDB);
+                    calendarDataDB = snapshot.getValue(CalendarData.class);
+                    mainActivity.view_more_text(calendarDataDB);
 
                 }
             }
