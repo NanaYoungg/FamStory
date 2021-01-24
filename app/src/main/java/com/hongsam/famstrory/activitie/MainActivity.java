@@ -39,7 +39,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.adapter.ViewPagerAdapter;
 import com.hongsam.famstrory.animation.ZoomOutPageTransformer;
-import com.hongsam.famstrory.data.Calendar;
+import com.hongsam.famstrory.data.CalendarData;
 import com.hongsam.famstrory.data.Family;
 import com.hongsam.famstrory.data.Member;
 import com.hongsam.famstrory.database.DBFamstory;
@@ -55,7 +55,6 @@ import com.hongsam.famstrory.fragment.LetterListFragment;
 import com.hongsam.famstrory.fragment.LetterReadFragment;
 import com.hongsam.famstrory.fragment.LetterWriteFragment;
 import com.hongsam.famstrory.fragment.MenuFragment;
-import com.hongsam.famstrory.fragment.MonthCalendar;
 import com.hongsam.famstrory.fragment.MonthCalendarFragment;
 import com.hongsam.famstrory.fragment.ProfileFragment;
 import com.hongsam.famstrory.fragment.SettingFragment;
@@ -216,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
         readDB.databaseRead(year,month,day);
     }
 
-    public void calendarUpdateGetDialogText(Calendar data) {
+    public void calendarUpdateGetDialogText(CalendarData data) {
         cdi.calendarUpdateGetDialogText(data);
     }
     public void visibleView(int dataIsNull){
@@ -224,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
 
     }
 
-    public void view_more_text(Calendar data) {
+    public void view_more_text(CalendarData data) {
         ci.view_more_text(data);
     }
 
