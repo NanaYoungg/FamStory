@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 public class GlobalMethod {
 
@@ -50,6 +51,33 @@ public class GlobalMethod {
 
     }
 
+    public static void SaveBitmapToFileCache(Bitmap bitmap, String strFilePath, String filename) {
+        File file = new File(strFilePath);
+
+        // If no folders
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        File fileCacheItem = new File(strFilePath + filename);
+        OutputStream out = null;
+
+        try {
+            fileCacheItem.createNewFile();
+            out = new FileOutputStream(fileCacheItem);
+
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static Bitmap FileToBitmap(File file) {
         String filePath = file.getPath();
         Bitmap bitmap = BitmapFactory.decodeFile(filePath);
@@ -68,7 +96,7 @@ public class GlobalMethod {
         try {
             fos = new FileOutputStream(mypath);
             // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmapImage.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

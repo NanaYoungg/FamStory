@@ -10,9 +10,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:text="가족 찾기"
+        android:textStyle="bold"
         android:textColor="@color/colorDarkGreen"
         android:textSize="20dp"/>
 
@@ -44,8 +45,9 @@
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_weight="1"
+                android:paddingHorizontal="5dp"
                 android:gravity="center"
-                android:hint="ex) 홍삼네가족"
+                android:hint="홍삼네가족"
                 android:background="@drawable/edit_text_round"
                 android:nextFocusForward="@+id/d_fam_find_et_pw"
                 android:imeOptions="actionNext"
@@ -75,7 +77,7 @@
                 android:layout_height="45dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:hint="ex) 1234"
+                android:hint="1234"
                 android:background="@drawable/edit_text_round"
                 android:nextFocusForward="@+id/d_fam_find_btn_find"
                 android:imeOptions="actionDone"

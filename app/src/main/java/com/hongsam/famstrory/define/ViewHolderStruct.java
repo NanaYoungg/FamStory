@@ -75,6 +75,7 @@ public class ViewHolderStruct {
             tvCall.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
+                    tvName.setVisibility(View.GONE);
                     etEdit.setVisibility(View.VISIBLE);
                     btnEdit.setVisibility(View.VISIBLE);
                     tvCall.setVisibility(View.GONE);
@@ -96,6 +97,7 @@ public class ViewHolderStruct {
 
                     tvCall.setText(etEdit.getText().toString());
                     tvCall.setVisibility(View.VISIBLE);
+                    tvName.setVisibility(View.VISIBLE);
                     etEdit.setVisibility(View.GONE);
                     btnEdit.setVisibility(View.GONE);
                     ((MainActivity) mContext).showKeyboard(etEdit, false);
