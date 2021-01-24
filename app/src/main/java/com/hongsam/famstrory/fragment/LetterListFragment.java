@@ -57,7 +57,6 @@ public class LetterListFragment extends Fragment {
     private LetterListAdapter letterListAdapter;
 
 
-
     public LetterListFragment() {
     }
 
@@ -126,7 +125,6 @@ public class LetterListFragment extends Fragment {
         });
 
     }
-
 
 
     /**
