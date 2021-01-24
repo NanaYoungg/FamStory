@@ -101,6 +101,14 @@ public class DBFamstory {
         db.delete(DBSchema.TB_EMOTION, null, null);
     }
 
+
+//    /**
+//     * @Description : TB_LETTERTB_LETTER 데이터들을 모두 삭제하는 함수
+//     */
+//    public void deleteAllLetter() {
+//        db.delete(DBSchema.TB_LETTER, null, null);
+//    }
+
     /**
      * @param letter
      * @Description : LetterContants 데이터를 insert하는 함수
