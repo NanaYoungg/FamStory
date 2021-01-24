@@ -30,9 +30,8 @@
             android:id="@+id/dialog_paper_ok_btn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_weight=".5"
             android:gravity="center"
-            android:text="확인"
+            android:text="완료"
             android:textSize="16dp"
             android:background="@color/colorPrimary"/>
 
@@ -41,19 +40,8 @@
             android:layout_height="match_parent"
             android:background="#ffffff" />
 
-        <Button
-            android:id="@+id/dialog_paper_cancle_btn"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_weight=".5"
-            android:gravity="center"
-            android:text="취소"
-            android:textSize="16dp"
-            android:background="@color/colorPrimary"/>
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>

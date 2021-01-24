@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@id/letter_write_back_btn"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:background="@drawable/paper1"/>

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.hongsam.famstrory.data.Emotion;
+import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.Member;
 
 import java.util.ArrayList;
@@ -102,6 +103,34 @@ public class DBFamstory {
         db.delete(DBSchema.TB_EMOTION, null, null);
     }
 
+//    /**
+//     * @Description : TB_LETTERTB_LETTER 데이터들을 모두 삭제하는 함수
+//     */
+//    public void deleteAllLetter() {
+//        db.delete(DBSchema.TB_LETTER, null, null);
+//    }
+
+    /**
+     * @param letter
+     * @Description : LetterContants 데이터를 insert하는 함수
+    "SEQ_NO INTEGER primary key autoincrement -- 시퀀스넘버\n" +
+    ",LETTER_SENDER VARCHAR(20) -- 보내는사람\n" +
+    ",LETTER_CONTANTS TEXT -- 편지내용\n" +
+    ",LETTER_DATE VARCHAR(20) -- 보낸날짜\n" +
+    ",LETTER_PHOTO VARCHAR(100) -- 사진\n" +
+    ",LETTER_PAPER_TYPE INTEGER --편지지\n" +
+     */
+    public void insertLetterContants(LetterContants letter) {
+        if (isOpen()) {
+            ContentValues values = new ContentValues();
+            values.put("LETTER_SENDER", letter.getSender());
+            values.put("LETTER_CONTANTS", letter.getContants());
+            values.put("LETTER_DATE", letter.getDate());
+            values.put("LETTER_PHOTO", letter.getPhoto());
+            values.put("LETTER_PAPER_TYPE", letter.getPaperType());
+            db.insert(DBSchema.TB_LETTER, null, values);
+        }
+    }
     /**
      * @param member
      * @Description : Member 데이터를 insert하는 함수
@@ -113,6 +142,7 @@ public class DBFamstory {
      * MEMBER_TOKEN VARCHAR(100) -- 토큰
      * UNIQUE (MEMBER_RELATION,MEMBER_NAME)
      */
+
     public void insertMemberOnDuplicate(Member member) {
         if (isOpen()) {
             ContentValues values = new ContentValues();

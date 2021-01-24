@@ -20,6 +20,7 @@ import com.hongsam.famstrory.data.Member;
 import com.hongsam.famstrory.database.DBFamstory;
 import com.hongsam.famstrory.define.Define;
 
+//팝업메세지
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private String TAG = "MyFirebaseMessagingService";
 
@@ -58,11 +59,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String sender = remoteMessage.getData().get("sender");
             String contants = remoteMessage.getData().get("contants");
             String date = remoteMessage.getData().get("date ");
+            String photo = remoteMessage.getData().get("photo");
+            String paperType = remoteMessage.getData().get("paperType");
 
-            LetterContants letterContants = new LetterContants(sender, contants, date);
+            LetterContants letterContants;
+            if (paperType.equals("")) {
+                letterContants = new LetterContants(sender, contants, date, photo, 0);
+            } else {
+                letterContants = new LetterContants(sender, contants, date, photo, Integer.parseInt(paperType));
+            }
+
+
             // db insert하는 코드 들어가야됨
+            DBFamstory.getInstance(this).insertLetterContants(letterContants);
 
-            sendNotification("편지 도착", sender + "로부터 편지가 도착했습니다!");
+            sendNotification(sender, contants);
         } else if (fcmType.equals("Member")) {
             Log.d(TAG, "Member 받아옴!!");
             String name = remoteMessage.getData().get("name");
@@ -70,7 +81,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             sendNotification("가족참여알림", name+"(" + relation + ") 이 참여했습니다.");
         }
-
     }
 
     private void sendNotification(String title, String contents)

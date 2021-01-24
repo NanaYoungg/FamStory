@@ -1,7 +1,7 @@
 package com.hongsam.famstrory.define;
 
 import android.widget.TextView;
-
+import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.data.Keyword;
 import com.hongsam.famstrory.data.Member;
 
@@ -67,6 +67,13 @@ public class Define {
     public static int TIME_PICKER_START = 10000;
     public static int TIME_PICKER_END = TIME_PICKER_START+1;
 
+    public static int[] LETTER_PAPAER_ARRAY = {
+
+
+            R.drawable.paper3,
+            R.drawable.paper4,
+            R.drawable.paper5
+    };
     public static int DATA_IS_NULL = 510;
     public static int DATA_IS_NOT_NULL = DATA_IS_NULL+1;
 
