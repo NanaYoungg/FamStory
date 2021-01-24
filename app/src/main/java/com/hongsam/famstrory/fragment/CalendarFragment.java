@@ -6,15 +6,9 @@ import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.CalendarView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,7 +20,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
-import com.hongsam.famstrory.data.Calendar;
+import com.hongsam.famstrory.calendarui.BoldDecorator;
+import com.hongsam.famstrory.calendarui.MinMaxDecorate;
+import com.hongsam.famstrory.calendarui.SaturdayDecorate;
+import com.hongsam.famstrory.calendarui.SundayDecorate;
+import com.hongsam.famstrory.data.CalendarData;
 import com.hongsam.famstrory.databinding.FragmentCalendarBinding;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.dialog.CalendarCustomDialog;
@@ -38,13 +36,13 @@ import com.hongsam.famstrory.firebase.UpdateDB;
 import com.hongsam.famstrory.interf.CallbackInterface;
 
 
-import com.hongsam.famstrory.database.MyMessageDB.*;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
-import java.time.LocalDate;
+import java.util.Calendar;
 
 /**
  * 메인화면에서 일정관리 화면
@@ -111,7 +109,23 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
         ReadDB readDB = new ReadDB(mainActivity);
         readDB.databaseRead(getCalendarYear, getCalendarMonth, getCalendarDay);
         getFragmentManager().beginTransaction().replace(R.id.calendar_view_more, viewMoreFragment).commit();
+        SundayDecorate sundayDecorate = new SundayDecorate();
+        SaturdayDecorate saturdayDecorate = new SaturdayDecorate();
+        MinMaxDecorate minMaxDecorate = new MinMaxDecorate();
+        mb.calendarView.addDecorators(
+                new SundayDecorate(),
+                new SaturdayDecorate()
+        );
+        mb.calendarView.setTopbarVisible(true);
+        Calendar calendar = Calendar.getInstance();
+        ;
 
+        mb.calendarView.setShowOtherDates(MaterialCalendarView.SHOW_OUT_OF_RANGE);
+/*        mb.calendarView.state().edit()
+                .setMinimumDate(CalendarDay.from(2020,0,1))
+                .setMaximumDate(CalendarDay.from(2050,11,31))
+                .setCalendarDisplayMode(CalendarMode.MONTHS)
+                .commit();*/
 
         return root;
     }
@@ -285,7 +299,7 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
     }
 
     @Override
-    public void view_more_text(Calendar data) {
+    public void view_more_text(CalendarData data) {
         Log.e("tag","adfasdf");
         String name = data.getTitle();
         String text = data.getDescription();
