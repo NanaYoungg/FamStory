@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -63,7 +64,6 @@ public class LetterReadFragment extends Fragment {
 
     public LetterReadFragment() {
     }
-
 
 
     @Override
@@ -118,8 +118,8 @@ public class LetterReadFragment extends Fragment {
             });
 
 
-        //삭제 버튼
-        mdeletBtn.setOnClickListener(new View.OnClickListener() {
+            //삭제 버튼
+            mdeletBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //휴지통 이미지버튼 누를시 DB에서 삭제
@@ -140,94 +140,13 @@ public class LetterReadFragment extends Fragment {
             });
 
 
-
-
-            //편지 읽기
-//            String getSender = mFromTv.getText().toString();
-//            String getContants = mContants.getText().toString();
-//            String getDate = mWriteDate.getText().toString();
-//            String getPhoto = urlPath;
-//            int type = paperType;
-//
-//            LetterContants letterContants = new LetterContants(getSender, getContants, getDate, getPhoto, type);
-//
-//            //생성된 가족 구성원의 토큰값 (KEY_FIREBASE_TOKEN)
-//            getFamTokens("첫째딸", letterContants);
-//            getFamTokens("할아버지", letterContants);
-//            getFamTokens("할머니", letterContants);
-//            getFamTokens("아빠", letterContants);
-//            getFamTokens("엄마", letterContants);
-//            getFamTokens("첫째아들", letterContants);
-//            getFamTokens("둘째아들", letterContants);
-//            getFamTokens("셋째아들", letterContants);
-//            getFamTokens("둘째딸", letterContants);
-//            getFamTokens("셋째딸", letterContants);
-//
-//        }
-
-
         }
 
-
-//    // 받는사람 토큰값 받아오기 (for each문 사용하여 sender = members 참조하여 같은 토큰값 get)
-//    //  저장되어있는 토큰 따로받아서 저장
-//    public void getFamTokens(final String receiver, final LetterContants letterContants) {
-//        DatabaseReference ref = FirebaseManager.dbFamRef.child(TEST_FAMILY).child("members");
-//        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
-//                    Member member = singleSnapshot.getValue(Member.class);
-//                    if (member.getRelation().equals(receiver)) {
-//                        sendLetter(singleSnapshot.getKey(), letterContants);
-//                    }
-//
-//                }
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
     }
 
-
-
-//        public void ReadLetter (String receiverToken, LetterContants letterContants){
-//        FirebaseManager.dbFamRef.child(TEST_FAMILY).child("LetterContants").child(receiverToken).setValue(letterContants);
-//
-//            mFamRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange (@NonNull DataSnapshot snapshot){
-//                    if (snapshot.exists()) {
-//                        for (DataSnapshot npsnapshot : snapshot.getChildren()) {
-//                            LetterList al = npsnapshot.getValue(LetterList.class);
-//                            itemList.add(al);
-//                        }
-//                        letterListAdapter = new LetterListAdapter(itemList, mainActivity);
-//                        recyclerView.setAdapter(letterListAdapter);
-//                    }
-//                }
-//
-//            Log.d(TAG, letterContants.getContants());
-//            Log.d(TAG, letterContants.getSender());
-//            Log.d(TAG, letterContants.getDate());
-//            Log.d(TAG, letterContants.getPhoto());
-//            Log.d(TAG, Integer.toString(letterContants.getPaperType()));
-//
-//        }
-//    }
 }
 
 
-//    public void setLetterPaper(int id) {
-//        paperType = id;
-//        mBackgound.setImageResource(id);
-//    }
 
 
 
