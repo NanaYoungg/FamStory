@@ -3,7 +3,10 @@ package com.hongsam.famstrory.fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -50,6 +54,8 @@ import com.hongsam.famstrory.util.FirebaseManager;
 import com.hongsam.famstrory.util.GlobalMethod;
 import com.hongsam.famstrory.util.SharedManager;
 
+import id.zelory.compressor.Compressor;
+
 import static android.app.Activity.RESULT_OK;
 
 
@@ -59,10 +65,10 @@ public class ProfileFragment extends Fragment {
     MainActivity mainActivity;
     View mContentView;
 
-    LinearLayout layoutImage;
+    LinearLayout layoutImage, layoutEmpty;
 
     CardView cvMain;
-    ImageView ivMain;
+    ImageView ivMain, ivEmpty;
     RecyclerView rvMember;
 
     EditText etTitle;
@@ -117,12 +123,14 @@ public class ProfileFragment extends Fragment {
     public void init(View v) {
         if (v != null) {
             memberList = DBFamstory.getInstance(mainActivity).selectAllMemberList();
+            Log.d(TAG, "memberList size : " + memberList.size());
 
             if (memberList == null) {
                 memberList = new ArrayList<>();
             }
 
             layoutImage = v.findViewById(R.id.f_profile_layout_image);
+            layoutEmpty = v.findViewById(R.id.f_profile_layout_empty);
 
             tvFamName = v.findViewById(R.id.f_profile_tv_fam_name);
             etTitle = v.findViewById(R.id.f_profile_et_title);
@@ -131,9 +139,11 @@ public class ProfileFragment extends Fragment {
             btnTitle = v.findViewById(R.id.f_profile_btn_title);
             cvMain = v.findViewById(R.id.f_profile_cv_main);
             ivMain = v.findViewById(R.id.f_profile_iv_main);
+            ivEmpty = v.findViewById(R.id.f_profile_iv_empty);
 
             tvTitle.setOnLongClickListener(mLongClickListener);
-            tvEmpty.setOnLongClickListener(mLongClickListener);
+            //tvEmpty.setOnLongClickListener(mLongClickListener);
+            layoutEmpty.setOnLongClickListener(mLongClickListener);
 
             btnTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -166,6 +176,7 @@ public class ProfileFragment extends Fragment {
             tvTitle.setText(SharedManager.readString(Define.KEY_FAMILY_TITLE, ""));
 
             rvMember = mContentView.findViewById(R.id.f_profile_rv_member);
+            rvMember.addItemDecoration(new RecyclerViewMargin(10, memberList.size()));
             memberAdapter = new RecyclerAdapter(mainActivity, R.layout.item_member, Define.VIEWTYPE_MEMBER, memberList);
             rvMember.setAdapter(memberAdapter);
 
@@ -212,7 +223,8 @@ public class ProfileFragment extends Fragment {
             public void onFailure(@NonNull Exception e) {
                 Log.d(TAG, "이미지 업로드 실패!");
                 layoutImage.setVisibility(View.GONE);
-                tvEmpty.setVisibility(View.VISIBLE);
+                //tvEmpty.setVisibility(View.VISIBLE);
+                layoutEmpty.setVisibility(View.VISIBLE);
             }
         });
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -220,10 +232,11 @@ public class ProfileFragment extends Fragment {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Log.d(TAG, "이미지 업로드 성공!");
                 layoutImage.setVisibility(View.VISIBLE);
-                tvEmpty.setVisibility(View.GONE);
+                //tvEmpty.setVisibility(View.GONE);
+                layoutEmpty.setVisibility(View.GONE);
                 SharedManager.writeLong(Define.KEY_FAMILY_PICTURE_SIZE, taskSnapshot.getTotalByteCount());
 
-                String picturePath = GlobalMethod.saveToInternalStorage(mainActivity, bm, "family.jpg");
+                String picturePath = GlobalMethod.saveToInternalStorage(mainActivity, bm, "family.png");
                 SharedManager.writeObject(Define.KEY_FAMILY_PICTURE_PATH, picturePath);
 
             }
@@ -292,10 +305,11 @@ public class ProfileFragment extends Fragment {
                     Log.d(TAG, "서버 이미지랑 같음! 내장이미지 적용!");
 
                     String path = SharedManager.readString(Define.KEY_FAMILY_PICTURE_PATH, "");
-                    Bitmap picture = GlobalMethod.loadImageFromStorage(path, "family.jpg");
+                    Bitmap picture = GlobalMethod.loadImageFromStorage(path, "family.png");
 
                     if (picture == null) {
-                        tvEmpty.setVisibility(View.VISIBLE);
+                        //tvEmpty.setVisibility(View.VISIBLE);
+                        layoutEmpty.setVisibility(View.VISIBLE);
                         layoutImage.setVisibility(View.GONE);
                         return;
                     } else {
@@ -303,7 +317,8 @@ public class ProfileFragment extends Fragment {
                         ivMain.setImageBitmap(picture);
                     }
                 }
-                tvEmpty.setVisibility(View.GONE);
+                //tvEmpty.setVisibility(View.GONE);
+                layoutEmpty.setVisibility(View.GONE);
                 layoutImage.setVisibility(View.VISIBLE);
             }
         });
@@ -311,30 +326,43 @@ public class ProfileFragment extends Fragment {
         sm.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                tvEmpty.setVisibility(View.VISIBLE);
+                //tvEmpty.setVisibility(View.VISIBLE);
+                layoutEmpty.setVisibility(View.VISIBLE);
                 layoutImage.setVisibility(View.GONE);
             }
         });
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable final Intent data) {
         if (requestCode == 101 && resultCode == RESULT_OK) {
-            try {
-                InputStream is = mainActivity.getContentResolver().openInputStream(data.getData());
-                Bitmap bm = GlobalMethod.RotateBitmap(BitmapFactory.decodeStream(is), GlobalMethod.GetPathFromUri(mainActivity, data.getData()));
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        InputStream is = mainActivity.getContentResolver().openInputStream(data.getData());
+                        Bitmap bm = GlobalMethod.RotateBitmap(BitmapFactory.decodeStream(is), GlobalMethod.GetPathFromUri(mainActivity, data.getData()));
+                        GlobalMethod.SaveBitmapToFileCache(bm, mainActivity.getFilesDir().getPath(), "/photo.png");
 
-                is.close();
+                        // 이미지 압축 작업
+                        File file = new File(mainActivity.getFilesDir().getPath() + "/photo.png");
+                        file = new Compressor(mainActivity).setQuality(50).setMaxWidth(600).setMaxHeight(600).compressToFile(file);
+                        bm = GlobalMethod.FileToBitmap(file);
 
-                tvEmpty.setVisibility(View.GONE);
-                layoutImage.setVisibility(View.VISIBLE);
-                ivMain.setImageBitmap(bm);
+                        is.close();
 
-                uploadPicture(bm);
+                        //tvEmpty.setVisibility(View.GONE);
+                        layoutEmpty.setVisibility(View.GONE);
+                        layoutImage.setVisibility(View.VISIBLE);
+                        ivMain.setImageBitmap(bm);
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                        uploadPicture(bm);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
     }
 
@@ -357,7 +385,7 @@ public class ProfileFragment extends Fragment {
         public boolean onLongClick(View v) {
             int id = v.getId();
 
-            if (id == R.id.f_profile_tv_empty || id == R.id.f_profile_iv_main) {
+            if (id == R.id.f_profile_layout_empty || id == R.id.f_profile_iv_main) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(intent, 101);
@@ -370,6 +398,45 @@ public class ProfileFragment extends Fragment {
 
             }
             return true;
+        }
+    }
+
+    public class RecyclerViewMargin extends RecyclerView.ItemDecoration {
+        private final int columns;
+        private int margin;
+
+        /**
+         * constructor
+         * @param margin desirable margin size in px between the views in the recyclerView
+         * @param columns number of columns of the RecyclerView
+         */
+        public RecyclerViewMargin(@IntRange(from=0)int margin , @IntRange(from=0) int columns ) {
+            this.margin = margin;
+            this.columns=columns;
+
+        }
+
+        /**
+         * Set different margins for the items inside the recyclerView: no top margin for the first row
+         * and no left margin for the first column.
+         */
+        @Override
+        public void getItemOffsets(Rect outRect, View view,
+                                   RecyclerView parent, RecyclerView.State state) {
+
+            int position = parent.getChildLayoutPosition(view);
+            //set right margin to all
+            outRect.right = margin;
+            //set bottom margin to all
+            outRect.bottom = margin;
+            //we only add top margin to the first row
+            if (position <columns) {
+                outRect.top = margin;
+            }
+            //add left margin only to the first column
+            if(position%columns==0){
+                outRect.left = margin;
+            }
         }
     }
 

@@ -63,13 +63,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             // db insert하는 코드 들어가야됨
 
             sendNotification("편지 도착", sender + "로부터 편지가 도착했습니다!");
-        } else if (fcmType.equals("Member")) {
-            Log.d(TAG, "Member 받아옴!!");
-            String name = remoteMessage.getData().get("name");
-            String relation = remoteMessage.getData().get("relation");
-
-            sendNotification("가족참여알림", name+"(" + relation + ") 이 참여했습니다.");
+        } else if (fcmType.equals("Notice")) {
+            Log.d(TAG, "Notice 받아옴!!");
+            String contents = remoteMessage.getData().get("contents");
+            sendNotification("가족참여알림", contents);
         }
+//        else if (fcmType.equals("Member")) {
+//            Log.d(TAG, "Member 받아옴!!");
+//            String name = remoteMessage.getData().get("name");
+//            String relation = remoteMessage.getData().get("relation");
+//
+//            sendNotification("가족참여알림", name+"(" + relation + ") 이 참여했습니다.");
+//        }
 
     }
 

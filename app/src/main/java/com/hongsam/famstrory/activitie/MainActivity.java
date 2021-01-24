@@ -41,6 +41,7 @@ import com.hongsam.famstrory.adapter.ViewPagerAdapter;
 import com.hongsam.famstrory.data.Calendar;
 import com.hongsam.famstrory.data.Family;
 import com.hongsam.famstrory.data.Member;
+import com.hongsam.famstrory.data.Notice;
 import com.hongsam.famstrory.database.DBFamstory;
 import com.hongsam.famstrory.databinding.ActivityMainBinding;
 import com.hongsam.famstrory.define.Define;
@@ -93,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     String relation = "";
     String myName = "";
     ArrayList<Member> memberList;
+
+    boolean isJoin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
             }
         });
 
-        getFamilyMembers();
+        //getFamilyMembers();
 
         changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
         DebugDB.getAddressLog();
@@ -215,6 +218,9 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
 
     public void writeMember(String token, Member member) {
         FirebaseManager.dbFamRef.child(famName).child("members").child(token).setValue(member);
+
+        Log.d(TAG, "공지 전송 : " + myName + "(" + relation + ")" + "님이 참여했습니다!");
+        sendNotice(myName + "(" + relation + ")" + "님이 참여했습니다!");
     }
 
     public void deleteMember(String token) {
@@ -230,16 +236,23 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
                 if (snapshot.getChildrenCount() == 0) {
                     saveToken(relation, myName, token);
                 } else {
+                    boolean existsFlag = false;
                     for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
                         Member member = singleSnapshot.getValue(Member.class);
                         if (member.getRelation().equals(relation)) {
+                            existsFlag = true;
                             if (!singleSnapshot.getKey().equals(token)) {
                                 saveToken(relation, myName, token);
                                 deleteMember(singleSnapshot.getKey());
                             }
-                        } else {
-                            saveToken(relation, myName, token);
                         }
+                    }
+
+                    if (!existsFlag) {
+                        // members에 자기 relation이 없으면 저장
+                        saveToken(relation, myName, token);
+                    } else {
+                        getFamilyMembers();
                     }
                 }
             }
@@ -295,6 +308,27 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
         });
     }
 
+    // 공지 전달 ex) 가족 참여 등
+    public void sendNotice(final String msg) {
+        FirebaseManager.dbFamRef.child(famName).child("members").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+                    Member member = singleSnapshot.getValue(Member.class);
+
+                    if (!member.getRelation().equals(relation)) {
+                        FirebaseManager.dbFamRef.child(famName).child("notice").child(singleSnapshot.getKey()).setValue(new Notice(msg));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 //    public void checkToken(final String token) {
 //        FirebaseManager.dbFamRef.child(famName).child("members").addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
@@ -327,6 +361,8 @@ public class MainActivity extends AppCompatActivity implements CalendarFragment.
     public void saveToken(String relation, String name, String token) {
         SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
         writeMember(token, new Member(relation, name, token));
+
+        getFamilyMembers();
     }
 
     public void setCallbackInterface(CallbackInterface ci) {

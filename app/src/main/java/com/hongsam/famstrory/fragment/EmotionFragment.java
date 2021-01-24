@@ -360,6 +360,8 @@ public class EmotionFragment extends Fragment {
 
         Emotion emotionMe = new Emotion(SharedManager.readString(Define.KEY_MY_RELATION, ""), msg, today);
         DBFamstory.getInstance(mainActivity).insertEmotion(emotionMe);
+
+        Toast.makeText(mainActivity, "전송 완료!", Toast.LENGTH_SHORT).show();
     }
 
     public void initMap() {
