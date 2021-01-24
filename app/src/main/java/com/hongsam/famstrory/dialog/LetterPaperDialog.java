@@ -74,11 +74,10 @@ public class LetterPaperDialog extends DialogFragment {
 
     private ArrayList<LetterPaper> initData() {
         itemList = new ArrayList<>();
-        itemList.add(new LetterPaper(R.drawable.paper1_preview));
-        itemList.add(new LetterPaper(R.drawable.paper2_preview));
-        itemList.add(new LetterPaper(R.drawable.paper3_preview));
-        itemList.add(new LetterPaper(R.drawable.paper4_preview));
-        itemList.add(new LetterPaper(R.drawable.paper5_preview));
+        itemList.add(new LetterPaper(R.drawable.paper2));
+        itemList.add(new LetterPaper(R.drawable.paper6));
+        itemList.add(new LetterPaper(R.drawable.paper4));
+        itemList.add(new LetterPaper(R.drawable.paper5));
 
         return itemList;
 

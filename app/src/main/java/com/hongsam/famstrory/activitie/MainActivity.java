@@ -298,34 +298,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
         });
     }
 
-//    public void checkToken(final String token) {
-//        FirebaseManager.dbFamRef.child(famName).child("members").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                boolean flag = false;
-//                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
-//                    if (singleSnapshot.getKey().equals(SharedManager.readString(Define.KEY_FIREBASE_TOKEN, ""))) {
-//                        flag = true;
-//                    }
-//                }
-//
-//                if (!flag) {
-//                    Log.d(TAG, "firebase 안에 토큰 없음! 새로 추가!");
-//                    saveToken("아들", "김아들", token);
-//                } else {
-//                    Log.d(TAG, "firebase 안에 토큰 있음!");
-//                    // firebase 안에 있는 토큰이 현재 생성한 토큰과 같은지 체크한 후
-//                    // 다르면 delete하는 함수를 호출한다.
-//                    deleteMember("아들");
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
+
 
     public void saveToken(String relation, String name, String token) {
         SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);

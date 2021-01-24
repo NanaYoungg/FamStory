@@ -68,9 +68,8 @@ public class Define {
     public static int TIME_PICKER_END = TIME_PICKER_START+1;
 
     public static int[] LETTER_PAPAER_ARRAY = {
-
-
-            R.drawable.paper3,
+            R.drawable.paper2,
+            R.drawable.paper6,
             R.drawable.paper4,
             R.drawable.paper5
     };
