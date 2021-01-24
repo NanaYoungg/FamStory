@@ -10,7 +10,6 @@ public class LetterContants {
     private String photo;
     private int paperType;
 
-
     public LetterContants() {
     }
 

@@ -3,7 +3,6 @@ package com.hongsam.famstrory.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -29,13 +28,10 @@ import com.hongsam.famstrory.ItemTouchHelper.RecyclerItemTouchHelper;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.adapter.LetterListAdapter;
-import com.hongsam.famstrory.data.LetterContants;
-import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.LetterList;
 import com.hongsam.famstrory.define.Define;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.hongsam.famstrory.fragment.LetterWriteFragment.TEST_FAMILY;
 

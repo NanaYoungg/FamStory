@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,9 +23,13 @@ import androidx.fragment.app.Fragment;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
@@ -33,6 +38,7 @@ import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.adapter.RecyclerAdapter;
 import com.hongsam.famstrory.data.Member;
+import com.hongsam.famstrory.database.DBFamstory;
 import com.hongsam.famstrory.define.Define;
 
 import java.io.ByteArrayOutputStream;
@@ -53,6 +59,8 @@ public class ProfileFragment extends Fragment {
     MainActivity mainActivity;
     View mContentView;
 
+    LinearLayout layoutImage;
+
     CardView cvMain;
     ImageView ivMain;
     RecyclerView rvMember;
@@ -63,7 +71,9 @@ public class ProfileFragment extends Fragment {
 
     ProfileOnLongClickListener mLongClickListener;
 
-    String famName = "재훈이네가족";
+    String famName = "테스트가족";
+    ArrayList<Member> memberList;
+    RecyclerAdapter memberAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +81,9 @@ public class ProfileFragment extends Fragment {
         this.setHasOptionsMenu(true);
 
         mLongClickListener = new ProfileOnLongClickListener();
+        memberList = new ArrayList<>();
+
+        famName = SharedManager.readString(Define.KEY_FAMILY_NAME, "");
     }
 
 
@@ -92,6 +105,7 @@ public class ProfileFragment extends Fragment {
 
         init(mContentView);
         setImageResource();
+        checkServerTitle();
 
         return mContentView;
     }
@@ -102,6 +116,13 @@ public class ProfileFragment extends Fragment {
      * */
     public void init(View v) {
         if (v != null) {
+            memberList = DBFamstory.getInstance(mainActivity).selectAllMemberList();
+
+            if (memberList == null) {
+                memberList = new ArrayList<>();
+            }
+
+            layoutImage = v.findViewById(R.id.f_profile_layout_image);
 
             tvFamName = v.findViewById(R.id.f_profile_tv_fam_name);
             etTitle = v.findViewById(R.id.f_profile_et_title);
@@ -123,32 +144,32 @@ public class ProfileFragment extends Fragment {
                         return;
                     }
 
-                    tvTitle.setText(etTitle.getText().toString());
+                    String title = etTitle.getText().toString();
+                    tvTitle.setText(title);
                     tvTitle.setVisibility(View.VISIBLE);
+                    etTitle.setText("");
                     etTitle.setVisibility(View.GONE);
                     btnTitle.setVisibility(View.GONE);
 
                     mainActivity.showKeyboard(etTitle, false);
+
+                    //SharedPreference와 firebase에 저장
+                    SharedManager.writeString(Define.KEY_FAMILY_TITLE, title);
+                    FirebaseManager.dbFamRef.child(famName).child("famTitle").setValue(title);
+                    Log.d(TAG, "가훈 저장! : " + title);
                 }
             });
+
             ivMain.setOnLongClickListener(mLongClickListener);
 
             tvFamName.setText(famName);
-
-            String[] test = {"엄마", "아빠", "딸", "아들"};
-            String[] test2 = {"김엄마", "김아빠", "김딸", "김아들"};
-            ArrayList<Member> memberList = new ArrayList<>();
-            for (int i = 0; i < 4; i++) {
-                Member member = new Member(test[i], test2[i]);
-                memberList.add(member);
-            }
+            tvTitle.setText(SharedManager.readString(Define.KEY_FAMILY_TITLE, ""));
 
             rvMember = mContentView.findViewById(R.id.f_profile_rv_member);
-            RecyclerAdapter rvAdapterB = new RecyclerAdapter(mainActivity, R.layout.item_member, Define.VIEWTYPE_MEMBER, memberList);
-            rvMember.setAdapter(rvAdapterB);
+            memberAdapter = new RecyclerAdapter(mainActivity, R.layout.item_member, Define.VIEWTYPE_MEMBER, memberList);
+            rvMember.setAdapter(memberAdapter);
 
-
-
+            //getFamilyMembers();
         }
     }
 
@@ -161,6 +182,25 @@ public class ProfileFragment extends Fragment {
         checkServerPicture();
     }
 
+//    public void getFamilyMembers() {
+//
+//        FirebaseManager.dbFamRef.child(famName).child("members").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot singleShapshot : snapshot.getChildren()) {
+//                    memberList.add(singleShapshot.getValue(Member.class));
+//                }
+//                memberAdapter = new RecyclerAdapter(mainActivity, R.layout.item_member, Define.VIEWTYPE_MEMBER, memberList);
+//                rvMember.setAdapter(memberAdapter);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
+
     public void uploadPicture(final Bitmap bm) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -171,7 +211,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d(TAG, "이미지 업로드 실패!");
-                cvMain.setVisibility(View.GONE);
+                layoutImage.setVisibility(View.GONE);
                 tvEmpty.setVisibility(View.VISIBLE);
             }
         });
@@ -179,7 +219,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Log.d(TAG, "이미지 업로드 성공!");
-                cvMain.setVisibility(View.VISIBLE);
+                layoutImage.setVisibility(View.VISIBLE);
                 tvEmpty.setVisibility(View.GONE);
                 SharedManager.writeLong(Define.KEY_FAMILY_PICTURE_SIZE, taskSnapshot.getTotalByteCount());
 
@@ -217,6 +257,25 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    public void checkServerTitle() {
+        FirebaseManager.dbFamRef.child(famName).child("famTitle").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String serverTitle = snapshot.getValue(String.class);
+                if (!tvTitle.getText().toString().equals(serverTitle)) {
+                    Log.d(TAG, "가훈이 서버랑 다름! : " + serverTitle);
+                    SharedManager.writeString(Define.KEY_FAMILY_TITLE, serverTitle);
+                    tvTitle.setText(serverTitle);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     public void checkServerPicture() {
         StorageReference ref = FirebaseManager.storageFamRef.child(famName+FirebaseManager.pathImgTitle);
         final Task<StorageMetadata> sm = ref.getMetadata();
@@ -237,14 +296,15 @@ public class ProfileFragment extends Fragment {
 
                     if (picture == null) {
                         tvEmpty.setVisibility(View.VISIBLE);
-                        cvMain.setVisibility(View.GONE);
+                        layoutImage.setVisibility(View.GONE);
                         return;
                     } else {
+//                        Glide.with(getContext()).asBitmap().load
                         ivMain.setImageBitmap(picture);
                     }
                 }
                 tvEmpty.setVisibility(View.GONE);
-                cvMain.setVisibility(View.VISIBLE);
+                layoutImage.setVisibility(View.VISIBLE);
             }
         });
 
@@ -252,7 +312,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 tvEmpty.setVisibility(View.VISIBLE);
-                cvMain.setVisibility(View.GONE);
+                layoutImage.setVisibility(View.GONE);
             }
         });
     }
@@ -267,7 +327,7 @@ public class ProfileFragment extends Fragment {
                 is.close();
 
                 tvEmpty.setVisibility(View.GONE);
-                cvMain.setVisibility(View.VISIBLE);
+                layoutImage.setVisibility(View.VISIBLE);
                 ivMain.setImageBitmap(bm);
 
                 uploadPicture(bm);
@@ -276,6 +336,11 @@ public class ProfileFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     /**

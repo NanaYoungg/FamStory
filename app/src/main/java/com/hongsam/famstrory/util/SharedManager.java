@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.hongsam.famstrory.activitie.MainActivity;
+import com.hongsam.famstrory.activitie.StartMenuActivity;
 
 public class SharedManager {
 

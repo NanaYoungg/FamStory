@@ -12,41 +12,53 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.hongsam.famstrory.activitie.MainActivity;
+import com.hongsam.famstrory.data.Calendar;
 import com.hongsam.famstrory.define.Define;
 
-import java.util.Objects;
-
 public class UpdateDB {
-    CalendarDB calendarDB;
+    Calendar calendarDB;
     MainActivity mainActivity;
     public UpdateDB(MainActivity mainActivity) {
 
         this.mainActivity = mainActivity;
     }
 
-    public void updateDB(final String date){
+    public void updateDB(int year, int month, final int day){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        String userName = Define.user;
-        DatabaseReference myRef = database.getReference("CalendarDB").child(userName);
-        Query query = myRef.orderByChild(date);
+        String userName = Define.USER;
+        DatabaseReference myRef = database.getReference("Family").child(userName).child("CalendarDB")
+                .child(year+"년").child(month+"월");
+
+        Query query = myRef.orderByChild(day+"일");
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(Objects.equals(snapshot.getKey(),date)) {
-                    calendarDB = snapshot.getValue(CalendarDB.class);
-                    Log.e("Tag", calendarDB.getTitle());
+                String getData = snapshot.getKey();
+                if ((day+"일").equals(getData)){
+                    calendarDB = snapshot.getValue(Calendar.class);
                     mainActivity.calendarUpdateGetDialogText(calendarDB);
                 }
+                //if(Objects.equals(snapshot.getKey(),"title")) {
+//                    calendarDB = snapshot.getValue(CalendarDB.class);
+//                    Log.e("Tag", calendarDB.getTitle());
+//                    mainActivity.calendarUpdateGetDialogText(calendarDB);
+                //}
 
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (Objects.equals(snapshot.getKey(),date)) {
-                    calendarDB = snapshot.getValue(CalendarDB.class);
-                    Log.e("Tag", calendarDB.getTitle());
+                String getData = snapshot.getKey();
+                Log.e("s",getData);
+                if ((day+"일").equals(getData)){
+                    calendarDB = snapshot.getValue(Calendar.class);
                     mainActivity.calendarUpdateGetDialogText(calendarDB);
                 }
+                //if (Objects.equals(snapshot.getKey(),"title")) {
+/*                    calendarDB = snapshot.getValue(CalendarDB.class);
+                    Log.e("Tag", calendarDB.getTitle());
+                    mainActivity.calendarUpdateGetDialogText(calendarDB);*/
+                //}
             }
 
             @Override

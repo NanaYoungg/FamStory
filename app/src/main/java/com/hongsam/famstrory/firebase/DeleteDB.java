@@ -9,10 +9,9 @@ public class DeleteDB {
     MainActivity mainActivity;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    String userName = Define.user;
-    DatabaseReference myRef = database.getReference("CalendarDB").child(userName);
-    public void databaseDelete(String date){
-        myRef.child(date).removeValue();
-
+    String userName = Define.USER;
+    DatabaseReference myRef = database.getReference("Family").child(userName).child("CalendarDB");
+    public void databaseDelete(int Year,int Month,int Day){
+        myRef.child(Year+"년").child(Month+"월").child(Day+"일").removeValue();
     }
 }

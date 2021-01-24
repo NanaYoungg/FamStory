@@ -1,7 +1,6 @@
 package com.hongsam.famstrory.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,12 +8,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +26,9 @@ import com.hongsam.famstrory.data.LetterList;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.dialog.LetterReceiverDialog;
 import com.hongsam.famstrory.util.FirebaseManager;
+import com.hongsam.famstrory.R;
+import com.hongsam.famstrory.activitie.MainActivity;
+import com.hongsam.famstrory.define.Define;
 
 import static com.hongsam.famstrory.fragment.LetterWriteFragment.TEST_FAMILY;
 

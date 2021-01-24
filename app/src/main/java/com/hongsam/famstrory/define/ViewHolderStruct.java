@@ -4,18 +4,16 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.data.Member;
-import com.hongsam.famstrory.dialog.ProfileDialog;
+import com.hongsam.famstrory.database.DBFamstory;
 
 import java.util.ArrayList;
 
@@ -45,6 +43,7 @@ public class ViewHolderStruct {
     public static class ViewHolderMember extends BasicViewHolder {
 
         ArrayList<Member> memberList;
+        TextView tvRelation;
         TextView tvName;
         TextView tvCall;
         EditText etEdit;
@@ -58,6 +57,7 @@ public class ViewHolderStruct {
         @Override
         public void findViewById(View itemView) {
             super.findViewById(itemView);
+            tvRelation = itemView.findViewById(R.id.i_member_tv_relation);
             tvName = itemView.findViewById(R.id.i_member_tv_name);
             tvCall = itemView.findViewById(R.id.i_member_tv_call);
             etEdit = itemView.findViewById(R.id.i_member_et_edit);
@@ -68,7 +68,9 @@ public class ViewHolderStruct {
         public void init(final int position) {
             super.init(position);
 
+            tvRelation.setText(memberList.get(position).getRelation());
             tvName.setText(memberList.get(position).getName());
+            tvCall.setText(memberList.get(position).getCall());
 
             tvCall.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -89,6 +91,9 @@ public class ViewHolderStruct {
                         return;
                     }
 
+                    DBFamstory.getInstance(mContext).updateMemberCall(tvRelation.getText().toString(), etEdit.getText().toString());
+                    //Define.memberList.get(position).setCall(etEdit.getText().toString());
+
                     tvCall.setText(etEdit.getText().toString());
                     tvCall.setVisibility(View.VISIBLE);
                     etEdit.setVisibility(View.GONE);
@@ -100,6 +105,16 @@ public class ViewHolderStruct {
         }
 
     }
+/*    public static class FamilyViewHolder extends BasicViewHolder{
+
+        public FamilyViewHolder(@NonNull View itemView, Context context, Object dataList) {
+            super(itemView, context, dataList);
+        }
+        TextView Name;
+        TextView NickName;
+
+    }*/
+
 
 }
 

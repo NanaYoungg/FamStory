@@ -241,7 +241,6 @@ public class LetterWriteFragment extends Fragment {
 
                 }
             });
-
         }
     }
 

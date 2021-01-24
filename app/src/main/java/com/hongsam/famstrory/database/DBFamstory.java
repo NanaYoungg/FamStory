@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.hongsam.famstrory.data.Emotion;
 import com.hongsam.famstrory.data.LetterContants;
+import com.hongsam.famstrory.data.Member;
 
 import java.util.ArrayList;
 
@@ -28,10 +29,11 @@ public class DBFamstory {
     private static DBFamstory dbFamstory;
 
     public static DBFamstory getInstance(Context context) {
-        return dbFamstory = new DBFamstory(context);
+        dbFamstory = new DBFamstory(context);
+        return dbFamstory;
     }
 
-    private DBFamstory(Context context) {
+    public DBFamstory(Context context) {
         helper = new DBHelper(context, DB_NAME, null, DB_VERSION);
         db = helper.open();
     }
@@ -101,7 +103,6 @@ public class DBFamstory {
         db.delete(DBSchema.TB_EMOTION, null, null);
     }
 
-
 //    /**
 //     * @Description : TB_LETTERTB_LETTER 데이터들을 모두 삭제하는 함수
 //     */
@@ -128,6 +129,104 @@ public class DBFamstory {
             values.put("LETTER_PHOTO", letter.getPhoto());
             values.put("LETTER_PAPER_TYPE", letter.getPaperType());
             db.insert(DBSchema.TB_LETTER, null, values);
+        }
+    }
+    /**
+     * @param member
+     * @Description : Member 데이터를 insert하는 함수
+     * UIQUE KEY가 겹치면 insert가 아닌 update로 처리
+     * SEQ_NO INTEGER primary key autoincrement -- 시퀀스넘버
+     * MEMBER_RELATION VARCHAR(20) -- 관계
+     * MEMBER_NAME VARCHAR(20) -- 이름
+     * MEMBER_CALL VARCHAR(20) -- 호칭
+     * MEMBER_TOKEN VARCHAR(100) -- 토큰
+     * UNIQUE (MEMBER_RELATION,MEMBER_NAME)
+     */
+
+    public void insertMemberOnDuplicate(Member member) {
+        if (isOpen()) {
+            ContentValues values = new ContentValues();
+            values.put("MEMBER_RELATION", member.getRelation());
+            values.put("MEMBER_NAME", member.getName());
+            values.put("MEMBER_CALL", member.getCall());
+            values.put("MEMBER_TOKEN", member.getToken());
+
+            db.insertWithOnConflict(DBSchema.TB_MEMBER, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        } else {
+            Log.d(TAG, "db null OR not open");
+        }
+    }
+
+    /**
+     * @Description : 전체 Member 데이터를 검색하는 함수
+     * SEQ_NO INTEGER primary key autoincrement -- 시퀀스넘버
+     * MEMBER_RELATION VARCHAR(20) -- 관계
+     * MEMBER_NAME VARCHAR(20) -- 이름
+     * MEMBER_CALL VARCHAR(20) -- 호칭
+     * MEMBER_TOKEN VARCHAR(100) -- 토큰
+     * UNIQUE (MEMBER_RELATION,MEMBER_NAME)
+     */
+    public ArrayList<Member> selectAllMemberList() {
+        if (isOpen()) {
+            String query = "select * from " + DBSchema.TB_MEMBER;
+
+            ArrayList<Member> memberList = new ArrayList<>();
+            Cursor cursor = db.rawQuery(query, null);
+            while (cursor.moveToNext()) {
+                Member member = new Member();
+                member.setRelation(cursor.getString(1));
+                member.setName(cursor.getString(2));
+                member.setCall(cursor.getString(3));
+                member.setToken(cursor.getString(4));
+
+                memberList.add(member);
+            }
+            return memberList;
+        } else {
+            Log.d(TAG, "db null OR not open");
+            return null;
+        }
+    }
+
+
+    /**
+     * @param relation
+     * @Description : 관계로 호칭을 검색하는 함수
+     * SEQ_NO INTEGER primary key autoincrement -- 시퀀스넘버
+     * MEMBER_RELATION VARCHAR(20) -- 관계
+     * MEMBER_NAME VARCHAR(20) -- 이름
+     * MEMBER_CALL VARCHAR(20) -- 호칭
+     * MEMBER_TOKEN VARCHAR(100) -- 토큰
+     * UNIQUE (MEMBER_RELATION,MEMBER_NAME)
+     */
+    public String selectMemberCallByRelation(String relation) {
+        String call = "";
+        if (isOpen()) {
+            String query = "select MEMBER_CALL from " + DBSchema.TB_MEMBER + " where MEMBER_RELATION = \'" + relation + "\'";
+            Cursor cursor = db.rawQuery(query, null);
+            while (cursor.moveToNext()) {
+                call = cursor.getString(0);
+            }
+        } else {
+            Log.d(TAG, "db null OR not open");
+        }
+        return call;
+    }
+
+    /**
+     * @param relation,call
+     * @Description : 호칭을 수정하는 함수
+     * SEQ_NO INTEGER primary key autoincrement -- 시퀀스넘버
+     * MEMBER_RELATION VARCHAR(20) -- 관계
+     * MEMBER_NAME VARCHAR(20) -- 이름
+     * MEMBER_CALL VARCHAR(20) -- 호칭
+     * MEMBER_TOKEN VARCHAR(100) -- 토큰
+     * UNIQUE (MEMBER_RELATION,MEMBER_NAME)
+     */
+    public void updateMemberCall(String relation, String call) {
+        if (isOpen()) {
+            db.execSQL("UPDATE " + DBSchema.TB_MEMBER + " SET " +
+                    "MEMBER_CALL=\'" + call + "\' WHERE MEMBER_RELATION =\'" + relation+"\'");
         } else {
             Log.d(TAG, "db null OR not open");
         }

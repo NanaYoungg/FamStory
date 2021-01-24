@@ -19,7 +19,7 @@
         android:id="@+id/dialog_receiver"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:entries="@array/member_call"/>
+        android:entries="@array/member_relation"/>
 
 
     <LinearLayout
