@@ -73,7 +73,7 @@
 <br>
 
 ## :bulb:애플리케이션 아키텍처
-<img width="383" alt="dd" src="https://user-images.githubusercontent.com/56735744/105672246-6bb02000-5f27-11eb-8b5d-f677ee6b8633.png">
+<img width="473" alt="dd" src="https://user-images.githubusercontent.com/56735744/105674620-24c42980-5f2b-11eb-99e0-f81391eb5503.png">
 
 
 <br>
