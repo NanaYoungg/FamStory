@@ -3,6 +3,6 @@
     <item android:state_pressed="true" android:drawable="@drawable/calendar_dialog_button_shape_press"/>
     <item android:state_focused="true" android:drawable="@drawable/calendar_dialog_button_shape_press"/>
     <item android:state_pressed="true" android:drawable="@drawable/calendar_dialog_button_shape_press"/>
-    <item android:drawable="@drawable/calendar_dialog_button_shape"/>
+    <item android:drawable="@drawable/calendar_dialog_button_shape2"/>
 
 </selector>

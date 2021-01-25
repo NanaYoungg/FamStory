@@ -38,9 +38,7 @@ public class LetterContants {
         this.sender = sender;
     }
 
-    public String getContants() {
-        return contants;
-    }
+    public String getContants() { return contants; }
 
     public void setContants(String contants) {
         this.contants = contants;
