@@ -79,7 +79,6 @@ public class TimeLineFragment extends Fragment {
         mFamRef = mDb.getReference("Family");
         Log.e("timelin", "timeline");
 
-
     }
 
 
@@ -154,6 +153,8 @@ public class TimeLineFragment extends Fragment {
 
 
     }
+
+
 
     /**
      * 컨트롤 초기화 해주는 함수

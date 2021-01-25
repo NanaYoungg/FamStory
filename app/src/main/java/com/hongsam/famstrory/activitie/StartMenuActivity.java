@@ -74,11 +74,15 @@ public class StartMenuActivity extends AppCompatActivity {
                             FamFindDialog dialog = new FamFindDialog(StartMenuActivity.this);
                             dialog.setOnResultListener(new FamFindDialog.FamFindResultListener() {
                                 @Override
-                                public void onResult(String famName, String name, String relation) {
+                                public void onResult(String famName, String name, String relation, String password) {
+
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     intent.putExtra("famName", famName);
                                     intent.putExtra("name", name);
                                     intent.putExtra("relation", relation);
+
+                                    intent.putExtra("password", password);
+ 
                                     startActivity(intent);
 
                                     finish();

@@ -12,7 +12,7 @@
         android:gravity="center"
         android:textSize="16dp"
         android:text="받는 사람"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorGreen"/>
 
 
     <Spinner
@@ -36,7 +36,7 @@
             android:gravity="center"
             android:text="확인"
             android:textSize="16dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@drawable/letterdialog_btn_customise"/>
 
         <View
             android:layout_width="3dp"
@@ -51,7 +51,7 @@
             android:gravity="center"
             android:text="취소"
             android:textSize="16dp"
-            android:background="@color/colorPrimary"/>
+            android:background="@drawable/letterdialog_btn_customise"/>
 
     </LinearLayout>
 

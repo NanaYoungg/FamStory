@@ -15,7 +15,8 @@
     <color name="colorGreen">#768f82</color>
     <color name="colorWaterGreen">#D2F5E3</color>
     <color name="colorBrown">#E5C5B5</color>
-    <color name="colorWaterBrown">#F4D9C6</color>
+    <color name="colorWaterBrown">#DDD3CC</color>
 
+    <color name="warning">#EF6F76</color>
 
 </resources>

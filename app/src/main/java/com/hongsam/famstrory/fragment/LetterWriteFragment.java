@@ -84,7 +84,9 @@ public class LetterWriteFragment extends Fragment {
     private Button mSendBtn;
     private TextView mToTv, mWriteDate;
 
-    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss"); // 날짜 포맷
+
+    private SimpleDateFormat mFormat = new SimpleDateFormat("yyyy년MM월dd일 hh시mm분ss초"); // 날짜 포맷
+ 
     private SimpleDateFormat mFormatDB = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss"); // 날짜 포맷
 
     private Date date = new Date();
@@ -273,6 +275,7 @@ public class LetterWriteFragment extends Fragment {
             urlPath = "";
         }
 
+
         String getSender = mToTv.getText().toString();
         String getContants = mContants.getText().toString();
         String getDate = mWriteDate.getText().toString();
@@ -282,7 +285,17 @@ public class LetterWriteFragment extends Fragment {
         LetterContants letterContants = new LetterContants(getSender, getContants, getDate, getPhoto, type);
 
         //생성된 가족 구성원의 토큰값 (KEY_FIREBASE_TOKEN) 으로 전송
+        getFamTokens("첫째딸", letterContants);
+        getFamTokens("할아버지", letterContants);
+        getFamTokens("할머니", letterContants);
         getFamTokens("아빠", letterContants);
+        getFamTokens("엄마", letterContants);
+        getFamTokens("첫째아들", letterContants);
+        getFamTokens("둘째아들", letterContants);
+        getFamTokens("셋째아들", letterContants);
+        getFamTokens("둘째딸", letterContants);
+        getFamTokens("셋째딸", letterContants);
+
         mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
         Toast.makeText(getContext(), "편지가 전송되었습니다.", Toast.LENGTH_SHORT).show();
     }

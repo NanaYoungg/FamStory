@@ -37,8 +37,16 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.adapter.ViewPagerAdapter;
 import com.hongsam.famstrory.animation.ZoomOutPageTransformer;
+
 import com.hongsam.famstrory.data.CalendarData;
+
+import com.hongsam.famstrory.data.Calendar;
+import com.hongsam.famstrory.data.Family;
+import com.hongsam.famstrory.data.LetterContants;
+import com.hongsam.famstrory.data.LetterList;
+
 import com.hongsam.famstrory.data.Member;
+import com.hongsam.famstrory.data.Notice;
 import com.hongsam.famstrory.database.DBFamstory;
 import com.hongsam.famstrory.databinding.ActivityMainBinding;
 import com.hongsam.famstrory.define.Define;
@@ -82,11 +90,16 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
     private View root;
     public DBFamstory db;
     private SQLiteDatabase sqLiteDatabase;
+
     public static String user;
     public static String famName = "";
     public static String relation = "";
     public String myName = "";
+
+
     ArrayList<Member> memberList;
+
+    boolean isJoin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
         mb = ActivityMainBinding.inflate(getLayoutInflater());
         root = mb.getRoot();
         setContentView(root);
+
         SharedManager.getInstance(this);
         db = DBFamstory.getInstance(this);
 
@@ -104,7 +118,10 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
         relation = getIntent().getStringExtra("relation");
         myName = getIntent().getStringExtra("name");
 
-        if (famName == null && relation == null && myName == null) {
+        password = getIntent().getStringExtra("password");
+
+        if (famName == null && relation == null && myName == null && password == null) {
+
             loadMyInfo();
         } else {
             saveMyInfo();
@@ -122,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
 
         navigationView = (BottomNavigationView) findViewById(R.id.navi_view);
         ViewPagerAdapter viewPagerAdapter =  new ViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+
         viewPagerAdapter.addItem(new TimeLineFragment());
         viewPagerAdapter.addItem(new EmotionFragment());
 
@@ -129,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
         // 화면 전환 애니메이션 적용
         ZoomOutPageTransformer animation = new ZoomOutPageTransformer();
         mb.viewPager.setPageTransformer(true,animation);
+
         mb.tabLayout.setupWithViewPager(mb.viewPager);
 
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -191,6 +210,11 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
             }
         });
 
+
+
+        //getFamilyMembers();
+
+        changeFragment(Define.FRAGMENT_ID_LETTER_LIST);
         getFamilyMembers();
         mb.basic.setVisibility(View.GONE);
         mb.viewPager.setVisibility(View.VISIBLE);
@@ -200,23 +224,33 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
 
     public void loadMyInfo() {
         famName = SharedManager.readString(Define.KEY_FAMILY_NAME, "");
-        relation = SharedManager.readString(Define.KEY_MY_RELATION, "");;
+
+        relation = SharedManager.readString(Define.KEY_MY_RELATION, "");
         myName = SharedManager.readString(Define.KEY_MY_NAME, "");
+        password = SharedManager.readString(Define.KEY_FAMILY_PASSWORD, "");
+
     }
 
     public void saveMyInfo() {
         SharedManager.writeString(Define.KEY_FAMILY_NAME, famName);
-        SharedManager.writeString(Define.KEY_MY_RELATION, relation);;
+
+        SharedManager.writeString(Define.KEY_MY_RELATION, relation);
         SharedManager.writeString(Define.KEY_MY_NAME, myName);
+        SharedManager.writeString(Define.KEY_FAMILY_PASSWORD, password);
+
     }
 
     public void writeMember(String token, Member member) {
         FirebaseManager.dbFamRef.child(famName).child("members").child(token).setValue(member);
+
+        Log.d(TAG, "공지 전송 : " + myName + "(" + relation + ")" + "님이 참여했습니다!");
+        sendNotice(myName + "(" + relation + ")" + "님이 참여했습니다!");
     }
 
     public void deleteMember(String token) {
         FirebaseManager.dbFamRef.child(famName).child("members").child(token).removeValue();
     }
+
 
     // 중복된 관계가 있는지 판단하는 함수
     public void checkOverwriteRelation(final String relation, final String token) {
@@ -227,16 +261,23 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
                 if (snapshot.getChildrenCount() == 0) {
                     saveToken(relation, myName, token);
                 } else {
+                    boolean existsFlag = false;
                     for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
                         Member member = singleSnapshot.getValue(Member.class);
                         if (member.getRelation().equals(relation)) {
+                            existsFlag = true;
                             if (!singleSnapshot.getKey().equals(token)) {
                                 saveToken(relation, myName, token);
                                 deleteMember(singleSnapshot.getKey());
                             }
-                        } else {
-                            saveToken(relation, myName, token);
                         }
+                    }
+
+                    if (!existsFlag) {
+                        // members에 자기 relation이 없으면 저장
+                        saveToken(relation, myName, token);
+                    } else {
+                        getFamilyMembers();
                     }
                 }
             }
@@ -247,6 +288,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
             }
         });
     }
+
 
     // 파이어베이스 토큰을 생성하는 함수
     public void getFirebaseToken() {
@@ -270,6 +312,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
     // 파이어베이스로부터 가족 객체를 얻어오는 함수
     // 앱 실행 시 한번만 가져오면 이후에는 내부 db에서 꺼내서 사용할 수 있게하기 위함
     public void getFamilyMembers() {
+
         FirebaseManager.dbFamRef.child(famName).child("members").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -281,6 +324,30 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
 
                     // 파이어베이스에서 멤버 정보를 받자마자 내부 db에 저장
                     DBFamstory.getInstance(MainActivity.this).insertMemberOnDuplicate(member);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    // 공지 전달 ex) 가족 참여 등
+    public void sendNotice(final String msg) {
+
+        FirebaseManager.dbFamRef.child(famName).child("members").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+
+                    Member member = singleSnapshot.getValue(Member.class);
+
+                    if (!member.getRelation().equals(relation)) {
+                        FirebaseManager.dbFamRef.child(famName).child("notice").child(singleSnapshot.getKey()).setValue(new Notice(msg));
+                    }
+
                 }
             }
 
@@ -320,9 +387,14 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
 //        });
 //    }
 
+
+
     public void saveToken(String relation, String name, String token) {
         SharedManager.writeString(Define.KEY_FIREBASE_TOKEN, token);
         writeMember(token, new Member(relation, name, token));
+
+        getFamilyMembers();
+
     }
 
     public void setCallbackInterface(CallbackInterface ci) {

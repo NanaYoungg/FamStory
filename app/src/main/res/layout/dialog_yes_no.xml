@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="250dp"
+    android:orientation="vertical"
+    android:background="@drawable/all_round"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/d_yes_no_tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="안 내"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorDarkGreen"/>
+
+    <TextView
+        android:id="@+id/d_yes_no_tv_contents"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="10dp"
+        android:text="관계 : 첫째아들\n이름 : 한재훈\n참여하시겠습니까?"
+        android:lineSpacingExtra="10dp"
+        android:textSize="19dp"
+        android:textColor="@color/colorDarkGreen"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/d_yes_no_btn_yes"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginRight="10dp"
+            android:text="예"
+            android:textColor="#FFFFFF"
+            android:textSize="19dp"
+            android:background="@drawable/selector_find_button"/>
+
+        <Button
+            android:id="@+id/d_yes_no_btn_no"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="아니오"
+            android:textColor="#FFFFFF"
+            android:textSize="19dp"
+            android:background="@drawable/selector_find_button"/>
+    </LinearLayout>
+
+</LinearLayout>

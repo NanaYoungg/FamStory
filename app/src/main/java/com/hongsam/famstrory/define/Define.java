@@ -2,7 +2,9 @@ package com.hongsam.famstrory.define;
 
 import android.widget.TextView;
 import com.hongsam.famstrory.R;
+
 import com.hongsam.famstrory.activitie.MainActivity;
+
 import com.hongsam.famstrory.data.Keyword;
 import com.hongsam.famstrory.data.Member;
 
@@ -10,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Define {
+    public static final String APP_VERSION = "1.0.0";
+
     public static final int FRAGMENT_ID = 1000;
     public static final int FRAGMENT_ID_MENU = FRAGMENT_ID + 1;
     public static final int FRAGMENT_ID_FAM_CREATE = FRAGMENT_ID + 2;
@@ -49,9 +53,12 @@ public class Define {
     public static final String MESSAGES = "messages";
 
     public static final String KEY_FIREBASE_TOKEN = "KEY_FIREBASE_TOKEN";
+
     public static  String MY_RELATION = "my";
     public static String MY_TOKEN = "a";
+
     public static final String KEY_FAMILY_NAME = "KEY_FAMILY_NAME";
+    public static final String KEY_FAMILY_PASSWORD = "KEY_FAMILY_PASSWORD";
     public static final String KEY_FAMILY_PICTURE = "KEY_FAMILY_PICTURE";
     public static final String KEY_FAMILY_PICTURE_SIZE = "KEY_FAMILY_PICTURE_SIZE";
     public static final String KEY_FAMILY_PICTURE_STRING = "KEY_IMAGE_STRING";
@@ -64,6 +71,8 @@ public class Define {
     public static final String KEY_LETTER_PICTURE_SIZE = "KEY_LETTER_PICTURE_SIZE";
     public static final String KEY_LETTER_PICTURE_PATH = "KEY_LETTER_PICTURE_PATH";
 
+    public static final String KEY_SETTING_USE_CALL = "KEY_SETTING_USE_CALL";
+
     public static final int VIEWTYPE_MEMBER = 0;
 
     public static int TIME_PICKER_START = 10000;
@@ -72,7 +81,12 @@ public class Define {
     public static int[] LETTER_PAPAER_ARRAY = {
 
 
+
             R.drawable.paper3,
+
+            R.drawable.paper2,
+            R.drawable.paper6,
+
             R.drawable.paper4,
             R.drawable.paper5
     };
