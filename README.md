@@ -25,7 +25,7 @@
   <tr>
     <td class="tg-0pky">백엔드/프론트엔드</td>
     <td class="tg-0pky"><a href = "https://github.com/nnsyu" target = "blank" >한재훈</td>
-    <td class="tg-0pky">- Firebase DB, SqlLite 환경 세팅 및 구현<br>- FCM 서비스 환경세팅 <br>- 감정표현 기능 구현<br>- 앱 환경설정 기능 구현<br>- 감정표현 푸시메세지 기능 구현<br>- 가족 프로필 기능 구현<br>- 가족 호칭 설정 기능 <br></td>
+    <td class="tg-0pky">- Firebase DB, SQLite 환경 세팅 및 구현<br>- FCM 서비스 환경세팅 <br>- 감정표현 기능 구현<br>- 앱 환경설정 기능 구현<br>- 감정표현 푸시메세지 기능 구현<br>- 가족 프로필 기능 구현<br>- 가족 호칭 설정 기능 <br></td>
   </tr>
   <tr>
     <td class="tg-0pky">백엔드/프론트엔드</td>
@@ -54,13 +54,12 @@
 
 ## 사용언어, 기술스택
 ![Generic badge](https://img.shields.io/badge/platform-Mobile-green.svg) ![Generic badge](https://img.shields.io/badge/OS-Android-brightgreen.svg)
-![Generic badge](https://img.shields.io/badge/database-SqlLite,firebaseDB,SharedPreferences-yellow.svg)
+![Generic badge](https://img.shields.io/badge/database-SQLite,firebaseDB,SharedPreferences-yellow.svg)
 ![Generic badge](https://img.shields.io/badge/language-Java,Sql-important.svg) 
 
 <br>
 
 ## 개발환경   
-
 
 <table class="tg">
 <thead>
@@ -72,8 +71,13 @@
 </table>
 
 <br>
-<br>
 
+## 애플리케이션 아키텍처
+<img width="383" alt="dd" src="https://user-images.githubusercontent.com/56735744/105672246-6bb02000-5f27-11eb-8b5d-f677ee6b8633.png">
+
+
+<br>
+<br>
 
 ## 결과물
 
