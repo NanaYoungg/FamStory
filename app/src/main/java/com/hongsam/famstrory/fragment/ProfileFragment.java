@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -28,6 +29,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -49,6 +52,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.hongsam.famstrory.util.FirebaseManager;
 import com.hongsam.famstrory.util.GlobalMethod;
@@ -64,6 +68,9 @@ public class ProfileFragment extends Fragment {
 
     MainActivity mainActivity;
     View mContentView;
+
+ 
+     
 
     LinearLayout layoutImage, layoutEmpty;
 
@@ -123,14 +130,18 @@ public class ProfileFragment extends Fragment {
     public void init(View v) {
         if (v != null) {
             memberList = DBFamstory.getInstance(mainActivity).selectAllMemberList();
+
             Log.d(TAG, "memberList size : " + memberList.size());
+ 
 
             if (memberList == null) {
                 memberList = new ArrayList<>();
             }
 
             layoutImage = v.findViewById(R.id.f_profile_layout_image);
+
             layoutEmpty = v.findViewById(R.id.f_profile_layout_empty);
+ 
 
             tvFamName = v.findViewById(R.id.f_profile_tv_fam_name);
             etTitle = v.findViewById(R.id.f_profile_et_title);
@@ -223,8 +234,10 @@ public class ProfileFragment extends Fragment {
             public void onFailure(@NonNull Exception e) {
                 Log.d(TAG, "이미지 업로드 실패!");
                 layoutImage.setVisibility(View.GONE);
+
                 //tvEmpty.setVisibility(View.VISIBLE);
                 layoutEmpty.setVisibility(View.VISIBLE);
+
             }
         });
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -232,8 +245,10 @@ public class ProfileFragment extends Fragment {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Log.d(TAG, "이미지 업로드 성공!");
                 layoutImage.setVisibility(View.VISIBLE);
+
                 //tvEmpty.setVisibility(View.GONE);
                 layoutEmpty.setVisibility(View.GONE);
+
                 SharedManager.writeLong(Define.KEY_FAMILY_PICTURE_SIZE, taskSnapshot.getTotalByteCount());
 
                 String picturePath = GlobalMethod.saveToInternalStorage(mainActivity, bm, "family.png");
@@ -269,6 +284,29 @@ public class ProfileFragment extends Fragment {
 
         }
     }
+
+//    public void downloadPicture() {
+//        StorageReference ref = FirebaseManager.storageFamRef.child(famName+FirebaseManager.pathImgTitle);
+//
+//        try {
+//            ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Uri> task) {
+//                    Glide.with(mainActivity)
+//                            .load(task.getResult())
+//                            .centerCrop()
+//                            .into(ivMain);
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//
+//                }
+//            });
+//        } catch (Exception e) {
+//
+//        }
+//    }
 
     public void checkServerTitle() {
         FirebaseManager.dbFamRef.child(famName).child("famTitle").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -308,17 +346,19 @@ public class ProfileFragment extends Fragment {
                     Bitmap picture = GlobalMethod.loadImageFromStorage(path, "family.png");
 
                     if (picture == null) {
-                        //tvEmpty.setVisibility(View.VISIBLE);
+               //tvEmpty.setVisibility(View.VISIBLE);
                         layoutEmpty.setVisibility(View.VISIBLE);
                         layoutImage.setVisibility(View.GONE);
                         return;
                     } else {
-//                        Glide.with(getContext()).asBitmap().load
+//                        Glide.with(mContentView.getContext()).load(picture).into(ivMain);
+//                        Log.d(TAG, "탔겠지");
                         ivMain.setImageBitmap(picture);
                     }
                 }
                 //tvEmpty.setVisibility(View.GONE);
                 layoutEmpty.setVisibility(View.GONE);
+
                 layoutImage.setVisibility(View.VISIBLE);
             }
         });
@@ -326,8 +366,10 @@ public class ProfileFragment extends Fragment {
         sm.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+
                 //tvEmpty.setVisibility(View.VISIBLE);
                 layoutEmpty.setVisibility(View.VISIBLE);
+
                 layoutImage.setVisibility(View.GONE);
             }
         });
@@ -349,7 +391,9 @@ public class ProfileFragment extends Fragment {
                         file = new Compressor(mainActivity).setQuality(50).setMaxWidth(600).setMaxHeight(600).compressToFile(file);
                         bm = GlobalMethod.FileToBitmap(file);
 
+
                         is.close();
+
 
                         //tvEmpty.setVisibility(View.GONE);
                         layoutEmpty.setVisibility(View.GONE);

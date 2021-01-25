@@ -6,11 +6,14 @@
     android:gravity="center"
     android:orientation="horizontal">
 
+
         <LinearLayout
             android:id="@+id/i_member_layout_main"
             android:layout_width="match_parent"
+
             android:layout_height="match_parent"
             android:gravity="center"
+
             android:orientation="horizontal"
             android:elevation="10dp">
 
@@ -25,9 +28,11 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
+
                 android:text="엄마"
                 android:textColor="#2C2C2C"
                 android:textSize="15dp"/>
+
 
             <TextView
                 android:id="@+id/i_member_tv_name"
@@ -43,6 +48,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
+
 
                 <TextView
                     android:id="@+id/i_member_tv_call"
@@ -83,6 +89,7 @@
 
 
         </LinearLayout>
+
 
 
 

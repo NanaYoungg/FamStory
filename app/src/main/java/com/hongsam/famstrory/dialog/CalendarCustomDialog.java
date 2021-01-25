@@ -18,7 +18,7 @@ import androidx.annotation.RequiresApi;
 
 
 import com.hongsam.famstrory.activitie.MainActivity;
-import com.hongsam.famstrory.data.Calendar;
+import com.hongsam.famstrory.data.CalendarData;
 import com.hongsam.famstrory.databinding.CalendarDialogBinding;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.firebase.CreateDB;
@@ -208,7 +208,7 @@ public class CalendarCustomDialog extends Dialog implements  CustomDialogInterfa
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    public void calendarUpdateGetDialogText(Calendar data) {
+    public void calendarUpdateGetDialogText(CalendarData data) {
 
         if (type == Define.UPDATE_DIALOG) {
             String dialogGetTitle = data.getTitle();

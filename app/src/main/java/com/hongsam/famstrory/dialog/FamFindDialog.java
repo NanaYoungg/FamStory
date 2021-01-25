@@ -54,7 +54,9 @@ public class FamFindDialog extends Dialog {
     private FamFindResultListener famfindResultListener;
 
     public interface FamFindResultListener {
-        void onResult(String famName, String name, String relation);
+
+        void onResult(String famName, String name, String relation, String password);
+
     }
 
     public void setOnResultListener(FamFindResultListener famfindResultListener) {
@@ -85,7 +87,12 @@ public class FamFindDialog extends Dialog {
             public void onClick(View v) {
                 if (isJoin) {
                     dismiss();
-                    famfindResultListener.onResult(etFamName.getText().toString(), etName.getText().toString(), spRelation.getSelectedItem().toString());
+
+                    famfindResultListener.onResult(etFamName.getText().toString(),
+                            etName.getText().toString(),
+                            spRelation.getSelectedItem().toString(),
+                            etPw.getText().toString());
+
                 } else {
                     imm.hideSoftInputFromWindow(etFamName.getWindowToken(), 0);
                     imm.hideSoftInputFromWindow(etPw.getWindowToken(), 0);
