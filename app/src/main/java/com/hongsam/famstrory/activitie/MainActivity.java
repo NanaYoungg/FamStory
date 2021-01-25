@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
     String famName = "";
     String relation = "";
     String myName = "";
+    String password = "";
     ArrayList<Member> memberList;
 
     boolean isJoin = false;
@@ -116,8 +117,9 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
         famName = getIntent().getStringExtra("famName");
         relation = getIntent().getStringExtra("relation");
         myName = getIntent().getStringExtra("name");
+        password = getIntent().getStringExtra("password");
 
-        if (famName == null && relation == null && myName == null) {
+        if (famName == null && relation == null && myName == null && password == null) {
             loadMyInfo();
         } else {
             saveMyInfo();
@@ -213,14 +215,16 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
 
     public void loadMyInfo() {
         famName = SharedManager.readString(Define.KEY_FAMILY_NAME, "");
-        relation = SharedManager.readString(Define.KEY_MY_RELATION, "");;
+        relation = SharedManager.readString(Define.KEY_MY_RELATION, "");
         myName = SharedManager.readString(Define.KEY_MY_NAME, "");
+        password = SharedManager.readString(Define.KEY_FAMILY_PASSWORD, "");
     }
 
     public void saveMyInfo() {
         SharedManager.writeString(Define.KEY_FAMILY_NAME, famName);
-        SharedManager.writeString(Define.KEY_MY_RELATION, relation);;
+        SharedManager.writeString(Define.KEY_MY_RELATION, relation);
         SharedManager.writeString(Define.KEY_MY_NAME, myName);
+        SharedManager.writeString(Define.KEY_FAMILY_PASSWORD, password);
     }
 
     public void writeMember(String token, Member member) {
