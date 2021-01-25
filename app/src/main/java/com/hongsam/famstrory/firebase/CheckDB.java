@@ -16,11 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.hongsam.famstrory.activitie.MainActivity;
-import com.hongsam.famstrory.data.Calendar;
 import com.hongsam.famstrory.define.Define;
-
-import java.util.ArrayList;
 
 import static com.hongsam.famstrory.fragment.CalendarFragment.state;
 

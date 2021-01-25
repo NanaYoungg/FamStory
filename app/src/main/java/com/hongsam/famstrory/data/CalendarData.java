@@ -3,16 +3,16 @@ package com.hongsam.famstrory.data;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
-public class Calendar {
+public class CalendarData {
     public String title;
     public String description;
     public String startTime;
     public String endTime;
     public String type;
-    public Calendar(){
+    public CalendarData(){
 
     }
-    public Calendar(String title, String description, String startTime, String endTime,String type) {
+    public CalendarData(String title, String description, String startTime, String endTime, String type) {
         this.title = title;
         this.description = description;
         this.startTime = startTime;

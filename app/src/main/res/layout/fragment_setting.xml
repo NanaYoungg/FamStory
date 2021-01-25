@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:padding="5dp">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -193,4 +195,8 @@
 
     </RelativeLayout>
 
+
+
+
+    </LinearLayout>
 </LinearLayout>
