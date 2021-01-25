@@ -49,7 +49,6 @@ import java.util.ArrayList;
 import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
 import static com.hongsam.famstrory.util.FirebaseManager.dbFamRef;
 
-import static com.hongsam.famstrory.fragment.LetterWriteFragment.TEST_FAMILY;
 
 /*
  * 편지 읽기 화면 (편지목록 -> 편지읽기)
@@ -64,12 +63,6 @@ public class LetterReadFragment extends Fragment {
     private ImageButton mBackBtn, mdeletBtn;
     private TextView tvSender, tvDate, tvContants;
     private ImageView mPhoto, mPaper;
-
-    private ImageButton mBackBtn;
-
-    private TextView mFromTv, mDate, mContants, mWriteDate;
-
-    private ImageView mPhoto, mdeletBtn;
 
     private String testfamily = "테스트가족";
     private LetterList mLetterItem;
@@ -129,6 +122,7 @@ public class LetterReadFragment extends Fragment {
             mPhoto = mContentView.findViewById(R.id.read_photo_iv);
             tvContants = mContentView.findViewById(R.id.read_contants_tv);
             mdeletBtn = mContentView.findViewById(R.id.trash_img_btn);
+            mPaper = mContentView.findViewById(R.id.letter_read_img_view);
 
 
             //toolbar의 뒤로가기 버튼
