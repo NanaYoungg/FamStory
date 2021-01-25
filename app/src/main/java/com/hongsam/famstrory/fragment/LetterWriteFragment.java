@@ -95,15 +95,10 @@ public class LetterWriteFragment extends Fragment {
     private String urlPath;
     private Uri selectedImageUri;
     private int paperType;
-
-
     ArrayList<String> Letter;
-
     private DatabaseReference mDatabase;
 
-    public static final String TEST_FAMILY = "테스트가족";
-    private static final String sFamName = "재훈이네가족";
-
+    private String famName = "";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,9 +106,9 @@ public class LetterWriteFragment extends Fragment {
         this.setHasOptionsMenu(true);
 
 //        파이어베이스에서 데이터를 추가하거나 조회하려면 DatabaseReference의 인스턴스가 필요
-        mDatabase = FirebaseDatabase.getInstance().getReference("Family").child(TEST_FAMILY);
+        mDatabase = FirebaseDatabase.getInstance().getReference("Family").child(famName);
 
-
+        famName = SharedManager.readString(Define.KEY_FAMILY_NAME, "");
     }
 
 
@@ -263,7 +258,7 @@ public class LetterWriteFragment extends Fragment {
 
             //storage 주소와 폴더 파일명을 지정
             StorageReference storageRef = storage.getReferenceFromUrl("gs://hongkathon.appspot.com").child("Family/")
-                    .child(sFamName).child("Letter/" + letterFileName);
+                    .child(famName).child("Letter/" + letterFileName);
             //올라가거라... 사진 DB 저장 성공시
             storageRef.putFile(selectedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -375,7 +370,7 @@ public class LetterWriteFragment extends Fragment {
     //  저장되어있는 토큰 따로받아서 저장
     public void getFamTokens(final String receiver, final LetterContants letterContants) {
 
-        DatabaseReference ref = FirebaseManager.dbFamRef.child(TEST_FAMILY).child("members");
+        DatabaseReference ref = FirebaseManager.dbFamRef.child(famName).child("members");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -400,7 +395,7 @@ public class LetterWriteFragment extends Fragment {
 
 
     public void sendLetter(String receiverToken, LetterContants letterContants) {
-        FirebaseManager.dbFamRef.child(TEST_FAMILY).child("LetterContants").child(receiverToken).setValue(letterContants);
+        FirebaseManager.dbFamRef.child(famName).child("LetterContants").child(receiverToken).setValue(letterContants);
 
         Log.d(TAG, letterContants.getContants());
         Log.d(TAG, letterContants.getSender());

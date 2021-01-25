@@ -90,6 +90,14 @@ public class Define {
             R.drawable.paper4,
             R.drawable.paper5
     };
+
+    public static int[] LETTER_CONTANTS_ARRAY = {
+
+
+    };
+
+
+
     public static int DATA_IS_NULL = 510;
     public static int DATA_IS_NOT_NULL = DATA_IS_NULL+1;
 

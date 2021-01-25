@@ -1,6 +1,5 @@
 package com.hongsam.famstrory.fragment;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,13 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -35,21 +37,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import com.hongsam.famstrory.R;
+
 import com.hongsam.famstrory.activitie.MainActivity;
-import com.hongsam.famstrory.adapter.LetterListAdapter;
 import com.hongsam.famstrory.data.LetterContants;
-import com.hongsam.famstrory.data.LetterList;
-import com.hongsam.famstrory.data.Member;
-import com.hongsam.famstrory.define.Define;
-import com.hongsam.famstrory.dialog.LetterReceiverDialog;
-import com.hongsam.famstrory.util.FirebaseManager;
-import com.hongsam.famstrory.R;
-import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.define.Define;
 
-import static com.hongsam.famstrory.firebase.ReadDB.TAG;
-import static com.hongsam.famstrory.fragment.LetterWriteFragment.TEST_FAMILY;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+
+import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
+import static com.hongsam.famstrory.util.FirebaseManager.dbFamRef;
 
 import static com.hongsam.famstrory.fragment.LetterWriteFragment.TEST_FAMILY;
 
@@ -62,6 +60,11 @@ public class LetterReadFragment extends Fragment {
 
     private MainActivity mainActivity;
     private View mContentView;
+
+    private ImageButton mBackBtn, mdeletBtn;
+    private TextView tvSender, tvDate, tvContants;
+    private ImageView mPhoto, mPaper;
+
     private ImageButton mBackBtn;
 
     private TextView mFromTv, mDate, mContants, mWriteDate;
@@ -73,12 +76,16 @@ public class LetterReadFragment extends Fragment {
 
     private FirebaseDatabase mDB;
 
-    private String urlPath;
-    private Uri selectedImageUri;
-    private int paperType;
 
+    private ArrayList<LetterContants> itemList;
+
+    private LetterContants letterContants;
 
     public LetterReadFragment() {
+    }
+
+    public LetterReadFragment(LetterContants letterContants) {
+        this.letterContants = letterContants;
     }
 
 
@@ -86,7 +93,6 @@ public class LetterReadFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
-
 
     }
 
@@ -118,13 +124,11 @@ public class LetterReadFragment extends Fragment {
     public void init(View v) {
         if (v != null) {
             mBackBtn = mContentView.findViewById(R.id.letter_read_back_btn);
-            mFromTv = mContentView.findViewById(R.id.f_letter_sender_tv);
-            mDate = mContentView.findViewById(R.id.letter_read_date);
+            tvSender = mContentView.findViewById(R.id.f_letter_sender_tv);
+            tvDate = mContentView.findViewById(R.id.letter_read_date);
             mPhoto = mContentView.findViewById(R.id.read_photo_iv);
-            mContants = mContentView.findViewById(R.id.read_contants_tv);
+            tvContants = mContentView.findViewById(R.id.read_contants_tv);
             mdeletBtn = mContentView.findViewById(R.id.trash_img_btn);
-
-            mWriteDate = mContentView.findViewById(R.id.letter_write_date);
 
 
             //toolbar의 뒤로가기 버튼
@@ -141,7 +145,7 @@ public class LetterReadFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     //휴지통 이미지버튼 누를시 DB에서 삭제
-                    mDB.getInstance().getReference("Family").child(TEST_FAMILY).child("LetterContants").removeValue()
+                    dbFamRef.child("LetterContants").removeValue()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -153,14 +157,24 @@ public class LetterReadFragment extends Fragment {
                             Toast.makeText(getContext(), "삭제 실패", Toast.LENGTH_LONG).show();
                         }
                     });
-
                 }
             });
 
+            tvSender.setText(letterContants.getSender());
+            tvContants.setText(letterContants.getContants());
+            tvDate.setText(letterContants.getDate());
+            Log.d("이미지야", letterContants.getPhoto());
+            try {
+                Glide.with(getContext()).load(new URL(letterContants.getPhoto())).into(mPhoto);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+            //mPhoto.setImageResource(letterContants.getPhoto());
+            mPaper.setImageResource(Define.LETTER_PAPAER_ARRAY[letterContants.getPaperType()]);
 
         }
-
     }
+
 
 }
 

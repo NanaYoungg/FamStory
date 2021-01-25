@@ -1,6 +1,7 @@
 
 package com.hongsam.famstrory.fragment;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,16 +25,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.hongsam.famstrory.ItemTouchHelper.RecyclerItemTouchHelper;
+//import com.hongsam.famstrory.ItemTouchHelper.RecyclerItemTouchHelper;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.adapter.LetterListAdapter;
+import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.LetterList;
+import com.hongsam.famstrory.database.DBFamstory;
 import com.hongsam.famstrory.define.Define;
 
 import java.util.ArrayList;
-
-import static com.hongsam.famstrory.fragment.LetterWriteFragment.TEST_FAMILY;
 
 /*
  * 편지 목록 화면
@@ -45,17 +46,13 @@ public class LetterListFragment extends Fragment {
     private MainActivity mainActivity;
     private View mContentView;
 
-    private FirebaseDatabase mDb;
-    private DatabaseReference mFamRef;
-
     private TextView mSender, mContants, mDate;
     private RecyclerView recyclerView;
     private CoordinatorLayout coordinatorLayout;
     private FloatingActionButton fab;
 
-    private ArrayList<LetterList> itemList;
+    private ArrayList<LetterContants> itemList;
     private LetterListAdapter letterListAdapter;
-
 
 
     public LetterListFragment() {
@@ -66,7 +63,7 @@ public class LetterListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
 
-
+        itemList = new ArrayList<>();
     }
 
 
@@ -86,47 +83,18 @@ public class LetterListFragment extends Fragment {
         //View mContentView;
         mContentView = inflater.inflate(R.layout.fragment_letter_list, container, false);
 
+        //DB에서 불러오기
+        itemList = mainActivity.db.selectLetterList();
+
         init(mContentView);
 
         return mContentView;
 
     }
 
-
     public void onResume() {
         super.onResume();
-        //recycle 관련
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        itemList = new ArrayList<>();
-
-        //DB에서 편지 리스트 뿌려주기
-        mFamRef = FirebaseDatabase.getInstance().getReference("Family").child(TEST_FAMILY).child("LetterContants");
-        mFamRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot npsnapshot : snapshot.getChildren()) {
-                        LetterList al = npsnapshot.getValue(LetterList.class);
-                        itemList.add(al);
-                    }
-                    letterListAdapter = new LetterListAdapter(itemList, mainActivity);
-                    recyclerView.setAdapter(letterListAdapter);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-
-        });
-
     }
-
 
 
     /**
@@ -149,6 +117,14 @@ public class LetterListFragment extends Fragment {
                     mainActivity.changeFragment(Define.FRAGMENT_ID_LETTER_WRITE);
                 }
             });
+
+
+            //어댑터 연결
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+            letterListAdapter = new LetterListAdapter(itemList, mainActivity);
+            recyclerView.setAdapter(letterListAdapter);
 
 
             //스크롤시 fab 숨기 , 스크롤시 fab 나타남

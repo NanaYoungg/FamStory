@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.ValueEventListener;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
+import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.LetterList;
 import com.hongsam.famstrory.databinding.FragmentLetterReadBinding;
 import com.hongsam.famstrory.define.Define;
@@ -32,10 +34,13 @@ import java.util.ArrayList;
 
 public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.ViewHolder> {
 
-    private ArrayList<LetterList> letterItemList;
+    private ArrayList<LetterContants> letterItemList;
     private Context context;
+    int id;
 
-    public LetterListAdapter(ArrayList<LetterList> letterItemList, Context context) {
+
+
+    public LetterListAdapter(ArrayList<LetterContants> letterItemList, Context context) {
         this.letterItemList = letterItemList;
         this.context = context;
 
@@ -56,13 +61,6 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
         holder.contants.setText(letterItemList.get(position).getContants());
         holder.date.setText(letterItemList.get(position).getDate());
 
-//        LetterReadFragment letterReadFragment = new LetterReadFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putString("sender", current.sender);
-//        bundle.putString("contants", current.contants);
-//        bundle.putString("date", current.date);
-//        letterReadFragment.setArguments(bundle);
-
     }
 
     @Override
@@ -76,9 +74,9 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
         public TextView sender;
         public TextView contants;
         public TextView date;
-        public LinearLayout linearLayout;
-        public RelativeLayout viewBackgound;
         public CardView cardView;
+        public ImageView photo;
+        public ImageView paper;
 
         //뷰홀더 생성자로 전달되는 뷰 객체 참조
         public ViewHolder(@NonNull View itemView) {
@@ -88,20 +86,20 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
             sender = itemView.findViewById(R.id.ltter_list_sender_tv);
             contants = itemView.findViewById(R.id.ltter_list_contents_tv);
             date = itemView.findViewById(R.id.ltter_list_date_tv);
-
-            linearLayout = itemView.findViewById(R.id.layout_id);
-//            viewBackgound = itemView.findViewById(R.id.view_background);
+            photo = itemView.findViewById(R.id.read_photo_iv);
+            paper = itemView.findViewById(R.id.letter_read_img_view);
             cardView = itemView.findViewById(R.id.letter_cardView);
 
 //            카드뷰 클릭시 해당 내용 읽기로 이동
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //값 넘겨주기
+                    id = getAdapterPosition();
+                    if(id != RecyclerView.NO_POSITION){
 
+                        ((MainActivity)context).readLetter(letterItemList.get(id));
 
-                    //화면 넘어가기 함수
-                    ((MainActivity) context).changeFragment(Define.FRAGMENT_ID_LETTER_READ);
+                    }
                 }
             });
         }

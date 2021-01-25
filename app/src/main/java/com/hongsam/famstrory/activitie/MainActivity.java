@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
 
     boolean isJoin = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -353,34 +354,6 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
         });
     }
 
-//    public void checkToken(final String token) {
-//        FirebaseManager.dbFamRef.child(famName).child("members").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                boolean flag = false;
-//                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
-//                    if (singleSnapshot.getKey().equals(SharedManager.readString(Define.KEY_FIREBASE_TOKEN, ""))) {
-//                        flag = true;
-//                    }
-//                }
-//
-//                if (!flag) {
-//                    Log.d(TAG, "firebase 안에 토큰 없음! 새로 추가!");
-//                    saveToken("아들", "김아들", token);
-//                } else {
-//                    Log.d(TAG, "firebase 안에 토큰 있음!");
-//                    // firebase 안에 있는 토큰이 현재 생성한 토큰과 같은지 체크한 후
-//                    // 다르면 delete하는 함수를 호출한다.
-//                    deleteMember("아들");
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
 
 
 
@@ -510,48 +483,36 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
         });
     }
 
-    //LetterList,LetterRead값 통신을 위한 함수
-//    public void changeFragment(int fragmentId, LetterList item) {
-//
-//        switch (fragmentId) {
-//
-//            case Define.FRAGMENT_ID_LETTER_LIST:
-//                fragment = new LetterListFragment();
-//                break;
-//
-//            case Define.FRAGMENT_ID_LETTER_READ:
-//                fragment = new LetterReadFragment(item);
-//                break;
-//
-//            default:
-//                break;
-//        }
-//
-//        runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//
-//                for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); ++i) {
-//                    try {
-//                        getSupportFragmentManager().popBackStack();
-//                    } catch (IllegalStateException e) {
-//                        if (getSupportFragmentManager() != null && !getSupportFragmentManager().isStateSaved()) {
-//                            getSupportFragmentManager().popBackStack();
-//                        }
-//                    }
-//                }
-//
-//                ft.replace(R.id.basic, fragment);
-//
-//                if (fragment.isStateSaved()) {
-//                    ft.commitAllowingStateLoss();
-//                } else {
-//                    ft.commit();
-//                }
-//            }
-//        });
-//    }
+    public void readLetter(LetterContants lc) {
+        fragment = new LetterReadFragment(lc);
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+                for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); ++i) {
+                    try {
+                        getSupportFragmentManager().popBackStack();
+                    } catch (IllegalStateException e) {
+                        if (getSupportFragmentManager() != null && !getSupportFragmentManager().isStateSaved()) {
+                            getSupportFragmentManager().popBackStack();
+                        }
+                    }
+                }
+
+                ft.replace(R.id.basic, fragment);
+
+                if (fragment.isStateSaved()) {
+                    ft.commitAllowingStateLoss();
+                } else {
+                    ft.commit();
+                }
+            }
+        });
+    }
+
+
 
     public void showKeyboard(final EditText et, final boolean flag) {
         runOnUiThread(new Runnable() {
