@@ -15,7 +15,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/paper1"/>
+        />
 
         <ImageButton
             android:id="@+id/letter_read_back_btn"
@@ -96,7 +96,8 @@
                 android:layout_width="200dp"
                 android:layout_height="150dp"
                 android:layout_marginLeft="80dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorTransparent"
+                android:visibility="gone"
                 />
 
             <TextView

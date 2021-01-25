@@ -58,7 +58,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "LetterContants 받아옴!!");
             String sender = remoteMessage.getData().get("sender");
             String contants = remoteMessage.getData().get("contants");
-            String date = remoteMessage.getData().get("date ");
+            String date = remoteMessage.getData().get("date");
             String photo = remoteMessage.getData().get("photo");
             String paperType = remoteMessage.getData().get("paperType");
 
