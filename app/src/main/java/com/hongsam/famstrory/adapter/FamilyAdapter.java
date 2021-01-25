@@ -1,6 +1,8 @@
 package com.hongsam.famstrory.adapter;
 
+import android.content.ClipData;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,7 @@ import com.hongsam.famstrory.define.Define;
 import java.util.ArrayList;
 
 public class FamilyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    ArrayList<TimeLineFamily> list = new ArrayList<>();
+    public ArrayList<TimeLineFamily> list = new ArrayList<>();
 
     public interface OnItemClickListener {
         void onItemClick(ArrayList<TimeLineFamily> list, View v, int position);
@@ -40,15 +42,25 @@ public class FamilyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @NonNull
     @Override
-    public FamilyAdapter.TimeLineViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view;
+
         if (viewType == Define.TIME_LINE_VIEW_OTHER_MSG) {
             view = inflater.inflate(R.layout.time_line_family_item, parent, false);
-        } else {
+            return new TimeLineViewHolder(view);
+        } else if (viewType == Define.TIME_LINE_VIEW_MY_MESSAGE) {
             view = inflater.inflate(R.layout.time_line_my_item, parent, false);
+            return new TimeLineViewHolderMy(view);
         }
-        return new TimeLineViewHolder(view);
+        else if (viewType == Define.TIME_LINE_DATE_LINE){
+            view = inflater.inflate(R.layout.timeline_boundary,parent,false);
+            return new TimeLineBoundary(view);
+        }
+        else{
+            view = inflater.inflate(R.layout.time_line_my_item,parent,false);
+            return new TimeLineViewHolder(view);
+        }
 
 
     }
@@ -57,12 +69,13 @@ public class FamilyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         if(holder instanceof TimeLineViewHolder) {
-            TimeLineFamily family = list.get(position);
-            ((TimeLineViewHolder) holder).setItem(family);
+            ((TimeLineViewHolder) holder).setItem(list.get(position));
         }
         else if(holder instanceof TimeLineViewHolderMy){
-            TimeLineFamily family = list.get(position);
-            ((TimeLineViewHolderMy) holder).setItem(family);
+            ((TimeLineViewHolderMy) holder).setItem(list.get(position));
+        }
+        else if(holder instanceof TimeLineBoundary){
+            ((TimeLineBoundary) holder).timeline_boundary.setText(list.get(position).getName());
         }
     }
 
@@ -83,36 +96,22 @@ public class FamilyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public class TimeLineViewHolder extends RecyclerView.ViewHolder {
         ImageView profile;
-        TextView name;
-        TextView nickName;
-        TextView showMessage;
-        TextView time;
+        TextView user_name;
+        TextView user_showMessage;
+        TextView user_time;
 
         public TimeLineViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int pos = getAdapterPosition();
-                    if (pos != RecyclerView.NO_POSITION) {
-                        if (mListener != null) {
-                            mListener.onItemClick(list, view, pos);
-                            ;
-                        }
-                    }
-                }
-            });
-            name = itemView.findViewById(R.id.name);
-            nickName = itemView.findViewById(R.id.nickname);
-            showMessage = itemView.findViewById(R.id.show_message);
-            time = itemView.findViewById(R.id.get_time);
+
+            user_name = itemView.findViewById(R.id.name);
+            user_showMessage = itemView.findViewById(R.id.show_message);
+            user_time = itemView.findViewById(R.id.get_time);
         }
 
         public void setItem(TimeLineFamily family) {
-            name.setText(family.getName());
-            nickName.setText(family.getNickName());
-            showMessage.setText(family.getShowMessage());
-            time.setText(family.getTime());
+            user_name.setText(family.getName());
+            user_showMessage.setText(family.getShowMessage());
+            user_time.setText(family.getTime());
         }
     }
 
@@ -134,6 +133,14 @@ public class FamilyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             getTime.setText(timeLineFamily.getTime());
 
         }
+    }
+    public class TimeLineBoundary extends RecyclerView.ViewHolder{
+        TextView timeline_boundary;
+        public TimeLineBoundary(@NonNull View itemView) {
+            super(itemView);
+            timeline_boundary = itemView.findViewById(R.id.name);
+        }
+
     }
 }
 

@@ -17,5 +17,6 @@
     <color name="colorBrown">#E5C5B5</color>
     <color name="colorWaterBrown">#DDD3CC</color>
 
+    <color name="warning">#EF6F76</color>
 
 </resources>

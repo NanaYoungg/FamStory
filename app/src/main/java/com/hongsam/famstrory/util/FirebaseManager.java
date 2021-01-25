@@ -30,7 +30,7 @@ public class FirebaseManager {
     public static FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     public static StorageReference storageFamRef = firebaseStorage.getReference("Family");
 
-    public static final String pathImgTitle = "/title.jpg";
+    public static final String pathImgTitle = "/title.png";
     public static final String pathImgSelfie = "/selfie.jpg";
     public static final String pathImgLetter = "/letter.jpg";
 

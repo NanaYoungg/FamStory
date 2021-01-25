@@ -54,6 +54,7 @@ public class LetterListFragment extends Fragment {
     private ArrayList<LetterContants> itemList;
     private LetterListAdapter letterListAdapter;
 
+
     public LetterListFragment() {
     }
 
@@ -94,6 +95,7 @@ public class LetterListFragment extends Fragment {
     public void onResume() {
         super.onResume();
     }
+
 
     /**
      * 컨트롤 초기화 해주는 함수

@@ -12,11 +12,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.hongsam.famstrory.activitie.MainActivity;
-import com.hongsam.famstrory.data.Calendar;
+import com.hongsam.famstrory.data.CalendarData;
 import com.hongsam.famstrory.define.Define;
 
 public class UpdateDB {
-    Calendar calendarDB;
+    CalendarData calendarDataDB;
     MainActivity mainActivity;
     public UpdateDB(MainActivity mainActivity) {
 
@@ -35,8 +35,8 @@ public class UpdateDB {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String getData = snapshot.getKey();
                 if ((day+"일").equals(getData)){
-                    calendarDB = snapshot.getValue(Calendar.class);
-                    mainActivity.calendarUpdateGetDialogText(calendarDB);
+                    calendarDataDB = snapshot.getValue(CalendarData.class);
+                    mainActivity.calendarUpdateGetDialogText(calendarDataDB);
                 }
                 //if(Objects.equals(snapshot.getKey(),"title")) {
 //                    calendarDB = snapshot.getValue(CalendarDB.class);
@@ -51,8 +51,8 @@ public class UpdateDB {
                 String getData = snapshot.getKey();
                 Log.e("s",getData);
                 if ((day+"일").equals(getData)){
-                    calendarDB = snapshot.getValue(Calendar.class);
-                    mainActivity.calendarUpdateGetDialogText(calendarDB);
+                    calendarDataDB = snapshot.getValue(CalendarData.class);
+                    mainActivity.calendarUpdateGetDialogText(calendarDataDB);
                 }
                 //if (Objects.equals(snapshot.getKey(),"title")) {
 /*                    calendarDB = snapshot.getValue(CalendarDB.class);
