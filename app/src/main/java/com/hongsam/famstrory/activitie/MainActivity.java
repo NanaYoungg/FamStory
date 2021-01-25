@@ -40,11 +40,6 @@ import com.hongsam.famstrory.animation.ZoomOutPageTransformer;
 
 import com.hongsam.famstrory.data.CalendarData;
 
-import com.hongsam.famstrory.data.Calendar;
-import com.hongsam.famstrory.data.Family;
-import com.hongsam.famstrory.data.LetterContants;
-import com.hongsam.famstrory.data.LetterList;
-
 import com.hongsam.famstrory.data.Member;
 import com.hongsam.famstrory.data.Notice;
 import com.hongsam.famstrory.database.DBFamstory;
@@ -95,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
     public static String famName = "";
     public static String relation = "";
     public String myName = "";
-
+    public String password = "";
 
     ArrayList<Member> memberList;
 
