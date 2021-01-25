@@ -17,7 +17,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/back_arrow_press"/>
+            android:background="@drawable/back_btn_customise"/>
 
 
     <ImageButton
@@ -88,13 +88,12 @@
         android:id="@+id/letter_write_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/f_receiver_add_img_btn"
-        app:layout_constraintBottom_toBottomOf="@id/f_letter_receiever_tv"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/f_letter_to_tv"
+        app:layout_constraintTop_toTopOf="@id/letter_read_img_view"
+        android:layout_marginRight="10dp"
         android:text="0000년00월00일"
         android:fontFamily="@font/tmoney_regular"
-        android:textSize="15dp"
+        android:textSize="10dp"
         />
 
 
@@ -237,6 +236,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/calendar_btn_customise"
+        android:fontFamily="@font/tmoney_bold"
         android:text="보내기"
         />
 

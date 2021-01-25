@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,6 +52,7 @@ public class LetterPaperDialog extends DialogFragment {
         mOkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getContext(), "선택 완료", Toast.LENGTH_SHORT).show();
                 dismiss();
             }
         });
