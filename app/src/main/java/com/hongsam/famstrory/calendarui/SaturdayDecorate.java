@@ -11,7 +11,6 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 
 import java.util.Calendar;
 
-//import com.prolificinteractive.materialcalendarview.Calendar;
 
 public class SaturdayDecorate implements DayViewDecorator {
     private final Calendar calendar = Calendar.getInstance();

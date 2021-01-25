@@ -20,10 +20,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
-import com.hongsam.famstrory.calendarui.BoldDecorator;
-import com.hongsam.famstrory.calendarui.MinMaxDecorate;
-import com.hongsam.famstrory.calendarui.SaturdayDecorate;
-import com.hongsam.famstrory.calendarui.SundayDecorate;
+import com.hongsam.famstrory.calendarui.CalendarBold;
+import com.hongsam.famstrory.calendarui.SaturdayDecorator;
+import com.hongsam.famstrory.calendarui.SundayDecorator;
+import com.hongsam.famstrory.calendarui.TodayDecorator;
 import com.hongsam.famstrory.data.CalendarData;
 import com.hongsam.famstrory.databinding.FragmentCalendarBinding;
 import com.hongsam.famstrory.define.Define;
@@ -37,12 +37,9 @@ import com.hongsam.famstrory.interf.CallbackInterface;
 
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
-
-import java.util.Calendar;
 
 /**
  * 메인화면에서 일정관리 화면
@@ -93,12 +90,7 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
         root = mb.getRoot();
         mContentView = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-/*        sqLiteDatabase = mainActivity.openOrCreateDatabase("myMsg.db",Context.MODE_PRIVATE,null);
-        String sql = "create table if not exists myMsgTBL"+
-                "(_id integer PRIMARY KEY autoincrement," +
-                "MSG varchar(100),"+
-                "TIME varchar(20))";
-        sqLiteDatabase.execSQL(sql);*/
+
         if(getFragmentManager()!=null) {
             ft_view_more = getFragmentManager().beginTransaction();
         }
@@ -107,25 +99,16 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
 
         viewMoreFragment = new CalendarViewMoreFragment();
         ReadDB readDB = new ReadDB(mainActivity);
+        mb.calendarView.addDecorators(
+                new SundayDecorator(),
+                new SaturdayDecorator(),
+                new TodayDecorator(),
+                new CalendarBold()
+        );
+
         readDB.databaseRead(getCalendarYear, getCalendarMonth, getCalendarDay);
         getFragmentManager().beginTransaction().replace(R.id.calendar_view_more, viewMoreFragment).commit();
-        SundayDecorate sundayDecorate = new SundayDecorate();
-        SaturdayDecorate saturdayDecorate = new SaturdayDecorate();
-        MinMaxDecorate minMaxDecorate = new MinMaxDecorate();
-        mb.calendarView.addDecorators(
-                new SundayDecorate(),
-                new SaturdayDecorate()
-        );
-        mb.calendarView.setTopbarVisible(true);
-        Calendar calendar = Calendar.getInstance();
-        ;
 
-        mb.calendarView.setShowOtherDates(MaterialCalendarView.SHOW_OUT_OF_RANGE);
-/*        mb.calendarView.state().edit()
-                .setMinimumDate(CalendarDay.from(2020,0,1))
-                .setMaximumDate(CalendarDay.from(2050,11,31))
-                .setCalendarDisplayMode(CalendarMode.MONTHS)
-                .commit();*/
 
         return root;
     }
@@ -145,7 +128,7 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
                 mb.vmText.setText("");
                 mb.vmTime.setText("");
                 int year = date.getYear();
-                int month = date.getMonth();
+                int month = date.getMonth()+1;
                 int dayOfMonth = date.getDay();
 
                 getCalendarYear = year;
@@ -189,44 +172,23 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
         // 일정생성버튼 눌렀을때
         mb.calendarCreate.setOnClickListener(new View.OnClickListener() {
             final int todayYear = nowDate.get(java.util.Calendar.YEAR);
-            final int todayMonth = nowDate.get(java.util.Calendar.MONTH)+1;
+            final int todayMonth = nowDate.get(java.util.Calendar.MONTH);
             final int todayDay = nowDate.get(java.util.Calendar.DATE);
             //오늘 날짜랑 캘린더에서 선택된 날짜랑 비교
             //TODO: 이 로직은 추후에 최적하 시킬 예정
             @Override
             public void onClick(View v) {
-                if (todayYear<getCalendarYear){
-                    //dialog
+                long todayDate = calendarToInt(todayYear,todayMonth+1,todayDay);
+                long selectDate = calendarToInt(getCalendarYear,getCalendarMonth,getCalendarDay);
+                Log.e("t",todayDate+ " "+selectDate);
+                if(selectDate<todayDate){
+                    Toast.makeText(getContext(), "이미 시간이 지난 일정은 생성이 불가능 합니다.", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     CalendarCustomDialog dialog = new CalendarCustomDialog(getCalendarYear, getCalendarMonth, getCalendarDay,mainActivity, Define.CREATE_DIALOG);
                     dialog.show();
                 }
-                else if (todayYear>getCalendarYear){
-                    //message
-                    Toast.makeText(getContext(), "이미 시간이 지난 일정은 생성이 불가능 합니다.", Toast.LENGTH_SHORT).show();
 
-                }
-                else{
-                    if (todayMonth>getCalendarMonth){
-                        //message
-                        Toast.makeText(getContext(), "이미 시간이 지난 일정은 생성이 불가능 합니다.", Toast.LENGTH_SHORT).show();
-                    }
-                    else if (todayMonth<getCalendarMonth){
-                        //dialog
-                        CalendarCustomDialog dialog = new CalendarCustomDialog(getCalendarYear, getCalendarMonth, getCalendarDay,mainActivity, Define.CREATE_DIALOG);
-                        dialog.show();
-                    }
-                    else{
-                        if(todayDay>getCalendarDay){
-                            //message
-                            Toast.makeText(getContext(), "이미 시간이 지난 일정은 생성이 불가능 합니다.", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            //dialog
-                            CalendarCustomDialog dialog = new CalendarCustomDialog(getCalendarYear, getCalendarMonth, getCalendarDay,mainActivity, Define.CREATE_DIALOG);
-                            dialog.show();
-                        }
-                    }
-                }
             }
         });
         //삭제버튼 눌렀을때
@@ -313,7 +275,10 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
         mb.vmTime.setText("시작시간 : " + startTime + "\n" + "종료시간 : " + endTime);
         mb.type.setText(type);
     }
-
+    public long calendarToInt(int year,int month,int day){
+        Log.e("aa",year+":"+month+":"+day);
+        return day+(month*30)+(year*30*12);
+    }
     @Override
     public void visibleView(int dataIsNull) {
     }

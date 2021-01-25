@@ -12,14 +12,16 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="10dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/selector_emotion_button">
 
         <TextView
             android:id="@+id/i_member_tv_relation"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="엄마"/>
+            android:text="엄마"
+            android:textColor="#FFFFFF"/>
 
         <TextView
             android:id="@+id/i_member_tv_name"
@@ -27,7 +29,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="이름" />
+            android:text="이름"
+            android:textColor="#FFFFFF"/>
 
         <FrameLayout
             android:layout_width="0dp"
@@ -39,7 +42,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="호칭" />
+                android:text="호칭"
+                android:textColor="#FFFFFF"/>
 
             <EditText
                 android:id="@+id/i_member_et_edit"
@@ -56,6 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingTop="6dp"
             android:text="완료"
             android:visibility="gone"/>
 

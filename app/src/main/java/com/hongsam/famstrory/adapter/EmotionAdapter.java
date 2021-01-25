@@ -39,6 +39,9 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.ViewHold
         ViewHolder(View itemView) {
             super(itemView);
 
+            // 처음엔 아무 선택도 안되어있으니 입력창도 안보여줘야됨
+            emotionFragment.allEditTextGone();
+
             // 뷰 객체에 대한 참조. (hold strong reference)
             btn_item = itemView.findViewById(R.id.i_emotion_btn_item);
             btn_item.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +62,7 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.ViewHold
 
                             emotionFragment.setMiddleKeyword(position);
                             emotionFragment.largeIdx = position;
+                            emotionFragment.clearTextView();
                         }
                     } else if(itemFlag == ITEM_MIDDLE){
                         if (position == USER_WRITE) {
@@ -68,6 +72,7 @@ public class EmotionAdapter extends RecyclerView.Adapter<EmotionAdapter.ViewHold
                             emotionFragment.inputText(ITEM_MIDDLE, mList.get(position).getKeyword());
                             emotionFragment.middleIdx = position;
                         }
+
                     } else if (itemFlag == ITEM_SMALL) {
                         if (position == USER_WRITE) {
                             emotionFragment.showEditText(ITEM_SMALL, true);

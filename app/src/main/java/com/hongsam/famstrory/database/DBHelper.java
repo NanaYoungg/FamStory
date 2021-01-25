@@ -21,6 +21,8 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DBSchema.CREATE_TB_EMOTION);
+        db.execSQL(DBSchema.CREATE_TB_LETTER);
+        db.execSQL(DBSchema.CREATE_TB_MEMBER);
     }
 
     @Override
@@ -31,9 +33,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void createTables(SQLiteDatabase db) {
         db.execSQL(DBSchema.CREATE_TB_EMOTION);
+        db.execSQL(DBSchema.CREATE_TB_LETTER);
+        db.execSQL(DBSchema.CREATE_TB_MEMBER);
     }
+
     public void deleteTables(SQLiteDatabase db) {
         db.execSQL(DBSchema.DROP_TB_EMOTION);
+        db.execSQL(DBSchema.DROP_TB_LETTER);
+        db.execSQL(DBSchema.CREATE_TB_MEMBER);
     }
 
     public SQLiteDatabase open() throws SQLException {

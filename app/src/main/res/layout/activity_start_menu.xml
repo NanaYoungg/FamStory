@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDarkGreen"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="40dp">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:text="Fam Story"
+        android:textColor="#FFFFFF"
+        android:textSize="40dp"
+        android:letterSpacing="0.1"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/main_image"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/a_start_menu_layout_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/a_start_menu_btn_create"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="20dp"
+                android:paddingTop="10dp"
+                android:background="@drawable/ripple"
+                android:gravity="center"
+                android:text="가족 생성"
+                android:textSize="18dp"
+                android:textColor="#FFFFFF"/>
+
+            <Button
+                android:id="@+id/a_start_menu_btn_find"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:paddingTop="10dp"
+                android:background="@drawable/ripple"
+                android:gravity="center"
+                android:text="가족 찾기"
+                android:textSize="18dp"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/a_start_menu_layout_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <ProgressBar
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:indeterminateDrawable="@drawable/loading"
+                android:indeterminateDuration="1000"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

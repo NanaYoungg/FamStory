@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.data.Member;
+import com.hongsam.famstrory.database.DBFamstory;
 
 import java.util.ArrayList;
 
@@ -69,6 +70,7 @@ public class ViewHolderStruct {
 
             tvRelation.setText(memberList.get(position).getRelation());
             tvName.setText(memberList.get(position).getName());
+            tvCall.setText(memberList.get(position).getCall());
 
             tvCall.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -88,6 +90,9 @@ public class ViewHolderStruct {
                         Toast.makeText(mContext, "다시 입력해주세요.", Toast.LENGTH_SHORT).show();
                         return;
                     }
+
+                    DBFamstory.getInstance(mContext).updateMemberCall(tvRelation.getText().toString(), etEdit.getText().toString());
+                    //Define.memberList.get(position).setCall(etEdit.getText().toString());
 
                     tvCall.setText(etEdit.getText().toString());
                     tvCall.setVisibility(View.VISIBLE);
