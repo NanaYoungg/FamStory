@@ -24,7 +24,7 @@
         android:id="@+id/letter_paper_img_btn"
         app:layout_constraintTop_toBottomOf="@id/letter_write_back_btn"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="40dp"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/letterpaper_btn_customise"/>
@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="65dp"
         android:layout_marginLeft="20dp"
         android:layout_height="wrap_content"
         android:textSize="25dp"
@@ -94,6 +94,7 @@
         android:fontFamily="@font/tmoney_regular"
         android:text="0000년00월00일"
         android:textSize="10dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="@id/f_letter_to_tv"
         app:layout_constraintTop_toTopOf="@id/letter_read_img_view" />
 
