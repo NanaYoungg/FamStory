@@ -25,7 +25,7 @@
   <tr>
     <td class="tg-0pky">백엔드/프론트엔드</td>
     <td class="tg-0pky"><a href = "https://github.com/nnsyu" target = "blank" >한재훈</td>
-    <td class="tg-0pky">- Firebase DB, SqlLite 환경 세팅 및 구현<br>- FCM 서비스 환경세팅 <br>- 감정표현 기능 구현<br>- 앱 환경설정 기능 구현<br>- 감정표현 푸시메세지 기능 구현</td>
+    <td class="tg-0pky">- Firebase DB, SqlLite 환경 세팅 및 구현<br>- FCM 서비스 환경세팅 <br>- 감정표현 기능 구현<br>- 앱 환경설정 기능 구현<br>- 감정표현 푸시메세지 기능 구현<br>- 가족 프로필 기능 구현<br><br>- 가족 호칭 설정 기능 <br></td>
   </tr>
   <tr>
     <td class="tg-0pky">백엔드/프론트엔드</td>
