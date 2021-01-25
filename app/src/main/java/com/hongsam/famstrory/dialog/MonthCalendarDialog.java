@@ -14,7 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.hongsam.famstrory.adapter.MonthAdapter;
 import com.hongsam.famstrory.data.MonthCalendar;
-import com.hongsam.famstrory.data.Calendar;
+import com.hongsam.famstrory.data.CalendarData;
 import com.hongsam.famstrory.databinding.MonthCalendarLayoutBinding;
 import com.hongsam.famstrory.define.Define;
 
@@ -53,9 +53,9 @@ public class MonthCalendarDialog extends Dialog {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot val:snapshot.getChildren()){
                     String day = val.getKey();
-                    Calendar calendar = val.getValue(Calendar.class);
+                    CalendarData calendarData = val.getValue(CalendarData.class);
 
-                    adapter.list.add(new MonthCalendar(day,"일정명 : "+calendar.getTitle(),"세부내용 : "+calendar.getDescription()));
+                    adapter.list.add(new MonthCalendar(day,"일정명 : "+ calendarData.getTitle(),"세부내용 : "+ calendarData.getDescription()));
                     adapter.notifyDataSetChanged();
 
 

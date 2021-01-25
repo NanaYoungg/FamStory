@@ -1,11 +1,12 @@
 package com.hongsam.famstrory.animation;
 
 import android.view.View;
+import android.view.animation.Animation;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 
-public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
+public class ZoomOutPageTransformer extends Animation implements ViewPager.PageTransformer {
     private static final float MIN_SCALE = 0.65f;
     private static final float MIN_AlPHA = 0.5f;
     @Override

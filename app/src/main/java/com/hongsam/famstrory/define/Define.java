@@ -2,6 +2,9 @@ package com.hongsam.famstrory.define;
 
 import android.widget.TextView;
 import com.hongsam.famstrory.R;
+
+import com.hongsam.famstrory.activitie.MainActivity;
+
 import com.hongsam.famstrory.data.Keyword;
 import com.hongsam.famstrory.data.Member;
 
@@ -33,7 +36,7 @@ public class Define {
 
 
 
-    public static String USER = "테스트가족";
+    public static String USER = MainActivity.famName;
  
     public static String FAMSTORY_DB = "famstory.db";
     public static String MY_MESSAGE_TABLE_NAME = "myMsgTBL";
@@ -50,6 +53,9 @@ public class Define {
     public static final String MESSAGES = "messages";
 
     public static final String KEY_FIREBASE_TOKEN = "KEY_FIREBASE_TOKEN";
+
+    public static  String MY_RELATION = "my";
+    public static String MY_TOKEN = "a";
 
     public static final String KEY_FAMILY_NAME = "KEY_FAMILY_NAME";
     public static final String KEY_FAMILY_PASSWORD = "KEY_FAMILY_PASSWORD";
@@ -73,8 +79,14 @@ public class Define {
     public static int TIME_PICKER_END = TIME_PICKER_START+1;
 
     public static int[] LETTER_PAPAER_ARRAY = {
+
+
+
+            R.drawable.paper3,
+
             R.drawable.paper2,
             R.drawable.paper6,
+
             R.drawable.paper4,
             R.drawable.paper5
     };

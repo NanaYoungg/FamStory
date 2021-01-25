@@ -91,6 +91,7 @@ public class FamCreateActivity extends AppCompatActivity {
                 intent.putExtra("name", strName);
                 intent.putExtra("relation", strRelation);
                 intent.putExtra("password", strPw);
+
                 startActivity(intent);
                 finish();
             }
@@ -115,6 +116,7 @@ public class FamCreateActivity extends AppCompatActivity {
         FirebaseManager.dbFamRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 boolean flag = false;
                 for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
                     flag = famName.equals(singleSnapshot.getKey());
@@ -126,6 +128,7 @@ public class FamCreateActivity extends AppCompatActivity {
                 } else {
                     isFamOver = false;
                     Toast.makeText(getApplicationContext(), "사용 가능한 가족명입니다.", Toast.LENGTH_SHORT).show();
+
                 }
             }
 

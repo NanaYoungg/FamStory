@@ -1,7 +1,7 @@
 package com.hongsam.famstrory.interf;
 
-import com.hongsam.famstrory.data.Calendar;
+import com.hongsam.famstrory.data.CalendarData;
 
 public interface CustomDialogInterface {
-    public void calendarUpdateGetDialogText(Calendar data);
+    public void calendarUpdateGetDialogText(CalendarData data);
 }

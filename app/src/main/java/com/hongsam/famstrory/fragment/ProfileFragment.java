@@ -29,6 +29,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -67,6 +68,9 @@ public class ProfileFragment extends Fragment {
 
     MainActivity mainActivity;
     View mContentView;
+
+ 
+     
 
     LinearLayout layoutImage, layoutEmpty;
 
@@ -126,14 +130,18 @@ public class ProfileFragment extends Fragment {
     public void init(View v) {
         if (v != null) {
             memberList = DBFamstory.getInstance(mainActivity).selectAllMemberList();
+
             Log.d(TAG, "memberList size : " + memberList.size());
+ 
 
             if (memberList == null) {
                 memberList = new ArrayList<>();
             }
 
             layoutImage = v.findViewById(R.id.f_profile_layout_image);
+
             layoutEmpty = v.findViewById(R.id.f_profile_layout_empty);
+ 
 
             tvFamName = v.findViewById(R.id.f_profile_tv_fam_name);
             etTitle = v.findViewById(R.id.f_profile_et_title);
@@ -226,8 +234,10 @@ public class ProfileFragment extends Fragment {
             public void onFailure(@NonNull Exception e) {
                 Log.d(TAG, "이미지 업로드 실패!");
                 layoutImage.setVisibility(View.GONE);
+
                 //tvEmpty.setVisibility(View.VISIBLE);
                 layoutEmpty.setVisibility(View.VISIBLE);
+
             }
         });
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -235,8 +245,10 @@ public class ProfileFragment extends Fragment {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Log.d(TAG, "이미지 업로드 성공!");
                 layoutImage.setVisibility(View.VISIBLE);
+
                 //tvEmpty.setVisibility(View.GONE);
                 layoutEmpty.setVisibility(View.GONE);
+
                 SharedManager.writeLong(Define.KEY_FAMILY_PICTURE_SIZE, taskSnapshot.getTotalByteCount());
 
                 String picturePath = GlobalMethod.saveToInternalStorage(mainActivity, bm, "family.png");
@@ -334,7 +346,7 @@ public class ProfileFragment extends Fragment {
                     Bitmap picture = GlobalMethod.loadImageFromStorage(path, "family.png");
 
                     if (picture == null) {
-                        //tvEmpty.setVisibility(View.VISIBLE);
+               //tvEmpty.setVisibility(View.VISIBLE);
                         layoutEmpty.setVisibility(View.VISIBLE);
                         layoutImage.setVisibility(View.GONE);
                         return;
@@ -346,6 +358,7 @@ public class ProfileFragment extends Fragment {
                 }
                 //tvEmpty.setVisibility(View.GONE);
                 layoutEmpty.setVisibility(View.GONE);
+
                 layoutImage.setVisibility(View.VISIBLE);
             }
         });
@@ -353,8 +366,10 @@ public class ProfileFragment extends Fragment {
         sm.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+
                 //tvEmpty.setVisibility(View.VISIBLE);
                 layoutEmpty.setVisibility(View.VISIBLE);
+
                 layoutImage.setVisibility(View.GONE);
             }
         });
@@ -376,7 +391,9 @@ public class ProfileFragment extends Fragment {
                         file = new Compressor(mainActivity).setQuality(50).setMaxWidth(600).setMaxHeight(600).compressToFile(file);
                         bm = GlobalMethod.FileToBitmap(file);
 
+
                         is.close();
+
 
                         //tvEmpty.setVisibility(View.GONE);
                         layoutEmpty.setVisibility(View.GONE);
