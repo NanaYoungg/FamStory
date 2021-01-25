@@ -10,7 +10,7 @@
 
 
 ## :green_heart:팀명: 홍삼 
-## :green_heart:팀원소개
+## :family:팀원소개
 
 
 <table class="tg">
@@ -52,14 +52,14 @@
 <br>
 <br>
 
-## 사용언어, 기술스택
+## :book:사용언어, 기술스택
 ![Generic badge](https://img.shields.io/badge/platform-Mobile-green.svg) ![Generic badge](https://img.shields.io/badge/OS-Android-brightgreen.svg)
 ![Generic badge](https://img.shields.io/badge/database-SQLite,firebaseDB,SharedPreferences-yellow.svg)
 ![Generic badge](https://img.shields.io/badge/language-Java,Sql-important.svg) 
 
 <br>
 
-## 개발환경   
+## :hammer:개발환경   
 
 <table class="tg">
 <thead>
@@ -72,14 +72,14 @@
 
 <br>
 
-## 애플리케이션 아키텍처
+## :bulb:애플리케이션 아키텍처
 <img width="383" alt="dd" src="https://user-images.githubusercontent.com/56735744/105672246-6bb02000-5f27-11eb-8b5d-f677ee6b8633.png">
 
 
 <br>
 <br>
 
-## 결과물
+## :triangular_flag_on_post:결과물
 
 <img width="124" alt="1" src="https://user-images.githubusercontent.com/56735744/105656200-0814fb00-5f05-11eb-8b16-a7faeaca1a4f.png"><img width="124" alt="2" src="https://user-images.githubusercontent.com/56735744/105656201-08ad9180-5f05-11eb-901b-455f11132065.png">   
 
