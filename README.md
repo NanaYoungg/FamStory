@@ -9,8 +9,8 @@
 
 
 
-## 팀명: 홍삼 
-## 팀원소개
+## :green_heart:팀명: 홍삼 
+## :green_heart:팀원소개
 
 
 <table class="tg">
@@ -84,7 +84,8 @@
 
 
 
-<img width="124" alt="5" src="https://user-images.githubusercontent.com/56735744/105656192-06e3ce00-5f05-11eb-9a5e-12c36ee47e32.png"><img width="124" alt="6" src="https://user-images.githubusercontent.com/56735744/105656194-06e3ce00-5f05-11eb-86c9-4668796a0010.png">
+<img width="124" alt="5" src="https://user-images.githubusercontent.com/56735744/105656192-06e3ce00-5f05-11eb-9a5e-12c36ee47e32.png"><img width="126" alt="ddddddd" src="https://user-images.githubusercontent.com/56735744/105656699-2f1ffc80-5f06-11eb-90a6-424dfbed407f.png">
+
 
 
 <img width="234" alt="7" src="https://user-images.githubusercontent.com/56735744/105656195-077c6480-5f05-11eb-9a1b-1d2b3b92fc9d.png">
