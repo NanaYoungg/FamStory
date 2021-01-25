@@ -7,6 +7,7 @@
     android:padding="15dp">
 
     <TextView
+        android:id="@+id/d_yes_no_tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="안 내"
@@ -15,6 +16,7 @@
         android:textColor="@color/colorDarkGreen"/>
 
     <TextView
+        android:id="@+id/d_yes_no_tv_contents"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

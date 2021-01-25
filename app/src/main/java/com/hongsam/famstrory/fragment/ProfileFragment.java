@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -28,6 +29,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -49,6 +51,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.hongsam.famstrory.util.FirebaseManager;
 import com.hongsam.famstrory.util.GlobalMethod;
@@ -270,6 +273,29 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+//    public void downloadPicture() {
+//        StorageReference ref = FirebaseManager.storageFamRef.child(famName+FirebaseManager.pathImgTitle);
+//
+//        try {
+//            ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Uri> task) {
+//                    Glide.with(mainActivity)
+//                            .load(task.getResult())
+//                            .centerCrop()
+//                            .into(ivMain);
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//
+//                }
+//            });
+//        } catch (Exception e) {
+//
+//        }
+//    }
+
     public void checkServerTitle() {
         FirebaseManager.dbFamRef.child(famName).child("famTitle").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -313,7 +339,8 @@ public class ProfileFragment extends Fragment {
                         layoutImage.setVisibility(View.GONE);
                         return;
                     } else {
-//                        Glide.with(getContext()).asBitmap().load
+//                        Glide.with(mContentView.getContext()).load(picture).into(ivMain);
+//                        Log.d(TAG, "탔겠지");
                         ivMain.setImageBitmap(picture);
                     }
                 }
