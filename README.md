@@ -87,5 +87,7 @@
 
 
 
-
+## :raising_hand: 발표영상
+## 1:34:50 부터  ~
+https://www.youtube.com/watch?v=Cf-8R0g6GQw&t=6655s     
 
