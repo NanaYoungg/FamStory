@@ -89,6 +89,7 @@
             android:layout_height="55dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:inputType="textPassword"
 
             android:hint="1234"
  

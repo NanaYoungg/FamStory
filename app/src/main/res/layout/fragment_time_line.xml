@@ -22,13 +22,4 @@
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </LinearLayout>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="+"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:background="@color/colorBrown"
-        />
 </LinearLayout>

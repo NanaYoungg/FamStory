@@ -73,21 +73,31 @@
 <br>
 
 ## :bulb:애플리케이션 아키텍처
-<img width="524" alt="구조" src="https://user-images.githubusercontent.com/56735744/106293133-fe86ec80-6290-11eb-86a4-fdb1165b56e2.png">
+<img width="473" alt="dd" src="https://user-images.githubusercontent.com/56735744/105675053-d3686a00-5f2b-11eb-80ff-998dcb10b041.png">
+
 
 <br>
 <br>
 
 ## :triangular_flag_on_post:결과물
-<img width="524" alt="1" src="https://user-images.githubusercontent.com/56735744/106293135-fe86ec80-6290-11eb-92da-931bce045d8f.png">     
-<img width="544" alt="2" src="https://user-images.githubusercontent.com/56735744/106293136-ff1f8300-6290-11eb-858e-eed3338f1eff.png">     
-<img width="521" alt="3" src="https://user-images.githubusercontent.com/56735744/106293125-fcbd2900-6290-11eb-98c5-9f805f30ed05.png">     
-<img width="517" alt="4" src="https://user-images.githubusercontent.com/56735744/106293131-fdee5600-6290-11eb-8d06-745e6035aaf9.png">     
+
+<img width="124" alt="1" src="https://user-images.githubusercontent.com/56735744/105656200-0814fb00-5f05-11eb-8b16-a7faeaca1a4f.png"><img width="124" alt="2" src="https://user-images.githubusercontent.com/56735744/105656201-08ad9180-5f05-11eb-901b-455f11132065.png">   
+
+
+<img width="225" alt="3" src="https://user-images.githubusercontent.com/56735744/105656203-09462800-5f05-11eb-9bcd-a5ae016614b8.png">
+
+<img width="262" alt="4" src="https://user-images.githubusercontent.com/56735744/105656189-051a0a80-5f05-11eb-967f-dfb65193057c.png"> 
 
 
 
+<img width="124" alt="5" src="https://user-images.githubusercontent.com/56735744/105656192-06e3ce00-5f05-11eb-9a5e-12c36ee47e32.png"><img width="126" alt="ddddddd" src="https://user-images.githubusercontent.com/56735744/105656699-2f1ffc80-5f06-11eb-90a6-424dfbed407f.png">
 
-## :raising_hand: 발표영상
-## 1:34:50 부터  ~
-https://www.youtube.com/watch?v=Cf-8R0g6GQw&t=6655s     
+
+
+<img width="234" alt="7" src="https://user-images.githubusercontent.com/56735744/105656195-077c6480-5f05-11eb-9a1b-1d2b3b92fc9d.png">
+
+<img width="126" alt="8" src="https://user-images.githubusercontent.com/56735744/105656197-077c6480-5f05-11eb-88d2-105897fc6815.png"> <img width="130" alt="9" src="https://user-images.githubusercontent.com/56735744/105656199-0814fb00-5f05-11eb-8fe0-bcb046080347.png">
+
+
+
 

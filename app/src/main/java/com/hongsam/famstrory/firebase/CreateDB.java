@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.data.CalendarData;
 import com.hongsam.famstrory.define.Define;
 
@@ -12,7 +13,7 @@ public class CreateDB {
 
 
     public void pushFireBaseDatabase(Bundle bundle){
-        String user = Define.USER;
+        String user = MainActivity.famName;
         String getTitle = bundle.getString("title");
         String getText = bundle.getString("text");
         String getDate=bundle.getString("date");
@@ -24,7 +25,7 @@ public class CreateDB {
         int Day = bundle.getInt("day");
         Log.e("d",getText);
 
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Family").child(user).child("CalendarDB")
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference(Define.DB_REFERENCE).child(user).child(Define.CALENDAR_DB)
                 .child(Year+"년").child(Month+"월").child(Day+"일");
         CalendarData calendarDataDB = new CalendarData(getTitle,getText,getStartTime,getEndTime,getType);
         database.setValue(calendarDataDB);

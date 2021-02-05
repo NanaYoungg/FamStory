@@ -1,29 +1,19 @@
 package com.hongsam.famstrory.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.ValueEventListener;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.data.LetterContants;
-import com.hongsam.famstrory.data.LetterList;
-import com.hongsam.famstrory.databinding.FragmentLetterReadBinding;
-import com.hongsam.famstrory.define.Define;
-import com.hongsam.famstrory.dialog.LetterReceiverDialog;
-import com.hongsam.famstrory.fragment.LetterReadFragment;
-import com.hongsam.famstrory.fragment.LetterWriteFragment;
 
 import java.util.ArrayList;
 
@@ -48,14 +38,14 @@ public class LetterListAdapter extends RecyclerView.Adapter<LetterListAdapter.Vi
 
     @NonNull
     @Override
-    public LetterListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_letter_list, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LetterListAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
         holder.sender.setText(letterItemList.get(position).getSender());
         holder.contants.setText(letterItemList.get(position).getContants());

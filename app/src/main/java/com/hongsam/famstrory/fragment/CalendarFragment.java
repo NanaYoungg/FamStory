@@ -160,12 +160,34 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
                 int year = date.getYear();
-                int month = date.getMonth();
+                int month = date.getMonth()+1;
                 int dayOfMonth = date.getDay();
 
+
+                mb.calendarView.setDateSelected(new CalendarDay(year,month-1,dayOfMonth),true);
                 getCalendarYear = year;
                 getCalendarMonth = month;
                 getCalendarDay = dayOfMonth;
+                state = "null";
+                ReadDB readDB = new ReadDB(mainActivity);
+                checkDB.checkDB(getCalendarYear,getCalendarMonth,getCalendarDay,getContext(),getFragmentManager(),new CalendarFragment(),
+                        mb.calendarCreate,mb.calendarDelete,mb.calendarUpdate,mb.calendarCreateText,mb.calendarDeleteText,mb.calendarUpdateText);
+                readDB.databaseRead(getCalendarYear, getCalendarMonth, getCalendarDay);
+                if (getFragmentManager()!=null) {
+                    getFragmentManager().beginTransaction().replace(R.id.calendar_view_more, viewMoreFragment).commit();
+                    FragmentManager newFm = getFragmentManager();
+                    checkDB.checkDB(getCalendarYear, getCalendarMonth, getCalendarDay, getContext(), newFm, viewMoreFragment,
+                            mb.calendarCreate,mb.calendarDelete,mb.calendarUpdate,mb.calendarCreateText,mb.calendarDeleteText,mb.calendarUpdateText);
+                }
+                Define.setViewText(mb.vmDate, year + "." + month + "." + dayOfMonth);
+                if (state.equals("null")) {
+                    mb.calendarCreate.setVisibility(View.VISIBLE);
+                    mb.calendarCreateText.setVisibility(View.VISIBLE);
+                    mb.calendarDelete.setVisibility(View.INVISIBLE);
+                    mb.calendarDeleteText.setVisibility(View.INVISIBLE);
+                    mb.calendarUpdate.setVisibility(View.INVISIBLE);
+                    mb.calendarUpdateText.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
@@ -175,7 +197,7 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
             final int todayMonth = nowDate.get(java.util.Calendar.MONTH);
             final int todayDay = nowDate.get(java.util.Calendar.DATE);
             //오늘 날짜랑 캘린더에서 선택된 날짜랑 비교
-            //TODO: 이 로직은 추후에 최적하 시킬 예정
+
             @Override
             public void onClick(View v) {
                 long todayDate = calendarToInt(todayYear,todayMonth+1,todayDay);

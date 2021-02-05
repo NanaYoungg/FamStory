@@ -1,11 +1,8 @@
 
 package com.hongsam.famstrory.fragment;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -14,27 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-//import com.hongsam.famstrory.ItemTouchHelper.RecyclerItemTouchHelper;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.adapter.LetterListAdapter;
 import com.hongsam.famstrory.data.LetterContants;
-import com.hongsam.famstrory.data.LetterList;
-import com.hongsam.famstrory.database.DBFamstory;
 import com.hongsam.famstrory.define.Define;
 
 import java.util.ArrayList;
+
+//import com.hongsam.famstrory.ItemTouchHelper.RecyclerItemTouchHelper;
 
 /*
  * 편지 목록 화면

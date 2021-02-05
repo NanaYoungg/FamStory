@@ -90,12 +90,12 @@ public class CalendarCustomDialog extends Dialog implements  CustomDialogInterfa
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 int len = mb.viewMoreDescriptionEt.getText().toString().length();
-
-                mb.descriptionSetText.setText(len + "/100");
-                if (len < 70) {
+                String limitLen = len+"/50";
+                mb.descriptionSetText.setText(limitLen);
+                if (len < 30) {
 
                     mb.descriptionSetText.setTextColor(Color.parseColor("#000000"));
-                } else if (len < 90) {
+                } else if (len < 40) {
 
                     mb.descriptionSetText.setTextColor(Color.parseColor("#FB8C00"));
                 } else {
@@ -121,14 +121,16 @@ public class CalendarCustomDialog extends Dialog implements  CustomDialogInterfa
                 String str_start_time = mb.startTimeTv.getText().toString();
                 String str_end_time = mb.endTimeTv.getText().toString();
                 String str_type = mb.spinner.getSelectedItem().toString();
-
-
+                int getSpinnerPosition = mb.spinner.getSelectedItemPosition();
                 // 확인 버튼을 눌렀을때 채우지 않은 부분이 있는지 확인
                 if (str_text.length() == 0 || str_text.length() == 0 ||
                         mb.startTimeTv.getText().toString().equals("시작시간") ||
                         mb.endTimeTv.getText().toString().equals("종료시간")) {
                     Toast.makeText(getContext(), "빈칸을 채워주세요", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (getSpinnerPosition==0){
+                    Toast.makeText(getContext(),"항목을 선택해주세요",Toast.LENGTH_SHORT).show();
+
+                } else{
                     // 번들객체에 데이터를 담아서 Firebase 로 데이터 처리
                     Bundle bundle = new Bundle();
                     bundle.putString("title", str_title);
@@ -139,7 +141,6 @@ public class CalendarCustomDialog extends Dialog implements  CustomDialogInterfa
                     bundle.putInt("month",getMonth);
                     bundle.putInt("day", getDay);
                     bundle.putString("type",str_type);
-                    Toast.makeText(getContext(),str_title,Toast.LENGTH_SHORT).show();
                     createDB.pushFireBaseDatabase(bundle);
                     dismiss();
                 }
@@ -176,7 +177,6 @@ public class CalendarCustomDialog extends Dialog implements  CustomDialogInterfa
                 }, hour, min, false);
 
                 calendarTimePicker.setMessage("시간을 설정해주세요");
-                calendarTimePicker.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 calendarTimePicker.show();
 
             }

@@ -17,7 +17,6 @@
             android:background="@drawable/profile_view"/>
 
         <LinearLayout
-            android:id="@+id/f_profile_layout_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">

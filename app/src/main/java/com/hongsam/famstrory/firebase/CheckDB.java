@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.define.Define;
 
 import static com.hongsam.famstrory.fragment.CalendarFragment.state;
@@ -27,12 +28,12 @@ import static com.hongsam.famstrory.fragment.CalendarFragment.state;
  */
 public class CheckDB{
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    String userName = Define.USER;
+    String userName = MainActivity.famName;
 
     public void checkDB(int year, int month, int day, Context context, final FragmentManager fm, final Fragment fr,
                         final Button calendarCreateBtn, final Button calendarDeleteBtn, final Button calendarUpdateBtn,
                         final TextView calendarCreateText,final TextView calendarDeleteText,final TextView calendarUpdateText){
-        DatabaseReference myRef = database.getReference("Family").child(userName).child("CalendarDB")
+        DatabaseReference myRef = database.getReference(Define.DB_REFERENCE).child(userName).child(Define.CALENDAR_DB)
                 .child(year+"년").child(month+"월").child(day+"일");
         myRef.addChildEventListener(new ChildEventListener() {
             @Override

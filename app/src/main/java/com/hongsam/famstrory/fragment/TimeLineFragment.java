@@ -186,7 +186,6 @@ public class TimeLineFragment extends Fragment {
             }
         }
 
-        Toast.makeText(getContext(), "onResume()", Toast.LENGTH_SHORT).show();
         adapter.notifyDataSetChanged();
         for (Emotion emotion : emotions) {
             Log.e("list", emotion.getMessage() + "");

@@ -20,7 +20,7 @@ public class ReadDB {
     MainActivity mainActivity;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    String userName = Define.USER;
+    String userName = MainActivity.famName;
 
 
     CalendarData calendarDataDB;
@@ -34,7 +34,7 @@ public class ReadDB {
     public void databaseRead(int year,int month,final int day){
 
 
-        DatabaseReference myRef = database.getReference("Family").child(userName).child("CalendarDB")
+        DatabaseReference myRef = database.getReference(Define.DB_REFERENCE).child(userName).child(Define.CALENDAR_DB)
                 .child(year+"년").child(month+"월");
         Query query = myRef.orderByChild(day+"일");
         query.addChildEventListener(new ChildEventListener() {

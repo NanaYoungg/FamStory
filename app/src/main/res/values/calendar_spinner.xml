@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="arr">
+        <item>항목을 골라주세요</item>
         <item>생일</item>
         <item>기념</item>
         <item>모임</item>

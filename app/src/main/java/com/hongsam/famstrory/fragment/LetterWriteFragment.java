@@ -26,42 +26,29 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
-import com.hongsam.famstrory.data.Emotion;
-import com.hongsam.famstrory.data.Keyword;
 import com.hongsam.famstrory.data.LetterContants;
-import com.hongsam.famstrory.data.LetterPaper;
 import com.hongsam.famstrory.data.Member;
 import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.dialog.LetterPaperDialog;
 import com.hongsam.famstrory.dialog.LetterReceiverDialog;
 import com.hongsam.famstrory.util.FirebaseManager;
-import com.hongsam.famstrory.util.GlobalMethod;
 import com.hongsam.famstrory.util.SharedManager;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import static android.app.Activity.RESULT_OK;
 
 /*
  * 편지 쓰기 화면 (편지목록의 플로팅버튼 -> 편지읽기)
@@ -179,7 +166,7 @@ public class LetterWriteFragment extends Fragment {
                 public void onClick(View v) {
 
                     Intent intent = new Intent(Intent.ACTION_PICK);
-                    intent.setDataAndType(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                    intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                     startActivityForResult(intent, GET_GALLERY_IMAGE);
                 }
             });
