@@ -25,6 +25,9 @@
                 android:id="@+id/month_calendar"
                 android:layout_width="wrap_content"
                 android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:background="@drawable/month_more_shape"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="월별 일정 보기" />
@@ -57,6 +60,7 @@
                 android:id="@+id/calendar_update_text"
                 android:visibility="invisible"
                 android:layout_width="wrap_content"
+                android:textSize="12sp"
                 android:layout_height="wrap_content"
                 android:text="일정수정"/>
         </LinearLayout>
@@ -78,6 +82,7 @@
             <TextView
                 android:id="@+id/calendar_delete_text"
                 android:visibility="invisible"
+                android:textSize="12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="일정삭제"/>
@@ -88,6 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+
             android:layout_marginHorizontal="5dp"
             android:orientation="vertical">
 
@@ -102,6 +108,7 @@
             <TextView
                 android:id="@+id/calendar_create_text"
                 android:visibility="visible"
+                android:textSize="12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="일정추가"/>
@@ -121,6 +128,7 @@
         android:id="@+id/calendar_view_more"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+
         android:layout_weight="0.9"
         android:background="@color/colorWaterBrown">
 
@@ -142,12 +150,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="일정명 : "
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/vm_text"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.044"
+            app:layout_constraintHorizontal_bias="0.03"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.24" />
+            app:layout_constraintVertical_bias="0.52" />
 
         <TextView
             android:id="@+id/type"
@@ -166,12 +174,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="세부내용 : "
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.045"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.394" />
+            app:layout_constraintBottom_toTopOf="@+id/vm_time"
+            app:layout_constraintEnd_toEndOf="@+id/vm_name"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/vm_name"
+            app:layout_constraintTop_toBottomOf="@+id/vm_name" />
 
         <TextView
             android:id="@+id/vm_time"
@@ -179,16 +186,15 @@
             android:layout_height="wrap_content"
             android:text="시간"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.041"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.759" />
+            app:layout_constraintEnd_toEndOf="@+id/vm_text"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/vm_text"
+            app:layout_constraintTop_toBottomOf="@+id/vm_text" />
 
         <TextView
             android:id="@+id/vm_date"
             android:layout_width="wrap_content"
-            android:layout_height="19dp"
+            android:layout_height="wrap_content"
             android:text="날짜"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

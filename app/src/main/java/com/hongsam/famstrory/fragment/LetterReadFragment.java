@@ -16,40 +16,20 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
-
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
-import com.hongsam.famstrory.adapter.LetterListAdapter;
 import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.LetterList;
-import com.hongsam.famstrory.define.Define;
-import com.hongsam.famstrory.dialog.LetterReceiverDialog;
-import com.hongsam.famstrory.util.FirebaseManager;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-
-import com.hongsam.famstrory.activitie.MainActivity;
-import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.define.Define;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import static android.database.sqlite.SQLiteDatabase.openOrCreateDatabase;
 import static com.hongsam.famstrory.util.FirebaseManager.dbFamRef;
 
-import static com.hongsam.famstrory.fragment.LetterWriteFragment.TEST_FAMILY;
 
 /*
  * 편지 읽기 화면 (편지목록 -> 편지읽기)
@@ -64,12 +44,6 @@ public class LetterReadFragment extends Fragment {
     private ImageButton mBackBtn, mdeletBtn;
     private TextView tvSender, tvDate, tvContants;
     private ImageView mPhoto, mPaper;
-
-    private ImageButton mBackBtn;
-
-    private TextView mFromTv, mDate, mContants, mWriteDate;
-
-    private ImageView mPhoto, mdeletBtn;
 
     private String testfamily = "테스트가족";
     private LetterList mLetterItem;
@@ -129,6 +103,7 @@ public class LetterReadFragment extends Fragment {
             mPhoto = mContentView.findViewById(R.id.read_photo_iv);
             tvContants = mContentView.findViewById(R.id.read_contants_tv);
             mdeletBtn = mContentView.findViewById(R.id.trash_img_btn);
+            mPaper = mContentView.findViewById(R.id.letter_read_img_view);
 
 
             //toolbar의 뒤로가기 버튼
@@ -169,7 +144,7 @@ public class LetterReadFragment extends Fragment {
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
-            //mPhoto.setImageResource(letterContants.getPhoto());
+//            mPhoto.setImageResource(letterContants.getPhoto());
             mPaper.setImageResource(Define.LETTER_PAPAER_ARRAY[letterContants.getPaperType()]);
 
         }

@@ -37,18 +37,18 @@ public class LetterPaperAdapter extends RecyclerView.Adapter<LetterPaperAdapter.
 
     @NonNull
     @Override
-    public LetterPaperAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
        View view = LayoutInflater.from(context).inflate(R.layout.item_letter_paper, parent, false);
-        LetterPaperAdapter.ViewHolder viewHolder = new LetterPaperAdapter.ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LetterPaperAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.paperImage.setImageResource(letterPaperItemList.get(position).getImage(R.drawable.paper1_preview));
+        holder.paperImage.setImageResource(letterPaperItemList.get(position).getImage());
 
     }
 
@@ -71,7 +71,8 @@ public class LetterPaperAdapter extends RecyclerView.Adapter<LetterPaperAdapter.
             paperImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    id = Define.LETTER_PAPAER_ARRAY[getAdapterPosition()];
+//                    id = Define.LETTER_PAPAER_ARRAY[getAdapterPosition()];
+                    id = letterPaperItemList.get(getAdapterPosition()).getImage();
                     letterWriteFragment.setLetterPaper(id);
                 }
             });

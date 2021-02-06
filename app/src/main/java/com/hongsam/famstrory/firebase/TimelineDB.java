@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.adapter.FamilyAdapter;
 import com.hongsam.famstrory.data.Keyword;
 import com.hongsam.famstrory.data.Member;
@@ -26,7 +27,7 @@ import java.text.SimpleDateFormat;
 
 public class TimelineDB {
     String Family = Define.DB_REFERENCE;
-    String User = Define.USER;
+    String User = MainActivity.famName;
     FirebaseDatabase fireDB = FirebaseDatabase.getInstance();
     DatabaseReference myRef = fireDB.getReference(Family).child(User).child("members");
     private static final String TAG = "TimelineDB";

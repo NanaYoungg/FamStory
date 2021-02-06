@@ -7,7 +7,7 @@ public class LetterPaper {
 
     }
 
-    public int getImage(int paper1_preview) {
+    public int getImage() {
         return image;
     }
 

@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.hongsam.famstrory.activitie.MainActivity;
 import com.hongsam.famstrory.adapter.MonthAdapter;
 import com.hongsam.famstrory.data.MonthCalendar;
 import com.hongsam.famstrory.data.CalendarData;
@@ -46,7 +47,7 @@ public class MonthCalendarDialog extends Dialog {
     }
     public void getCalendarDB(final MonthAdapter adapter, int Year, final int Month){
         FirebaseDatabase fireDB = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = fireDB.getReference(Define.DB_REFERENCE).child(Define.USER).child(Define.CALENDAR_DB).child(Year+"년").child(Month+"월");
+        final DatabaseReference myRef = fireDB.getReference(Define.DB_REFERENCE).child(MainActivity.famName).child(Define.CALENDAR_DB).child(Year+"년").child(Month+"월");
         final ArrayList<String> monthList = new ArrayList<>();
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -25,7 +25,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.amitshekhar.DebugDB;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -40,6 +39,7 @@ import com.hongsam.famstrory.animation.ZoomOutPageTransformer;
 
 import com.hongsam.famstrory.data.CalendarData;
 
+import com.hongsam.famstrory.data.LetterContants;
 import com.hongsam.famstrory.data.Member;
 import com.hongsam.famstrory.data.Notice;
 import com.hongsam.famstrory.database.DBFamstory;
@@ -48,7 +48,6 @@ import com.hongsam.famstrory.define.Define;
 import com.hongsam.famstrory.firebase.ReadDB;
 import com.hongsam.famstrory.firebase.UpdateDB;
 import com.hongsam.famstrory.fragment.CalendarFragment;
-import com.hongsam.famstrory.fragment.ChattingFragment;
 import com.hongsam.famstrory.fragment.EmotionFragment;
 import com.hongsam.famstrory.fragment.FamCreateFragment;
 import com.hongsam.famstrory.fragment.LetterListFragment;
@@ -215,7 +214,6 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
         mb.basic.setVisibility(View.GONE);
         mb.viewPager.setVisibility(View.VISIBLE);
         mb.tabLayout.setVisibility(View.VISIBLE);
-        DebugDB.getAddressLog();
     }
 
     public void loadMyInfo() {
@@ -451,9 +449,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
             case Define.FRAGMENT_ID_SPINNER_MANGER:
                 fragment = new SpinnerMangerFragment();
                 break;
-            case Define.FRAGMENT_ID_CHATTING:
-                Log.e(TAG,name+nickName);
-                fragment = new ChattingFragment(name,nickName);
+
             default:
                 break;
         }
