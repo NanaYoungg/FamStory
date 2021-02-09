@@ -80,23 +80,11 @@
 <br>
 
 ## :triangular_flag_on_post:결과물
-
-<img width="124" alt="1" src="https://user-images.githubusercontent.com/56735744/105656200-0814fb00-5f05-11eb-8b16-a7faeaca1a4f.png"><img width="124" alt="2" src="https://user-images.githubusercontent.com/56735744/105656201-08ad9180-5f05-11eb-901b-455f11132065.png">   
-
-
-<img width="225" alt="3" src="https://user-images.githubusercontent.com/56735744/105656203-09462800-5f05-11eb-9bcd-a5ae016614b8.png">
-
-<img width="262" alt="4" src="https://user-images.githubusercontent.com/56735744/105656189-051a0a80-5f05-11eb-967f-dfb65193057c.png"> 
-
-
-
-<img width="124" alt="5" src="https://user-images.githubusercontent.com/56735744/105656192-06e3ce00-5f05-11eb-9a5e-12c36ee47e32.png"><img width="126" alt="ddddddd" src="https://user-images.githubusercontent.com/56735744/105656699-2f1ffc80-5f06-11eb-90a6-424dfbed407f.png">
-
-
-
-<img width="234" alt="7" src="https://user-images.githubusercontent.com/56735744/105656195-077c6480-5f05-11eb-9a1b-1d2b3b92fc9d.png">
-
-<img width="126" alt="8" src="https://user-images.githubusercontent.com/56735744/105656197-077c6480-5f05-11eb-88d2-105897fc6815.png"> <img width="130" alt="9" src="https://user-images.githubusercontent.com/56735744/105656199-0814fb00-5f05-11eb-8fe0-bcb046080347.png">
+ 
+<img width="548" alt="1" src="https://user-images.githubusercontent.com/56735744/107328911-c1bdbf80-6af2-11eb-9aec-900ec2fa403c.png">     
+<img width="537" alt="2" src="https://user-images.githubusercontent.com/56735744/107328912-c2565600-6af2-11eb-8e61-d6c6fc6bbfa8.png">     
+<img width="530" alt="4" src="https://user-images.githubusercontent.com/56735744/107328904-c08c9280-6af2-11eb-956d-167bd17e077e.png">     
+<img width="530" alt="3" src="https://user-images.githubusercontent.com/56735744/107328915-c2565600-6af2-11eb-8ceb-fe83050a3d8b.png">     
 
 
 
