@@ -22,6 +22,16 @@
   </tr>
 </thead>
 <tbody>
+    <tr>
+    <td class="tg-0pky">팀장</td>
+    <td class="tg-0pky"><a href = "https://github.com/NanaYoungg" target = "blank" >오나영</td>
+    <td class="tg-0pky">- 편지 DB 구현<br>- 편지지 변경 기능 구현<br>- 편지 보내기 기능 구현<br>- 편지 보기 기능 구현 <br>- 편지 푸시메세지 기능 구현</td>
+  </tr>
+    <tr>
+    <td class="tg-0pky">백엔드/프론트엔드</td>
+    <td class="tg-0pky"><a href = "https://github.com/kimhyeonji3" target = "blank" >김현지</td>
+    <td class="tg-0pky">- 가족 등록 기능 구현<br>- 가족 찾기 기능 구현<br>- 가족 추가 DB 구현<br>- 가족 입장 푸시메세지 구현</td>
+  </tr>
   <tr>
     <td class="tg-0pky">백엔드/프론트엔드</td>
     <td class="tg-0pky"><a href = "https://github.com/nnsyu" target = "blank" >한재훈</td>
@@ -34,13 +44,8 @@
   </tr>
   <tr>
     <td class="tg-0pky">백엔드/프론트엔드</td>
-    <td class="tg-0pky"><a href = "https://github.com/NanaYoungg" target = "blank" >오나영</td>
-    <td class="tg-0pky">- 편지 DB 구현<br>- 편지지 변경 기능 구현<br>- 편지 보내기 기능 구현<br>- 편지 보기 기능 구현 <br>- 편지 푸시메세지 기능 구현</td>
-  </tr>
-  <tr>
-    <td class="tg-0pky">백엔드/프론트엔드</td>
-    <td class="tg-0pky"><a href = "https://github.com/kimhyeonji3" target = "blank" >김현지</td>
-    <td class="tg-0pky">- 가족 등록 기능 구현<br>- 가족 찾기 기능 구현<br>- 가족 추가 DB 구현<br>- 가족 입장 푸시메세지 구현</td>
+    <td class="tg-0pky"><a href = "https://github.com/nnsyu" target = "blank" >한재훈</td>
+    <td class="tg-0pky">- Firebase DB, SQLite 환경 세팅 및 구현<br>- FCM 서비스 환경세팅 <br>- 감정표현 기능 구현<br>- 앱 환경설정 기능 구현<br>- 감정표현 푸시메세지 기능 구현<br>- 가족 프로필 기능 구현<br>- 가족 호칭 설정 기능 <br></td>
   </tr>
 </tbody>
 </table>
