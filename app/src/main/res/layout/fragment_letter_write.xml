@@ -131,7 +131,7 @@
                 android:layout_width="300dp"
                 android:layout_height="500dp"
                 android:layout_marginLeft="38dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="27dp"
                 android:hint="내용을 입력하세요"
                 android:gravity="top"
                 android:background="@color/colorTransparent"

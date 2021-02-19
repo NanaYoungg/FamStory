@@ -46,7 +46,7 @@
             android:layout_height="55dp"
             android:layout_weight="1"
             android:layout_marginRight="10dp"
-
+            android:maxLength="9"
             android:paddingHorizontal="5dp"
             android:gravity="center"
             android:hint="홍삼네가족"
@@ -122,7 +122,7 @@
             android:layout_height="55dp"
             android:layout_weight="1"
             android:gravity="center"
-
+            android:inputType="textPassword"
             android:hint="1234"
  
             android:background="@drawable/edit_text_round"
@@ -180,6 +180,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:hint="내이름"
+
             android:background="@drawable/edit_text_round"
             android:nextFocusForward="@+id/a_fam_create_btn_create"
             android:imeOptions="actionDone"

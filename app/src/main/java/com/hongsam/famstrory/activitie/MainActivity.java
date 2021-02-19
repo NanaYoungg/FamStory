@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
             saveMyInfo();
         }
 
-        // Firebase로부터 Token값을 받아 firebase database와 sharedPreference에 저장해준다.
+        // Firebase 로부터 Token 값을 받아 firebase database 와 sharedPreference에 저장해준다.
         getFirebaseToken();
 
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -140,8 +140,8 @@ public class MainActivity extends AppCompatActivity implements TimeLineFragment.
 
         mb.viewPager.setAdapter(viewPagerAdapter);
         // 화면 전환 애니메이션 적용
-        ZoomOutPageTransformer animation = new ZoomOutPageTransformer();
-        mb.viewPager.setPageTransformer(true,animation);
+        //ZoomOutPageTransformer animation = new ZoomOutPageTransformer();
+        //mb.viewPager.setPageTransformer(true,animation);
 
         mb.tabLayout.setupWithViewPager(mb.viewPager);
 
