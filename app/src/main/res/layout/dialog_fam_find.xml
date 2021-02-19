@@ -115,8 +115,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/d_fam_find_cv_main"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
                 android:layout_gravity="center"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp"
@@ -195,7 +195,7 @@
                 android:layout_height="45dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="한재훈"
+                android:hint="이름을 입력하세요"
                 android:textSize="18dp"
                 android:background="@drawable/edit_text_round"/>
 
