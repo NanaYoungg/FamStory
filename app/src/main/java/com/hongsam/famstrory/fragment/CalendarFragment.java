@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.hongsam.famstrory.R;
 import com.hongsam.famstrory.activitie.MainActivity;
+import com.hongsam.famstrory.calendarui.AllDayDecorator;
 import com.hongsam.famstrory.calendarui.CalendarBold;
 import com.hongsam.famstrory.calendarui.SaturdayDecorator;
 import com.hongsam.famstrory.calendarui.SundayDecorator;
@@ -164,7 +165,7 @@ public class CalendarFragment extends Fragment implements CallbackInterface {
                 int dayOfMonth = date.getDay();
 
 
-                mb.calendarView.setDateSelected(new CalendarDay(year,month-1,dayOfMonth),true);
+                mb.calendarView.setSelectedDate(new CalendarDay(year,month-1,dayOfMonth));
                 getCalendarYear = year;
                 getCalendarMonth = month;
                 getCalendarDay = dayOfMonth;

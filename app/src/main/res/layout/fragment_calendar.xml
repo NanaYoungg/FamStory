@@ -122,6 +122,8 @@
         android:layout_width="match_parent"
         android:background="@color/colorWaterGreen"
         android:layout_height="0dp"
+        app:mcv_allowClickDaysOutsideCurrentMonth="true"
+        app:mcv_showOtherDates="none"
         android:layout_weight="1.7" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -129,7 +131,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
 
-        android:layout_weight="0.9"
+        android:layout_weight="1.1"
         android:background="@color/colorWaterBrown">
 
         <TextView
@@ -149,47 +151,47 @@
             android:id="@+id/vm_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
             android:text="일정명 : "
-            app:layout_constraintBottom_toTopOf="@+id/vm_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.03"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.52" />
+            app:layout_constraintEnd_toEndOf="@+id/type"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/type"
+            app:layout_constraintTop_toBottomOf="@+id/type" />
 
         <TextView
             android:id="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="타입"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.863"
-            app:layout_constraintStart_toEndOf="@+id/vm_name"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.149" />
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintHorizontal_bias="0.129"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/vm_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:text="세부내용 : "
             app:layout_constraintBottom_toTopOf="@+id/vm_time"
             app:layout_constraintEnd_toEndOf="@+id/vm_name"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/vm_name"
-            app:layout_constraintTop_toBottomOf="@+id/vm_name" />
+            app:layout_constraintTop_toBottomOf="@+id/vm_name"
+            app:layout_constraintVertical_bias="0.61" />
 
         <TextView
             android:id="@+id/vm_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="36dp"
             android:text="시간"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/vm_text"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/vm_text"
-            app:layout_constraintTop_toBottomOf="@+id/vm_text" />
+            app:layout_constraintStart_toStartOf="@+id/vm_text" />
 
         <TextView
             android:id="@+id/vm_date"
@@ -198,10 +200,10 @@
             android:text="날짜"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.21"
+            app:layout_constraintHorizontal_bias="0.467"
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.149" />
+            app:layout_constraintVertical_bias="0.121" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

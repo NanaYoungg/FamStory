@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,7 +48,7 @@ public class FamCreateActivity extends AppCompatActivity {
             Field popup = Spinner.class.getDeclaredField("mPopup");
             popup.setAccessible(true);
 
-            ListPopupWindow window = (ListPopupWindow)popup.get(spRelation);
+            ListPopupWindow window = (ListPopupWindow) popup.get(spRelation);
             window.setHeight(300); //pixel
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,19 +82,31 @@ public class FamCreateActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "패스워드를 확인해주세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (strFamName.length() != 0 && strPw.length() != 0 && strName.length() != 0) {
+                    if (strPw.length()<4){
+                        Toast.makeText(getApplicationContext(),"비밀번호는 최소 4글자 이상으로 설정해주세요",Toast.LENGTH_SHORT).show();
+                    }
+                    else if (strFamName.contains("#")  || strFamName.contains(".") || strFamName.contains("$") || strFamName.contains("[") || strFamName.contains("]")){
+                        Toast.makeText(getApplicationContext(),"가족명에는 #,.,$,[,] 이 들어갈수 없습니다.",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        writeNewFamily(strFamName, strPw);
 
-                writeNewFamily(strFamName, strPw);
+                        saveMyInfo(strName, strRelation);
 
-                saveMyInfo(strName, strRelation);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra("famName", strFamName);
+                        intent.putExtra("name", strName);
+                        intent.putExtra("relation", strRelation);
+                        intent.putExtra("password", strPw);
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("famName", strFamName);
-                intent.putExtra("name", strName);
-                intent.putExtra("relation", strRelation);
-                intent.putExtra("password", strPw);
+                        startActivity(intent);
+                        finish();
 
-                startActivity(intent);
-                finish();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "정보를 모두 기입해주세요", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -119,17 +132,18 @@ public class FamCreateActivity extends AppCompatActivity {
 
                 boolean flag = false;
                 for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+                    Log.e("d", "onDataChange: " + singleSnapshot.getKey() + " " + famName);
                     flag = famName.equals(singleSnapshot.getKey());
+                    if (flag) {
+                        isFamOver = true;
+                        Toast.makeText(getApplicationContext(), "중복된 가족명입니다.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
 
-                if (flag) {
-                    isFamOver = true;
-                    Toast.makeText(getApplicationContext(), "중복된 가족명입니다.", Toast.LENGTH_SHORT).show();
-                } else {
-                    isFamOver = false;
-                    Toast.makeText(getApplicationContext(), "사용 가능한 가족명입니다.", Toast.LENGTH_SHORT).show();
+                isFamOver = false;
+                Toast.makeText(getApplicationContext(), "사용 가능한 가족명입니다.", Toast.LENGTH_SHORT).show();
 
-                }
             }
 
             @Override
