@@ -80,8 +80,8 @@
 <br>
 
 ## :triangular_flag_on_post:결과물
-## :raising_hand: 발표 영상  <a href = "https://www.youtube.com/watch?v=Cf-8R0g6GQw&t=7693s" target = "blank" >보기 1:34:57  ~      
-## :mag_right: Play Store 다운로드 하기 <a href = "https://play.google.com/store/apps/details?id=com.hongsam.famstrory" target = "blank" > Click
+## :raising_hand: 발표 영상 [보기](https://www.youtube.com/watch?v=Cf-8R0g6GQw&t=7693s)  1:34:57  ~       
+## :mag_right: Play Store 다운로드 하기 [Click](https://play.google.com/store/apps/details?id=com.hongsam.famstrory)
  
  <img width="530" alt="5" src="https://user-images.githubusercontent.com/56735744/107329068-fdf12000-6af2-11eb-9a9a-46884a1c8dab.png">   
 <img width="548" alt="1" src="https://user-images.githubusercontent.com/56735744/107328911-c1bdbf80-6af2-11eb-9aec-900ec2fa403c.png">         
